@@ -1,25 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-
+  <meta charset="UTF-8" />
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
-  >
+  />
 
-  <title>TongYang Engineering Portfolio</title>
+  <title>TongYang's Engineering Database</title>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
     href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
@@ -38,27 +29,14 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #0d0d12;
+      background: #08100a;
       font-family: 'VT323', monospace;
-      color: #f4eedc;
+      color: #c7d59c;
     }
 
     button {
       font: inherit;
     }
-
-    :root {
-      --shell: #842b31;
-      --shell-light: #a83e43;
-      --shell-dark: #4d171d;
-
-      --lcd: #b7c88b;
-      --lcd-black: #283126;
-    }
-
-    /* =====================================================
-       SCREEN SYSTEM
-    ====================================================== */
 
     .screen {
       position: absolute;
@@ -74,277 +52,47 @@
     }
 
     /* =====================================================
-       BACKGROUND
+       RADAR LANDING SCREEN
     ====================================================== */
 
-    #deviceScreen {
+    #radarScreen {
       display: grid;
       place-items: center;
-
-      padding: 14px;
-
-      overflow: hidden;
+      padding: 18px;
 
       background:
         repeating-linear-gradient(
           0deg,
-          #111016 0px,
-          #111016 3px,
-          #0c0b10 3px,
-          #0c0b10 6px
+          #08100a 0px,
+          #08100a 3px,
+          #0a140c 3px,
+          #0a140c 6px
         );
     }
 
-    /* =====================================================
-       MAIN DEVICE
-    ====================================================== */
-
-    .device {
+    .radar-shell {
       position: relative;
 
-      width: min(1240px, 95vw);
+      width: min(1400px, 96vw);
+      height: min(820px, 92vh);
 
-      /*
-        FIXED:
-        Keep whole handheld inside viewport.
-      */
-      height: min(680px, 88vh);
+      background: #11170f;
 
-      display: grid;
-
-      grid-template-columns:
-        0.94fr 1.06fr;
-
-      gap: 22px;
-
-      padding: 18px;
-
-      background: var(--shell);
-
-      border: 8px solid #151217;
-
-      border-radius: 10px;
+      border: 6px solid #39472e;
 
       box-shadow:
-        0 0 0 6px var(--shell-dark),
-        0 0 0 10px #151217,
-        12px 12px 0 #050507;
-    }
-
-    .device::after {
-      content: "";
-
-      position: absolute;
-
-      left: 8px;
-      right: 8px;
-      top: 8px;
-
-      height: 11px;
-
-      background: var(--shell-light);
-
-      pointer-events: none;
-    }
-
-    /* =====================================================
-       HINGE
-    ====================================================== */
-
-    .hinge {
-      position: absolute;
-
-      top: 0;
-      bottom: 0;
-
-      left: 49.2%;
-
-      width: 24px;
-
-      background: #41151a;
-
-      border-left: 6px solid #151217;
-      border-right: 6px solid #151217;
-
-      z-index: 4;
-    }
-
-    .hinge::before,
-    .hinge::after {
-      content: "";
-
-      position: absolute;
-
-      left: -6px;
-
-      width: 24px;
-      height: 48px;
-
-      background: #642127;
-
-      border: 6px solid #151217;
-    }
-
-    .hinge::before {
-      top: 80px;
-    }
-
-    .hinge::after {
-      bottom: 80px;
-    }
-
-    /* =====================================================
-       LEFT SIDE
-    ====================================================== */
-
-    .device-left {
-      position: relative;
-
-      z-index: 5;
-
-      min-width: 0;
-
-      display: flex;
-
-      flex-direction: column;
-
-      padding-right: 6px;
-    }
-
-    /* =====================================================
-       LIGHTS
-    ====================================================== */
-
-    .top-lights {
-      height: 58px;
-
-      flex-shrink: 0;
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 12px;
-
-      padding: 3px 5px 9px;
-    }
-
-    .big-light {
-      position: relative;
-
-      width: 44px;
-      height: 44px;
-
-      background: #62b7c9;
-
-      border: 5px solid #19161a;
-
-      outline: 4px solid #eee8d3;
-
-      box-shadow: 4px 4px 0 #09080a;
-
-      clip-path:
-        polygon(
-          25% 0,
-          75% 0,
-          100% 25%,
-          100% 75%,
-          75% 100%,
-          25% 100%,
-          0 75%,
-          0 25%
-        );
-    }
-
-    .big-light::before {
-      content: "";
-
-      position: absolute;
-
-      left: 8px;
-      top: 7px;
-
-      width: 12px;
-      height: 8px;
-
-      background: #d9fbff;
-    }
-
-    .big-light::after {
-      content: "";
-
-      position: absolute;
-
-      right: 6px;
-      bottom: 6px;
-
-      width: 10px;
-      height: 10px;
-
-      background: #3b8798;
-    }
-
-    .small-light {
-      width: 15px;
-      height: 15px;
-
-      border: 4px solid #171419;
-
-      box-shadow: 2px 2px 0 #080709;
-    }
-
-    .small-light.red {
-      background: #c85856;
-    }
-
-    .small-light.yellow {
-      background: #d8b84d;
-    }
-
-    .small-light.green {
-      background: #6a9c56;
-    }
-
-    /* =====================================================
-       LEFT SCREEN
-    ====================================================== */
-
-    .database-shell {
-      flex: 1;
-
-      min-height: 0;
-
-      padding: 9px;
-
-      background: #38373a;
-
-      border: 6px solid #151217;
-
-      box-shadow: 5px 5px 0 #080709;
-    }
-
-    .database-screen {
-      position: relative;
-
-      width: 100%;
-      height: 100%;
+        0 0 0 5px #10170d,
+        0 0 0 9px #677853,
+        12px 12px 0 #030503;
 
       overflow: hidden;
-
-      padding: 18px;
-
-      background: #17181b;
-
-      border: 4px solid #09090b;
     }
 
-    .database-screen::after {
+    .radar-shell::before {
       content: "";
-
       position: absolute;
-
       inset: 0;
-
+      z-index: 80;
       pointer-events: none;
 
       background:
@@ -352,648 +100,628 @@
           0deg,
           transparent 0px,
           transparent 3px,
-          rgba(255,255,255,0.025) 3px,
-          rgba(255,255,255,0.025) 4px
+          rgba(150, 180, 110, 0.035) 3px,
+          rgba(150, 180, 110, 0.035) 4px
         );
     }
 
-    .database-label {
-      position: relative;
+    .top-panel {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      top: 16px;
 
-      z-index: 2;
+      z-index: 50;
 
-      margin-bottom: 13px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
 
-      color: #83927c;
+      gap: 20px;
+    }
+
+    .title-block {
+      min-width: 0;
+    }
+
+    .system-code {
+      margin-bottom: 10px;
 
       font-family: 'Press Start 2P', cursive;
-
-      font-size: 6px;
-
+      font-size: 7px;
+      color: #72845e;
       line-height: 1.6;
     }
 
-    .database-title {
-      position: relative;
-
-      z-index: 2;
-
-      margin-bottom: 18px;
-
-      color: #eee9d9;
-
+    .main-title {
       font-family: 'Press Start 2P', cursive;
 
       font-size:
         clamp(
           15px,
-          1.6vw,
-          23px
+          2vw,
+          28px
         );
 
       line-height: 1.5;
 
+      color: #d1dba8;
+
       text-shadow:
-        4px 4px 0 #080709;
+        4px 4px 0 #020402;
     }
 
-    /* =====================================================
-       MENU
-    ====================================================== */
-
-    .menu-list {
-      position: relative;
-
-      z-index: 2;
-
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 6px;
-    }
-
-    .menu-item {
-      position: relative;
-
-      width: 100%;
-
-      min-height: 42px;
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 10px;
-
-      padding: 8px 10px;
-
-      border: 4px solid transparent;
-
-      background: transparent;
-
-      color: #c8c7bf;
-
-      cursor: pointer;
-
-      text-align: left;
-    }
-
-    .menu-item:hover {
-      color: #f3eedc;
-    }
-
-    .menu-item.selected {
-      background: #d3b84f;
-
-      color: #181615;
-
-      border-color: #161317;
-
-      box-shadow:
-        5px 5px 0 #050507;
-    }
-
-    .menu-item.selected::before {
-      content: "";
-
-      position: absolute;
-
-      width: 5px;
-      height: 5px;
-
-      top: 3px;
-      left: 3px;
-
-      background: #f3d964;
-    }
-
-    .selector {
-      width: 14px;
-
-      flex: 0 0 14px;
+    .status-block {
+      text-align: right;
 
       font-family: 'Press Start 2P', cursive;
+      font-size: 7px;
+      line-height: 1.8;
 
-      font-size: 8px;
-
-      animation:
-        selectorBlink 0.7s steps(1) infinite;
+      color: #81956c;
     }
 
-    @keyframes selectorBlink {
+    .status-live {
+      color: #b5cc82;
+    }
+
+    .blink-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      margin-right: 7px;
+      background: #8fa85f;
+      animation: statusBlink 0.7s steps(1) infinite;
+    }
+
+    @keyframes statusBlink {
       0%,
-      55% {
+      49% {
         opacity: 1;
       }
 
-      56%,
+      50%,
       100% {
-        opacity: 0.35;
+        opacity: 0.2;
       }
     }
 
-    .menu-name {
-      font-family: 'Press Start 2P', cursive;
-
-      font-size:
-        clamp(
-          8px,
-          0.9vw,
-          11px
-        );
-    }
-
     /* =====================================================
-       LEFT CONTROLS
+       RADAR
     ====================================================== */
 
-    .controls-row {
-      height: 86px;
-
-      flex-shrink: 0;
-
-      margin-top: 10px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      padding: 0 8px;
-    }
-
-    .dpad {
-      position: relative;
-
-      width: 78px;
-      height: 78px;
-    }
-
-    .dpad-center,
-    .dpad-up,
-    .dpad-down,
-    .dpad-left,
-    .dpad-right {
+    .radar-area {
       position: absolute;
 
-      background: #242329;
+      left: 50%;
+      top: 53%;
 
-      border: 3px solid #111015;
+      transform: translate(-50%, -50%);
+
+      width: min(720px, 61vw, 75vh);
+      aspect-ratio: 1 / 1;
+
+      border: 4px solid #50623f;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(113, 137, 82, 0.16),
+          rgba(20, 30, 17, 0.45) 62%,
+          rgba(8, 13, 8, 0.9) 100%
+        );
 
       box-shadow:
-        3px 3px 0 #080709;
+        inset 0 0 0 4px rgba(112, 132, 82, 0.15),
+        0 0 0 4px #0b1009;
     }
 
-    .dpad-center {
-      left: 27px;
-      top: 27px;
-
-      width: 24px;
-      height: 24px;
-    }
-
-    .dpad-up {
-      left: 27px;
-      top: 0;
-
-      width: 24px;
-      height: 30px;
-
-      cursor: pointer;
-    }
-
-    .dpad-down {
-      left: 27px;
-      bottom: 0;
-
-      width: 24px;
-      height: 30px;
-
-      cursor: pointer;
-    }
-
-    .dpad-left {
-      left: 0;
-      top: 27px;
-
-      width: 30px;
-      height: 24px;
-    }
-
-    .dpad-right {
-      right: 0;
-      top: 27px;
-
-      width: 30px;
-      height: 24px;
-    }
-
-    .arrow-pixel {
+    .ring {
       position: absolute;
 
       left: 50%;
       top: 50%;
 
-      transform:
-        translate(-50%, -50%);
+      transform: translate(-50%, -50%);
 
-      color: #828087;
+      border:
+        2px solid rgba(128, 151, 94, 0.34);
 
-      font-family: 'Press Start 2P', cursive;
-
-      font-size: 8px;
+      border-radius: 50%;
 
       pointer-events: none;
     }
 
-    /* =====================================================
-       ACTION BUTTONS
-    ====================================================== */
-
-    .action-buttons {
-      display: flex;
-
-      align-items: center;
-
-      gap: 12px;
-
-      transform:
-        rotate(-8deg);
+    .ring.r1 {
+      width: 25%;
+      height: 25%;
     }
 
-    .action-button {
-      width: 48px;
-      height: 48px;
+    .ring.r2 {
+      width: 50%;
+      height: 50%;
+    }
 
-      border: 4px solid #151217;
+    .ring.r3 {
+      width: 75%;
+      height: 75%;
+    }
 
-      background: #2d2931;
+    .crosshair-h,
+    .crosshair-v {
+      position: absolute;
 
-      color: #d7cfc1;
+      left: 50%;
+      top: 50%;
 
-      box-shadow:
-        4px 4px 0 #070609;
+      transform: translate(-50%, -50%);
 
-      font-family: 'Press Start 2P', cursive;
+      background:
+        rgba(124, 147, 91, 0.28);
 
-      font-size: 8px;
+      pointer-events: none;
+    }
 
-      cursor: pointer;
+    .crosshair-h {
+      width: 100%;
+      height: 2px;
+    }
+
+    .crosshair-v {
+      width: 2px;
+      height: 100%;
+    }
+
+    .radar-sweep {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 50%;
+      height: 50%;
+
+      transform-origin: 0 0;
 
       clip-path:
         polygon(
-          15% 0,
-          85% 0,
-          100% 15%,
-          100% 85%,
-          85% 100%,
-          15% 100%,
-          0 85%,
-          0 15%
+          0 0,
+          100% 18%,
+          100% 0
         );
-    }
-
-    .action-button.primary {
-      background: #d2ae45;
-
-      color: #151217;
-    }
-
-    /* =====================================================
-       RIGHT SIDE
-    ====================================================== */
-
-    .device-right {
-      position: relative;
-
-      z-index: 5;
-
-      min-width: 0;
-
-      display: flex;
-
-      flex-direction: column;
-
-      padding-left: 6px;
-    }
-
-    .preview-shell {
-      flex: 1;
-
-      min-height: 0;
-
-      padding: 11px;
-
-      background: #88857c;
-
-      border: 7px solid #151217;
-
-      box-shadow:
-        5px 5px 0 #080709;
-    }
-
-    .preview-bezel {
-      width: 100%;
-      height: 100%;
-
-      padding: 8px;
-
-      background: #d2cdbc;
-
-      border: 4px solid #49463f;
-    }
-
-    .preview-screen {
-      position: relative;
-
-      width: 100%;
-      height: 100%;
-
-      overflow: hidden;
-
-      padding: 20px;
-
-      background: var(--lcd);
-
-      border: 5px solid #20231d;
-
-      color: var(--lcd-black);
-
-      box-shadow:
-        inset 0 0 0 4px #86966b;
-    }
-
-    .preview-screen::before {
-      content: "";
-
-      position: absolute;
-
-      inset: 0;
-
-      pointer-events: none;
-
-      z-index: 5;
 
       background:
-        repeating-linear-gradient(
-          0deg,
-          transparent 0px,
-          transparent 3px,
-          rgba(38,50,32,0.07) 3px,
-          rgba(38,50,32,0.07) 4px
-        ),
-        repeating-linear-gradient(
+        linear-gradient(
           90deg,
-          transparent 0px,
-          transparent 3px,
-          rgba(38,50,32,0.035) 3px,
-          rgba(38,50,32,0.035) 4px
+          rgba(130, 168, 88, 0.5),
+          rgba(130, 168, 88, 0.04)
         );
-    }
-
-    .preview-screen::after {
-      content: "";
-
-      position: absolute;
-
-      inset: 0;
-
-      z-index: 6;
-
-      pointer-events: none;
-
-      background:
-        rgba(220,235,177,0.025);
 
       animation:
-        lcdFlicker 0.22s steps(2) infinite;
-    }
+        radarSpin 4.6s linear infinite;
 
-    @keyframes lcdFlicker {
-      0% {
-        opacity: 0.2;
-      }
-
-      50% {
-        opacity: 0.7;
-      }
-
-      100% {
-        opacity: 0.35;
-      }
-    }
-
-    /* =====================================================
-       RIGHT TEXT
-    ====================================================== */
-
-    .preview-top-row {
-      position: relative;
-
-      z-index: 2;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: space-between;
-
-      gap: 15px;
-
-      margin-bottom: 13px;
-    }
-
-    .preview-top,
-    .entry-number {
-      font-family: 'Press Start 2P', cursive;
-
-      font-size: 6px;
-
-      color: #4e603f;
-    }
-
-    #previewTitle {
-      position: relative;
-
-      z-index: 2;
-
-      margin-bottom: 11px;
-
-      font-family: 'Press Start 2P', cursive;
-
-      font-size:
-        clamp(
-          15px,
-          1.7vw,
-          24px
-        );
-
-      line-height: 1.45;
-
-      color: #293324;
-    }
-
-    #previewCount {
-      position: relative;
-
-      z-index: 2;
-
-      display: inline-block;
-
-      padding: 5px 7px;
-
-      margin-bottom: 14px;
-
-      background:
-        rgba(54,69,44,0.14);
-
-      font-family: 'Press Start 2P', cursive;
-
-      font-size: 6px;
-
-      color: #526345;
-    }
-
-    #previewDescription {
-      position: relative;
-
-      z-index: 2;
-
-      max-width: 67%;
-
-      font-size:
-        clamp(
-          17px,
-          1.6vw,
-          23px
-        );
-
-      line-height: 1.18;
-
-      color: #34422f;
-    }
-
-    /* =====================================================
-       PIXEL ICON
-    ====================================================== */
-
-    .preview-graphic {
-      position: absolute;
-
-      z-index: 1;
-
-      right: 5%;
-      bottom: 4%;
-
-      width: 170px;
-      height: 155px;
-    }
-
-    #pixelCanvas {
-      width: 170px;
-      height: 155px;
-
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-    }
-
-    .scan-line {
-      position: absolute;
+      pointer-events: none;
 
       z-index: 3;
-
-      left: 0;
-      right: 0;
-
-      top: 5px;
-
-      height: 4px;
-
-      background:
-        rgba(46,60,38,0.32);
-
-      animation:
-        scanMove 2.5s steps(16) infinite;
-
-      pointer-events: none;
     }
 
-    @keyframes scanMove {
+    .radar-line {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 49%;
+      height: 2px;
+
+      transform-origin: left center;
+
+      background: #8ead67;
+
+      animation:
+        radarSpin 4.6s linear infinite;
+
+      box-shadow:
+        0 0 8px rgba(157, 194, 103, 0.35);
+
+      pointer-events: none;
+
+      z-index: 4;
+    }
+
+    @keyframes radarSpin {
       from {
-        transform:
-          translateY(0);
+        transform: rotate(0deg);
       }
 
       to {
-        transform:
-          translateY(145px);
+        transform: rotate(360deg);
       }
     }
 
     /* =====================================================
-       RIGHT LOWER PANEL
+       CENTER CORE
     ====================================================== */
 
-    .right-controls {
-      height: 88px;
+    .core {
+      position: absolute;
 
-      flex-shrink: 0;
+      left: 50%;
+      top: 50%;
 
-      display: grid;
+      transform: translate(-50%, -50%);
 
-      grid-template-columns:
-        1.3fr 0.8fr;
+      width: 56px;
+      height: 56px;
 
-      gap: 12px;
+      z-index: 10;
 
-      margin-top: 10px;
-    }
+      border: 3px solid #708557;
 
-    .status-panel,
-    .key-panel {
-      position: relative;
-
-      padding: 10px;
-
-      background: #632128;
-
-      border: 5px solid #151217;
+      background: #131d11;
 
       box-shadow:
-        4px 4px 0 #080709;
+        4px 4px 0 #020402;
     }
 
-    .status-label {
-      margin-bottom: 6px;
+    .core::before,
+    .core::after {
+      content: "";
+      position: absolute;
+      background: #879d68;
+    }
 
+    .core::before {
+      left: 7px;
+      right: 7px;
+      top: 25px;
+      height: 3px;
+    }
+
+    .core::after {
+      top: 7px;
+      bottom: 7px;
+      left: 25px;
+      width: 3px;
+    }
+
+    .core-dot {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      transform: translate(-50%, -50%);
+
+      width: 12px;
+      height: 12px;
+
+      background: #b7c986;
+    }
+
+    .core-label {
+      position: absolute;
+
+      left: 50%;
+      top: calc(50% + 43px);
+
+      transform: translateX(-50%);
+
+      z-index: 10;
+
+      white-space: nowrap;
+
+      font-family: 'Press Start 2P', cursive;
+      font-size: 6px;
+
+      color: #7e9365;
+    }
+
+    /* =====================================================
+       CLICKABLE TARGETS
+    ====================================================== */
+
+    .target {
+      position: absolute;
+
+      z-index: 20;
+
+      transform: translate(-50%, -50%);
+
+      background: transparent;
+
+      border: 0;
+
+      cursor: pointer;
+
+      color: inherit;
+
+      text-align: center;
+
+      min-width: 130px;
+      min-height: 70px;
+
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 10px;
+    }
+
+    .target-dot-wrap {
+      position: relative;
+
+      width: 34px;
+      height: 34px;
+
+      display: grid;
+      place-items: center;
+    }
+
+    .target-dot {
+      position: relative;
+
+      width: 14px;
+      height: 14px;
+
+      background: #b84c4a;
+
+      border: 3px solid #421d1c;
+
+      box-shadow:
+        3px 3px 0 #070907;
+
+      z-index: 3;
+
+      transition:
+        transform 0.12s steps(2, end),
+        background 0.12s steps(2, end);
+    }
+
+    .target-pulse {
+      position: absolute;
+
+      inset: 0;
+
+      border: 2px solid rgba(194, 83, 75, 0.55);
+
+      animation:
+        targetPulse 1.4s steps(6) infinite;
+    }
+
+    @keyframes targetPulse {
+      0% {
+        transform: scale(0.35);
+        opacity: 0.9;
+      }
+
+      100% {
+        transform: scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .target-label {
+      font-family: 'Press Start 2P', cursive;
+
+      font-size:
+        clamp(
+          6px,
+          0.8vw,
+          10px
+        );
+
+      line-height: 1.5;
+
+      color: #93a875;
+
+      white-space: nowrap;
+
+      text-shadow:
+        2px 2px 0 #020302;
+    }
+
+    .target-number {
       font-family: 'Press Start 2P', cursive;
 
       font-size: 5px;
 
-      color: #b9947c;
+      color: #5e704e;
     }
 
-    #statusText {
+    .target:hover .target-dot,
+    .target:focus-visible .target-dot {
+      transform: scale(1.35);
+      background: #e36a5e;
+    }
+
+    .target:hover .target-label,
+    .target:focus-visible .target-label {
+      color: #c7d9a0;
+    }
+
+    .target:focus-visible {
+      outline: 3px solid #899d6d;
+      outline-offset: 4px;
+    }
+
+    .target.locked .target-dot {
+      background: #ff7968;
+
+      animation:
+        lockedBlink 0.18s steps(1) infinite;
+    }
+
+    @keyframes lockedBlink {
+      0%,
+      49% {
+        opacity: 1;
+      }
+
+      50%,
+      100% {
+        opacity: 0.3;
+      }
+    }
+
+    .target.projects {
+      left: 62%;
+      top: 23%;
+    }
+
+    .target.experience {
+      left: 24%;
+      top: 39%;
+    }
+
+    .target.skills {
+      left: 76%;
+      top: 47%;
+    }
+
+    .target.about {
+      left: 31%;
+      top: 73%;
+    }
+
+    .target.contact {
+      left: 69%;
+      top: 76%;
+    }
+
+    /* =====================================================
+       FAKE BLIPS
+    ====================================================== */
+
+    .blip {
+      position: absolute;
+
+      width: 5px;
+      height: 5px;
+
+      background: #5f7350;
+
+      z-index: 8;
+
+      animation:
+        blipFlash 2.4s steps(1) infinite;
+
+      pointer-events: none;
+    }
+
+    @keyframes blipFlash {
+      0%,
+      30% {
+        opacity: 0.15;
+      }
+
+      31%,
+      48% {
+        opacity: 0.75;
+      }
+
+      49%,
+      100% {
+        opacity: 0.2;
+      }
+    }
+
+    .blip.b1 {
+      left: 38%;
+      top: 28%;
+      animation-delay: -0.4s;
+    }
+
+    .blip.b2 {
+      left: 57%;
+      top: 64%;
+      animation-delay: -1.2s;
+    }
+
+    .blip.b3 {
+      left: 42%;
+      top: 82%;
+      animation-delay: -0.8s;
+    }
+
+    .blip.b4 {
+      left: 82%;
+      top: 30%;
+      animation-delay: -1.8s;
+    }
+
+    .blip.b5 {
+      left: 19%;
+      top: 58%;
+      animation-delay: -2.1s;
+    }
+
+    /* =====================================================
+       LOWER INFO PANELS
+    ====================================================== */
+
+    .bottom-panel {
+      position: absolute;
+
+      left: 20px;
+      right: 20px;
+      bottom: 16px;
+
+      z-index: 50;
+
+      display: grid;
+
+      grid-template-columns:
+        1.15fr 0.85fr;
+
+      gap: 18px;
+    }
+
+    .readout,
+    .help-panel {
+      min-height: 78px;
+
+      padding: 13px;
+
+      background: #10180e;
+
+      border: 3px solid #35452d;
+
+      box-shadow:
+        4px 4px 0 #020402;
+    }
+
+    .panel-label {
+      margin-bottom: 8px;
+
+      font-family: 'Press Start 2P', cursive;
+      font-size: 6px;
+      color: #5f7350;
+    }
+
+    #readoutText {
       font-family: 'Press Start 2P', cursive;
 
-      font-size: 6px;
+      font-size: 7px;
 
-      color: #e8d6bb;
+      line-height: 1.7;
 
-      line-height: 1.6;
+      color: #9daf7c;
     }
 
-    .status-cursor {
+    .cursor-block {
       display: inline-block;
 
-      width: 6px;
-      height: 8px;
+      width: 7px;
+      height: 9px;
 
-      margin-left: 3px;
+      margin-left: 4px;
 
-      background: #d9be79;
+      background: #9aac77;
 
       animation:
         cursorBlink 0.7s steps(1) infinite;
@@ -1011,35 +739,36 @@
       }
     }
 
-    .key-panel {
+    .help-panel {
       display: flex;
 
       align-items: center;
 
-      justify-content: center;
+      justify-content: space-between;
 
-      gap: 7px;
+      gap: 10px;
     }
 
-    .mini-key {
-      min-width: 34px;
+    .help-text {
+      font-family: 'Press Start 2P', cursive;
 
-      padding: 8px 5px;
+      font-size: 6px;
 
-      background: #252329;
+      line-height: 1.8;
 
-      color: #d7d1c5;
+      color: #71835d;
+    }
 
-      border: 3px solid #121015;
-
-      box-shadow:
-        3px 3px 0 #080709;
-
-      text-align: center;
+    .targets-count {
+      text-align: right;
 
       font-family: 'Press Start 2P', cursive;
 
-      font-size: 5px;
+      font-size: 6px;
+
+      line-height: 1.8;
+
+      color: #a4b782;
     }
 
     /* =====================================================
@@ -1050,17 +779,22 @@
       z-index: 100;
 
       display: grid;
-
       place-items: center;
 
-      background: #08070b;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          #080d08 0px,
+          #080d08 3px,
+          #0b120a 3px,
+          #0b120a 6px
+        );
 
       color: #c1cd91;
     }
 
     .loading-box {
       width: min(560px, 88vw);
-
       text-align: center;
     }
 
@@ -1131,7 +865,15 @@
     ====================================================== */
 
     .content-screen {
-      background: #101015;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          #101015 0px,
+          #101015 3px,
+          #14141a 3px,
+          #14141a 6px
+        );
+
       color: #d9d7ce;
     }
 
@@ -1144,7 +886,6 @@
       padding: 28px 0;
 
       display: flex;
-
       flex-direction: column;
     }
 
@@ -1154,7 +895,6 @@
       flex: 0 0 60px;
 
       display: grid;
-
       place-items: center;
 
       font-family: 'Press Start 2P', cursive;
@@ -1166,7 +906,7 @@
           21px
         );
 
-      color: #c7b15d;
+      color: #9dad79;
     }
 
     .page-card {
@@ -1182,9 +922,9 @@
 
       justify-content: center;
 
-      background: #1a1a1f;
+      background: #17191a;
 
-      border: 5px solid #333038;
+      border: 5px solid #384032;
 
       box-shadow:
         8px 8px 0 #050507;
@@ -1193,7 +933,7 @@
     .page-code {
       margin-bottom: 15px;
 
-      color: #76727d;
+      color: #657159;
 
       font-family: 'Press Start 2P', cursive;
 
@@ -1214,7 +954,7 @@
 
       line-height: 1.5;
 
-      color: #f0ebdd;
+      color: #d5dfad;
     }
 
     .page-card p {
@@ -1222,7 +962,7 @@
 
       margin-bottom: 28px;
 
-      color: #aaa6ad;
+      color: #aab399;
 
       font-size: 25px;
 
@@ -1234,20 +974,27 @@
 
       padding: 12px 14px;
 
-      background: #c8aa4d;
+      background: #829560;
 
-      border: 4px solid #111015;
+      border: 4px solid #10140e;
 
       box-shadow:
-        5px 5px 0 #050507;
+        5px 5px 0 #050705;
 
-      color: #151217;
+      color: #10140e;
 
       font-family: 'Press Start 2P', cursive;
 
       font-size: 7px;
 
       cursor: pointer;
+    }
+
+    .back-button:hover {
+      transform: translate(-2px, -2px);
+
+      box-shadow:
+        7px 7px 0 #050705;
     }
 
     /* =====================================================
@@ -1261,37 +1008,35 @@
         overflow-y: auto;
       }
 
-      #deviceScreen {
+      #radarScreen {
+        min-height: 100vh;
         overflow-y: auto;
       }
 
-      .device {
+      .radar-shell {
         width: 94vw;
+        height: 880px;
+      }
 
-        height: auto;
+      .top-panel {
+        flex-direction: column;
+      }
 
-        min-height: 980px;
+      .status-block {
+        text-align: left;
+      }
 
+      .radar-area {
+        width: min(88vw, 540px);
+        top: 50%;
+      }
+
+      .bottom-panel {
         grid-template-columns: 1fr;
-
-        padding: 18px;
       }
 
-      .hinge {
-        display: none;
-      }
-
-      .device-left,
-      .device-right {
-        padding: 0;
-      }
-
-      .preview-shell {
-        min-height: 390px;
-      }
-
-      .right-controls {
-        min-height: 100px;
+      .target {
+        min-width: 100px;
       }
 
       .page-card {
@@ -1302,232 +1047,274 @@
         font-size: 21px;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .radar-sweep,
+      .radar-line,
+      .target-pulse,
+      .blip,
+      .cursor-block,
+      .blink-dot {
+        animation: none !important;
+      }
+
+    }
   </style>
 </head>
 
 <body>
 
   <!-- =====================================================
-       DEVICE
+       RADAR LANDING
   ====================================================== -->
 
   <section
-    id="deviceScreen"
+    id="radarScreen"
     class="screen active"
   >
 
-    <div class="device">
+    <div class="radar-shell">
 
-      <div class="hinge"></div>
+      <div class="top-panel">
 
-      <!-- LEFT -->
-      <div class="device-left">
+        <div class="title-block">
 
-        <div class="top-lights">
+          <div class="system-code">
+            TY-01 // RADAR NAVIGATION SYSTEM
+          </div>
 
-          <div class="big-light"></div>
-
-          <div class="small-light red"></div>
-          <div class="small-light yellow"></div>
-          <div class="small-light green"></div>
-
-        </div>
-
-        <div class="database-shell">
-
-          <div class="database-screen">
-
-            <div class="database-label">
-              TY-01 // ENGINEERING PORTFOLIO
-            </div>
-
-            <div class="database-title">
-              TONGYANG'S<br>
-              ENGINEERING<br>
-              DATABASE
-            </div>
-
-            <div class="menu-list">
-
-              <button
-                class="menu-item selected"
-                data-index="0"
-              >
-                <span class="selector">▶</span>
-                <span class="menu-name">PROJECTS</span>
-              </button>
-
-              <button
-                class="menu-item"
-                data-index="1"
-              >
-                <span class="selector"></span>
-                <span class="menu-name">EXPERIENCE</span>
-              </button>
-
-              <button
-                class="menu-item"
-                data-index="2"
-              >
-                <span class="selector"></span>
-                <span class="menu-name">SKILLS</span>
-              </button>
-
-              <button
-                class="menu-item"
-                data-index="3"
-              >
-                <span class="selector"></span>
-                <span class="menu-name">ABOUT</span>
-              </button>
-
-              <button
-                class="menu-item"
-                data-index="4"
-              >
-                <span class="selector"></span>
-                <span class="menu-name">CONTACT</span>
-              </button>
-
-            </div>
-
+          <div class="main-title">
+            TONGYANG'S<br>
+            ENGINEERING DATABASE
           </div>
 
         </div>
 
-        <!-- CONTROLS -->
-        <div class="controls-row">
+        <div class="status-block">
 
-          <div class="dpad">
-
-            <button
-              class="dpad-up"
-              id="upButton"
-            >
-              <span class="arrow-pixel">▲</span>
-            </button>
-
-            <button
-              class="dpad-down"
-              id="downButton"
-            >
-              <span class="arrow-pixel">▼</span>
-            </button>
-
-            <div class="dpad-left">
-              <span class="arrow-pixel">◀</span>
-            </div>
-
-            <div class="dpad-right">
-              <span class="arrow-pixel">▶</span>
-            </div>
-
-            <div class="dpad-center"></div>
-
+          <div>
+            <span class="blink-dot"></span>
+            <span class="status-live">
+              RADAR ONLINE
+            </span>
           </div>
 
-          <div class="action-buttons">
+          <div>
+            RANGE // PORTFOLIO
+          </div>
 
-            <button
-              class="action-button"
-              id="bButton"
-            >
-              B
-            </button>
-
-            <button
-              class="action-button primary"
-              id="enterButton"
-            >
-              A
-            </button>
-
+          <div>
+            TARGETS // 005
           </div>
 
         </div>
 
       </div>
 
-      <!-- RIGHT -->
-      <div class="device-right">
 
-        <div class="preview-shell">
+      <div class="radar-area">
 
-          <div class="preview-bezel">
+        <div class="ring r1"></div>
+        <div class="ring r2"></div>
+        <div class="ring r3"></div>
 
-            <div class="preview-screen">
+        <div class="crosshair-h"></div>
+        <div class="crosshair-v"></div>
 
-              <div class="scan-line"></div>
+        <div class="radar-sweep"></div>
+        <div class="radar-line"></div>
 
-              <div class="preview-top-row">
 
-                <div class="preview-top">
-                  DATABASE ENTRY
-                </div>
+        <div class="core">
 
-                <div
-                  class="entry-number"
-                  id="entryNumber"
-                >
-                  ENTRY 001
-                </div>
+          <div class="core-dot"></div>
 
-              </div>
+        </div>
 
-              <div id="previewTitle">
-                PROJECT DATABASE
-              </div>
+        <div class="core-label">
+          TY // ENGINEER
+        </div>
 
-              <div id="previewCount">
-                006 FILES FOUND
-              </div>
 
-              <div id="previewDescription">
-                Engineering builds, CAD work,
-                prototypes and technical projects.
-              </div>
+        <!-- Fake background blips -->
 
-              <div class="preview-graphic">
+        <div class="blip b1"></div>
+        <div class="blip b2"></div>
+        <div class="blip b3"></div>
+        <div class="blip b4"></div>
+        <div class="blip b5"></div>
 
-                <canvas
-                  id="pixelCanvas"
-                  width="95"
-                  height="90"
-                ></canvas>
 
-              </div>
+        <!-- PROJECTS -->
 
-            </div>
+        <button
+          class="target projects"
+          data-index="0"
+          type="button"
+        >
+
+          <div class="target-dot-wrap">
+
+            <div class="target-pulse"></div>
+
+            <div class="target-dot"></div>
+
+          </div>
+
+          <div class="target-label">
+            PROJECTS
+          </div>
+
+          <div class="target-number">
+            TARGET 001
+          </div>
+
+        </button>
+
+
+        <!-- EXPERIENCE -->
+
+        <button
+          class="target experience"
+          data-index="1"
+          type="button"
+        >
+
+          <div class="target-dot-wrap">
+
+            <div class="target-pulse"></div>
+
+            <div class="target-dot"></div>
+
+          </div>
+
+          <div class="target-label">
+            EXPERIENCE
+          </div>
+
+          <div class="target-number">
+            TARGET 002
+          </div>
+
+        </button>
+
+
+        <!-- SKILLS -->
+
+        <button
+          class="target skills"
+          data-index="2"
+          type="button"
+        >
+
+          <div class="target-dot-wrap">
+
+            <div class="target-pulse"></div>
+
+            <div class="target-dot"></div>
+
+          </div>
+
+          <div class="target-label">
+            SKILLS
+          </div>
+
+          <div class="target-number">
+            TARGET 003
+          </div>
+
+        </button>
+
+
+        <!-- ABOUT -->
+
+        <button
+          class="target about"
+          data-index="3"
+          type="button"
+        >
+
+          <div class="target-dot-wrap">
+
+            <div class="target-pulse"></div>
+
+            <div class="target-dot"></div>
+
+          </div>
+
+          <div class="target-label">
+            ABOUT
+          </div>
+
+          <div class="target-number">
+            TARGET 004
+          </div>
+
+        </button>
+
+
+        <!-- CONTACT -->
+
+        <button
+          class="target contact"
+          data-index="4"
+          type="button"
+        >
+
+          <div class="target-dot-wrap">
+
+            <div class="target-pulse"></div>
+
+            <div class="target-dot"></div>
+
+          </div>
+
+          <div class="target-label">
+            CONTACT
+          </div>
+
+          <div class="target-number">
+            TARGET 005
+          </div>
+
+        </button>
+
+      </div>
+
+
+      <div class="bottom-panel">
+
+        <div class="readout">
+
+          <div class="panel-label">
+            TARGET READOUT
+          </div>
+
+          <div id="readoutText">
+
+            SCANNING FOR DATABASE TARGETS...
+
+            <span class="cursor-block"></span>
 
           </div>
 
         </div>
 
-        <div class="right-controls">
 
-          <div class="status-panel">
+        <div class="help-panel">
 
-            <div class="status-label">
-              SYSTEM STATUS
-            </div>
+          <div class="help-text">
 
-            <div id="statusText">
-
-              ENTRY SELECTED.<br>
-
-              CLICK OR PRESS A TO OPEN.
-
-              <span class="status-cursor"></span>
-
-            </div>
+            SELECT TARGET<br>
+            CLICK TO ACCESS
 
           </div>
 
-          <div class="key-panel">
+          <div class="targets-count">
 
-            <div class="mini-key">↑</div>
-            <div class="mini-key">↓</div>
-            <div class="mini-key">A</div>
+            005 SIGNALS<br>
+            DETECTED
 
           </div>
 
@@ -1538,6 +1325,7 @@
     </div>
 
   </section>
+
 
   <!-- =====================================================
        LOADING
@@ -1553,7 +1341,7 @@
       <div class="loading-terminal">
 
         <div id="loadingText">
-          LOADING.
+          LOCKING TARGET.
         </div>
 
         <div id="loadingDestination">
@@ -1572,7 +1360,10 @@
 
   </section>
 
-  <!-- PROJECTS -->
+
+  <!-- =====================================================
+       PROJECTS
+  ====================================================== -->
 
   <section
     id="projectsPage"
@@ -1588,7 +1379,7 @@
       <div class="page-card">
 
         <div class="page-code">
-          FILE // PRJ-001
+          TARGET // PRJ-001
         </div>
 
         <h2>
@@ -1602,8 +1393,11 @@
           videos and interactive models can be added here.
         </p>
 
-        <button class="back-button">
-          ◀ RETURN TO DATABASE
+        <button
+          class="back-button"
+          type="button"
+        >
+          ◀ RETURN TO RADAR
         </button>
 
       </div>
@@ -1612,7 +1406,10 @@
 
   </section>
 
-  <!-- EXPERIENCE -->
+
+  <!-- =====================================================
+       EXPERIENCE
+  ====================================================== -->
 
   <section
     id="experiencePage"
@@ -1628,7 +1425,7 @@
       <div class="page-card">
 
         <div class="page-code">
-          FILE // EXP-002
+          TARGET // EXP-002
         </div>
 
         <h2>
@@ -1637,12 +1434,15 @@
 
         <p>
           Your internships, engineering employment,
-          industry work and professional experience
-          will be displayed here.
+          industry work and professional engineering
+          experience will be displayed here.
         </p>
 
-        <button class="back-button">
-          ◀ RETURN TO DATABASE
+        <button
+          class="back-button"
+          type="button"
+        >
+          ◀ RETURN TO RADAR
         </button>
 
       </div>
@@ -1651,7 +1451,10 @@
 
   </section>
 
-  <!-- SKILLS -->
+
+  <!-- =====================================================
+       SKILLS
+  ====================================================== -->
 
   <section
     id="skillsPage"
@@ -1667,7 +1470,7 @@
       <div class="page-card">
 
         <div class="page-code">
-          FILE // SKL-003
+          TARGET // SKL-003
         </div>
 
         <h2>
@@ -1675,14 +1478,17 @@
         </h2>
 
         <p>
-          Your engineering capabilities will go here:
+          Your engineering skills will go here:
           CAD, programming, electronics,
           embedded systems, robotics,
-          controls and simulation.
+          controls, simulation and manufacturing tools.
         </p>
 
-        <button class="back-button">
-          ◀ RETURN TO DATABASE
+        <button
+          class="back-button"
+          type="button"
+        >
+          ◀ RETURN TO RADAR
         </button>
 
       </div>
@@ -1691,7 +1497,10 @@
 
   </section>
 
-  <!-- ABOUT -->
+
+  <!-- =====================================================
+       ABOUT
+  ====================================================== -->
 
   <section
     id="aboutPage"
@@ -1707,7 +1516,7 @@
       <div class="page-card">
 
         <div class="page-code">
-          FILE // USR-004
+          TARGET // USR-004
         </div>
 
         <h2>
@@ -1716,13 +1525,15 @@
 
         <p>
           Your introduction, degree,
-          engineering background,
-          interests and career goals
-          will be displayed here.
+          engineering background, interests
+          and career goals will be displayed here.
         </p>
 
-        <button class="back-button">
-          ◀ RETURN TO DATABASE
+        <button
+          class="back-button"
+          type="button"
+        >
+          ◀ RETURN TO RADAR
         </button>
 
       </div>
@@ -1731,7 +1542,10 @@
 
   </section>
 
-  <!-- CONTACT -->
+
+  <!-- =====================================================
+       CONTACT
+  ====================================================== -->
 
   <section
     id="contactPage"
@@ -1747,7 +1561,7 @@
       <div class="page-card">
 
         <div class="page-code">
-          FILE // COM-005
+          TARGET // COM-005
         </div>
 
         <h2>
@@ -1756,13 +1570,15 @@
 
         <p>
           Your email, LinkedIn,
-          CV download, GitHub
-          and other contact details
-          will go here later.
+          CV download, GitHub and
+          other contact information will go here later.
         </p>
 
-        <button class="back-button">
-          ◀ RETURN TO DATABASE
+        <button
+          class="back-button"
+          type="button"
+        >
+          ◀ RETURN TO RADAR
         </button>
 
       </div>
@@ -1771,29 +1587,46 @@
 
   </section>
 
+
   <script>
 
     const screens = {
-      device:
-        document.getElementById('deviceScreen'),
+
+      radar:
+        document.getElementById(
+          'radarScreen'
+        ),
 
       loading:
-        document.getElementById('loading'),
+        document.getElementById(
+          'loading'
+        ),
 
       projects:
-        document.getElementById('projectsPage'),
+        document.getElementById(
+          'projectsPage'
+        ),
 
       experience:
-        document.getElementById('experiencePage'),
+        document.getElementById(
+          'experiencePage'
+        ),
 
       skills:
-        document.getElementById('skillsPage'),
+        document.getElementById(
+          'skillsPage'
+        ),
 
       about:
-        document.getElementById('aboutPage'),
+        document.getElementById(
+          'aboutPage'
+        ),
 
       contact:
-        document.getElementById('contactPage')
+        document.getElementById(
+          'contactPage'
+        )
+
     };
 
 
@@ -1821,128 +1654,81 @@
 
       {
         page: 'projects',
-        number: 'ENTRY 001',
         title: 'PROJECT DATABASE',
-        count: '006 FILES FOUND',
+        code: 'TARGET 001',
         description:
           'Engineering builds, CAD work, prototypes and technical projects.',
         loading:
-          'ACCESSING PROJECT DATABASE',
-        icon: 'project'
+          'ACCESSING PROJECT DATABASE'
       },
 
       {
         page: 'experience',
-        number: 'ENTRY 002',
         title: 'EXPERIENCE LOG',
-        count: '003 RECORDS FOUND',
+        code: 'TARGET 002',
         description:
-          'Internships, engineering roles and professional industry experience.',
+          'Internships, industry work and professional engineering experience.',
         loading:
-          'ACCESSING EXPERIENCE LOG',
-        icon: 'experience'
+          'ACCESSING EXPERIENCE LOG'
       },
 
       {
         page: 'skills',
-        number: 'ENTRY 003',
         title: 'SKILL DATABASE',
-        count: 'SYSTEMS DETECTED',
+        code: 'TARGET 003',
         description:
           'CAD, programming, electronics, robotics, controls and simulation.',
         loading:
-          'LOADING SKILL DATABASE',
-        icon: 'skills'
+          'ACCESSING SKILL DATABASE'
       },
 
       {
         page: 'about',
-        number: 'ENTRY 004',
         title: 'ENGINEER PROFILE',
-        count: 'USER DATA FOUND',
+        code: 'TARGET 004',
         description:
           'Education, engineering interests, profile and career direction.',
         loading:
-          'ACCESSING ENGINEER PROFILE',
-        icon: 'about'
+          'ACCESSING ENGINEER PROFILE'
       },
 
       {
         page: 'contact',
-        number: 'ENTRY 005',
-        title: 'COMMUNICATION',
-        count: 'LINK AVAILABLE',
+        title: 'COMMUNICATION SYSTEM',
+        code: 'TARGET 005',
         description:
           'Email, LinkedIn, GitHub, CV and communication channels.',
         loading:
-          'OPENING COMMUNICATION LINK',
-        icon: 'contact'
+          'OPENING COMMUNICATION LINK'
       }
 
     ];
 
 
-    const menuItems = [
+    const targets = [
       ...document.querySelectorAll(
-        '.menu-item'
+        '.target'
       )
     ];
 
 
-    const previewTitle =
+    const readoutText =
       document.getElementById(
-        'previewTitle'
+        'readoutText'
       );
 
-    const previewCount =
-      document.getElementById(
-        'previewCount'
-      );
-
-    const previewDescription =
-      document.getElementById(
-        'previewDescription'
-      );
-
-    const entryNumber =
-      document.getElementById(
-        'entryNumber'
-      );
-
-    const statusText =
-      document.getElementById(
-        'statusText'
-      );
-
-    const enterButton =
-      document.getElementById(
-        'enterButton'
-      );
-
-    const bButton =
-      document.getElementById(
-        'bButton'
-      );
-
-    const upButton =
-      document.getElementById(
-        'upButton'
-      );
-
-    const downButton =
-      document.getElementById(
-        'downButton'
-      );
 
     const loadingText =
       document.getElementById(
         'loadingText'
       );
 
+
     const loadingDestination =
       document.getElementById(
         'loadingDestination'
       );
+
 
     const progressBar =
       document.getElementById(
@@ -1950,473 +1736,132 @@
       );
 
 
-    /* =====================================================
-       PIXEL PREVIEW CANVAS
-    ====================================================== */
-
-    const pixelCanvas =
-      document.getElementById(
-        'pixelCanvas'
-      );
-
-
-    const pctx =
-      pixelCanvas.getContext(
-        '2d'
-      );
-
-
-    pctx.imageSmoothingEnabled =
-      false;
-
-
-    const PIXEL_DARK =
-      '#3d4c35';
-
-    const PIXEL_MID =
-      '#5d704e';
-
-    const PIXEL_LIGHT =
-      '#809267';
-
-
-    function px(
-      x,
-      y,
-      w,
-      h,
-      color = PIXEL_DARK
-    ) {
-
-      pctx.fillStyle =
-        color;
-
-
-      pctx.fillRect(
-        x,
-        y,
-        w,
-        h
-      );
-
-    }
-
-
-    function clearPixelCanvas() {
-
-      pctx.clearRect(
-        0,
-        0,
-        95,
-        90
-      );
-
-    }
-
-
-    function drawProjectIcon() {
-
-      clearPixelCanvas();
-
-      px(12, 20, 52, 35);
-
-      px(
-        16,
-        24,
-        44,
-        27,
-        PIXEL_LIGHT
-      );
-
-      px(24, 31, 22, 3);
-      px(24, 31, 3, 13);
-      px(24, 41, 22, 3);
-      px(43, 31, 3, 13);
-
-      px(34, 55, 8, 10);
-      px(25, 64, 26, 4);
-
-      px(
-        68,
-        47,
-        12,
-        12,
-        PIXEL_MID
-      );
-
-      px(
-        64,
-        51,
-        20,
-        4,
-        PIXEL_MID
-      );
-
-      px(
-        72,
-        43,
-        4,
-        20,
-        PIXEL_MID
-      );
-
-      px(
-        71,
-        50,
-        6,
-        6,
-        '#b7c88b'
-      );
-
-    }
-
-
-    function drawExperienceIcon() {
-
-      clearPixelCanvas();
-
-      px(19, 34, 58, 34);
-
-      px(
-        23,
-        38,
-        50,
-        26,
-        PIXEL_LIGHT
-      );
-
-      px(35, 25, 26, 5);
-      px(35, 29, 5, 8);
-      px(56, 29, 5, 8);
-
-      px(44, 45, 9, 9);
-
-    }
-
-
-    function drawSkillsIcon() {
-
-      clearPixelCanvas();
-
-      px(
-        35,
-        25,
-        28,
-        35,
-        PIXEL_MID
-      );
-
-      px(
-        29,
-        31,
-        40,
-        23,
-        PIXEL_MID
-      );
-
-      px(
-        41,
-        19,
-        16,
-        47,
-        PIXEL_MID
-      );
-
-      px(
-        42,
-        34,
-        14,
-        14,
-        '#b7c88b'
-      );
-
-      px(
-        16,
-        60,
-        42,
-        6,
-        PIXEL_DARK
-      );
-
-    }
-
-
-    function drawAboutIcon() {
-
-      clearPixelCanvas();
-
-      px(36, 18, 24, 23);
-
-      px(
-        40,
-        22,
-        16,
-        17,
-        PIXEL_LIGHT
-      );
-
-      px(
-        38,
-        19,
-        20,
-        6,
-        PIXEL_DARK
-      );
-
-      px(27, 47, 42, 26);
-
-      px(
-        33,
-        51,
-        30,
-        22,
-        PIXEL_MID
-      );
-
-    }
-
-
-    function drawContactIcon() {
-
-      clearPixelCanvas();
-
-      px(16, 30, 64, 40);
-
-      px(
-        21,
-        35,
-        54,
-        30,
-        PIXEL_LIGHT
-      );
-
-      for (
-        let i = 0;
-        i < 19;
-        i++
-      ) {
-
-        px(
-          22 + i,
-          36 + i,
-          3,
-          3,
-          PIXEL_MID
-        );
-
-        px(
-          72 - i,
-          36 + i,
-          3,
-          3,
-          PIXEL_MID
-        );
-
-      }
-
-    }
-
-
-    function drawPreviewIcon(type) {
-
-      if (
-        type === 'project'
-      ) {
-        drawProjectIcon();
-      }
-
-      if (
-        type === 'experience'
-      ) {
-        drawExperienceIcon();
-      }
-
-      if (
-        type === 'skills'
-      ) {
-        drawSkillsIcon();
-      }
-
-      if (
-        type === 'about'
-      ) {
-        drawAboutIcon();
-      }
-
-      if (
-        type === 'contact'
-      ) {
-        drawContactIcon();
-      }
-
-    }
-
-
-    /* =====================================================
-       MENU SELECTION
-    ====================================================== */
-
-    let selectedIndex = 0;
-
     let transitionLocked =
       false;
 
 
-    function updateSelection(
-      index
-    ) {
+    function updateReadout(index) {
 
-      selectedIndex =
-        (
-          index +
-          entries.length
-        ) %
-        entries.length;
+      const entry =
+        entries[index];
 
 
-      menuItems
-        .forEach(
-          (
-            item,
-            i
-          ) => {
+      readoutText.innerHTML =
 
-            const selector =
-              item.querySelector(
-                '.selector'
-              );
+        entry.code +
 
+        ' // ' +
 
-            if (
-              i === selectedIndex
-            ) {
+        entry.title +
 
-              item
-                .classList
-                .add('selected');
+        '<br>' +
+
+        entry.description +
+
+        '<span class="cursor-block"></span>';
+
+    }
 
 
-              selector
-                .textContent =
-                '▶';
+    targets.forEach(
+      (
+        target,
+        index
+      ) => {
 
-            }
+        target.addEventListener(
+          'mouseenter',
+          () => {
 
-            else {
-
-              item
-                .classList
-                .remove('selected');
-
-
-              selector
-                .textContent =
-                '';
-
-            }
+            updateReadout(
+              index
+            );
 
           }
         );
 
 
-      const entry =
-        entries[
-          selectedIndex
-        ];
+        target.addEventListener(
+          'focus',
+          () => {
+
+            updateReadout(
+              index
+            );
+
+          }
+        );
 
 
-      entryNumber.textContent =
-        entry.number;
+        target.addEventListener(
+          'click',
+          async () => {
 
-
-      previewTitle.textContent =
-        entry.title;
-
-
-      previewCount.textContent =
-        entry.count;
-
-
-      previewDescription.textContent =
-        entry.description;
-
-
-      drawPreviewIcon(
-        entry.icon
-      );
-
-
-      statusText.innerHTML =
-
-        'ENTRY SELECTED.<br>' +
-
-        'CLICK OR PRESS A TO OPEN.' +
-
-        '<span class="status-cursor"></span>';
-
-    }
-
-
-    /* =====================================================
-       SINGLE CLICK OPEN
-    ====================================================== */
-
-    menuItems
-      .forEach(
-        (
-          item,
-          index
-        ) => {
-
-          item.addEventListener(
-            'mouseenter',
-            () => {
-
-              updateSelection(
-                index
-              );
-
+            if (
+              transitionLocked
+            ) {
+              return;
             }
-          );
 
 
-          item.addEventListener(
-            'click',
-            async () => {
+            transitionLocked =
+              true;
 
-              if (
-                transitionLocked
-              ) {
-                return;
+
+            targets.forEach(
+              item => {
+
+                item.classList.remove(
+                  'locked'
+                );
+
               }
+            );
 
 
-              updateSelection(
-                index
-              );
+            target.classList.add(
+              'locked'
+            );
 
 
-              await new Promise(
-                resolve =>
-                  setTimeout(
-                    resolve,
-                    160
-                  )
-              );
+            updateReadout(
+              index
+            );
 
 
-              openSelected();
+            await new Promise(
+              resolve =>
+                setTimeout(
+                  resolve,
+                  280
+                )
+            );
 
-            }
-          );
 
-        }
-      );
+            await loadingSequence(
+              entries[index]
+            );
 
 
-    /* =====================================================
-       LOADING
-    ====================================================== */
+            target.classList.remove(
+              'locked'
+            );
+
+
+            showScreen(
+              entries[index].page
+            );
+
+
+            transitionLocked =
+              false;
+
+          }
+        );
+
+      }
+    );
+
 
     function loadingSequence(
       entry
@@ -2430,14 +1875,14 @@
           );
 
 
+          loadingText
+            .textContent =
+            'LOCKING TARGET.';
+
+
           loadingDestination
             .textContent =
             entry.loading;
-
-
-          loadingText
-            .textContent =
-            'LOADING.';
 
 
           progressBar
@@ -2447,7 +1892,6 @@
 
 
           let dots = 1;
-
           let progress = 0;
 
 
@@ -2457,20 +1901,17 @@
 
                 dots++;
 
-
                 if (
                   dots > 3
                 ) {
-
                   dots = 1;
-
                 }
 
 
                 loadingText
                   .textContent =
 
-                  'LOADING' +
+                  'LOCKING TARGET' +
 
                   '.'.repeat(
                     dots
@@ -2478,7 +1919,7 @@
 
               },
 
-              320
+              300
             );
 
 
@@ -2487,19 +1928,16 @@
               () => {
 
                 progress +=
-
                   Math.random() *
-                  7 +
+                  8 +
                   3;
 
 
                 if (
-                  progress >
-                  96
+                  progress > 96
                 ) {
 
-                  progress =
-                    96;
+                  progress = 96;
 
                 }
 
@@ -2538,17 +1976,17 @@
 
               loadingText
                 .textContent =
-                'ACCESS GRANTED';
+                'TARGET LOCKED';
 
 
               setTimeout(
                 resolve,
-                200
+                180
               );
 
             },
 
-            3000
+            2600
           );
 
         }
@@ -2556,180 +1994,6 @@
 
     }
 
-
-    async function openSelected() {
-
-      if (
-        transitionLocked
-      ) {
-
-        return;
-
-      }
-
-
-      transitionLocked =
-        true;
-
-
-      const entry =
-        entries[
-          selectedIndex
-        ];
-
-
-      statusText.innerHTML =
-
-        'ACCESSING FILE...' +
-
-        '<span class="status-cursor"></span>';
-
-
-      await loadingSequence(
-        entry
-      );
-
-
-      showScreen(
-        entry.page
-      );
-
-
-      transitionLocked =
-        false;
-
-    }
-
-
-    /* =====================================================
-       BUTTONS
-    ====================================================== */
-
-    enterButton
-      .addEventListener(
-        'click',
-        openSelected
-      );
-
-
-    upButton
-      .addEventListener(
-        'click',
-        () => {
-
-          updateSelection(
-            selectedIndex - 1
-          );
-
-        }
-      );
-
-
-    downButton
-      .addEventListener(
-        'click',
-        () => {
-
-          updateSelection(
-            selectedIndex + 1
-          );
-
-        }
-      );
-
-
-    bButton
-      .addEventListener(
-        'click',
-        () => {
-
-          statusText.innerHTML =
-
-            'CANCELLED.<br>' +
-
-            'SELECT DATABASE ENTRY.' +
-
-            '<span class="status-cursor"></span>';
-
-        }
-      );
-
-
-    /* =====================================================
-       KEYBOARD
-    ====================================================== */
-
-    document
-      .addEventListener(
-        'keydown',
-        event => {
-
-          if (
-            !screens
-              .device
-              .classList
-              .contains(
-                'active'
-              )
-          ) {
-
-            return;
-
-          }
-
-
-          if (
-            event.key ===
-            'ArrowUp'
-          ) {
-
-            event
-              .preventDefault();
-
-
-            updateSelection(
-              selectedIndex - 1
-            );
-
-          }
-
-
-          if (
-            event.key ===
-            'ArrowDown'
-          ) {
-
-            event
-              .preventDefault();
-
-
-            updateSelection(
-              selectedIndex + 1
-            );
-
-          }
-
-
-          if (
-            event.key ===
-            'Enter'
-          ) {
-
-            event
-              .preventDefault();
-
-
-            openSelected();
-
-          }
-
-        }
-      );
-
-
-    /* =====================================================
-       RETURN
-    ====================================================== */
 
     document
       .querySelectorAll(
@@ -2738,34 +2002,26 @@
       .forEach(
         button => {
 
-          button
-            .addEventListener(
-              'click',
-              () => {
+          button.addEventListener(
+            'click',
+            () => {
 
-                showScreen(
-                  'device'
-                );
+              showScreen(
+                'radar'
+              );
 
 
-                statusText.innerHTML =
+              readoutText.innerHTML =
 
-                  'DATABASE READY.<br>' +
+                'SCANNING FOR DATABASE TARGETS...' +
 
-                  'SELECT NEXT ENTRY.' +
+                '<span class="cursor-block"></span>';
 
-                  '<span class="status-cursor"></span>';
-
-              }
-            );
+            }
+          );
 
         }
       );
-
-
-    updateSelection(
-      0
-    );
 
   </script>
 
