@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8">
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -28,6 +27,7 @@
   >
 
   <style>
+
     * {
       margin: 0;
       padding: 0;
@@ -40,7 +40,9 @@
       height: 100%;
       overflow: hidden;
 
-      background: #17161c;
+      background: #151419;
+
+      color: #171717;
 
       font-family:
         'VT323',
@@ -51,6 +53,25 @@
       font: inherit;
     }
 
+    :root {
+      --red: #b93736;
+      --dark-red: #762525;
+
+      --black: #171717;
+
+      --screen: #d8e7c4;
+      --screen-dark: #5f7159;
+
+      --cream: #fff5d1;
+      --yellow: #e3bb48;
+
+      --shadow: 5px 5px 0 #171717;
+    }
+
+    /* =====================================================
+       SCREEN SYSTEM
+    ====================================================== */
+
     .screen {
       position: absolute;
       inset: 0;
@@ -59,7 +80,7 @@
       pointer-events: none;
 
       transition:
-        opacity 0.3s ease;
+        opacity .35s ease;
     }
 
     .screen.active {
@@ -68,62 +89,439 @@
     }
 
     /* =====================================================
-       MAP SCREEN
+       DEVICE PAGE
     ====================================================== */
 
-    #worldMap {
+    #deviceScreen {
       display: grid;
       place-items: center;
 
       background:
-        #1c1a20;
+        radial-gradient(
+          circle at center,
+          #28252c,
+          #141319 70%
+        );
 
-      padding: 14px;
+      padding: 24px;
     }
 
-    .map-frame {
+    .device {
+      width: min(1220px, 94vw);
+      height: min(720px, 90vh);
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1.08fr;
+
+      gap: 22px;
+
       position: relative;
 
-      width:
-        min(1450px, 96vw);
+      padding: 28px;
 
-      aspect-ratio:
-        16 / 9;
+      background:
+        var(--red);
 
-      max-height:
-        94vh;
+      border:
+        7px solid #171717;
+
+      border-radius:
+        34px;
+
+      box-shadow:
+        0 0 0 7px #7b2827,
+        14px 14px 0 rgba(0,0,0,.45);
+    }
+
+    .device::before {
+      content: "";
+
+      position: absolute;
+
+      left: 50%;
+      top: 0;
+      bottom: 0;
+
+      width: 13px;
+
+      transform:
+        translateX(-50%);
+
+      background:
+        #792525;
+
+      border-left:
+        4px solid #171717;
+
+      border-right:
+        4px solid #171717;
+    }
+
+    /* =====================================================
+       LEFT SIDE
+    ====================================================== */
+
+    .device-left {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+
+      min-width: 0;
+    }
+
+    .top-lights {
+      display: flex;
+
+      align-items: center;
+
+      gap: 14px;
+
+      margin-bottom: 18px;
+    }
+
+    .big-light {
+      width: 56px;
+      height: 56px;
+
+      border-radius: 50%;
+
+      background:
+        #79d8ec;
+
+      border:
+        6px solid #f1f0df;
+
+      box-shadow:
+        0 0 0 4px #171717,
+        inset -8px -8px 0 rgba(0,0,0,.15);
+
+      position: relative;
+    }
+
+    .big-light::after {
+      content: "";
+
+      position: absolute;
+
+      left: 10px;
+      top: 8px;
+
+      width: 15px;
+      height: 11px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255,255,255,.75);
+    }
+
+    .small-light {
+      width: 18px;
+      height: 18px;
+
+      border-radius: 50%;
+
+      border:
+        3px solid #171717;
+    }
+
+    .small-light.red {
+      background: #ff6563;
+    }
+
+    .small-light.yellow {
+      background: #e9cd4d;
+    }
+
+    .small-light.green {
+      background: #66b962;
+    }
+
+    /* =====================================================
+       LEFT DISPLAY
+    ====================================================== */
+
+    .database-screen {
+      flex: 1;
+
+      min-height: 0;
+
+      background:
+        #202225;
+
+      border:
+        6px solid #171717;
+
+      border-radius:
+        18px;
+
+      box-shadow:
+        inset 0 0 0 5px #3a3d40;
+
+      padding: 26px;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .database-label {
+      color:
+        #9ead98;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size: 8px;
+
+      margin-bottom: 18px;
+    }
+
+    .database-title {
+      color:
+        #f7f4e5;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        clamp(
+          17px,
+          2vw,
+          27px
+        );
+
+      line-height: 1.5;
+
+      margin-bottom: 28px;
+    }
+
+    .menu-list {
+      display: flex;
+      flex-direction: column;
+
+      gap: 13px;
+
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .menu-item {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+
+      gap: 12px;
+
+      padding:
+        12px 14px;
+
+      color:
+        #d5d6d0;
+
+      background:
+        transparent;
+
+      border:
+        3px solid transparent;
+
+      cursor: pointer;
+
+      text-align: left;
+
+      transition:
+        background .12s ease,
+        color .12s ease;
+    }
+
+    .menu-item.selected {
+      color:
+        #171717;
+
+      background:
+        #e6ca64;
+
+      border-color:
+        #171717;
+
+      box-shadow:
+        4px 4px 0 #090909;
+    }
+
+    .selector {
+      width: 14px;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size: 9px;
+    }
+
+    .menu-name {
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        clamp(
+          9px,
+          1vw,
+          12px
+        );
+    }
+
+    /* =====================================================
+       DEVICE CONTROLS
+    ====================================================== */
+
+    .controls-row {
+      margin-top: 18px;
+
+      display: flex;
+
+      justify-content:
+        space-between;
+
+      align-items:
+        center;
+    }
+
+    .dpad {
+      position: relative;
+
+      width: 88px;
+      height: 88px;
+    }
+
+    .dpad-horizontal,
+    .dpad-vertical {
+      position: absolute;
+
+      background:
+        #27272b;
+
+      border:
+        4px solid #171717;
+
+      box-shadow:
+        3px 3px 0 rgba(0,0,0,.4);
+    }
+
+    .dpad-horizontal {
+      width: 88px;
+      height: 32px;
+
+      top: 28px;
+      left: 0;
+    }
+
+    .dpad-vertical {
+      width: 32px;
+      height: 88px;
+
+      left: 28px;
+      top: 0;
+    }
+
+    .enter-button {
+      width: 105px;
+      height: 50px;
+
+      background:
+        #e3bd4c;
+
+      color:
+        #171717;
+
+      border:
+        4px solid #171717;
+
+      border-radius:
+        12px;
+
+      box-shadow:
+        5px 5px 0 #171717;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        8px;
+
+      cursor: pointer;
+
+      transition:
+        transform .12s ease;
+    }
+
+    .enter-button:hover {
+      transform:
+        translate(-2px, -2px);
+    }
+
+    /* =====================================================
+       RIGHT SIDE
+    ====================================================== */
+
+    .device-right {
+      display: flex;
+      flex-direction: column;
+
+      min-width: 0;
+    }
+
+    .preview-shell {
+      flex: 1;
+
+      min-height: 0;
+
+      background:
+        #d5d0c1;
+
+      border:
+        6px solid #171717;
+
+      border-radius:
+        20px;
+
+      padding:
+        22px;
+
+      box-shadow:
+        inset 0 0 0 5px #aaa496;
+    }
+
+    .preview-screen {
+      width: 100%;
+      height: 100%;
+
+      position: relative;
 
       overflow: hidden;
 
       background:
-        #6d9144;
+        #c9deac;
 
       border:
-        6px solid #18171b;
-
-      border-radius:
-        14px;
+        5px solid #171717;
 
       box-shadow:
-        0 0 0 5px #9a6d45,
-        0 0 0 10px #18171b;
+        inset 0 0 0 4px #80906f;
+
+      color:
+        #233020;
+
+      padding: 26px;
     }
 
-    #mapCanvas {
-      width: 100%;
-      height: 100%;
-
-      display: block;
-
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-
-      cursor: default;
-    }
-
-    /* subtle CRT / pixel texture */
-
-    .map-frame::after {
+    .preview-screen::after {
       content: "";
 
       position: absolute;
@@ -134,44 +532,32 @@
       background:
         repeating-linear-gradient(
           0deg,
-          rgba(255,255,255,0.025) 0px,
-          rgba(255,255,255,0.025) 2px,
-          transparent 2px,
-          transparent 4px
+          transparent 0px,
+          transparent 3px,
+          rgba(0,0,0,.035) 3px,
+          rgba(0,0,0,.035) 5px
         );
-
-      z-index: 30;
     }
 
-    .map-title {
-      position: absolute;
+    .preview-top {
+      position: relative;
+      z-index: 2;
 
-      left: 50%;
-      top: 16px;
+      font-family:
+        'Press Start 2P',
+        cursive;
 
-      transform:
-        translateX(-50%);
-
-      z-index: 40;
-
-      padding:
-        13px 18px;
-
-      background:
-        #1c1920;
+      font-size: 8px;
 
       color:
-        #fff3d2;
+        #53644d;
 
-      border:
-        4px solid #111;
+      margin-bottom: 22px;
+    }
 
-      border-radius:
-        8px;
-
-      box-shadow:
-        0 0 0 3px #98653e,
-        4px 4px 0 rgba(0,0,0,0.4);
+    #previewTitle {
+      position: relative;
+      z-index: 2;
 
       font-family:
         'Press Start 2P',
@@ -179,100 +565,305 @@
 
       font-size:
         clamp(
-          9px,
-          1.25vw,
-          16px
+          16px,
+          2vw,
+          27px
         );
 
-      white-space: nowrap;
+      line-height: 1.55;
+
+      margin-bottom: 16px;
     }
 
-    .map-help {
-      position: absolute;
-
-      left: 18px;
-      top: 18px;
-
-      z-index: 40;
-
-      padding:
-        10px 12px;
-
-      background:
-        #fff6d9;
-
-      color:
-        #171717;
-
-      border:
-        3px solid #111;
-
-      border-radius:
-        8px;
-
-      box-shadow:
-        4px 4px 0 rgba(0,0,0,0.4);
+    #previewCount {
+      position: relative;
+      z-index: 2;
 
       font-family:
         'Press Start 2P',
         cursive;
 
-      font-size:
-        7px;
+      font-size: 8px;
 
-      line-height:
-        1.7;
-    }
-
-    #mapTooltip {
-      position: absolute;
-
-      z-index: 50;
-
-      opacity: 0;
-      pointer-events: none;
-
-      transform:
-        translate(-50%, -115%);
-
-      padding:
-        10px 11px;
-
-      background:
-        #17161b;
+      margin-bottom: 24px;
 
       color:
-        #fff3d5;
-
-      border:
-        3px solid #bf8d51;
-
-      box-shadow:
-        4px 4px 0 #111;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size:
-        7px;
-
-      line-height:
-        1.6;
-
-      white-space:
-        nowrap;
-
-      transition:
-        opacity 0.12s ease;
+        #596b51;
     }
 
-    #mapTooltip.show {
-      opacity: 1;
+    #previewDescription {
+      position: relative;
+      z-index: 2;
+
+      font-size:
+        clamp(
+          20px,
+          2vw,
+          28px
+        );
+
+      line-height:
+        1.25;
+
+      max-width:
+        500px;
     }
 
     /* =====================================================
-       LOADING
+       ANIMATED ENGINEERING ICON
+    ====================================================== */
+
+    .preview-graphic {
+      position: absolute;
+
+      right: 8%;
+      bottom: 7%;
+
+      width: 180px;
+      height: 160px;
+
+      z-index: 1;
+
+      opacity: .9;
+    }
+
+    .scan-circle {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 130px;
+      height: 130px;
+
+      transform:
+        translate(-50%, -50%);
+
+      border:
+        4px solid #667a5d;
+
+      border-radius: 50%;
+    }
+
+    .scan-circle::before,
+    .scan-circle::after {
+      content: "";
+
+      position: absolute;
+
+      background:
+        #667a5d;
+    }
+
+    .scan-circle::before {
+      width: 100%;
+      height: 3px;
+
+      top: 50%;
+      left: 0;
+    }
+
+    .scan-circle::after {
+      height: 100%;
+      width: 3px;
+
+      left: 50%;
+      top: 0;
+    }
+
+    .scan-line {
+      position: absolute;
+
+      left: 23px;
+      top: 14px;
+
+      width: 134px;
+      height: 4px;
+
+      background:
+        rgba(73,104,66,.7);
+
+      animation:
+        scanDown 2.4s linear infinite;
+    }
+
+    @keyframes scanDown {
+      0% {
+        transform:
+          translateY(0);
+      }
+
+      50% {
+        transform:
+          translateY(126px);
+      }
+
+      100% {
+        transform:
+          translateY(0);
+      }
+    }
+
+    .engineering-symbol {
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      transform:
+        translate(-50%, -50%);
+
+      width: 66px;
+      height: 66px;
+
+      border:
+        9px solid #536b4d;
+
+      border-radius: 50%;
+
+      animation:
+        gearSpin 7s linear infinite;
+    }
+
+    .engineering-symbol::before,
+    .engineering-symbol::after {
+      content: "";
+
+      position: absolute;
+
+      background:
+        #536b4d;
+    }
+
+    .engineering-symbol::before {
+      width: 94px;
+      height: 13px;
+
+      left: -23px;
+      top: 17px;
+    }
+
+    .engineering-symbol::after {
+      width: 13px;
+      height: 94px;
+
+      left: 17px;
+      top: -23px;
+    }
+
+    @keyframes gearSpin {
+      from {
+        transform:
+          translate(-50%, -50%)
+          rotate(0deg);
+      }
+
+      to {
+        transform:
+          translate(-50%, -50%)
+          rotate(360deg);
+      }
+    }
+
+    /* =====================================================
+       RIGHT BOTTOM PANEL
+    ====================================================== */
+
+    .right-controls {
+      height: 120px;
+
+      flex-shrink: 0;
+
+      margin-top: 16px;
+
+      display: grid;
+
+      grid-template-columns:
+        1.2fr 1fr;
+
+      gap: 16px;
+    }
+
+    .status-panel,
+    .key-panel {
+      border:
+        4px solid #171717;
+
+      border-radius:
+        12px;
+
+      background:
+        #752525;
+
+      box-shadow:
+        4px 4px 0 rgba(0,0,0,.35);
+
+      padding:
+        14px;
+    }
+
+    .status-label {
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size: 7px;
+
+      color:
+        #e8cbb1;
+
+      margin-bottom: 10px;
+    }
+
+    #statusText {
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size: 8px;
+
+      color:
+        #fff1cf;
+
+      line-height:
+        1.6;
+    }
+
+    .key-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 10px;
+    }
+
+    .key {
+      min-width: 42px;
+
+      padding:
+        10px 7px;
+
+      text-align: center;
+
+      background:
+        #27262b;
+
+      color:
+        #fff;
+
+      border:
+        3px solid #171717;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        7px;
+    }
+
+    /* =====================================================
+       LOADING SCREEN
     ====================================================== */
 
     #loading {
@@ -282,10 +873,10 @@
       place-items: center;
 
       background:
-        #151411;
+        #141215;
 
       color:
-        #fff1c7;
+        #fff1c9;
     }
 
     .loading-box {
@@ -324,16 +915,13 @@
         9px;
 
       line-height:
-        1.7;
+        1.8;
 
       color:
-        #d0ac62;
+        #d5ad62;
     }
 
     .progress-shell {
-      width:
-        100%;
-
       height:
         30px;
 
@@ -341,7 +929,7 @@
         4px;
 
       border:
-        3px solid #fff1c7;
+        3px solid #fff1c9;
     }
 
     #progressBar {
@@ -354,10 +942,8 @@
       background:
         repeating-linear-gradient(
           90deg,
-          #fff1c7 0px,
-          #fff1c7 16px,
-          #b38d43 16px,
-          #b38d43 20px
+          #fff1c9 0 16px,
+          #aa833d 16px 20px
         );
     }
 
@@ -392,8 +978,7 @@
       padding:
         24px 0 28px;
 
-      display:
-        flex;
+      display: flex;
 
       flex-direction:
         column;
@@ -451,7 +1036,7 @@
           255,
           255,
           255,
-          0.72
+          .72
         );
 
       border:
@@ -528,20 +1113,38 @@
 
       cursor:
         pointer;
-
-      transition:
-        transform 0.14s ease;
     }
 
-    .back-button:hover {
-      transform:
-        translate(-2px, -2px);
-    }
+    /* =====================================================
+       MOBILE
+    ====================================================== */
 
     @media
     (max-width: 800px) {
 
-      .map-help {
+      #deviceScreen {
+        overflow-y:
+          auto;
+      }
+
+      .device {
+        width:
+          94vw;
+
+        height:
+          auto;
+
+        min-height:
+          900px;
+
+        grid-template-columns:
+          1fr;
+
+        padding:
+          20px;
+      }
+
+      .device::before {
         display:
           none;
       }
@@ -556,6 +1159,7 @@
           21px;
       }
     }
+
   </style>
 </head>
 
@@ -563,38 +1167,202 @@
 <body>
 
   <!-- =====================================================
-       WORLD MAP
+       ENGINEERING DEVICE
   ====================================================== -->
 
   <section
-    id="worldMap"
+    id="deviceScreen"
     class="screen active"
   >
 
-    <div
-      class="map-frame"
-      id="mapFrame"
-    >
+    <div class="device">
 
-      <canvas
-        id="mapCanvas"
-        width="480"
-        height="270"
-      ></canvas>
+      <!-- LEFT -->
+
+      <div class="device-left">
+
+        <div class="top-lights">
+
+          <div class="big-light"></div>
+
+          <div class="small-light red"></div>
+
+          <div class="small-light yellow"></div>
+
+          <div class="small-light green"></div>
+
+        </div>
 
 
-      <div class="map-title">
-        ENGINEERING WORLD MAP
+        <div class="database-screen">
+
+          <div class="database-label">
+            ENGINEERING PORTFOLIO SYSTEM
+          </div>
+
+          <div class="database-title">
+            ENGINEER<br>
+            DATABASE
+          </div>
+
+          <div
+            class="menu-list"
+            id="menuList"
+          >
+
+            <button
+              class="menu-item selected"
+              data-index="0"
+              data-page="projects"
+            >
+              <span class="selector">▶</span>
+              <span class="menu-name">PROJECTS</span>
+            </button>
+
+
+            <button
+              class="menu-item"
+              data-index="1"
+              data-page="experience"
+            >
+              <span class="selector"></span>
+              <span class="menu-name">EXPERIENCE</span>
+            </button>
+
+
+            <button
+              class="menu-item"
+              data-index="2"
+              data-page="skills"
+            >
+              <span class="selector"></span>
+              <span class="menu-name">SKILLS</span>
+            </button>
+
+
+            <button
+              class="menu-item"
+              data-index="3"
+              data-page="about"
+            >
+              <span class="selector"></span>
+              <span class="menu-name">ABOUT</span>
+            </button>
+
+
+            <button
+              class="menu-item"
+              data-index="4"
+              data-page="contact"
+            >
+              <span class="selector"></span>
+              <span class="menu-name">CONTACT</span>
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="controls-row">
+
+          <div class="dpad">
+
+            <div class="dpad-horizontal"></div>
+
+            <div class="dpad-vertical"></div>
+
+          </div>
+
+
+          <button
+            class="enter-button"
+            id="enterButton"
+          >
+            ENTER
+          </button>
+
+        </div>
+
       </div>
 
 
-      <div class="map-help">
-        SELECT A LOCATION<br>
-        TO EXPLORE
+      <!-- RIGHT -->
+
+      <div class="device-right">
+
+        <div class="preview-shell">
+
+          <div class="preview-screen">
+
+            <div class="preview-top">
+              DATABASE ENTRY
+            </div>
+
+            <div id="previewTitle">
+              PROJECT DATABASE
+            </div>
+
+            <div id="previewCount">
+              006 PROJECTS FOUND
+            </div>
+
+            <div id="previewDescription">
+              Engineering builds, CAD work,
+              prototypes and technical projects.
+            </div>
+
+
+            <div class="preview-graphic">
+
+              <div class="scan-circle"></div>
+
+              <div class="scan-line"></div>
+
+              <div class="engineering-symbol"></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="right-controls">
+
+          <div class="status-panel">
+
+            <div class="status-label">
+              SYSTEM STATUS
+            </div>
+
+            <div id="statusText">
+              READY.<br>
+              SELECT DATABASE ENTRY.
+            </div>
+
+          </div>
+
+
+          <div class="key-panel">
+
+            <div class="key">
+              ↑
+            </div>
+
+            <div class="key">
+              ↓
+            </div>
+
+            <div class="key">
+              ENTER
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
-
-
-      <div id="mapTooltip"></div>
 
     </div>
 
@@ -617,7 +1385,7 @@
       </div>
 
       <div id="loadingDestination">
-        ENTERING LOCATION
+        OPENING DATABASE
       </div>
 
       <div class="progress-shell">
@@ -649,21 +1417,18 @@
       <div class="page-card">
 
         <h2>
-          PROJECT CASTLE
+          PROJECT DATABASE
         </h2>
 
         <p>
           Your engineering projects will go here later.
-          CAD work, robotics, prototypes,
-          technical drawings, videos
-          and interactive models can all be added here.
+          CAD models, robotics, prototypes,
+          technical drawings, simulation work,
+          videos and interactive models can be added here.
         </p>
 
-        <button
-          class="back-button"
-          data-back="projects"
-        >
-          ← WORLD MAP
+        <button class="back-button">
+          ← ENGINEER DATABASE
         </button>
 
       </div>
@@ -673,7 +1438,9 @@
   </section>
 
 
-  <!-- EXPERIENCE -->
+  <!-- =====================================================
+       EXPERIENCE
+  ====================================================== -->
 
   <section
     id="experiencePage"
@@ -689,21 +1456,19 @@
       <div class="page-card">
 
         <h2>
-          EXPERIENCE MINE
+          EXPERIENCE LOG
         </h2>
 
         <p>
-          Your internship experience,
-          engineering employment
-          and practical professional work
+          Your internships,
+          engineering employment,
+          industry projects
+          and practical experience
           will go here later.
         </p>
 
-        <button
-          class="back-button"
-          data-back="experience"
-        >
-          ← WORLD MAP
+        <button class="back-button">
+          ← ENGINEER DATABASE
         </button>
 
       </div>
@@ -713,7 +1478,9 @@
   </section>
 
 
-  <!-- SKILLS -->
+  <!-- =====================================================
+       SKILLS
+  ====================================================== -->
 
   <section
     id="skillsPage"
@@ -729,21 +1496,18 @@
       <div class="page-card">
 
         <h2>
-          SKILLS FOREST
+          SKILL DATABASE
         </h2>
 
         <p>
-          Your engineering skill tree will go here:
+          Your engineering skills will go here:
           CAD, programming, electronics,
-          embedded systems, controls,
-          robotics and simulation.
+          embedded systems, robotics,
+          controls and simulation.
         </p>
 
-        <button
-          class="back-button"
-          data-back="skills"
-        >
-          ← WORLD MAP
+        <button class="back-button">
+          ← ENGINEER DATABASE
         </button>
 
       </div>
@@ -753,7 +1517,9 @@
   </section>
 
 
-  <!-- ABOUT -->
+  <!-- =====================================================
+       ABOUT
+  ====================================================== -->
 
   <section
     id="aboutPage"
@@ -769,21 +1535,19 @@
       <div class="page-card">
 
         <h2>
-          ABOUT VILLAGE
+          ENGINEER PROFILE
         </h2>
 
         <p>
           Your introduction,
-          degree, engineering interests,
-          career goals and background
+          degree,
+          engineering interests,
+          goals and background
           will go here later.
         </p>
 
-        <button
-          class="back-button"
-          data-back="about"
-        >
-          ← WORLD MAP
+        <button class="back-button">
+          ← ENGINEER DATABASE
         </button>
 
       </div>
@@ -793,7 +1557,9 @@
   </section>
 
 
-  <!-- CONTACT -->
+  <!-- =====================================================
+       CONTACT
+  ====================================================== -->
 
   <section
     id="contactPage"
@@ -809,7 +1575,7 @@
       <div class="page-card">
 
         <h2>
-          CONTACT PORT
+          COMMUNICATION SYSTEM
         </h2>
 
         <p>
@@ -820,11 +1586,8 @@
           will go here later.
         </p>
 
-        <button
-          class="back-button"
-          data-back="contact"
-        >
-          ← WORLD MAP
+        <button class="back-button">
+          ← ENGINEER DATABASE
         </button>
 
       </div>
@@ -836,61 +1599,11 @@
 
   <script>
 
-    /* =====================================================
-       BASIC SETUP
-    ====================================================== */
-
-    const canvas =
-      document.getElementById(
-        'mapCanvas'
-      );
-
-
-    const ctx =
-      canvas.getContext(
-        '2d'
-      );
-
-
-    ctx.imageSmoothingEnabled =
-      false;
-
-
-    const tooltip =
-      document.getElementById(
-        'mapTooltip'
-      );
-
-
-    const mapFrame =
-      document.getElementById(
-        'mapFrame'
-      );
-
-
-    const loadingText =
-      document.getElementById(
-        'loadingText'
-      );
-
-
-    const loadingDestination =
-      document.getElementById(
-        'loadingDestination'
-      );
-
-
-    const progressBar =
-      document.getElementById(
-        'progressBar'
-      );
-
-
     const screens = {
 
-      worldMap:
+      device:
         document.getElementById(
-          'worldMap'
+          'deviceScreen'
         ),
 
       loading:
@@ -922,54 +1635,6 @@
         document.getElementById(
           'contactPage'
         )
-
-    };
-
-
-    const W =
-      480;
-
-
-    const H =
-      270;
-
-
-    const TILE =
-      16;
-
-
-    const CENTER = {
-
-      x: 240,
-
-      y: 145
-
-    };
-
-
-    const state = {
-
-      moving:
-        false,
-
-      returning:
-        false,
-
-      hover:
-        null,
-
-      player: {
-
-        x:
-          CENTER.x,
-
-        y:
-          CENTER.y
-
-      },
-
-      stepFrame:
-        0
 
     };
 
@@ -1006,2464 +1671,321 @@
     }
 
 
-    function rect(
-      x,
-      y,
-      w,
-      h,
-      colour
-    ) {
-
-      ctx.fillStyle =
-        colour;
-
-
-      ctx.fillRect(
-
-        Math.round(x),
-
-        Math.round(y),
-
-        Math.round(w),
-
-        Math.round(h)
-
-      );
-
-    }
-
-
     /* =====================================================
-       COLOURS
+       MENU DATABASE
     ====================================================== */
 
-    const C = {
+    const entries = [
 
-      grass:
-        '#729d46',
+      {
+        page:
+          'projects',
 
-      grassDark:
-        '#527f38',
+        title:
+          'PROJECT DATABASE',
 
-      grassLight:
-        '#8caf53',
+        count:
+          '006 PROJECTS FOUND',
 
-      flower:
-        '#e7ce58',
+        description:
+          'Engineering builds, CAD work, prototypes and technical projects.',
 
-      dirt:
-        '#b57b49',
-
-      dirtDark:
-        '#875735',
-
-      dirtLight:
-        '#cc955c',
-
-      water:
-        '#455293',
-
-      waterLight:
-        '#6170b2',
-
-      foam:
-        '#9cd0fb',
-
-      sand:
-        '#e9ca87',
-
-      cliff:
-        '#8a5b3f',
-
-      cliffDark:
-        '#5f3d2d',
-
-      treeDark:
-        '#315e36',
-
-      tree:
-        '#447c43',
-
-      treeLight:
-        '#62954f',
-
-      trunk:
-        '#69442c',
-
-      roof:
-        '#bf6550',
-
-      stone:
-        '#8b8e9d',
-
-      stoneLight:
-        '#b1b4c2',
-
-      stoneDark:
-        '#5f6270',
-
-      outline:
-        '#242229'
-
-    };
-
-
-    /* =====================================================
-       MAP LAYOUT
-    ====================================================== */
-
-    const locations = {
-
-      projects: {
-
-        label:
-          'PROJECT CASTLE',
-
-        subtitle:
-          'VIEW PROJECTS',
-
-        load:
-          'ENTERING PROJECT CASTLE',
-
-        box: {
-
-          x: 199,
-
-          y: 25,
-
-          w: 86,
-
-          h: 68
-
-        },
-
-        path: [
-
-          CENTER,
-
-          { x: 240, y: 130 },
-
-          { x: 240, y: 115 },
-
-          { x: 241, y: 100 },
-
-          { x: 241, y: 85 },
-
-          { x: 241, y: 73 }
-
-        ]
-
+        loading:
+          'OPENING PROJECT DATABASE'
       },
 
 
-      skills: {
+      {
+        page:
+          'experience',
 
-        label:
-          'SKILLS FOREST',
+        title:
+          'EXPERIENCE LOG',
 
-        subtitle:
-          'EXPLORE SKILLS',
+        count:
+          '003 RECORDS FOUND',
 
-        load:
-          'ENTERING SKILLS FOREST',
+        description:
+          'Internships, professional engineering work and industry experience.',
 
-        box: {
-
-          x: 42,
-
-          y: 28,
-
-          w: 130,
-
-          h: 88
-
-        },
-
-        path: [
-
-          CENTER,
-
-          { x: 220, y: 137 },
-
-          { x: 200, y: 126 },
-
-          { x: 179, y: 113 },
-
-          { x: 158, y: 99 },
-
-          { x: 139, y: 88 },
-
-          { x: 123, y: 80 }
-
-        ]
-
+        loading:
+          'OPENING EXPERIENCE LOG'
       },
 
 
-      about: {
+      {
+        page:
+          'skills',
 
-        label:
-          'ABOUT VILLAGE',
+        title:
+          'SKILL DATABASE',
 
-        subtitle:
-          'LEARN ABOUT ME',
+        count:
+          'MULTIPLE SKILLS DETECTED',
 
-        load:
-          'ENTERING ABOUT VILLAGE',
+        description:
+          'CAD, programming, electronics, robotics, controls and simulation.',
 
-        box: {
-
-          x: 43,
-
-          y: 174,
-
-          w: 120,
-
-          h: 72
-
-        },
-
-        path: [
-
-          CENTER,
-
-          { x: 220, y: 155 },
-
-          { x: 200, y: 165 },
-
-          { x: 180, y: 177 },
-
-          { x: 160, y: 189 },
-
-          { x: 140, y: 201 },
-
-          { x: 121, y: 212 }
-
-        ]
-
+        loading:
+          'LOADING SKILL DATABASE'
       },
 
 
-      contact: {
+      {
+        page:
+          'about',
 
-        label:
-          'CONTACT PORT',
+        title:
+          'ENGINEER PROFILE',
 
-        subtitle:
-          'GET IN TOUCH',
+        count:
+          'PROFILE DATA FOUND',
 
-        load:
-          'ENTERING CONTACT PORT',
+        description:
+          'Engineering background, education, interests and career direction.',
 
-        box: {
-
-          x: 365,
-
-          y: 66,
-
-          w: 94,
-
-          h: 88
-
-        },
-
-        path: [
-
-          CENTER,
-
-          { x: 263, y: 140 },
-
-          { x: 286, y: 133 },
-
-          { x: 309, y: 124 },
-
-          { x: 331, y: 115 },
-
-          { x: 352, y: 105 },
-
-          { x: 374, y: 98 }
-
-        ]
-
+        loading:
+          'OPENING ENGINEER PROFILE'
       },
 
 
-      experience: {
+      {
+        page:
+          'contact',
 
-        label:
-          'EXPERIENCE MINE',
+        title:
+          'COMMUNICATION SYSTEM',
 
-        subtitle:
-          'VIEW EXPERIENCE',
+        count:
+          'CONNECTION AVAILABLE',
 
-        load:
-          'ENTERING EXPERIENCE MINE',
+        description:
+          'Email, LinkedIn, CV and contact information.',
 
-        box: {
-
-          x: 340,
-
-          y: 177,
-
-          w: 103,
-
-          h: 70
-
-        },
-
-        path: [
-
-          CENTER,
-
-          { x: 261, y: 155 },
-
-          { x: 282, y: 166 },
-
-          { x: 303, y: 178 },
-
-          { x: 323, y: 189 },
-
-          { x: 344, y: 201 },
-
-          { x: 362, y: 212 }
-
-        ]
-
+        loading:
+          'OPENING COMMUNICATION SYSTEM'
       }
 
-    };
+    ];
 
 
-    /* =====================================================
-       GRASS
-    ====================================================== */
-
-    function drawGrassBase() {
-
-      rect(
-        0,
-        0,
-        W,
-        H,
-        C.grass
-      );
-
-
-      /*
-        Random-looking hand placed grass
-        patches. Static so map doesn't flicker.
-      */
-
-      const patches = [
-
-        [25,34],
-        [58,28],
-        [92,36],
-        [128,22],
-        [154,46],
-
-        [304,32],
-        [333,50],
-        [360,28],
-        [395,44],
-
-        [40,124],
-        [78,136],
-        [117,125],
-        [148,143],
-
-        [288,112],
-        [318,144],
-        [350,136],
-        [409,125],
-
-        [191,202],
-        [222,224],
-        [272,210],
-        [308,229],
-        [420,208]
-
-      ];
-
-
-      patches
-        .forEach(
-          ([x,y]) => {
-
-            drawGrassPatch(
-              x,
-              y
-            );
-
-          }
-        );
-
-    }
-
-
-    function drawGrassPatch(
-      x,
-      y
-    ) {
-
-      rect(
-        x,
-        y + 3,
-        20,
-        3,
-        C.grassDark
-      );
-
-
-      rect(
-        x + 3,
-        y,
-        3,
-        4,
-        C.grassDark
-      );
-
-
-      rect(
-        x + 9,
-        y - 2,
-        3,
-        5,
-        C.grassDark
-      );
-
-
-      rect(
-        x + 15,
-        y,
-        3,
-        4,
-        C.grassDark
-      );
-
-
-      rect(
-        x + 5,
-        y + 1,
-        2,
-        2,
-        C.grassLight
-      );
-
-
-      rect(
-        x + 12,
-        y,
-        2,
-        2,
-        C.flower
-      );
-
-    }
-
-
-    /* =====================================================
-       COAST
-    ====================================================== */
-
-    function drawCoast() {
-
-      /*
-        Bottom-left ocean.
-      */
-
-      rect(
-        0,
-        182,
-        90,
-        88,
-        C.water
-      );
-
-
-      rect(
-        0,
-        178,
-        92,
-        7,
-        C.waterLight
-      );
-
-
-      /*
-        blocky coastline
-      */
-
-      const shoreline = [
-
-        [84,270],
-        [84,254],
-        [80,254],
-        [80,238],
-        [76,238],
-        [76,222],
-        [72,222],
-        [72,206],
-        [68,206],
-        [68,190],
-        [64,190],
-        [64,176]
-
-      ];
-
-
-      for (
-        let i = 0;
-        i <
-        shoreline.length - 1;
-        i++
-      ) {
-
-        drawShoreSegment(
-
-          shoreline[i],
-
-          shoreline[i + 1]
-
-        );
-
-      }
-
-
-      /*
-        Top-right sea.
-      */
-
-      rect(
-        424,
-        0,
-        56,
-        74,
-        C.water
-      );
-
-
-      rect(
-        420,
-        0,
-        6,
-        82,
-        C.waterLight
-      );
-
-
-      rect(
-        414,
-        0,
-        6,
-        86,
-        C.foam
-      );
-
-
-      rect(
-        408,
-        0,
-        6,
-        91,
-        C.sand
-      );
-
-
-      rect(
-        402,
-        0,
-        6,
-        98,
-        C.cliff
-      );
-
-
-      rect(
-        396,
-        38,
-        6,
-        65,
-        C.cliffDark
-      );
-
-
-      rect(
-        402,
-        80,
-        22,
-        8,
-        C.sand
-      );
-
-
-      rect(
-        408,
-        88,
-        18,
-        6,
-        C.foam
-      );
-
-    }
-
-
-    function drawShoreSegment(
-      a,
-      b
-    ) {
-
-      const x =
-        Math.min(
-          a[0],
-          b[0]
-        );
-
-
-      const y =
-        Math.min(
-          a[1],
-          b[1]
-        );
-
-
-      const w =
-        Math.max(
-          8,
-          Math.abs(
-            b[0] -
-            a[0]
-          ) +
-          8
-        );
-
-
-      const h =
-        Math.max(
-          8,
-          Math.abs(
-            b[1] -
-            a[1]
-          ) +
-          8
-        );
-
-
-      rect(
-        x,
-        y,
-        w,
-        h,
-        C.cliffDark
-      );
-
-
-      rect(
-        x + 5,
-        y,
-        Math.max(
-          5,
-          w - 5
-        ),
-        h,
-        C.cliff
-      );
-
-
-      rect(
-        x + 10,
-        y,
-        Math.max(
-          5,
-          w - 10
-        ),
-        h,
-        C.sand
-      );
-
-
-      rect(
-        x + 15,
-        y,
-        Math.max(
-          4,
-          w - 15
-        ),
-        h,
-        C.foam
-      );
-
-    }
-
-
-    /* =====================================================
-       MOUNTAINS
-    ====================================================== */
-
-    function drawMountains() {
-
-      const mountains = [
-
-        [176,0],
-        [192,0],
-        [208,0],
-        [224,0],
-        [240,0],
-        [256,0],
-        [272,0],
-        [288,0]
-
-      ];
-
-
-      mountains
-        .forEach(
-          ([x,y],i) => {
-
-            drawMountain(
-
-              x,
-
-              y +
-              (
-                i % 2 === 0
-                  ?
-                  1
-                  :
-                  5
-              )
-
-            );
-
-          }
-        );
-
-    }
-
-
-    function drawMountain(
-      x,
-      y
-    ) {
-
-      rect(
-        x,
-        y + 19,
-        16,
-        10,
-        C.cliffDark
-      );
-
-
-      rect(
-        x + 2,
-        y + 15,
-        12,
-        5,
-        C.cliff
-      );
-
-
-      rect(
-        x + 4,
-        y + 11,
-        8,
-        5,
-        C.cliff
-      );
-
-
-      rect(
-        x + 6,
-        y + 7,
-        4,
-        5,
-        C.cliff
-      );
-
-
-      rect(
-        x + 7,
-        y + 9,
-        3,
-        5,
-        C.sand
-      );
-
-    }
-
-
-    /* =====================================================
-       PATH SYSTEM
-    ====================================================== */
-
-    function drawPaths() {
-
-      Object
-        .values(
-          locations
-        )
-        .forEach(
-          location => {
-
-            drawPath(
-
-              location.path
-
-            );
-
-          }
-        );
-
-
-      drawDirtPatch(
-
-        CENTER.x,
-
-        CENTER.y,
-
-        14
-
-      );
-
-    }
-
-
-    function drawPath(
-      points
-    ) {
-
-      for (
-        let i = 0;
-        i <
-        points.length - 1;
-        i++
-      ) {
-
-        drawPathSegment(
-
-          points[i],
-
-          points[i + 1]
-
-        );
-
-      }
-
-    }
-
-
-    function drawPathSegment(
-      a,
-      b
-    ) {
-
-      const dx =
-        b.x -
-        a.x;
-
-
-      const dy =
-        b.y -
-        a.y;
-
-
-      const steps =
-        Math.max(
-
-          Math.abs(dx),
-
-          Math.abs(dy)
-
-        );
-
-
-      for (
-        let i = 0;
-        i <= steps;
-        i += 2
-      ) {
-
-        const t =
-          i /
-          steps;
-
-
-        const x =
-          a.x +
-          dx *
-          t;
-
-
-        const y =
-          a.y +
-          dy *
-          t;
-
-
-        drawDirtPatch(
-
-          x,
-
-          y,
-
-          9
-
-        );
-
-      }
-
-    }
-
-
-    function drawDirtPatch(
-      x,
-      y,
-      size
-    ) {
-
-      rect(
-
-        x -
-        size / 2 -
-
-        1,
-
-        y -
-        size / 2 -
-
-        1,
-
-        size + 2,
-
-        size + 2,
-
-        C.dirtDark
-
-      );
-
-
-      rect(
-
-        x -
-        size / 2,
-
-        y -
-        size / 2,
-
-        size,
-
-        size,
-
-        C.dirt
-
-      );
-
-
-      rect(
-
-        x -
-        size / 2 +
-        2,
-
-        y -
-        size / 2 +
-        2,
-
-        2,
-
-        2,
-
-        C.dirtLight
-
-      );
-
-    }
-
-
-    /* =====================================================
-       TREES
-    ====================================================== */
-
-    function drawTree(
-      x,
-      y
-    ) {
-
-      rect(
-        x + 6,
-        y + 15,
-        4,
-        9,
-        C.trunk
-      );
-
-
-      rect(
-        x + 2,
-        y + 8,
-        12,
-        10,
-        C.treeDark
-      );
-
-
-      rect(
-        x,
-        y + 10,
-        16,
-        7,
-        C.tree
-      );
-
-
-      rect(
-        x + 3,
-        y + 4,
-        10,
-        10,
-        C.tree
-      );
-
-
-      rect(
-        x + 5,
-        y + 1,
-        7,
-        8,
-        C.treeLight
-      );
-
-
-      rect(
-        x + 2,
-        y + 8,
-        3,
-        3,
-        C.treeLight
-      );
-
-    }
-
-
-    function drawForest() {
-
-      const trees = [
-
-        [50,38],
-        [66,28],
-        [84,38],
-        [101,27],
-        [119,35],
-
-        [44,57],
-        [61,53],
-        [78,60],
-        [96,54],
-        [114,57],
-
-        [54,78],
-        [73,74],
-        [95,78],
-        [113,73],
-        [132,78]
-
-      ];
-
-
-      trees
-        .forEach(
-          ([x,y]) => {
-
-            drawTree(
-              x,
-              y
-            );
-
-          }
-        );
-
-
-      drawShrine(
-        119,
-        72
-      );
-
-    }
-
-
-    function drawShrine(
-      x,
-      y
-    ) {
-
-      rect(
-        x,
-        y,
-        18,
-        16,
-        '#c3a06d'
-      );
-
-
-      rect(
-        x + 3,
-        y + 6,
-        4,
-        10,
-        '#8e6845'
-      );
-
-
-      rect(
-        x + 11,
-        y + 6,
-        4,
-        10,
-        '#8e6845'
-      );
-
-
-      rect(
-        x - 2,
-        y - 4,
-        22,
-        4,
-        '#466540'
-      );
-
-
-      rect(
-        x,
-        y - 7,
-        18,
-        3,
-        '#3e5c39'
-      );
-
-
-      rect(
-        x + 3,
-        y - 10,
-        12,
-        3,
-        '#344e32'
-      );
-
-    }
-
-
-    /* =====================================================
-       CASTLE
-    ====================================================== */
-
-    function drawCastle() {
-
-      const x =
-        216;
-
-
-      const y =
-        40;
-
-
-      /*
-        keep it compact!
-      */
-
-      rect(
-        x + 14,
-        y + 17,
-        24,
-        28,
-        C.stone
-      );
-
-
-      rect(
-        x + 2,
-        y + 11,
-        14,
-        36,
-        C.stoneDark
-      );
-
-
-      rect(
-        x + 36,
-        y + 11,
-        14,
-        36,
-        C.stoneDark
-      );
-
-
-      rect(
-        x + 18,
-        y + 10,
-        16,
-        35,
-        C.stone
-      );
-
-
-      /*
-        highlights
-      */
-
-      rect(
-        x + 5,
-        y + 14,
-        3,
-        29,
-        C.stoneLight
-      );
-
-
-      rect(
-        x + 39,
-        y + 14,
-        3,
-        29,
-        C.stoneLight
-      );
-
-
-      rect(
-        x + 21,
-        y + 14,
-        3,
-        28,
-        C.stoneLight
-      );
-
-
-      /*
-        roofs
-      */
-
-      drawRoof(
-        x,
-        y + 7,
-        18,
-        '#333642'
-      );
-
-
-      drawRoof(
-        x + 34,
-        y + 7,
-        18,
-        '#333642'
-      );
-
-
-      drawRoof(
-        x + 16,
-        y + 3,
-        20,
-        '#2b2d38'
-      );
-
-
-      /*
-        banners
-      */
-
-      rect(
-        x + 10,
-        y + 22,
-        3,
-        10,
-        '#b95c58'
-      );
-
-
-      rect(
-        x + 40,
-        y + 22,
-        3,
-        10,
-        '#b95c58'
-      );
-
-
-      /*
-        entrance
-      */
-
-      rect(
-        x + 23,
-        y + 34,
-        8,
-        13,
-        '#232229'
-      );
-
-    }
-
-
-    function drawRoof(
-      x,
-      y,
-      w,
-      colour
-    ) {
-
-      rect(
-        x,
-        y,
-        w,
-        4,
-        colour
-      );
-
-
-      rect(
-        x + 2,
-        y - 3,
-        w - 4,
-        3,
-        colour
-      );
-
-
-      rect(
-        x + 5,
-        y - 5,
-        w - 10,
-        2,
-        colour
-      );
-
-    }
-
-
-    /* =====================================================
-       VILLAGE
-    ====================================================== */
-
-    function drawVillage() {
-
-      drawHouse(
-        69,
-        198
-      );
-
-
-      drawHouse(
-        91,
-        190
-      );
-
-
-      drawHouse(
-        77,
-        217
-      );
-
-
-      drawHouse(
-        103,
-        214
-      );
-
-
-      /*
-        fence
-      */
-
-      for (
-        let x = 60;
-        x <= 119;
-        x += 8
-      ) {
-
-        rect(
-          x,
-          235,
-          3,
-          10,
-          '#765036'
-        );
-
-      }
-
-
-      rect(
-        60,
-        239,
-        62,
-        3,
-        '#765036'
-      );
-
-    }
-
-
-    function drawHouse(
-      x,
-      y
-    ) {
-
-      rect(
-        x,
-        y,
-        16,
-        13,
-        '#babdca'
-      );
-
-
-      rect(
-        x + 3,
-        y + 4,
-        3,
-        3,
-        '#34323a'
-      );
-
-
-      rect(
-        x + 10,
-        y + 4,
-        3,
-        3,
-        '#34323a'
-      );
-
-
-      rect(
-        x + 7,
-        y + 8,
-        3,
-        5,
-        '#6f5846'
-      );
-
-
-      rect(
-        x - 2,
-        y - 4,
-        20,
-        4,
-        C.roof
-      );
-
-
-      rect(
-        x + 1,
-        y - 7,
-        14,
-        3,
-        C.roof
-      );
-
-
-      rect(
-        x + 4,
-        y - 10,
-        8,
-        3,
-        C.roof
-      );
-
-
-      /*
-        chimney
-      */
-
-      rect(
-        x + 11,
-        y - 13,
-        3,
-        6,
-        '#8a807d'
-      );
-
-    }
-
-
-    /* =====================================================
-       CONTACT PORT
-    ====================================================== */
-
-    function drawPort() {
-
-      /*
-        small pond / harbour
-      */
-
-      rect(
-        390,
-        77,
-        70,
-        51,
-        C.water
-      );
-
-
-      rect(
-        390,
-        77,
-        70,
-        5,
-        C.waterLight
-      );
-
-
-      /*
-        shore
-      */
-
-      rect(
-        386,
-        77,
-        4,
-        51,
-        C.foam
-      );
-
-
-      rect(
-        382,
-        77,
-        4,
-        51,
-        C.sand
-      );
-
-
-      /*
-        dock
-      */
-
-      rect(
-        363,
-        102,
-        48,
-        10,
-        '#70482d'
-      );
-
-
-      for (
-        let x = 366;
-        x <
-        410;
-        x += 8
-      ) {
-
-        rect(
-          x,
-          102,
-          3,
-          10,
-          '#4d3324'
-        );
-
-      }
-
-
-      /*
-        hut
-      */
-
-      drawPortHut(
-        414,
-        92
-      );
-
-
-      drawPortHut(
-        441,
-        82
-      );
-
-
-      /*
-        little boat
-      */
-
-      rect(
-        397,
-        117,
-        20,
-        5,
-        '#965c36'
-      );
-
-
-      rect(
-        400,
-        122,
-        14,
-        3,
-        '#6f422a'
-      );
-
-
-      rect(
-        407,
-        104,
-        2,
-        13,
-        '#514034'
-      );
-
-
-      rect(
-        409,
-        105,
-        9,
-        7,
-        '#e9deb9'
-      );
-
-    }
-
-
-    function drawPortHut(
-      x,
-      y
-    ) {
-
-      rect(
-        x,
-        y,
-        14,
-        12,
-        '#babdca'
-      );
-
-
-      rect(
-        x + 5,
-        y + 6,
-        4,
-        6,
-        '#4d4642'
-      );
-
-
-      rect(
-        x - 2,
-        y - 4,
-        18,
-        4,
-        C.roof
-      );
-
-
-      rect(
-        x + 1,
-        y - 7,
-        12,
-        3,
-        C.roof
-      );
-
-    }
-
-
-    /* =====================================================
-       MINE
-    ====================================================== */
-
-    function drawMine() {
-
-      const x =
-        348;
-
-
-      const y =
-        199;
-
-
-      /*
-        rock pile
-      */
-
-      rect(
-        x + 5,
-        y + 6,
-        42,
-        23,
-        '#67686d'
-      );
-
-
-      rect(
-        x,
-        y + 12,
-        8,
-        17,
-        '#77787d'
-      );
-
-
-      rect(
-        x + 42,
-        y + 11,
-        8,
-        18,
-        '#77787d'
-      );
-
-
-      rect(
-        x + 9,
-        y + 1,
-        34,
-        8,
-        '#77787d'
-      );
-
-
-      /*
-        entrance
-      */
-
-      rect(
-        x + 15,
-        y + 8,
-        20,
-        21,
-        '#1a191d'
-      );
-
-
-      rect(
-        x + 18,
-        y + 11,
-        14,
-        18,
-        '#121115'
-      );
-
-
-      /*
-        beams
-      */
-
-      rect(
-        x + 13,
-        y + 7,
-        4,
-        22,
-        '#65472f'
-      );
-
-
-      rect(
-        x + 34,
-        y + 7,
-        4,
-        22,
-        '#65472f'
-      );
-
-
-      rect(
-        x + 13,
-        y + 7,
-        25,
-        4,
-        '#65472f'
-      );
-
-
-      /*
-        rocks
-      */
-
-      drawRock(
-        337,
-        224
-      );
-
-
-      drawRock(
-        400,
-        224
-      );
-
-
-      drawRock(
-        411,
-        216
-      );
-
-    }
-
-
-    function drawRock(
-      x,
-      y
-    ) {
-
-      rect(
-        x + 2,
-        y,
-        7,
-        3,
-        '#76777c'
-      );
-
-
-      rect(
-        x,
-        y + 3,
-        11,
-        6,
-        '#67686d'
-      );
-
-
-      rect(
-        x + 3,
-        y + 2,
-        4,
-        2,
-        '#97989d'
-      );
-
-    }
-
-
-    /* =====================================================
-       SMALL DECORATIONS
-    ====================================================== */
-
-    function drawDecorations() {
-
-      /*
-        rocks
-      */
-
+    const menuItems =
       [
-
-        [183,96],
-        [293,84],
-        [169,181],
-        [285,192],
-        [325,75],
-        [150,226]
-
-      ]
-      .forEach(
-        ([x,y]) => {
-
-          drawRock(
-            x,
-            y
-          );
-
-        }
-      );
-
-
-      /*
-        flowers
-      */
-
-      [
-
-        [176,126],
-        [162,114],
-        [300,160],
-        [326,175],
-        [134,193],
-        [123,181],
-        [340,121]
-
-      ]
-      .forEach(
-        ([x,y]) => {
-
-          rect(
-            x,
-            y,
-            2,
-            2,
-            '#e5cf59'
-          );
-
-
-          rect(
-            x + 2,
-            y + 2,
-            2,
-            2,
-            '#f1e0a3'
-          );
-
-        }
-      );
-
-    }
-
-
-    /* =====================================================
-       PLAYER
-    ====================================================== */
-
-    function drawPlayer() {
-
-      const x =
-        Math.round(
-          state.player.x
-        );
-
-
-      const y =
-        Math.round(
-          state.player.y
-        );
-
-
-      /*
-        shadow
-      */
-
-      rect(
-        x - 5,
-        y + 9,
-        10,
-        3,
-        'rgba(0,0,0,.22)'
-      );
-
-
-      /*
-        hair
-      */
-
-      rect(
-        x - 4,
-        y - 9,
-        8,
-        4,
-        '#2b211c'
-      );
-
-
-      rect(
-        x - 5,
-        y - 7,
-        10,
-        3,
-        '#2b211c'
-      );
-
-
-      /*
-        head
-      */
-
-      rect(
-        x - 3,
-        y - 5,
-        6,
-        6,
-        '#d5a078'
-      );
-
-
-      /*
-        shirt
-      */
-
-      rect(
-        x - 4,
-        y + 1,
-        8,
-        7,
-        '#457bbb'
-      );
-
-
-      /*
-        tiny backpack
-      */
-
-      rect(
-        x + 4,
-        y + 2,
-        2,
-        5,
-        '#63513d'
-      );
-
-
-      /*
-        walking legs
-      */
-
-      const walking =
-        state.moving;
-
-
-      const phase =
-        Math.floor(
-          performance.now() /
-          120
-        ) %
-        2;
-
-
-      if (
-        walking &&
-        phase === 0
-      ) {
-
-        rect(
-          x - 3,
-          y + 8,
-          2,
-          5,
-          '#2c2b32'
-        );
-
-
-        rect(
-          x + 1,
-          y + 7,
-          2,
-          5,
-          '#2c2b32'
-        );
-
-      }
-
-      else {
-
-        rect(
-          x - 3,
-          y + 7,
-          2,
-          5,
-          '#2c2b32'
-        );
-
-
-        rect(
-          x + 1,
-          y + 8,
-          2,
-          5,
-          '#2c2b32'
-        );
-
-      }
-
-    }
-
-
-    /* =====================================================
-       DRAW WORLD
-    ====================================================== */
-
-    function drawWorld() {
-
-      ctx.clearRect(
-        0,
-        0,
-        W,
-        H
-      );
-
-
-      drawGrassBase();
-
-      drawCoast();
-
-      drawMountains();
-
-      drawPaths();
-
-      drawForest();
-
-      drawCastle();
-
-      drawVillage();
-
-      drawPort();
-
-      drawMine();
-
-      drawDecorations();
-
-      drawPlayer();
-
-    }
-
-
-    /* =====================================================
-       HITBOXES
-    ====================================================== */
-
-    function inside(
-      x,
-      y,
-      box
-    ) {
-
-      return (
-
-        x >=
-        box.x &&
-
-        x <=
-        box.x +
-        box.w &&
-
-        y >=
-        box.y &&
-
-        y <=
-        box.y +
-        box.h
-
-      );
-
-    }
-
-
-    function hoveredLocation(
-      x,
-      y
-    ) {
-
-      for (
-        const key
-        of
-        Object.keys(
-          locations
-        )
-      ) {
-
-        if (
-          inside(
-
-            x,
-
-            y,
-
-            locations[
-              key
-            ].box
-
+        ...document
+          .querySelectorAll(
+            '.menu-item'
           )
-        ) {
-
-          return key;
-
-        }
-
-      }
+      ];
 
 
-      return null;
-
-    }
-
-
-    function mouseToCanvas(
-      event
-    ) {
-
-      const rect =
-        canvas
-          .getBoundingClientRect();
-
-
-      return {
-
-        x:
-
-          (
-            event.clientX -
-            rect.left
-          ) *
-
-          W /
-          rect.width,
-
-
-        y:
-
-          (
-            event.clientY -
-            rect.top
-          ) *
-
-          H /
-          rect.height,
-
-
-        screenX:
-
-          event.clientX -
-          rect.left,
-
-
-        screenY:
-
-          event.clientY -
-          rect.top
-
-      };
-
-    }
-
-
-    /* =====================================================
-       HOVER
-    ====================================================== */
-
-    canvas
-      .addEventListener(
-        'mousemove',
-        event => {
-
-          const mouse =
-            mouseToCanvas(
-              event
-            );
-
-
-          const key =
-            hoveredLocation(
-
-              mouse.x,
-
-              mouse.y
-
-            );
-
-
-          state.hover =
-            key;
-
-
-          if (
-            key
-          ) {
-
-            canvas.style.cursor =
-              'pointer';
-
-
-            tooltip.innerHTML =
-
-              locations[
-                key
-              ].label +
-
-              '<br>' +
-
-              locations[
-                key
-              ].subtitle;
-
-
-            tooltip
-              .classList
-              .add(
-                'show'
-              );
-
-
-            tooltip.style.left =
-              mouse.screenX +
-              'px';
-
-
-            tooltip.style.top =
-              (
-                mouse.screenY -
-                8
-              ) +
-              'px';
-
-          }
-
-          else {
-
-            canvas.style.cursor =
-              'default';
-
-
-            tooltip
-              .classList
-              .remove(
-                'show'
-              );
-
-          }
-
-        }
+    const previewTitle =
+      document.getElementById(
+        'previewTitle'
       );
 
 
-    canvas
-      .addEventListener(
-        'mouseleave',
-        () => {
-
-          tooltip
-            .classList
-            .remove(
-              'show'
-            );
-
-        }
+    const previewCount =
+      document.getElementById(
+        'previewCount'
       );
 
 
-    /* =====================================================
-       MOVEMENT
-    ====================================================== */
+    const previewDescription =
+      document.getElementById(
+        'previewDescription'
+      );
 
-    function moveTo(
-      start,
-      end,
-      duration =
-        230
+
+    const statusText =
+      document.getElementById(
+        'statusText'
+      );
+
+
+    const enterButton =
+      document.getElementById(
+        'enterButton'
+      );
+
+
+    const loadingText =
+      document.getElementById(
+        'loadingText'
+      );
+
+
+    const loadingDestination =
+      document.getElementById(
+        'loadingDestination'
+      );
+
+
+    const progressBar =
+      document.getElementById(
+        'progressBar'
+      );
+
+
+    let selectedIndex =
+      0;
+
+
+    let transitionLocked =
+      false;
+
+
+    function updateSelection(
+      index
     ) {
 
-      return new Promise(
-        resolve => {
+      selectedIndex =
 
-          const started =
-            performance.now();
+        (
+          index +
+          entries.length
+        ) %
 
-
-          function frame(
-            now
-          ) {
-
-            const p =
-              Math.min(
-
-                (
-                  now -
-                  started
-                ) /
-                duration,
-
-                1
-
-              );
+        entries.length;
 
 
-            /*
-              slight linear-ish motion fits
-              pixel game better.
-            */
+      menuItems
+        .forEach(
+          (
+            item,
+            i
+          ) => {
 
-            const x =
-
-              start.x +
-
-              (
-                end.x -
-                start.x
-              ) *
-
-              p;
-
-
-            const y =
-
-              start.y +
-
-              (
-                end.y -
-                start.y
-              ) *
-
-              p;
-
-
-            state.player.x =
-              x;
-
-
-            state.player.y =
-              y;
+            const selector =
+              item
+                .querySelector(
+                  '.selector'
+                );
 
 
             if (
-              p < 1
+              i ===
+              selectedIndex
             ) {
 
-              requestAnimationFrame(
-                frame
-              );
+              item
+                .classList
+                .add(
+                  'selected'
+                );
+
+
+              selector
+                .textContent =
+                '▶';
 
             }
 
             else {
 
-              resolve();
+              item
+                .classList
+                .remove(
+                  'selected'
+                );
+
+
+              selector
+                .textContent =
+                '';
 
             }
 
           }
+        );
 
 
-          requestAnimationFrame(
-            frame
-          );
+      const entry =
+        entries[
+          selectedIndex
+        ];
+
+
+      previewTitle
+        .textContent =
+        entry.title;
+
+
+      previewCount
+        .textContent =
+        entry.count;
+
+
+      previewDescription
+        .textContent =
+        entry.description;
+
+
+      statusText.innerHTML =
+
+        'ENTRY SELECTED.<br>' +
+
+        'PRESS ENTER TO OPEN.';
+
+    }
+
+
+    /* =====================================================
+       MENU CLICK
+    ====================================================== */
+
+    menuItems
+      .forEach(
+        (
+          item,
+          index
+        ) => {
+
+          item
+            .addEventListener(
+              'mouseenter',
+              () => {
+
+                updateSelection(
+                  index
+                );
+
+              }
+            );
+
+
+          item
+            .addEventListener(
+              'click',
+              () => {
+
+                updateSelection(
+                  index
+                );
+
+              }
+            );
+
+
+          item
+            .addEventListener(
+              'dblclick',
+              () => {
+
+                openSelected();
+
+              }
+            );
 
         }
       );
-
-    }
-
-
-    async function walkPath(
-      points
-    ) {
-
-      state.moving =
-        true;
-
-
-      for (
-        let i = 0;
-        i <
-        points.length - 1;
-        i++
-      ) {
-
-        await moveTo(
-
-          points[i],
-
-          points[
-            i + 1
-          ]
-
-        );
-
-      }
-
-
-      state.moving =
-        false;
-
-    }
 
 
     /* =====================================================
        LOADING
     ====================================================== */
 
-    function doLoading(
-      key
+    function loadingSequence(
+      entry
     ) {
 
       return new Promise(
@@ -3476,10 +1998,7 @@
 
           loadingDestination
             .textContent =
-
-            locations[
-              key
-            ].load;
+            entry.loading;
 
 
           progressBar
@@ -3501,8 +2020,7 @@
             0;
 
 
-          const dotsTimer =
-
+          const dotTimer =
             setInterval(
               () => {
 
@@ -3510,7 +2028,8 @@
 
 
                 if (
-                  dots > 3
+                  dots >
+                  3
                 ) {
 
                   dots =
@@ -3535,7 +2054,6 @@
 
 
           const progressTimer =
-
             setInterval(
               () => {
 
@@ -3574,7 +2092,7 @@
             () => {
 
               clearInterval(
-                dotsTimer
+                dotTimer
               );
 
 
@@ -3596,7 +2114,7 @@
 
               setTimeout(
                 resolve,
-                180
+                160
               );
 
             },
@@ -3611,17 +2129,74 @@
 
 
     /* =====================================================
-       ENTER LOCATION
+       OPEN ENTRY
     ====================================================== */
 
-    canvas
+    async function openSelected() {
+
+      if (
+        transitionLocked
+      ) {
+
+        return;
+
+      }
+
+
+      transitionLocked =
+        true;
+
+
+      const entry =
+        entries[
+          selectedIndex
+        ];
+
+
+      statusText.innerHTML =
+
+        'ACCESSING DATABASE...';
+
+
+      await loadingSequence(
+        entry
+      );
+
+
+      showScreen(
+        entry.page
+      );
+
+
+      transitionLocked =
+        false;
+
+    }
+
+
+    enterButton
       .addEventListener(
         'click',
-        async event => {
+        openSelected
+      );
+
+
+    /* =====================================================
+       KEYBOARD
+    ====================================================== */
+
+    document
+      .addEventListener(
+        'keydown',
+        event => {
 
           if (
-            state.moving ||
-            state.returning
+            !screens
+              .device
+              .classList
+              .contains(
+                'active'
+              )
           ) {
 
             return;
@@ -3629,67 +2204,68 @@
           }
 
 
-          const mouse =
-            mouseToCanvas(
-              event
-            );
-
-
-          const key =
-            hoveredLocation(
-
-              mouse.x,
-
-              mouse.y
-
-            );
-
-
           if (
-            !key
+            event.key ===
+            'ArrowUp'
           ) {
 
-            return;
+            event
+              .preventDefault();
+
+
+            updateSelection(
+
+              selectedIndex -
+              1
+
+            );
 
           }
 
 
-          tooltip
-            .classList
-            .remove(
-              'show'
+          if (
+            event.key ===
+            'ArrowDown'
+          ) {
+
+            event
+              .preventDefault();
+
+
+            updateSelection(
+
+              selectedIndex +
+              1
+
             );
 
-
-          await walkPath(
-
-            locations[
-              key
-            ].path
-
-          );
+          }
 
 
-          await doLoading(
-            key
-          );
+          if (
+            event.key ===
+            'Enter'
+          ) {
+
+            event
+              .preventDefault();
 
 
-          showScreen(
-            key
-          );
+            openSelected();
+
+          }
 
         }
       );
 
 
     /* =====================================================
-       RETURN
+       RETURN BUTTONS
     ====================================================== */
 
     document
       .querySelectorAll(
-        '[data-back]'
+        '.back-button'
       )
       .forEach(
         button => {
@@ -3697,85 +2273,18 @@
           button
             .addEventListener(
               'click',
-              async () => {
-
-                if (
-                  state.moving ||
-                  state.returning
-                ) {
-
-                  return;
-
-                }
-
-
-                const key =
-                  button
-                    .dataset
-                    .back;
-
-
-                state.returning =
-                  true;
-
-
-                const reversePath =
-
-                  [
-                    ...locations[
-                      key
-                    ].path
-                  ]
-                  .reverse();
-
+              () => {
 
                 showScreen(
-                  'worldMap'
+                  'device'
                 );
 
 
-                /*
-                  spawn at entrance
-                */
+                statusText.innerHTML =
 
-                state.player.x =
-                  reversePath[0].x;
+                  'DATABASE READY.<br>' +
 
-
-                state.player.y =
-                  reversePath[0].y;
-
-
-                /*
-                  looks like player exits
-                  the location.
-                */
-
-                await new Promise(
-                  resolve =>
-
-                    setTimeout(
-                      resolve,
-                      350
-                    )
-                );
-
-
-                await walkPath(
-                  reversePath
-                );
-
-
-                state.player.x =
-                  CENTER.x;
-
-
-                state.player.y =
-                  CENTER.y;
-
-
-                state.returning =
-                  false;
+                  'SELECT NEXT ENTRY.';
 
               }
             );
@@ -3784,23 +2293,9 @@
       );
 
 
-    /* =====================================================
-       RENDER LOOP
-    ====================================================== */
-
-    function render() {
-
-      drawWorld();
-
-
-      requestAnimationFrame(
-        render
-      );
-
-    }
-
-
-    render();
+    updateSelection(
+      0
+    );
 
   </script>
 
