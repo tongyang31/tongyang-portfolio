@@ -1,875 +1,1036 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
   <title>Engineering Portfolio</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
   <link
     href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
     rel="stylesheet"
   >
 
+
   <style>
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+
     html,
     body {
+
       width: 100%;
       height: 100%;
+
       overflow: hidden;
-      background: #fff;
+
+      background: #ffffff;
+
       color: #171717;
-      font-family: 'VT323', monospace;
+
+      font-family:
+        'VT323',
+        monospace;
+
     }
+
 
     button {
+
       font: inherit;
       color: inherit;
-      border: 0;
+
+      border: none;
       background: none;
+
       cursor: pointer;
+
     }
 
+
     :root {
+
       --paper: #f5f2e9;
+
       --ink: #171717;
+
       --muted: #6c6454;
+
       --gold: #ccb15f;
+
       --gold-soft: #fff2bf;
-      --shadow: 4px 4px 0 #171717;
+
+      --shadow:
+        4px 4px 0 #171717;
+
     }
+
 
     /* =====================================================
        SCREEN SYSTEM
     ====================================================== */
 
     .screen {
+
       position: absolute;
+
       inset: 0;
 
       opacity: 0;
+
       pointer-events: none;
 
-      transform: translateY(8px);
+      transform:
+        translateY(8px);
 
       transition:
+
         opacity 0.4s ease,
+
         transform 0.4s ease;
+
     }
+
 
     .screen.active {
+
       opacity: 1;
+
       pointer-events: auto;
-      transform: translateY(0);
+
+      transform:
+        translateY(0);
+
     }
 
+
     /* =====================================================
-       LANDING
+       LANDING PAGE
     ====================================================== */
 
     #landing {
+
       display: flex;
+
       align-items: center;
       justify-content: center;
-      background: #fff;
+
+      background:
+        #ffffff;
+
       overflow: hidden;
+
     }
 
+
     .landing-inner {
+
       position: relative;
 
       display: flex;
+
       flex-direction: column;
+
       align-items: center;
 
       gap: 34px;
+
     }
 
+
     .logo-area {
+
       position: relative;
 
       width: 300px;
+
       height: 300px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
+
     }
 
+
     /* =====================================================
-       PLACEHOLDER LOGO
+       TEMPORARY PORTFOLIO LOGO
     ====================================================== */
 
     #portfolioMark {
-      width: 210px;
-      height: 210px;
-
-      border: 18px solid #111;
 
       position: relative;
 
+      width: 210px;
+
+      height: 210px;
+
+      border:
+        18px solid #111111;
+
       cursor: pointer;
 
-      animation: spinMark 10s linear infinite;
+      animation:
+        spinMark 10s linear infinite;
 
       transition:
-        animation-duration 0.35s ease,
-        filter 0.2s ease;
+        animation-duration 0.35s ease;
+
+      z-index: 3;
+
     }
+
 
     #portfolioMark::before,
     #portfolioMark::after {
+
       content: "";
+
       position: absolute;
-      background: #111;
+
+      background:
+        #111111;
+
     }
 
+
     #portfolioMark::before {
+
       width: 72%;
+
       height: 18px;
 
       left: 14%;
+
       top: 50%;
 
-      transform: translateY(-50%);
+      transform:
+        translateY(-50%);
+
     }
 
+
     #portfolioMark::after {
+
       height: 72%;
+
       width: 18px;
 
       top: 14%;
+
       left: 50%;
 
-      transform: translateX(-50%);
+      transform:
+        translateX(-50%);
+
     }
+
 
     #portfolioMark:hover {
-      animation-duration: 30s;
-      filter: brightness(1.15);
+
+      animation-duration:
+        30s;
+
     }
 
+
     @keyframes spinMark {
+
       from {
-        transform: rotate(0deg);
+
+        transform:
+          rotate(0deg);
+
       }
 
       to {
-        transform: rotate(360deg);
+
+        transform:
+          rotate(360deg);
+
       }
+
     }
 
+
     /* =====================================================
-       LOADING PORTFOLIO TEXT
+       LANDING TEXT
     ====================================================== */
 
     #stayTuned {
-      font-family: 'Press Start 2P', cursive;
+
+      min-width: 240px;
+
+      text-align: center;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
 
       font-size: 10px;
 
-      color: #555;
+      color:
+        #555555;
 
-      min-width: 230px;
-
-      text-align: center;
     }
 
+
     /* =====================================================
-       ENGINEERING MASCOT
+       FLYING ENGINEERING MASCOT
     ====================================================== */
 
     #mascot {
-      position: fixed;
 
-      width: 130px;
-      height: 115px;
+      position: fixed;
 
       left: 50%;
       top: 50%;
+
+      width: 145px;
+
+      height: 140px;
+
+      transform:
+        translate(-50%, -50%);
 
       pointer-events: none;
 
       z-index: 10;
+
     }
 
-    .speech-bubble {
+
+    #mascotCanvas {
+
       position: absolute;
 
       left: 50%;
-      top: -12px;
 
-      transform: translateX(-50%);
+      top: 38px;
 
-      background: #fff9df;
+      width: 96px;
 
-      border: 3px solid #111;
-      border-radius: 10px;
+      height: 96px;
 
-      box-shadow: 4px 4px 0 #111;
+      transform:
+        translateX(-50%);
 
-      padding: 9px 10px;
+      image-rendering:
+        pixelated;
 
-      font-family: 'Press Start 2P', cursive;
+      image-rendering:
+        crisp-edges;
 
-      font-size: 7px;
-      line-height: 1.5;
-
-      white-space: nowrap;
-
-      animation: bubbleBounce 0.8s ease-in-out infinite alternate;
     }
 
+
+    /* =====================================================
+       SPEECH BUBBLE
+    ====================================================== */
+
+    .speech-bubble {
+
+      position: absolute;
+
+      left: 50%;
+
+      top: -10px;
+
+      transform:
+        translateX(-50%);
+
+      background:
+        #fff9df;
+
+      color:
+        #111111;
+
+      border:
+        3px solid #111111;
+
+      border-radius:
+        10px;
+
+      box-shadow:
+        4px 4px 0 #111111;
+
+      padding:
+        9px 10px;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        7px;
+
+      line-height:
+        1.5;
+
+      white-space:
+        nowrap;
+
+      animation:
+        bubbleBounce
+        0.75s
+        ease-in-out
+        infinite
+        alternate;
+
+    }
+
+
     .speech-bubble::after {
+
       content: "";
 
       position: absolute;
 
       left: 50%;
+
       bottom: -10px;
 
       width: 14px;
+
       height: 14px;
 
       transform:
+
         translateX(-50%)
+
         rotate(45deg);
 
-      background: #fff9df;
+      background:
+        #fff9df;
 
-      border-right: 3px solid #111;
-      border-bottom: 3px solid #111;
+      border-right:
+        3px solid #111111;
+
+      border-bottom:
+        3px solid #111111;
+
     }
+
 
     @keyframes bubbleBounce {
+
       from {
+
         transform:
+
           translateX(-50%)
+
           translateY(0);
+
       }
 
       to {
+
         transform:
+
           translateX(-50%)
+
           translateY(-3px);
-      }
-    }
 
-    .mascot-body {
-      position: absolute;
-
-      left: 50%;
-      top: 55px;
-
-      width: 66px;
-      height: 62px;
-
-      transform: translateX(-50%);
-    }
-
-    /* HARD HAT */
-
-    .hard-hat {
-      position: absolute;
-
-      left: 7px;
-      top: -4px;
-
-      width: 52px;
-      height: 22px;
-
-      background: #f0c64d;
-
-      border: 3px solid #111;
-      border-bottom: 0;
-
-      border-radius: 28px 28px 7px 7px;
-
-      z-index: 4;
-    }
-
-    .hard-hat::before {
-      content: "";
-
-      position: absolute;
-
-      left: 19px;
-      top: 3px;
-
-      width: 7px;
-      height: 13px;
-
-      background: #d8aa2c;
-
-      border-left: 2px solid #111;
-      border-right: 2px solid #111;
-    }
-
-    .hard-hat::after {
-      content: "";
-
-      position: absolute;
-
-      left: -6px;
-      bottom: -8px;
-
-      width: 59px;
-      height: 9px;
-
-      background: #f0c64d;
-
-      border: 3px solid #111;
-
-      border-radius: 8px;
-    }
-
-    /* HEAD */
-
-    .mascot-head {
-      position: absolute;
-
-      top: 14px;
-      left: 8px;
-
-      width: 50px;
-      height: 44px;
-
-      background: #f4b9d5;
-
-      border: 3px solid #111;
-
-      border-radius: 50%;
-
-      z-index: 3;
-    }
-
-    /* EARS */
-
-    .ear {
-      position: absolute;
-
-      top: 9px;
-
-      width: 18px;
-      height: 24px;
-
-      background: #f4b9d5;
-
-      border: 3px solid #111;
-
-      transform: rotate(20deg);
-
-      z-index: 2;
-    }
-
-    .ear-left {
-      left: 2px;
-
-      transform: rotate(-28deg);
-    }
-
-    .ear-right {
-      right: 2px;
-
-      transform: rotate(28deg);
-    }
-
-    /* FACE */
-
-    .eye {
-      position: absolute;
-
-      top: 18px;
-
-      width: 5px;
-      height: 8px;
-
-      background: #111;
-
-      border-radius: 50%;
-    }
-
-    .eye-left {
-      left: 13px;
-    }
-
-    .eye-right {
-      right: 13px;
-    }
-
-    .mouth {
-      position: absolute;
-
-      left: 50%;
-      bottom: 8px;
-
-      width: 12px;
-      height: 7px;
-
-      transform: translateX(-50%);
-
-      border-bottom: 3px solid #111;
-
-      border-radius: 0 0 10px 10px;
-    }
-
-    /* BODY */
-
-    .mascot-chest {
-      position: absolute;
-
-      top: 47px;
-      left: 19px;
-
-      width: 28px;
-      height: 24px;
-
-      background: #f4b9d5;
-
-      border: 3px solid #111;
-
-      border-radius: 45%;
-
-      z-index: 1;
-    }
-
-    /* WINGS */
-
-    .wing {
-      position: absolute;
-
-      top: 42px;
-
-      width: 24px;
-      height: 14px;
-
-      background: #f8fcff;
-
-      border: 3px solid #111;
-
-      border-radius: 50%;
-
-      z-index: 0;
-    }
-
-    .wing-left {
-      left: -4px;
-
-      animation:
-        flapLeft 0.28s ease-in-out infinite alternate;
-    }
-
-    .wing-right {
-      right: -4px;
-
-      animation:
-        flapRight 0.28s ease-in-out infinite alternate;
-    }
-
-    @keyframes flapLeft {
-      from {
-        transform: rotate(-35deg);
       }
 
-      to {
-        transform: rotate(10deg);
-      }
     }
 
-    @keyframes flapRight {
-      from {
-        transform: rotate(35deg);
-      }
 
-      to {
-        transform: rotate(-10deg);
-      }
-    }
-
-    /* TAIL */
-
-    .tail {
-      position: absolute;
-
-      width: 32px;
-      height: 8px;
-
-      right: -19px;
-      bottom: 0;
-
-      background: #f4b9d5;
-
-      border: 3px solid #111;
-
-      border-radius: 10px;
-
-      transform-origin: left center;
-
-      animation:
-        tailWag 0.7s ease-in-out infinite alternate;
-    }
-
-    @keyframes tailWag {
-      from {
-        transform: rotate(-18deg);
-      }
-
-      to {
-        transform: rotate(22deg);
-      }
-    }
-
-    /* SPARKLES */
+    /* =====================================================
+       SPARKLES
+    ====================================================== */
 
     #sparkleLayer {
+
       position: fixed;
+
       inset: 0;
 
       pointer-events: none;
 
       z-index: 8;
+
     }
 
+
     .sparkle {
+
       position: absolute;
 
       width: 4px;
+
       height: 4px;
 
-      background: #f1ce57;
+      background:
+        #f1ce57;
 
       box-shadow:
+
         0 -5px 0 #f1ce57,
+
         0 5px 0 #f1ce57,
+
         5px 0 0 #f1ce57,
+
         -5px 0 0 #f1ce57;
 
       animation:
-        sparklePop 0.7s ease-out forwards;
+
+        sparklePop
+
+        0.7s
+
+        ease-out
+
+        forwards;
+
     }
 
+
     @keyframes sparklePop {
+
       from {
+
         opacity: 1;
-        transform: scale(0.5);
+
+        transform:
+          scale(0.5);
+
       }
 
       to {
+
         opacity: 0;
+
         transform:
-          translateY(-16px)
-          scale(1.4);
+
+          translateY(-18px)
+
+          scale(1.5);
+
       }
+
     }
+
 
     /* =====================================================
        GAME BACKGROUND
     ====================================================== */
 
     .game-screen {
+
       background:
+
         linear-gradient(
+
           rgba(255,255,255,0.28),
+
           rgba(255,255,255,0.28)
+
         ),
+
         repeating-linear-gradient(
+
           0deg,
+
           #f5f2e9 0px,
+
           #f5f2e9 2px,
+
           #f2eee5 2px,
+
           #f2eee5 4px
+
         );
 
       overflow: hidden;
+
     }
+
 
     .game-wrap {
-      width: min(1200px, 94%);
+
+      width:
+        min(1200px, 94%);
+
       height: 100%;
 
-      margin: 0 auto;
+      margin:
+        0 auto;
 
-      padding: 22px 0 26px;
+      padding:
+        22px 0 26px;
 
       display: flex;
+
       flex-direction: column;
+
     }
+
+
+    /* =====================================================
+       SCREEN TITLE
+    ====================================================== */
 
     .screen-title {
+
       height: 58px;
-      flex: 0 0 58px;
+
+      flex:
+        0 0 58px;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
 
-      font-family: 'Press Start 2P', cursive;
+      font-family:
+        'Press Start 2P',
+        cursive;
 
       font-size:
-        clamp(15px, 1.8vw, 23px);
+        clamp(
+          15px,
+          1.8vw,
+          23px
+        );
 
-      color: var(--gold);
+      color:
+        var(--gold);
 
       text-shadow:
-        2px 2px 0 #fff;
+        2px 2px 0 #ffffff;
 
-      margin-bottom: 12px;
+      margin-bottom:
+        12px;
+
     }
+
 
     /* =====================================================
        MAIN MENU
     ====================================================== */
 
     .menu-layout {
+
       flex: 1;
 
       min-height: 0;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
 
-      padding-bottom: 12px;
+      padding-bottom:
+        12px;
+
     }
+
 
     .menu-content {
-      width: min(740px, 92%);
+
+      width:
+        min(740px, 92%);
 
       display: flex;
+
       flex-direction: column;
+
     }
 
+
     .tiny-label {
-      font-family: 'Press Start 2P', cursive;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
 
       font-size: 8px;
 
       line-height: 1.6;
 
-      color: #8a806b;
+      color:
+        #8a806b;
 
-      margin-bottom: 12px;
+      margin-bottom:
+        12px;
+
     }
+
 
     .page-heading {
-      font-family: 'Press Start 2P', cursive;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
 
       font-size:
-        clamp(25px, 3.5vw, 46px);
+        clamp(
+          25px,
+          3.5vw,
+          46px
+        );
 
-      line-height: 1.4;
+      line-height:
+        1.4;
 
-      margin-bottom: 16px;
+      margin-bottom:
+        16px;
 
       text-shadow:
-        2px 2px 0 #fff;
+        2px 2px 0 #ffffff;
+
     }
+
 
     .menu-description {
-      font-size: 24px;
 
-      line-height: 1.2;
+      font-size:
+        24px;
 
-      color: var(--muted);
+      line-height:
+        1.2;
 
-      margin-bottom: 18px;
+      color:
+        var(--muted);
 
-      max-width: 650px;
+      margin-bottom:
+        18px;
+
+      max-width:
+        650px;
+
     }
 
+
     .menu-options {
+
       display: flex;
+
       flex-direction: column;
 
       gap: 10px;
+
     }
 
+
     .menu-option {
+
       width: 100%;
 
       text-align: left;
 
-      padding: 13px 16px;
+      padding:
+        13px 16px;
 
-      border: 3px solid #111;
-      border-radius: 10px;
+      border:
+        3px solid #111111;
 
-      box-shadow: var(--shadow);
+      border-radius:
+        10px;
 
-      background: #fbf8ef;
+      box-shadow:
+        var(--shadow);
+
+      background:
+        #fbf8ef;
 
       transition:
+
         transform 0.14s ease,
+
         background 0.14s ease;
+
     }
 
+
     .menu-option:hover {
+
       background:
         var(--gold-soft);
 
       transform:
         translate(-2px, -2px);
+
     }
+
 
     .menu-option-title {
-      font-family: 'Press Start 2P', cursive;
 
-      font-size: 10px;
+      font-family:
+        'Press Start 2P',
+        cursive;
 
-      line-height: 1.5;
+      font-size:
+        10px;
+
+      line-height:
+        1.5;
+
     }
+
 
     .menu-option-description {
-      margin-top: 4px;
 
-      font-size: 19px;
+      margin-top:
+        4px;
 
-      line-height: 1.15;
+      font-size:
+        19px;
 
-      color: var(--muted);
+      line-height:
+        1.15;
+
+      color:
+        var(--muted);
+
     }
+
 
     /* =====================================================
        LOADING SCREEN
     ====================================================== */
 
     #loading {
+
       z-index: 100;
 
-      background: #151411;
+      background:
+        #151411;
 
-      color: #fff1c7;
+      color:
+        #fff1c7;
 
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
     }
 
+
     .loading-content {
+
       width:
         min(520px, 86%);
 
-      text-align: center;
+      text-align:
+        center;
+
     }
+
 
     #loadingText {
-      font-family: 'Press Start 2P', cursive;
 
-      font-size:
-        clamp(18px, 3vw, 32px);
-
-      margin-bottom: 26px;
-    }
-
-    #loadingDestination {
-      font-family: 'Press Start 2P', cursive;
-
-      font-size: 9px;
-
-      line-height: 1.8;
-
-      color: #c9b47a;
-
-      margin-bottom: 24px;
-    }
-
-    .progress-shell {
-      width: 100%;
-      height: 28px;
-
-      padding: 4px;
-
-      border:
-        3px solid #fff1c7;
-    }
-
-    #progressBar {
-      width: 0%;
-      height: 100%;
-
-      background:
-        repeating-linear-gradient(
-          90deg,
-          #fff1c7 0px,
-          #fff1c7 16px,
-          #c7aa57 16px,
-          #c7aa57 20px
-        );
-
-      transition:
-        width 0.1s linear;
-    }
-
-    /* =====================================================
-       CONTENT PAGES
-    ====================================================== */
-
-    .section-layout {
-      flex: 1;
-
-      min-height: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .section-card {
-      width:
-        min(900px, 94%);
-
-      background:
-        rgba(255,255,255,0.6);
-
-      border:
-        3px solid #111;
-
-      border-radius: 14px;
-
-      box-shadow:
-        5px 5px 0 #111;
-
-      padding: 30px;
-    }
-
-    .section-card h2 {
       font-family:
         'Press Start 2P',
         cursive;
 
       font-size:
-        clamp(17px, 2.3vw, 28px);
+        clamp(
+          18px,
+          3vw,
+          32px
+        );
 
-      line-height: 1.5;
+      margin-bottom:
+        26px;
 
-      margin-bottom: 16px;
     }
 
-    .section-card p {
-      font-size: 23px;
 
-      line-height: 1.3;
+    #loadingDestination {
 
-      color: var(--muted);
+      font-family:
+        'Press Start 2P',
+        cursive;
 
-      margin-bottom: 20px;
+      font-size:
+        9px;
+
+      line-height:
+        1.8;
+
+      color:
+        #c9b47a;
+
+      margin-bottom:
+        24px;
+
     }
 
-    .back-button {
-      padding: 11px 14px;
+
+    .progress-shell {
+
+      width:
+        100%;
+
+      height:
+        28px;
+
+      padding:
+        4px;
 
       border:
-        3px solid #111;
+        3px solid #fff1c7;
 
-      border-radius: 8px;
+    }
+
+
+    #progressBar {
+
+      width:
+        0%;
+
+      height:
+        100%;
+
+      background:
+
+        repeating-linear-gradient(
+
+          90deg,
+
+          #fff1c7 0px,
+
+          #fff1c7 16px,
+
+          #c7aa57 16px,
+
+          #c7aa57 20px
+
+        );
+
+      transition:
+        width 0.1s linear;
+
+    }
+
+
+    /* =====================================================
+       PLACEHOLDER CONTENT SECTIONS
+    ====================================================== */
+
+    .section-layout {
+
+      flex: 1;
+
+      min-height: 0;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+    }
+
+
+    .section-card {
+
+      width:
+        min(900px, 94%);
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.6
+        );
+
+      border:
+        3px solid #111111;
+
+      border-radius:
+        14px;
+
+      box-shadow:
+        5px 5px 0 #111111;
+
+      padding:
+        30px;
+
+    }
+
+
+    .section-card h2 {
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        clamp(
+          17px,
+          2.3vw,
+          28px
+        );
+
+      line-height:
+        1.5;
+
+      margin-bottom:
+        16px;
+
+    }
+
+
+    .section-card p {
+
+      font-size:
+        23px;
+
+      line-height:
+        1.3;
+
+      color:
+        var(--muted);
+
+      margin-bottom:
+        20px;
+
+    }
+
+
+    .back-button {
+
+      padding:
+        11px 14px;
+
+      border:
+        3px solid #111111;
+
+      border-radius:
+        8px;
 
       box-shadow:
         var(--shadow);
@@ -881,109 +1042,231 @@
         'Press Start 2P',
         cursive;
 
-      font-size: 8px;
+      font-size:
+        8px;
+
+      transition:
+
+        transform 0.14s ease,
+
+        background 0.14s ease;
+
     }
+
+
+    .back-button:hover {
+
+      background:
+        var(--gold-soft);
+
+      transform:
+        translate(-2px, -2px);
+
+    }
+
 
     /* =====================================================
-       LAPTOP / SHORT SCREEN
+       SHORT LAPTOP SCREENS
     ====================================================== */
 
-    @media (max-height: 850px) and (min-width: 701px) {
+    @media
+    (max-height: 850px)
+    and
+    (min-width: 701px) {
+
 
       .game-wrap {
-        padding-top: 14px;
-        padding-bottom: 16px;
+
+        padding-top:
+          14px;
+
+        padding-bottom:
+          16px;
+
       }
+
 
       .screen-title {
-        height: 46px;
-        flex-basis: 46px;
 
-        margin-bottom: 6px;
+        height:
+          46px;
 
-        font-size: 16px;
+        flex-basis:
+          46px;
+
+        margin-bottom:
+          6px;
+
+        font-size:
+          16px;
+
       }
+
 
       .page-heading {
-        font-size: 32px;
 
-        margin-bottom: 10px;
+        font-size:
+          32px;
+
+        margin-bottom:
+          10px;
+
       }
+
+
+      .tiny-label {
+
+        margin-bottom:
+          8px;
+
+      }
+
 
       .menu-description {
-        font-size: 21px;
 
-        margin-bottom: 12px;
+        font-size:
+          21px;
+
+        margin-bottom:
+          12px;
+
       }
+
 
       .menu-options {
-        gap: 8px;
+
+        gap:
+          8px;
+
       }
+
 
       .menu-option {
-        padding: 10px 14px;
+
+        padding:
+          10px 14px;
+
       }
 
+
       .menu-option-description {
-        font-size: 17px;
+
+        font-size:
+          17px;
+
       }
+
     }
+
 
     /* =====================================================
        MOBILE
     ====================================================== */
 
-    @media (max-width: 700px) {
+    @media
+    (max-width: 700px) {
+
 
       .game-screen {
-        overflow-y: auto;
+
+        overflow-y:
+          auto;
+
       }
+
 
       .game-wrap {
-        height: auto;
-        min-height: 100%;
 
-        width: 94%;
+        width:
+          94%;
+
+        height:
+          auto;
+
+        min-height:
+          100%;
+
       }
+
 
       .menu-content {
-        width: 94%;
+
+        width:
+          94%;
+
       }
 
-      #portfolioMark {
-        width: 150px;
-        height: 150px;
-
-        border-width: 14px;
-      }
 
       .logo-area {
-        width: 220px;
-        height: 220px;
+
+        width:
+          220px;
+
+        height:
+          220px;
+
       }
+
+
+      #portfolioMark {
+
+        width:
+          150px;
+
+        height:
+          150px;
+
+        border-width:
+          14px;
+
+      }
+
 
       #mascot {
-        transform: scale(0.82);
+
+        transform:
+
+          translate(-50%, -50%)
+
+          scale(0.82);
+
       }
+
 
       .menu-description,
+
       .section-card p {
-        font-size: 20px;
+
+        font-size:
+          20px;
+
       }
+
 
       .menu-option-description {
-        font-size: 18px;
+
+        font-size:
+          18px;
+
       }
 
+
       .section-card {
-        padding: 22px;
+
+        padding:
+          22px;
+
       }
+
     }
 
   </style>
+
 </head>
 
+
 <body>
+
 
   <!-- =====================================================
        LANDING
@@ -994,11 +1277,15 @@
     class="screen active"
   >
 
+
     <div id="sparkleLayer"></div>
+
 
     <div class="landing-inner">
 
+
       <div class="logo-area">
+
 
         <div
           id="portfolioMark"
@@ -1006,49 +1293,42 @@
           aria-label="Enter portfolio"
         ></div>
 
+
       </div>
 
+
       <div id="stayTuned">
+
         LOADING PORTFOLIO.
+
       </div>
+
 
     </div>
 
 
-    <!-- ENGINEERING MASCOT -->
+    <!-- FLYING MASCOT -->
+
 
     <div id="mascot">
 
+
       <div class="speech-bubble">
+
         CLICK THE LOGO!
-      </div>
-
-      <div class="mascot-body">
-
-        <div class="ear ear-left"></div>
-        <div class="ear ear-right"></div>
-
-        <div class="hard-hat"></div>
-
-        <div class="mascot-head">
-
-          <div class="eye eye-left"></div>
-          <div class="eye eye-right"></div>
-
-          <div class="mouth"></div>
-
-        </div>
-
-        <div class="wing wing-left"></div>
-        <div class="wing wing-right"></div>
-
-        <div class="mascot-chest"></div>
-
-        <div class="tail"></div>
 
       </div>
+
+
+      <canvas
+        id="mascotCanvas"
+        width="96"
+        height="96"
+      ></canvas>
+
 
     </div>
+
 
   </section>
 
@@ -1062,24 +1342,38 @@
     class="screen game-screen"
   >
 
+
     <div class="game-wrap">
 
+
       <div class="screen-title">
+
         MAIN MENU
+
       </div>
+
 
       <div class="menu-layout">
 
+
         <div class="menu-content">
 
+
           <div class="tiny-label">
+
             STUDENT ENGINEERING PORTFOLIO
+
           </div>
 
+
           <div class="page-heading">
+
             CHOOSE<br>
+
             YOUR PATH
+
           </div>
+
 
           <div class="menu-description">
 
@@ -1091,20 +1385,29 @@
 
           </div>
 
+
           <div class="menu-options">
+
 
             <button
               class="menu-option"
               data-destination="projects"
             >
 
+
               <div class="menu-option-title">
+
                 PROJECTS
+
               </div>
 
+
               <div class="menu-option-description">
+
                 Engineering work and student projects.
+
               </div>
+
 
             </button>
 
@@ -1114,13 +1417,20 @@
               data-destination="experience"
             >
 
+
               <div class="menu-option-title">
+
                 EXPERIENCE
+
               </div>
 
+
               <div class="menu-option-description">
+
                 Internships, work and engineering experience.
+
               </div>
+
 
             </button>
 
@@ -1130,13 +1440,20 @@
               data-destination="skills"
             >
 
+
               <div class="menu-option-title">
+
                 SKILLS
+
               </div>
 
+
               <div class="menu-option-description">
+
                 Software, hardware and engineering tools.
+
               </div>
+
 
             </button>
 
@@ -1146,13 +1463,20 @@
               data-destination="about"
             >
 
+
               <div class="menu-option-title">
+
                 ABOUT
+
               </div>
 
+
               <div class="menu-option-description">
+
                 A short introduction about you.
+
               </div>
+
 
             </button>
 
@@ -1162,29 +1486,41 @@
               data-destination="contact"
             >
 
+
               <div class="menu-option-title">
+
                 CONTACT
+
               </div>
 
+
               <div class="menu-option-description">
+
                 Contact details and CV link later.
+
               </div>
+
 
             </button>
 
+
           </div>
+
 
         </div>
 
+
       </div>
 
+
     </div>
+
 
   </section>
 
 
   <!-- =====================================================
-       LOADING
+       LOADING SCREEN
   ====================================================== -->
 
   <section
@@ -1192,21 +1528,35 @@
     class="screen"
   >
 
+
     <div class="loading-content">
 
+
       <div id="loadingText">
+
         LOADING.
+
       </div>
+
 
       <div id="loadingDestination">
+
         PLEASE WAIT
+
       </div>
+
 
       <div class="progress-shell">
+
+
         <div id="progressBar"></div>
+
+
       </div>
 
+
     </div>
+
 
   </section>
 
@@ -1220,38 +1570,58 @@
     class="screen game-screen"
   >
 
+
     <div class="game-wrap">
 
+
       <div class="screen-title">
+
         PROJECTS
+
       </div>
+
 
       <div class="section-layout">
 
+
         <div class="section-card">
 
+
           <h2>
+
             PROJECT ARCHIVE
+
           </h2>
 
+
           <p>
-            Your project cards, images,
-            videos and 360° previews
-            will go here later.
+
+            Your project cards,
+            images, videos and
+            360° previews will
+            go here later.
+
           </p>
+
 
           <button
             class="back-button"
             data-menu
           >
+
             ← MAIN MENU
+
           </button>
+
 
         </div>
 
+
       </div>
 
+
     </div>
+
 
   </section>
 
@@ -1265,37 +1635,58 @@
     class="screen game-screen"
   >
 
+
     <div class="game-wrap">
 
+
       <div class="screen-title">
+
         EXPERIENCE
+
       </div>
+
 
       <div class="section-layout">
 
+
         <div class="section-card">
 
+
           <h2>
+
             QUEST LOG
+
           </h2>
 
+
           <p>
-            Your internship, work experience
-            and engineering roles will go here later.
+
+            Your internship,
+            work experience and
+            engineering roles
+            will go here later.
+
           </p>
+
 
           <button
             class="back-button"
             data-menu
           >
+
             ← MAIN MENU
+
           </button>
+
 
         </div>
 
+
       </div>
 
+
     </div>
+
 
   </section>
 
@@ -1309,38 +1700,60 @@
     class="screen game-screen"
   >
 
+
     <div class="game-wrap">
 
+
       <div class="screen-title">
+
         SKILLS
+
       </div>
+
 
       <div class="section-layout">
 
+
         <div class="section-card">
 
+
           <h2>
+
             SKILL TREE
+
           </h2>
 
+
           <p>
-            Your CAD, programming,
-            electronics, robotics and
-            engineering skills will go here later.
+
+            Your CAD,
+            programming,
+            electronics,
+            robotics and
+            engineering skills
+            will go here later.
+
           </p>
+
 
           <button
             class="back-button"
             data-menu
           >
+
             ← MAIN MENU
+
           </button>
+
 
         </div>
 
+
       </div>
 
+
     </div>
+
 
   </section>
 
@@ -1354,38 +1767,59 @@
     class="screen game-screen"
   >
 
+
     <div class="game-wrap">
 
+
       <div class="screen-title">
+
         ABOUT
+
       </div>
+
 
       <div class="section-layout">
 
+
         <div class="section-card">
 
+
           <h2>
+
             CHARACTER PROFILE
+
           </h2>
 
+
           <p>
-            Your introduction, degree,
+
+            Your introduction,
+            degree,
             engineering interests
-            and career goals will go here later.
+            and career goals
+            will go here later.
+
           </p>
+
 
           <button
             class="back-button"
             data-menu
           >
+
             ← MAIN MENU
+
           </button>
+
 
         </div>
 
+
       </div>
 
+
     </div>
+
 
   </section>
 
@@ -1399,163 +1833,644 @@
     class="screen game-screen"
   >
 
+
     <div class="game-wrap">
 
+
       <div class="screen-title">
+
         CONTACT
+
       </div>
+
 
       <div class="section-layout">
 
+
         <div class="section-card">
 
+
           <h2>
+
             CONTACT
+
           </h2>
 
+
           <p>
-            Your email, LinkedIn,
-            CV download and other links
+
+            Your email,
+            LinkedIn,
+            CV download and
+            other links
             will go here later.
+
           </p>
+
 
           <button
             class="back-button"
             data-menu
           >
+
             ← MAIN MENU
+
           </button>
+
 
         </div>
 
+
       </div>
 
+
     </div>
+
 
   </section>
 
 
   <script>
 
+
     /* =====================================================
-       SCREEN MANAGEMENT
+       SCREENS
     ====================================================== */
+
 
     const screens = {
 
+
       landing:
-        document.getElementById('landing'),
+
+        document.getElementById(
+          'landing'
+        ),
+
 
       menu:
-        document.getElementById('menu'),
+
+        document.getElementById(
+          'menu'
+        ),
+
 
       loading:
-        document.getElementById('loading'),
+
+        document.getElementById(
+          'loading'
+        ),
+
 
       projects:
-        document.getElementById('projects'),
+
+        document.getElementById(
+          'projects'
+        ),
+
 
       experience:
-        document.getElementById('experience'),
+
+        document.getElementById(
+          'experience'
+        ),
+
 
       skills:
-        document.getElementById('skills'),
+
+        document.getElementById(
+          'skills'
+        ),
+
 
       about:
-        document.getElementById('about'),
+
+        document.getElementById(
+          'about'
+        ),
+
 
       contact:
-        document.getElementById('contact')
+
+        document.getElementById(
+          'contact'
+        )
+
 
     };
 
 
-    function showScreen(name) {
+    function showScreen(
+      name
+    ) {
 
-      Object.values(screens)
-        .forEach(screen => {
+
+      Object.values(
+        screens
+      )
+      .forEach(
+        screen => {
+
 
           screen.classList.remove(
             'active'
           );
 
-        });
+
+        }
+      );
 
 
       screens[name]
-        .classList.add(
+        .classList
+        .add(
           'active'
         );
+
 
     }
 
 
     /* =====================================================
-       LANDING TEXT
+       LANDING LOADING TEXT
     ====================================================== */
 
+
     const stayTuned =
+
       document.getElementById(
         'stayTuned'
       );
 
 
-    let stayDots = 1;
+    let stayDots =
+      1;
 
 
-    setInterval(() => {
-
-      stayDots++;
-
-      if (
-        stayDots > 3
-      ) {
-        stayDots = 1;
-      }
+    setInterval(
+      () => {
 
 
-      stayTuned.textContent =
-        'LOADING PORTFOLIO' +
-        '.'.repeat(
-          stayDots
-        );
+        stayDots++;
 
-    }, 450);
+
+        if (
+          stayDots > 3
+        ) {
+
+          stayDots =
+            1;
+
+        }
+
+
+        stayTuned.textContent =
+
+          'LOADING PORTFOLIO' +
+
+          '.'.repeat(
+            stayDots
+          );
+
+
+      },
+
+      450
+
+    );
 
 
     /* =====================================================
        LANDING ELEMENTS
     ====================================================== */
 
+
     const portfolioMark =
+
       document.getElementById(
         'portfolioMark'
       );
 
 
     const mascot =
+
       document.getElementById(
         'mascot'
       );
 
 
+    const mascotCanvas =
+
+      document.getElementById(
+        'mascotCanvas'
+      );
+
+
+    const mascotCtx =
+
+      mascotCanvas.getContext(
+        '2d'
+      );
+
+
+    mascotCtx.imageSmoothingEnabled =
+      false;
+
+
     const sparkleLayer =
+
       document.getElementById(
         'sparkleLayer'
       );
 
 
     /* =====================================================
-       MASCOT MOTION
+       PIXEL MASCOT SPRITE
     ====================================================== */
 
-    let mascotAngle = 0;
 
-    let mascotDirection = 1;
+    let mascotBlink =
+      false;
 
-    let nextDirectionChange =
-      performance.now() +
-      5000;
+
+    function drawMascot() {
+
+
+      mascotCtx.clearRect(
+        0,
+        0,
+        96,
+        96
+      );
+
+
+      const pixel =
+        4;
+
+
+      const colours = {
+
+
+        O:
+          '#251d24',
+
+
+        P:
+          '#efa8cf',
+
+
+        L:
+          '#ffd2e8',
+
+
+        H:
+          '#f6c735',
+
+
+        D:
+          '#d89c16',
+
+
+        E:
+          '#1a1a1a',
+
+
+        B:
+          '#6bb1c7',
+
+
+        W:
+          '#ffffff'
+
+
+      };
+
+
+      const eyes =
+
+        mascotBlink
+
+          ?
+
+          'PPPEEEEEEEPPP'
+
+          :
+
+          'PPPBPPPPBPPPP';
+
+
+      const sprite = [
+
+
+        '........................',
+
+        '.........HHHHHH.........',
+
+        '.......HHHHHHHHHH.......',
+
+        '......HHHDDDDDDHHH......',
+
+        '.....HHHHHHHHHHHHHH.....',
+
+        '......HHHHHHHHHHHH......',
+
+        '........OOOOOOOO........',
+
+        '......OOOPPPPPPOOO......',
+
+        '.....OOPPPPPPPPPPOO.....',
+
+        '....OOPPPPPPPPPPPPPO....',
+
+        '....OPPPPPPPPPPPPPPPO...',
+
+        '...OPPPPLPPPPPPLPPPPO...',
+
+        '...O' + eyes + 'O...',
+
+        '...OPPPPPPPPPPPPPPPPPO..',
+
+        '....OPPPPPPPPPPPPPPPO...',
+
+        '....OOPPPPPPPPPPPPPO....',
+
+        '.....OOPPPPPPPPPPPO.....',
+
+        '......OOOPPPPPPOOO......',
+
+        '.......OOPPPPPPOO.......',
+
+        '.....WWOOPPPPPPOOWW.....',
+
+        '....WWW..OPPPPPO..WWW...',
+
+        '..........OPPO..........',
+
+        '.........OPPPPO.........',
+
+        '..........OPPO..........'
+
+
+      ];
+
+
+      for (
+        let y = 0;
+
+        y <
+        sprite.length;
+
+        y++
+      ) {
+
+
+        for (
+          let x = 0;
+
+          x <
+          sprite[y].length;
+
+          x++
+        ) {
+
+
+          const symbol =
+            sprite[y][x];
+
+
+          if (
+            symbol === '.'
+          ) {
+
+            continue;
+
+          }
+
+
+          mascotCtx.fillStyle =
+
+            colours[
+              symbol
+            ] ||
+
+            '#000000';
+
+
+          mascotCtx.fillRect(
+
+            x * pixel,
+
+            y * pixel,
+
+            pixel,
+
+            pixel
+
+          );
+
+
+        }
+
+
+      }
+
+
+      /* hard-hat brim */
+
+
+      mascotCtx.fillStyle =
+        '#251d24';
+
+
+      mascotCtx.fillRect(
+
+        22,
+        19,
+        52,
+        4
+
+      );
+
+
+      mascotCtx.fillStyle =
+        '#f6c735';
+
+
+      mascotCtx.fillRect(
+
+        26,
+        19,
+        44,
+        4
+
+      );
+
+
+      /* hard-hat centre ridge */
+
+
+      mascotCtx.fillStyle =
+        '#d89c16';
+
+
+      mascotCtx.fillRect(
+
+        46,
+        5,
+        4,
+        14
+
+      );
+
+
+      /* long tail */
+
+
+      mascotCtx.fillStyle =
+        '#251d24';
+
+
+      mascotCtx.fillRect(
+
+        63,
+        66,
+        24,
+        4
+
+      );
+
+
+      mascotCtx.fillRect(
+
+        83,
+        62,
+        8,
+        4
+
+      );
+
+
+      mascotCtx.fillRect(
+
+        87,
+        57,
+        4,
+        8
+
+      );
+
+
+      mascotCtx.fillStyle =
+        '#efa8cf';
+
+
+      mascotCtx.fillRect(
+
+        67,
+        66,
+        20,
+        4
+
+      );
+
+
+      mascotCtx.fillRect(
+
+        83,
+        62,
+        4,
+        4
+
+      );
+
+
+      mascotCtx.fillRect(
+
+        87,
+        57,
+        4,
+        5
+
+      );
+
+
+      /* feet */
+
+
+      mascotCtx.fillStyle =
+        '#251d24';
+
+
+      mascotCtx.fillRect(
+
+        32,
+        84,
+        10,
+        4
+
+      );
+
+
+      mascotCtx.fillRect(
+
+        53,
+        84,
+        10,
+        4
+
+      );
+
+
+    }
+
+
+    drawMascot();
+
+
+    /* blink */
+
+
+    setInterval(
+
+      () => {
+
+
+        mascotBlink =
+          true;
+
+
+        drawMascot();
+
+
+        setTimeout(
+
+          () => {
+
+
+            mascotBlink =
+              false;
+
+
+            drawMascot();
+
+
+          },
+
+          130
+
+        );
+
+
+      },
+
+      2400
+
+    );
+
+
+    /* =====================================================
+       SPARKLES
+    ====================================================== */
 
 
     function createSparkle(
@@ -1563,7 +2478,9 @@
       y
     ) {
 
+
       const sparkle =
+
         document.createElement(
           'div'
         );
@@ -1587,16 +2504,46 @@
         );
 
 
-      setTimeout(() => {
+      setTimeout(
 
-        sparkle.remove();
+        () => {
 
-      }, 700);
+
+          sparkle.remove();
+
+
+        },
+
+        720
+
+      );
+
 
     }
 
 
+    /* =====================================================
+       MASCOT FLIGHT
+    ====================================================== */
+
+
+    let mascotAngle =
+      0;
+
+
+    let mascotDirection =
+      1;
+
+
+    let nextDirectionChange =
+
+      performance.now() +
+
+      5000;
+
+
     function animateMascot() {
+
 
       requestAnimationFrame(
         animateMascot
@@ -1604,9 +2551,14 @@
 
 
       if (
-        !screens.landing
+
+        !screens
+          .landing
           .classList
-          .contains('active')
+          .contains(
+            'active'
+          )
+
       ) {
 
         return;
@@ -1619,18 +2571,25 @@
 
 
       const logoRect =
+
         portfolioMark
           .getBoundingClientRect();
 
 
       const centerX =
+
         logoRect.left +
-        logoRect.width / 2;
+
+        logoRect.width /
+        2;
 
 
       const centerY =
+
         logoRect.top +
-        logoRect.height / 2;
+
+        logoRect.height /
+        2;
 
 
       if (
@@ -1638,28 +2597,37 @@
         nextDirectionChange
       ) {
 
+
         if (
           Math.random() <
           0.45
         ) {
 
+
           mascotDirection *=
             -1;
+
 
         }
 
 
         nextDirectionChange =
+
           now +
+
           4000 +
+
           Math.random() *
           4000;
+
 
       }
 
 
       mascotAngle +=
-        0.018 *
+
+        0.016 *
+
         mascotDirection;
 
 
@@ -1668,28 +2636,36 @@
 
 
       const radiusY =
-        90;
+        88;
 
 
       const x =
+
         centerX +
+
         Math.cos(
           mascotAngle
         ) *
+
         radiusX;
 
 
       const y =
+
         centerY +
+
         Math.sin(
           mascotAngle *
           1.3
         ) *
+
         radiusY +
+
         Math.sin(
           mascotAngle *
           4
         ) *
+
         7;
 
 
@@ -1701,26 +2677,61 @@
         y + 'px';
 
 
+      /* face direction */
+
+
+      const facing =
+
+        Math.cos(
+          mascotAngle
+        ) <
+        0
+
+          ?
+
+          -1
+
+          :
+
+          1;
+
+
+      mascotCanvas.style.transform =
+
+        `translateX(-50%) scaleX(${facing})`;
+
+
+      /* random sparkles */
+
+
       if (
         Math.random() <
-        0.025
+        0.022
       ) {
+
 
         createSparkle(
 
           x +
+
           Math.random() *
-          45 -
-          22,
+          46 -
+
+          23,
+
 
           y +
+
           Math.random() *
-          40 -
-          20
+          42 -
+
+          21
 
         );
 
+
       }
+
 
     }
 
@@ -1732,36 +2743,46 @@
        ENTER PORTFOLIO
     ====================================================== */
 
+
     portfolioMark
       .addEventListener(
+
         'click',
+
         () => {
+
 
           showScreen(
             'menu'
           );
 
+
         }
+
       );
 
 
     /* =====================================================
-       LOADING TRANSITION
+       LOADING TRANSITIONS
     ====================================================== */
 
+
     const loadingText =
+
       document.getElementById(
         'loadingText'
       );
 
 
     const loadingDestination =
+
       document.getElementById(
         'loadingDestination'
       );
 
 
     const progressBar =
+
       document.getElementById(
         'progressBar'
       );
@@ -1769,32 +2790,47 @@
 
     const messages = {
 
+
       projects:
+
         'OPENING PROJECT ARCHIVE',
 
+
       experience:
+
         'OPENING QUEST LOG',
 
+
       skills:
+
         'LOADING SKILL TREE',
 
+
       about:
+
         'OPENING CHARACTER PROFILE',
 
+
       contact:
+
         'OPENING CONTACT PAGE'
+
 
     };
 
 
-    let dotTimer = null;
+    let dotTimer =
+      null;
 
-    let barTimer = null;
+
+    let barTimer =
+      null;
 
 
     function loadSection(
       destination
     ) {
+
 
       clearInterval(
         dotTimer
@@ -1813,160 +2849,252 @@
 
       loadingDestination
         .textContent =
-        messages[destination] ||
+
+        messages[
+          destination
+        ] ||
+
         'LOADING';
 
 
       progressBar
         .style
         .width =
+
         '0%';
 
 
-      let dots = 1;
+      let dots =
+        1;
 
-      let progress = 0;
+
+      let progress =
+        0;
 
 
-      loadingText.textContent =
+      loadingText
+        .textContent =
+
         'LOADING.';
 
 
       dotTimer =
-        setInterval(() => {
 
-          dots++;
+        setInterval(
 
-          if (
-            dots > 3
-          ) {
-
-            dots = 1;
-
-          }
+          () => {
 
 
-          loadingText.textContent =
-            'LOADING' +
-            '.'.repeat(
-              dots
-            );
+            dots++;
 
-        }, 350);
+
+            if (
+              dots > 3
+            ) {
+
+
+              dots =
+                1;
+
+
+            }
+
+
+            loadingText
+              .textContent =
+
+              'LOADING' +
+
+              '.'.repeat(
+                dots
+              );
+
+
+          },
+
+          350
+
+        );
 
 
       barTimer =
-        setInterval(() => {
 
-          progress +=
-            Math.random() *
-            7 +
-            3;
+        setInterval(
+
+          () => {
 
 
-          if (
-            progress > 96
-          ) {
+            progress +=
 
-            progress = 96;
+              Math.random() *
+              7 +
 
-          }
+              3;
+
+
+            if (
+              progress > 96
+            ) {
+
+
+              progress =
+                96;
+
+
+            }
+
+
+            progressBar
+              .style
+              .width =
+
+              progress +
+              '%';
+
+
+          },
+
+          110
+
+        );
+
+
+      setTimeout(
+
+        () => {
+
+
+          clearInterval(
+            dotTimer
+          );
+
+
+          clearInterval(
+            barTimer
+          );
 
 
           progressBar
             .style
             .width =
-            progress +
-            '%';
 
-        }, 110);
+            '100%';
 
 
-      setTimeout(() => {
+          loadingText
+            .textContent =
 
-        clearInterval(
-          dotTimer
-        );
-
-
-        clearInterval(
-          barTimer
-        );
+            'LOADED!';
 
 
-        progressBar
-          .style
-          .width =
-          '100%';
+          setTimeout(
+
+            () => {
 
 
-        loadingText
-          .textContent =
-          'LOADED!';
+              showScreen(
+                destination
+              );
 
 
-        setTimeout(() => {
+            },
 
-          showScreen(
-            destination
+            160
+
           );
 
-        }, 160);
 
-      }, 3000);
+        },
+
+        3000
+
+      );
+
 
     }
 
 
     /* =====================================================
-       MENU BUTTONS
+       MAIN MENU BUTTONS
     ====================================================== */
+
 
     document
       .querySelectorAll(
         '[data-destination]'
       )
-      .forEach(button => {
+      .forEach(
 
-        button.addEventListener(
-          'click',
-          () => {
+        button => {
 
-            loadSection(
-              button.dataset
-                .destination
+
+          button
+            .addEventListener(
+
+              'click',
+
+              () => {
+
+
+                loadSection(
+
+                  button
+                    .dataset
+                    .destination
+
+                );
+
+
+              }
+
             );
 
-          }
-        );
 
-      });
+        }
+
+      );
 
 
     /* =====================================================
-       BACK TO MENU
+       RETURN TO MAIN MENU
     ====================================================== */
+
 
     document
       .querySelectorAll(
         '[data-menu]'
       )
-      .forEach(button => {
+      .forEach(
 
-        button.addEventListener(
-          'click',
-          () => {
+        button => {
 
-            showScreen(
-              'menu'
+
+          button
+            .addEventListener(
+
+              'click',
+
+              () => {
+
+
+                showScreen(
+                  'menu'
+                );
+
+
+              }
+
             );
 
-          }
-        );
 
-      });
+        }
+
+      );
+
 
   </script>
 
+
 </body>
+
 </html>
