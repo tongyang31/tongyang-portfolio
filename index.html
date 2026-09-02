@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
 
@@ -9,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Engineering Portfolio</title>
+  <title>TongYang Engineering Portfolio</title>
 
   <link
     rel="preconnect"
@@ -52,17 +51,14 @@
       --shell: #842b31;
       --shell-light: #a83e43;
       --shell-dark: #4d171d;
-      --shell-black: #171419;
 
       --lcd: #b7c88b;
-      --lcd-light: #cfdb9f;
-      --lcd-dark: #4d5e3d;
       --lcd-black: #283126;
-
-      --cream: #eee7cd;
-      --yellow: #d8b54c;
-      --dark-yellow: #876d2e;
     }
+
+    /* =====================================================
+       SCREEN SYSTEM
+    ====================================================== */
 
     .screen {
       position: absolute;
@@ -77,14 +73,17 @@
       pointer-events: auto;
     }
 
-    /* ======================================================
+    /* =====================================================
        BACKGROUND
     ====================================================== */
 
     #deviceScreen {
       display: grid;
       place-items: center;
-      padding: 24px;
+
+      padding: 14px;
+
+      overflow: hidden;
 
       background:
         repeating-linear-gradient(
@@ -96,49 +95,70 @@
         );
     }
 
-    /* ======================================================
-       DEVICE
+    /* =====================================================
+       MAIN DEVICE
     ====================================================== */
 
     .device {
       position: relative;
 
       width: min(1240px, 95vw);
-      height: min(720px, 91vh);
+
+      /*
+        FIXED:
+        Keep whole handheld inside viewport.
+      */
+      height: min(680px, 88vh);
 
       display: grid;
-      grid-template-columns: 0.94fr 1.06fr;
-      gap: 24px;
 
-      padding: 22px;
+      grid-template-columns:
+        0.94fr 1.06fr;
+
+      gap: 22px;
+
+      padding: 18px;
 
       background: var(--shell);
 
       border: 8px solid #151217;
+
       border-radius: 10px;
 
       box-shadow:
         0 0 0 6px var(--shell-dark),
         0 0 0 10px #151217,
-        16px 16px 0 #050507;
+        12px 12px 0 #050507;
     }
 
     .device::after {
       content: "";
+
       position: absolute;
+
       left: 8px;
       right: 8px;
       top: 8px;
+
       height: 11px;
+
       background: var(--shell-light);
+
       pointer-events: none;
     }
 
+    /* =====================================================
+       HINGE
+    ====================================================== */
+
     .hinge {
       position: absolute;
+
       top: 0;
       bottom: 0;
+
       left: 49.2%;
+
       width: 24px;
 
       background: #41151a;
@@ -152,63 +172,76 @@
     .hinge::before,
     .hinge::after {
       content: "";
+
       position: absolute;
+
       left: -6px;
+
       width: 24px;
-      height: 54px;
+      height: 48px;
 
       background: #642127;
+
       border: 6px solid #151217;
     }
 
     .hinge::before {
-      top: 90px;
+      top: 80px;
     }
 
     .hinge::after {
-      bottom: 90px;
+      bottom: 80px;
     }
 
-    /* ======================================================
+    /* =====================================================
        LEFT SIDE
     ====================================================== */
 
     .device-left {
       position: relative;
+
       z-index: 5;
+
       min-width: 0;
 
       display: flex;
+
       flex-direction: column;
 
       padding-right: 6px;
     }
 
+    /* =====================================================
+       LIGHTS
+    ====================================================== */
+
     .top-lights {
-      height: 70px;
-
-      display: flex;
-      align-items: center;
-
-      gap: 13px;
+      height: 58px;
 
       flex-shrink: 0;
 
-      padding: 4px 6px 12px;
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      padding: 3px 5px 9px;
     }
 
     .big-light {
       position: relative;
 
-      width: 54px;
-      height: 54px;
+      width: 44px;
+      height: 44px;
 
       background: #62b7c9;
 
-      border: 6px solid #19161a;
-      outline: 5px solid #eee8d3;
+      border: 5px solid #19161a;
 
-      box-shadow: 5px 5px 0 #09080a;
+      outline: 4px solid #eee8d3;
+
+      box-shadow: 4px 4px 0 #09080a;
 
       clip-path:
         polygon(
@@ -225,33 +258,35 @@
 
     .big-light::before {
       content: "";
+
       position: absolute;
 
-      left: 10px;
-      top: 9px;
+      left: 8px;
+      top: 7px;
 
-      width: 14px;
-      height: 9px;
+      width: 12px;
+      height: 8px;
 
       background: #d9fbff;
     }
 
     .big-light::after {
       content: "";
+
       position: absolute;
 
-      right: 7px;
-      bottom: 7px;
+      right: 6px;
+      bottom: 6px;
 
-      width: 13px;
-      height: 13px;
+      width: 10px;
+      height: 10px;
 
       background: #3b8798;
     }
 
     .small-light {
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
 
       border: 4px solid #171419;
 
@@ -270,21 +305,22 @@
       background: #6a9c56;
     }
 
-    /* ======================================================
-       LEFT DATABASE SCREEN
+    /* =====================================================
+       LEFT SCREEN
     ====================================================== */
 
     .database-shell {
       flex: 1;
+
       min-height: 0;
 
-      padding: 10px;
+      padding: 9px;
 
       background: #38373a;
 
       border: 6px solid #151217;
 
-      box-shadow: 6px 6px 0 #080709;
+      box-shadow: 5px 5px 0 #080709;
     }
 
     .database-screen {
@@ -295,7 +331,7 @@
 
       overflow: hidden;
 
-      padding: 24px;
+      padding: 18px;
 
       background: #17181b;
 
@@ -306,6 +342,7 @@
       content: "";
 
       position: absolute;
+
       inset: 0;
 
       pointer-events: none;
@@ -322,22 +359,26 @@
 
     .database-label {
       position: relative;
+
       z-index: 2;
 
-      margin-bottom: 16px;
+      margin-bottom: 13px;
 
       color: #83927c;
 
       font-family: 'Press Start 2P', cursive;
-      font-size: 7px;
+
+      font-size: 6px;
+
       line-height: 1.6;
     }
 
     .database-title {
       position: relative;
+
       z-index: 2;
 
-      margin-bottom: 25px;
+      margin-bottom: 18px;
 
       color: #eee9d9;
 
@@ -345,43 +386,47 @@
 
       font-size:
         clamp(
-          18px,
-          2vw,
-          27px
+          15px,
+          1.6vw,
+          23px
         );
 
-      line-height: 1.55;
+      line-height: 1.5;
 
       text-shadow:
         4px 4px 0 #080709;
     }
 
-    /* ======================================================
+    /* =====================================================
        MENU
     ====================================================== */
 
     .menu-list {
       position: relative;
+
       z-index: 2;
 
       display: flex;
+
       flex-direction: column;
 
-      gap: 8px;
+      gap: 6px;
     }
 
     .menu-item {
       position: relative;
 
       width: 100%;
-      min-height: 50px;
+
+      min-height: 42px;
 
       display: flex;
+
       align-items: center;
 
-      gap: 12px;
+      gap: 10px;
 
-      padding: 10px 12px;
+      padding: 8px 10px;
 
       border: 4px solid transparent;
 
@@ -414,22 +459,23 @@
 
       position: absolute;
 
-      width: 6px;
-      height: 6px;
-
-      background: #f3d964;
+      width: 5px;
+      height: 5px;
 
       top: 3px;
       left: 3px;
+
+      background: #f3d964;
     }
 
     .selector {
-      width: 16px;
-      flex: 0 0 16px;
+      width: 14px;
+
+      flex: 0 0 14px;
 
       font-family: 'Press Start 2P', cursive;
 
-      font-size: 9px;
+      font-size: 8px;
 
       animation:
         selectorBlink 0.7s steps(1) infinite;
@@ -452,22 +498,22 @@
 
       font-size:
         clamp(
-          9px,
-          1vw,
-          12px
+          8px,
+          0.9vw,
+          11px
         );
     }
 
-    /* ======================================================
-       CONTROLS
+    /* =====================================================
+       LEFT CONTROLS
     ====================================================== */
 
     .controls-row {
-      height: 110px;
+      height: 86px;
 
       flex-shrink: 0;
 
-      margin-top: 15px;
+      margin-top: 10px;
 
       display: flex;
 
@@ -481,8 +527,8 @@
     .dpad {
       position: relative;
 
-      width: 94px;
-      height: 94px;
+      width: 78px;
+      height: 78px;
     }
 
     .dpad-center,
@@ -494,53 +540,54 @@
 
       background: #242329;
 
-      border: 4px solid #111015;
+      border: 3px solid #111015;
 
-      box-shadow: 3px 3px 0 #080709;
+      box-shadow:
+        3px 3px 0 #080709;
     }
 
     .dpad-center {
-      left: 32px;
-      top: 32px;
+      left: 27px;
+      top: 27px;
 
-      width: 30px;
-      height: 30px;
+      width: 24px;
+      height: 24px;
     }
 
     .dpad-up {
-      left: 32px;
+      left: 27px;
       top: 0;
 
-      width: 30px;
-      height: 36px;
+      width: 24px;
+      height: 30px;
 
       cursor: pointer;
     }
 
     .dpad-down {
-      left: 32px;
+      left: 27px;
       bottom: 0;
 
-      width: 30px;
-      height: 36px;
+      width: 24px;
+      height: 30px;
 
       cursor: pointer;
     }
 
     .dpad-left {
       left: 0;
-      top: 32px;
+      top: 27px;
 
-      width: 36px;
-      height: 30px;
+      width: 30px;
+      height: 24px;
     }
 
     .dpad-right {
       right: 0;
-      top: 32px;
+      top: 27px;
 
-      width: 36px;
-      height: 30px;
+      width: 30px;
+      height: 24px;
     }
 
     .arrow-pixel {
@@ -556,36 +603,42 @@
 
       font-family: 'Press Start 2P', cursive;
 
-      font-size: 10px;
+      font-size: 8px;
 
       pointer-events: none;
     }
 
+    /* =====================================================
+       ACTION BUTTONS
+    ====================================================== */
+
     .action-buttons {
       display: flex;
+
       align-items: center;
 
-      gap: 16px;
+      gap: 12px;
 
       transform:
         rotate(-8deg);
     }
 
     .action-button {
-      width: 58px;
-      height: 58px;
+      width: 48px;
+      height: 48px;
 
-      border: 5px solid #151217;
+      border: 4px solid #151217;
 
       background: #2d2931;
 
       color: #d7cfc1;
 
-      box-shadow: 5px 5px 0 #070609;
+      box-shadow:
+        4px 4px 0 #070609;
 
       font-family: 'Press Start 2P', cursive;
 
-      font-size: 10px;
+      font-size: 8px;
 
       cursor: pointer;
 
@@ -604,28 +657,23 @@
 
     .action-button.primary {
       background: #d2ae45;
+
       color: #151217;
     }
 
-    .action-button:active {
-      transform:
-        translate(3px, 3px);
-
-      box-shadow:
-        2px 2px 0 #070609;
-    }
-
-    /* ======================================================
+    /* =====================================================
        RIGHT SIDE
     ====================================================== */
 
     .device-right {
       position: relative;
+
       z-index: 5;
 
       min-width: 0;
 
       display: flex;
+
       flex-direction: column;
 
       padding-left: 6px;
@@ -633,23 +681,24 @@
 
     .preview-shell {
       flex: 1;
+
       min-height: 0;
 
-      padding: 13px;
+      padding: 11px;
 
       background: #88857c;
 
       border: 7px solid #151217;
 
       box-shadow:
-        6px 6px 0 #080709;
+        5px 5px 0 #080709;
     }
 
     .preview-bezel {
       width: 100%;
       height: 100%;
 
-      padding: 9px;
+      padding: 8px;
 
       background: #d2cdbc;
 
@@ -664,7 +713,7 @@
 
       overflow: hidden;
 
-      padding: 24px 24px 20px;
+      padding: 20px;
 
       background: var(--lcd);
 
@@ -680,6 +729,7 @@
       content: "";
 
       position: absolute;
+
       inset: 0;
 
       pointer-events: none;
@@ -707,6 +757,7 @@
       content: "";
 
       position: absolute;
+
       inset: 0;
 
       z-index: 6;
@@ -734,84 +785,89 @@
       }
     }
 
-    /* ======================================================
+    /* =====================================================
        RIGHT TEXT
     ====================================================== */
 
     .preview-top-row {
       position: relative;
+
       z-index: 2;
 
       display: flex;
+
       align-items: center;
 
       justify-content: space-between;
 
       gap: 15px;
 
-      margin-bottom: 15px;
+      margin-bottom: 13px;
     }
 
     .preview-top,
     .entry-number {
       font-family: 'Press Start 2P', cursive;
 
-      font-size: 7px;
+      font-size: 6px;
 
       color: #4e603f;
     }
 
     #previewTitle {
       position: relative;
+
       z-index: 2;
 
-      margin-bottom: 13px;
+      margin-bottom: 11px;
 
       font-family: 'Press Start 2P', cursive;
 
       font-size:
         clamp(
-          17px,
-          2vw,
-          28px
+          15px,
+          1.7vw,
+          24px
         );
 
-      line-height: 1.5;
+      line-height: 1.45;
 
       color: #293324;
     }
 
     #previewCount {
       position: relative;
+
       z-index: 2;
 
       display: inline-block;
 
       padding: 5px 7px;
 
-      margin-bottom: 17px;
+      margin-bottom: 14px;
 
       background:
         rgba(54,69,44,0.14);
 
       font-family: 'Press Start 2P', cursive;
 
-      font-size: 7px;
+      font-size: 6px;
 
       color: #526345;
     }
 
     #previewDescription {
       position: relative;
+
       z-index: 2;
 
-      max-width: 68%;
+      max-width: 67%;
 
       font-size:
         clamp(
-          19px,
-          1.8vw,
-          26px
+          17px,
+          1.6vw,
+          23px
         );
 
       line-height: 1.18;
@@ -819,8 +875,8 @@
       color: #34422f;
     }
 
-    /* ======================================================
-       PIXEL PREVIEW
+    /* =====================================================
+       PIXEL ICON
     ====================================================== */
 
     .preview-graphic {
@@ -829,15 +885,15 @@
       z-index: 1;
 
       right: 5%;
-      bottom: 7%;
+      bottom: 4%;
 
-      width: 190px;
-      height: 180px;
+      width: 170px;
+      height: 155px;
     }
 
     #pixelCanvas {
-      width: 190px;
-      height: 180px;
+      width: 170px;
+      height: 155px;
 
       image-rendering: pixelated;
       image-rendering: crisp-edges;
@@ -872,16 +928,16 @@
 
       to {
         transform:
-          translateY(168px);
+          translateY(145px);
       }
     }
 
-    /* ======================================================
-       RIGHT CONTROLS
+    /* =====================================================
+       RIGHT LOWER PANEL
     ====================================================== */
 
     .right-controls {
-      height: 110px;
+      height: 88px;
 
       flex-shrink: 0;
 
@@ -890,31 +946,31 @@
       grid-template-columns:
         1.3fr 0.8fr;
 
-      gap: 14px;
+      gap: 12px;
 
-      margin-top: 15px;
+      margin-top: 10px;
     }
 
     .status-panel,
     .key-panel {
       position: relative;
 
-      padding: 13px;
+      padding: 10px;
 
       background: #632128;
 
       border: 5px solid #151217;
 
       box-shadow:
-        5px 5px 0 #080709;
+        4px 4px 0 #080709;
     }
 
     .status-label {
-      margin-bottom: 8px;
+      margin-bottom: 6px;
 
       font-family: 'Press Start 2P', cursive;
 
-      font-size: 6px;
+      font-size: 5px;
 
       color: #b9947c;
     }
@@ -922,24 +978,22 @@
     #statusText {
       font-family: 'Press Start 2P', cursive;
 
-      font-size: 7px;
+      font-size: 6px;
 
       color: #e8d6bb;
 
-      line-height: 1.7;
+      line-height: 1.6;
     }
 
     .status-cursor {
       display: inline-block;
 
-      width: 7px;
-      height: 10px;
+      width: 6px;
+      height: 8px;
 
       margin-left: 3px;
 
       background: #d9be79;
-
-      vertical-align: -1px;
 
       animation:
         cursorBlink 0.7s steps(1) infinite;
@@ -964,19 +1018,19 @@
 
       justify-content: center;
 
-      gap: 8px;
+      gap: 7px;
     }
 
     .mini-key {
-      min-width: 39px;
+      min-width: 34px;
 
-      padding: 9px 6px;
+      padding: 8px 5px;
 
       background: #252329;
 
       color: #d7d1c5;
 
-      border: 4px solid #121015;
+      border: 3px solid #121015;
 
       box-shadow:
         3px 3px 0 #080709;
@@ -985,56 +1039,10 @@
 
       font-family: 'Press Start 2P', cursive;
 
-      font-size: 6px;
+      font-size: 5px;
     }
 
-    /* ======================================================
-       SCREWS
-    ====================================================== */
-
-    .screw {
-      position: absolute;
-
-      width: 12px;
-      height: 12px;
-
-      background: #28252a;
-
-      border: 3px solid #151217;
-
-      z-index: 10;
-    }
-
-    .screw::after {
-      content: "";
-
-      position: absolute;
-
-      left: 2px;
-      top: 2px;
-
-      width: 3px;
-      height: 3px;
-
-      background: #706b6f;
-    }
-
-    .screw.one {
-      left: 13px;
-      bottom: 13px;
-    }
-
-    .screw.two {
-      right: 13px;
-      bottom: 13px;
-    }
-
-    .screw.three {
-      right: 13px;
-      top: 13px;
-    }
-
-    /* ======================================================
+    /* =====================================================
        LOADING
     ====================================================== */
 
@@ -1042,6 +1050,7 @@
       z-index: 100;
 
       display: grid;
+
       place-items: center;
 
       background: #08070b;
@@ -1087,6 +1096,7 @@
       font-family: 'Press Start 2P', cursive;
 
       font-size: 8px;
+
       line-height: 1.8;
 
       color: #859463;
@@ -1116,7 +1126,7 @@
         );
     }
 
-    /* ======================================================
+    /* =====================================================
        CONTENT PAGES
     ====================================================== */
 
@@ -1134,6 +1144,7 @@
       padding: 28px 0;
 
       display: flex;
+
       flex-direction: column;
     }
 
@@ -1143,6 +1154,7 @@
       flex: 0 0 60px;
 
       display: grid;
+
       place-items: center;
 
       font-family: 'Press Start 2P', cursive;
@@ -1159,11 +1171,13 @@
 
     .page-card {
       flex: 1;
+
       min-height: 0;
 
       padding: 38px;
 
       display: flex;
+
       flex-direction: column;
 
       justify-content: center;
@@ -1211,6 +1225,7 @@
       color: #aaa6ad;
 
       font-size: 25px;
+
       line-height: 1.35;
     }
 
@@ -1235,20 +1250,11 @@
       cursor: pointer;
     }
 
-    .back-button:hover {
-      transform:
-        translate(-2px, -2px);
-
-      box-shadow:
-        7px 7px 0 #050507;
-    }
-
-    /* ======================================================
-       RESPONSIVE
+    /* =====================================================
+       MOBILE
     ====================================================== */
 
-    @media
-    (max-width: 800px) {
+    @media (max-width: 800px) {
 
       html,
       body {
@@ -1256,7 +1262,6 @@
       }
 
       #deviceScreen {
-        min-height: 100vh;
         overflow-y: auto;
       }
 
@@ -1264,7 +1269,8 @@
         width: 94vw;
 
         height: auto;
-        min-height: 1050px;
+
+        min-height: 980px;
 
         grid-template-columns: 1fr;
 
@@ -1281,15 +1287,11 @@
       }
 
       .preview-shell {
-        min-height: 430px;
+        min-height: 390px;
       }
 
       .right-controls {
-        min-height: 120px;
-      }
-
-      #previewDescription {
-        max-width: 58%;
+        min-height: 100px;
       }
 
       .page-card {
@@ -1305,8 +1307,8 @@
 
 <body>
 
-  <!-- ======================================================
-       MAIN DEVICE
+  <!-- =====================================================
+       DEVICE
   ====================================================== -->
 
   <section
@@ -1318,16 +1320,13 @@
 
       <div class="hinge"></div>
 
-      <div class="screw one"></div>
-      <div class="screw two"></div>
-      <div class="screw three"></div>
-
       <!-- LEFT -->
       <div class="device-left">
 
         <div class="top-lights">
 
           <div class="big-light"></div>
+
           <div class="small-light red"></div>
           <div class="small-light yellow"></div>
           <div class="small-light green"></div>
@@ -1343,14 +1342,12 @@
             </div>
 
             <div class="database-title">
-              ENGINEER<br>
+              TONGYANG'S<br>
+              ENGINEERING<br>
               DATABASE
             </div>
 
-            <div
-              class="menu-list"
-              id="menuList"
-            >
+            <div class="menu-list">
 
               <button
                 class="menu-item selected"
@@ -1486,10 +1483,8 @@
               </div>
 
               <div id="previewDescription">
-                Engineering builds,
-                CAD work,
-                prototypes and
-                technical projects.
+                Engineering builds, CAD work,
+                prototypes and technical projects.
               </div>
 
               <div class="preview-graphic">
@@ -1517,9 +1512,13 @@
             </div>
 
             <div id="statusText">
+
               ENTRY SELECTED.<br>
+
               CLICK OR PRESS A TO OPEN.
+
               <span class="status-cursor"></span>
+
             </div>
 
           </div>
@@ -1540,7 +1539,7 @@
 
   </section>
 
-  <!-- ======================================================
+  <!-- =====================================================
        LOADING
   ====================================================== -->
 
@@ -1562,7 +1561,9 @@
         </div>
 
         <div class="progress-shell">
+
           <div id="progressBar"></div>
+
         </div>
 
       </div>
@@ -1571,9 +1572,7 @@
 
   </section>
 
-  <!-- ======================================================
-       PROJECTS
-  ====================================================== -->
+  <!-- PROJECTS -->
 
   <section
     id="projectsPage"
@@ -1613,9 +1612,7 @@
 
   </section>
 
-  <!-- ======================================================
-       EXPERIENCE
-  ====================================================== -->
+  <!-- EXPERIENCE -->
 
   <section
     id="experiencePage"
@@ -1639,11 +1636,8 @@
         </h2>
 
         <p>
-          Your internships,
-          engineering employment,
-          industry work,
-          engineering projects
-          and practical professional experience
+          Your internships, engineering employment,
+          industry work and professional experience
           will be displayed here.
         </p>
 
@@ -1657,9 +1651,7 @@
 
   </section>
 
-  <!-- ======================================================
-       SKILLS
-  ====================================================== -->
+  <!-- SKILLS -->
 
   <section
     id="skillsPage"
@@ -1684,12 +1676,9 @@
 
         <p>
           Your engineering capabilities will go here:
-          CAD, programming,
-          electronics,
-          embedded systems,
-          robotics,
-          controls,
-          simulation and manufacturing tools.
+          CAD, programming, electronics,
+          embedded systems, robotics,
+          controls and simulation.
         </p>
 
         <button class="back-button">
@@ -1702,9 +1691,7 @@
 
   </section>
 
-  <!-- ======================================================
-       ABOUT
-  ====================================================== -->
+  <!-- ABOUT -->
 
   <section
     id="aboutPage"
@@ -1728,12 +1715,9 @@
         </h2>
 
         <p>
-          Your introduction,
-          degree,
+          Your introduction, degree,
           engineering background,
-          interests,
-          career goals
-          and profile information
+          interests and career goals
           will be displayed here.
         </p>
 
@@ -1747,9 +1731,7 @@
 
   </section>
 
-  <!-- ======================================================
-       CONTACT
-  ====================================================== -->
+  <!-- CONTACT -->
 
   <section
     id="contactPage"
@@ -1773,11 +1755,9 @@
         </h2>
 
         <p>
-          Your email,
-          LinkedIn,
-          CV download,
-          GitHub
-          and other contact information
+          Your email, LinkedIn,
+          CV download, GitHub
+          and other contact details
           will go here later.
         </p>
 
@@ -1794,7 +1774,6 @@
   <script>
 
     const screens = {
-
       device:
         document.getElementById('deviceScreen'),
 
@@ -1815,7 +1794,6 @@
 
       contact:
         document.getElementById('contactPage')
-
     };
 
 
@@ -1846,8 +1824,10 @@
         number: 'ENTRY 001',
         title: 'PROJECT DATABASE',
         count: '006 FILES FOUND',
-        description: 'Engineering builds, CAD work, prototypes and technical projects.',
-        loading: 'ACCESSING PROJECT DATABASE',
+        description:
+          'Engineering builds, CAD work, prototypes and technical projects.',
+        loading:
+          'ACCESSING PROJECT DATABASE',
         icon: 'project'
       },
 
@@ -1856,8 +1836,10 @@
         number: 'ENTRY 002',
         title: 'EXPERIENCE LOG',
         count: '003 RECORDS FOUND',
-        description: 'Internships, engineering roles and professional industry experience.',
-        loading: 'ACCESSING EXPERIENCE LOG',
+        description:
+          'Internships, engineering roles and professional industry experience.',
+        loading:
+          'ACCESSING EXPERIENCE LOG',
         icon: 'experience'
       },
 
@@ -1866,8 +1848,10 @@
         number: 'ENTRY 003',
         title: 'SKILL DATABASE',
         count: 'SYSTEMS DETECTED',
-        description: 'CAD, programming, electronics, robotics, controls and simulation.',
-        loading: 'LOADING SKILL DATABASE',
+        description:
+          'CAD, programming, electronics, robotics, controls and simulation.',
+        loading:
+          'LOADING SKILL DATABASE',
         icon: 'skills'
       },
 
@@ -1876,8 +1860,10 @@
         number: 'ENTRY 004',
         title: 'ENGINEER PROFILE',
         count: 'USER DATA FOUND',
-        description: 'Education, engineering interests, profile and career direction.',
-        loading: 'ACCESSING ENGINEER PROFILE',
+        description:
+          'Education, engineering interests, profile and career direction.',
+        loading:
+          'ACCESSING ENGINEER PROFILE',
         icon: 'about'
       },
 
@@ -1886,8 +1872,10 @@
         number: 'ENTRY 005',
         title: 'COMMUNICATION',
         count: 'LINK AVAILABLE',
-        description: 'Email, LinkedIn, GitHub, CV and communication channels.',
-        loading: 'OPENING COMMUNICATION LINK',
+        description:
+          'Email, LinkedIn, GitHub, CV and communication channels.',
+        loading:
+          'OPENING COMMUNICATION LINK',
         icon: 'contact'
       }
 
@@ -1895,52 +1883,88 @@
 
 
     const menuItems = [
-      ...document.querySelectorAll('.menu-item')
+      ...document.querySelectorAll(
+        '.menu-item'
+      )
     ];
 
 
     const previewTitle =
-      document.getElementById('previewTitle');
+      document.getElementById(
+        'previewTitle'
+      );
 
     const previewCount =
-      document.getElementById('previewCount');
+      document.getElementById(
+        'previewCount'
+      );
 
     const previewDescription =
-      document.getElementById('previewDescription');
+      document.getElementById(
+        'previewDescription'
+      );
 
     const entryNumber =
-      document.getElementById('entryNumber');
+      document.getElementById(
+        'entryNumber'
+      );
 
     const statusText =
-      document.getElementById('statusText');
+      document.getElementById(
+        'statusText'
+      );
 
     const enterButton =
-      document.getElementById('enterButton');
+      document.getElementById(
+        'enterButton'
+      );
 
     const bButton =
-      document.getElementById('bButton');
+      document.getElementById(
+        'bButton'
+      );
 
     const upButton =
-      document.getElementById('upButton');
+      document.getElementById(
+        'upButton'
+      );
 
     const downButton =
-      document.getElementById('downButton');
+      document.getElementById(
+        'downButton'
+      );
 
     const loadingText =
-      document.getElementById('loadingText');
+      document.getElementById(
+        'loadingText'
+      );
 
     const loadingDestination =
-      document.getElementById('loadingDestination');
+      document.getElementById(
+        'loadingDestination'
+      );
 
     const progressBar =
-      document.getElementById('progressBar');
+      document.getElementById(
+        'progressBar'
+      );
 
+
+    /* =====================================================
+       PIXEL PREVIEW CANVAS
+    ====================================================== */
 
     const pixelCanvas =
-      document.getElementById('pixelCanvas');
+      document.getElementById(
+        'pixelCanvas'
+      );
+
 
     const pctx =
-      pixelCanvas.getContext('2d');
+      pixelCanvas.getContext(
+        '2d'
+      );
+
 
     pctx.imageSmoothingEnabled =
       false;
@@ -1964,7 +1988,9 @@
       color = PIXEL_DARK
     ) {
 
-      pctx.fillStyle = color;
+      pctx.fillStyle =
+        color;
+
 
       pctx.fillRect(
         x,
@@ -2065,22 +2091,6 @@
 
       px(44, 45, 9, 9);
 
-      px(
-        28,
-        55,
-        13,
-        3,
-        PIXEL_MID
-      );
-
-      px(
-        57,
-        55,
-        11,
-        3,
-        PIXEL_MID
-      );
-
     }
 
 
@@ -2128,22 +2138,6 @@
         PIXEL_DARK
       );
 
-      px(
-        12,
-        56,
-        12,
-        14,
-        PIXEL_DARK
-      );
-
-      px(
-        14,
-        59,
-        7,
-        8,
-        '#b7c88b'
-      );
-
     }
 
 
@@ -2178,8 +2172,6 @@
         22,
         PIXEL_MID
       );
-
-      px(21, 58, 54, 15);
 
     }
 
@@ -2222,10 +2214,6 @@
 
       }
 
-      px(75, 17, 4, 4);
-      px(81, 13, 4, 4);
-      px(87, 9, 4, 4);
-
     }
 
 
@@ -2264,14 +2252,19 @@
     }
 
 
-    let selectedIndex =
-      0;
+    /* =====================================================
+       MENU SELECTION
+    ====================================================== */
+
+    let selectedIndex = 0;
 
     let transitionLocked =
       false;
 
 
-    function updateSelection(index) {
+    function updateSelection(
+      index
+    ) {
 
       selectedIndex =
         (
@@ -2302,6 +2295,7 @@
                 .classList
                 .add('selected');
 
+
               selector
                 .textContent =
                 '▶';
@@ -2314,6 +2308,7 @@
                 .classList
                 .remove('selected');
 
+
               selector
                 .textContent =
                 '';
@@ -2325,17 +2320,22 @@
 
 
       const entry =
-        entries[selectedIndex];
+        entries[
+          selectedIndex
+        ];
 
 
       entryNumber.textContent =
         entry.number;
 
+
       previewTitle.textContent =
         entry.title;
 
+
       previewCount.textContent =
         entry.count;
+
 
       previewDescription.textContent =
         entry.description;
@@ -2357,7 +2357,7 @@
     }
 
 
-    /* ======================================================
+    /* =====================================================
        SINGLE CLICK OPEN
     ====================================================== */
 
@@ -2387,9 +2387,7 @@
               if (
                 transitionLocked
               ) {
-
                 return;
-
               }
 
 
@@ -2397,11 +2395,6 @@
                 index
               );
 
-
-              /*
-                Tiny delay so the
-                selected highlight is visible
-              */
 
               await new Promise(
                 resolve =>
@@ -2420,6 +2413,10 @@
         }
       );
 
+
+    /* =====================================================
+       LOADING
+    ====================================================== */
 
     function loadingSequence(
       entry
@@ -2450,6 +2447,7 @@
 
 
           let dots = 1;
+
           let progress = 0;
 
 
@@ -2459,10 +2457,13 @@
 
                 dots++;
 
+
                 if (
                   dots > 3
                 ) {
+
                   dots = 1;
+
                 }
 
 
@@ -2486,14 +2487,19 @@
               () => {
 
                 progress +=
-                  Math.random() * 7 + 3;
+
+                  Math.random() *
+                  7 +
+                  3;
 
 
                 if (
-                  progress > 96
+                  progress >
+                  96
                 ) {
 
-                  progress = 96;
+                  progress =
+                    96;
 
                 }
 
@@ -2517,6 +2523,7 @@
               clearInterval(
                 dotTimer
               );
+
 
               clearInterval(
                 progressTimer
@@ -2555,7 +2562,9 @@
       if (
         transitionLocked
       ) {
+
         return;
+
       }
 
 
@@ -2564,7 +2573,9 @@
 
 
       const entry =
-        entries[selectedIndex];
+        entries[
+          selectedIndex
+        ];
 
 
       statusText.innerHTML =
@@ -2589,6 +2600,10 @@
 
     }
 
+
+    /* =====================================================
+       BUTTONS
+    ====================================================== */
 
     enterButton
       .addEventListener(
@@ -2640,6 +2655,10 @@
       );
 
 
+    /* =====================================================
+       KEYBOARD
+    ====================================================== */
+
     document
       .addEventListener(
         'keydown',
@@ -2649,7 +2668,9 @@
             !screens
               .device
               .classList
-              .contains('active')
+              .contains(
+                'active'
+              )
           ) {
 
             return;
@@ -2658,7 +2679,8 @@
 
 
           if (
-            event.key === 'ArrowUp'
+            event.key ===
+            'ArrowUp'
           ) {
 
             event
@@ -2673,7 +2695,8 @@
 
 
           if (
-            event.key === 'ArrowDown'
+            event.key ===
+            'ArrowDown'
           ) {
 
             event
@@ -2688,7 +2711,8 @@
 
 
           if (
-            event.key === 'Enter'
+            event.key ===
+            'Enter'
           ) {
 
             event
@@ -2702,6 +2726,10 @@
         }
       );
 
+
+    /* =====================================================
+       RETURN
+    ====================================================== */
 
     document
       .querySelectorAll(
@@ -2742,5 +2770,4 @@
   </script>
 
 </body>
-
 </html>
