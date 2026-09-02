@@ -2,24 +2,16 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
-  >
+  />
 
-  <title>Engineering Portfolio</title>
+  <title>Engineering Portfolio Lab</title>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
     href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
@@ -27,7 +19,6 @@
   >
 
   <style>
-
     * {
       margin: 0;
       padding: 0;
@@ -40,37 +31,16 @@
       height: 100%;
       overflow: hidden;
 
-      background: #151419;
-
+      background: #17161b;
       color: #171717;
 
-      font-family:
-        'VT323',
-        monospace;
+      font-family: 'VT323', monospace;
     }
 
     button {
       font: inherit;
+      color: inherit;
     }
-
-    :root {
-      --red: #b93736;
-      --dark-red: #762525;
-
-      --black: #171717;
-
-      --screen: #d8e7c4;
-      --screen-dark: #5f7159;
-
-      --cream: #fff5d1;
-      --yellow: #e3bb48;
-
-      --shadow: 5px 5px 0 #171717;
-    }
-
-    /* =====================================================
-       SCREEN SYSTEM
-    ====================================================== */
 
     .screen {
       position: absolute;
@@ -79,8 +49,7 @@
       opacity: 0;
       pointer-events: none;
 
-      transition:
-        opacity .35s ease;
+      transition: opacity 0.3s ease;
     }
 
     .screen.active {
@@ -89,781 +58,164 @@
     }
 
     /* =====================================================
-       DEVICE PAGE
+       LAB SCREEN
     ====================================================== */
 
-    #deviceScreen {
+    #labScreen {
       display: grid;
       place-items: center;
 
-      background:
-        radial-gradient(
-          circle at center,
-          #28252c,
-          #141319 70%
-        );
+      background: #18171d;
 
-      padding: 24px;
+      padding: 16px;
     }
 
-    .device {
-      width: min(1220px, 94vw);
-      height: min(720px, 90vh);
-
-      display: grid;
-
-      grid-template-columns:
-        1fr 1.08fr;
-
-      gap: 22px;
-
+    .lab-shell {
       position: relative;
 
-      padding: 28px;
+      width: min(1450px, 96vw);
+      aspect-ratio: 16 / 9;
 
-      background:
-        var(--red);
-
-      border:
-        7px solid #171717;
-
-      border-radius:
-        34px;
-
-      box-shadow:
-        0 0 0 7px #7b2827,
-        14px 14px 0 rgba(0,0,0,.45);
-    }
-
-    .device::before {
-      content: "";
-
-      position: absolute;
-
-      left: 50%;
-      top: 0;
-      bottom: 0;
-
-      width: 13px;
-
-      transform:
-        translateX(-50%);
-
-      background:
-        #792525;
-
-      border-left:
-        4px solid #171717;
-
-      border-right:
-        4px solid #171717;
-    }
-
-    /* =====================================================
-       LEFT SIDE
-    ====================================================== */
-
-    .device-left {
-      position: relative;
-
-      display: flex;
-      flex-direction: column;
-
-      min-width: 0;
-    }
-
-    .top-lights {
-      display: flex;
-
-      align-items: center;
-
-      gap: 14px;
-
-      margin-bottom: 18px;
-    }
-
-    .big-light {
-      width: 56px;
-      height: 56px;
-
-      border-radius: 50%;
-
-      background:
-        #79d8ec;
-
-      border:
-        6px solid #f1f0df;
-
-      box-shadow:
-        0 0 0 4px #171717,
-        inset -8px -8px 0 rgba(0,0,0,.15);
-
-      position: relative;
-    }
-
-    .big-light::after {
-      content: "";
-
-      position: absolute;
-
-      left: 10px;
-      top: 8px;
-
-      width: 15px;
-      height: 11px;
-
-      border-radius: 50%;
-
-      background:
-        rgba(255,255,255,.75);
-    }
-
-    .small-light {
-      width: 18px;
-      height: 18px;
-
-      border-radius: 50%;
-
-      border:
-        3px solid #171717;
-    }
-
-    .small-light.red {
-      background: #ff6563;
-    }
-
-    .small-light.yellow {
-      background: #e9cd4d;
-    }
-
-    .small-light.green {
-      background: #66b962;
-    }
-
-    /* =====================================================
-       LEFT DISPLAY
-    ====================================================== */
-
-    .database-screen {
-      flex: 1;
-
-      min-height: 0;
-
-      background:
-        #202225;
-
-      border:
-        6px solid #171717;
-
-      border-radius:
-        18px;
-
-      box-shadow:
-        inset 0 0 0 5px #3a3d40;
-
-      padding: 26px;
-
-      display: flex;
-      flex-direction: column;
-    }
-
-    .database-label {
-      color:
-        #9ead98;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size: 8px;
-
-      margin-bottom: 18px;
-    }
-
-    .database-title {
-      color:
-        #f7f4e5;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size:
-        clamp(
-          17px,
-          2vw,
-          27px
-        );
-
-      line-height: 1.5;
-
-      margin-bottom: 28px;
-    }
-
-    .menu-list {
-      display: flex;
-      flex-direction: column;
-
-      gap: 13px;
-
-      margin-top: auto;
-      margin-bottom: auto;
-    }
-
-    .menu-item {
-      width: 100%;
-
-      display: flex;
-      align-items: center;
-
-      gap: 12px;
-
-      padding:
-        12px 14px;
-
-      color:
-        #d5d6d0;
-
-      background:
-        transparent;
-
-      border:
-        3px solid transparent;
-
-      cursor: pointer;
-
-      text-align: left;
-
-      transition:
-        background .12s ease,
-        color .12s ease;
-    }
-
-    .menu-item.selected {
-      color:
-        #171717;
-
-      background:
-        #e6ca64;
-
-      border-color:
-        #171717;
-
-      box-shadow:
-        4px 4px 0 #090909;
-    }
-
-    .selector {
-      width: 14px;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size: 9px;
-    }
-
-    .menu-name {
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size:
-        clamp(
-          9px,
-          1vw,
-          12px
-        );
-    }
-
-    /* =====================================================
-       DEVICE CONTROLS
-    ====================================================== */
-
-    .controls-row {
-      margin-top: 18px;
-
-      display: flex;
-
-      justify-content:
-        space-between;
-
-      align-items:
-        center;
-    }
-
-    .dpad {
-      position: relative;
-
-      width: 88px;
-      height: 88px;
-    }
-
-    .dpad-horizontal,
-    .dpad-vertical {
-      position: absolute;
-
-      background:
-        #27272b;
-
-      border:
-        4px solid #171717;
-
-      box-shadow:
-        3px 3px 0 rgba(0,0,0,.4);
-    }
-
-    .dpad-horizontal {
-      width: 88px;
-      height: 32px;
-
-      top: 28px;
-      left: 0;
-    }
-
-    .dpad-vertical {
-      width: 32px;
-      height: 88px;
-
-      left: 28px;
-      top: 0;
-    }
-
-    .enter-button {
-      width: 105px;
-      height: 50px;
-
-      background:
-        #e3bd4c;
-
-      color:
-        #171717;
-
-      border:
-        4px solid #171717;
-
-      border-radius:
-        12px;
-
-      box-shadow:
-        5px 5px 0 #171717;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size:
-        8px;
-
-      cursor: pointer;
-
-      transition:
-        transform .12s ease;
-    }
-
-    .enter-button:hover {
-      transform:
-        translate(-2px, -2px);
-    }
-
-    /* =====================================================
-       RIGHT SIDE
-    ====================================================== */
-
-    .device-right {
-      display: flex;
-      flex-direction: column;
-
-      min-width: 0;
-    }
-
-    .preview-shell {
-      flex: 1;
-
-      min-height: 0;
-
-      background:
-        #d5d0c1;
-
-      border:
-        6px solid #171717;
-
-      border-radius:
-        20px;
-
-      padding:
-        22px;
-
-      box-shadow:
-        inset 0 0 0 5px #aaa496;
-    }
-
-    .preview-screen {
-      width: 100%;
-      height: 100%;
-
-      position: relative;
+      max-height: 94vh;
 
       overflow: hidden;
 
-      background:
-        #c9deac;
-
-      border:
-        5px solid #171717;
+      border: 6px solid #171717;
+      border-radius: 14px;
 
       box-shadow:
-        inset 0 0 0 4px #80906f;
+        0 0 0 5px #8e6947,
+        0 0 0 10px #171717;
 
-      color:
-        #233020;
-
-      padding: 26px;
+      background: #d7ccb3;
     }
 
-    .preview-screen::after {
+    .lab-shell::after {
       content: "";
 
       position: absolute;
       inset: 0;
+
+      z-index: 80;
 
       pointer-events: none;
 
       background:
         repeating-linear-gradient(
           0deg,
-          transparent 0px,
-          transparent 3px,
-          rgba(0,0,0,.035) 3px,
-          rgba(0,0,0,.035) 5px
+          rgba(0,0,0,0.025) 0px,
+          rgba(0,0,0,0.025) 2px,
+          transparent 2px,
+          transparent 4px
         );
     }
 
-    .preview-top {
-      position: relative;
-      z-index: 2;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size: 8px;
-
-      color:
-        #53644d;
-
-      margin-bottom: 22px;
-    }
-
-    #previewTitle {
-      position: relative;
-      z-index: 2;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size:
-        clamp(
-          16px,
-          2vw,
-          27px
-        );
-
-      line-height: 1.55;
-
-      margin-bottom: 16px;
-    }
-
-    #previewCount {
-      position: relative;
-      z-index: 2;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size: 8px;
-
-      margin-bottom: 24px;
-
-      color:
-        #596b51;
-    }
-
-    #previewDescription {
-      position: relative;
-      z-index: 2;
-
-      font-size:
-        clamp(
-          20px,
-          2vw,
-          28px
-        );
-
-      line-height:
-        1.25;
-
-      max-width:
-        500px;
-    }
-
-    /* =====================================================
-       ANIMATED ENGINEERING ICON
-    ====================================================== */
-
-    .preview-graphic {
-      position: absolute;
-
-      right: 8%;
-      bottom: 7%;
-
-      width: 180px;
-      height: 160px;
-
-      z-index: 1;
-
-      opacity: .9;
-    }
-
-    .scan-circle {
-      position: absolute;
-
-      left: 50%;
-      top: 50%;
-
-      width: 130px;
-      height: 130px;
-
-      transform:
-        translate(-50%, -50%);
-
-      border:
-        4px solid #667a5d;
-
-      border-radius: 50%;
-    }
-
-    .scan-circle::before,
-    .scan-circle::after {
-      content: "";
-
-      position: absolute;
-
-      background:
-        #667a5d;
-    }
-
-    .scan-circle::before {
+    #labCanvas {
       width: 100%;
-      height: 3px;
-
-      top: 50%;
-      left: 0;
-    }
-
-    .scan-circle::after {
       height: 100%;
-      width: 3px;
 
-      left: 50%;
-      top: 0;
+      display: block;
+
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+
+      cursor: default;
     }
 
-    .scan-line {
-      position: absolute;
-
-      left: 23px;
-      top: 14px;
-
-      width: 134px;
-      height: 4px;
-
-      background:
-        rgba(73,104,66,.7);
-
-      animation:
-        scanDown 2.4s linear infinite;
-    }
-
-    @keyframes scanDown {
-      0% {
-        transform:
-          translateY(0);
-      }
-
-      50% {
-        transform:
-          translateY(126px);
-      }
-
-      100% {
-        transform:
-          translateY(0);
-      }
-    }
-
-    .engineering-symbol {
+    .lab-title {
       position: absolute;
 
       left: 50%;
-      top: 50%;
+      top: 16px;
 
-      transform:
-        translate(-50%, -50%);
+      transform: translateX(-50%);
 
-      width: 66px;
-      height: 66px;
+      z-index: 90;
 
-      border:
-        9px solid #536b4d;
+      padding: 13px 18px;
 
-      border-radius: 50%;
+      background: #1b1a1f;
 
-      animation:
-        gearSpin 7s linear infinite;
-    }
+      color: #fff3d5;
 
-    .engineering-symbol::before,
-    .engineering-symbol::after {
-      content: "";
-
-      position: absolute;
-
-      background:
-        #536b4d;
-    }
-
-    .engineering-symbol::before {
-      width: 94px;
-      height: 13px;
-
-      left: -23px;
-      top: 17px;
-    }
-
-    .engineering-symbol::after {
-      width: 13px;
-      height: 94px;
-
-      left: 17px;
-      top: -23px;
-    }
-
-    @keyframes gearSpin {
-      from {
-        transform:
-          translate(-50%, -50%)
-          rotate(0deg);
-      }
-
-      to {
-        transform:
-          translate(-50%, -50%)
-          rotate(360deg);
-      }
-    }
-
-    /* =====================================================
-       RIGHT BOTTOM PANEL
-    ====================================================== */
-
-    .right-controls {
-      height: 120px;
-
-      flex-shrink: 0;
-
-      margin-top: 16px;
-
-      display: grid;
-
-      grid-template-columns:
-        1.2fr 1fr;
-
-      gap: 16px;
-    }
-
-    .status-panel,
-    .key-panel {
-      border:
-        4px solid #171717;
-
-      border-radius:
-        12px;
-
-      background:
-        #752525;
+      border: 4px solid #111;
+      border-radius: 9px;
 
       box-shadow:
-        4px 4px 0 rgba(0,0,0,.35);
+        0 0 0 3px #99704a,
+        4px 4px 0 rgba(0,0,0,0.4);
 
-      padding:
-        14px;
-    }
-
-    .status-label {
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size: 7px;
-
-      color:
-        #e8cbb1;
-
-      margin-bottom: 10px;
-    }
-
-    #statusText {
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size: 8px;
-
-      color:
-        #fff1cf;
-
-      line-height:
-        1.6;
-    }
-
-    .key-panel {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      gap: 10px;
-    }
-
-    .key {
-      min-width: 42px;
-
-      padding:
-        10px 7px;
-
-      text-align: center;
-
-      background:
-        #27262b;
-
-      color:
-        #fff;
-
-      border:
-        3px solid #171717;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
+      font-family: 'Press Start 2P', cursive;
 
       font-size:
-        7px;
+        clamp(10px, 1.3vw, 17px);
+
+      white-space: nowrap;
+    }
+
+    .lab-hint {
+      position: absolute;
+
+      top: 20px;
+      left: 20px;
+
+      z-index: 90;
+
+      background: #fff3d3;
+      color: #171717;
+
+      border: 3px solid #171717;
+      border-radius: 8px;
+
+      box-shadow:
+        4px 4px 0 rgba(0,0,0,0.4);
+
+      padding: 11px 13px;
+
+      font-family: 'Press Start 2P', cursive;
+
+      font-size: 7px;
+      line-height: 1.7;
+    }
+
+    #labTooltip {
+      position: absolute;
+
+      z-index: 100;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transform:
+        translate(-50%, -120%);
+
+      background: #1a181d;
+      color: #fff2cf;
+
+      border: 3px solid #c29456;
+
+      box-shadow:
+        4px 4px 0 #111;
+
+      padding: 10px 12px;
+
+      font-family: 'Press Start 2P', cursive;
+
+      font-size: 7px;
+      line-height: 1.6;
+
+      white-space: nowrap;
+
+      transition: opacity 0.12s ease;
+    }
+
+    #labTooltip.show {
+      opacity: 1;
     }
 
     /* =====================================================
-       LOADING SCREEN
+       LOADING
     ====================================================== */
 
     #loading {
@@ -872,78 +224,56 @@
       display: grid;
       place-items: center;
 
-      background:
-        #141215;
+      background: #141215;
 
-      color:
-        #fff1c9;
+      color: #fff1c7;
     }
 
     .loading-box {
-      width:
-        min(540px, 86vw);
-
-      text-align:
-        center;
+      width: min(540px, 86vw);
+      text-align: center;
     }
 
     #loadingText {
-      margin-bottom:
-        26px;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
+      font-family: 'Press Start 2P', cursive;
 
       font-size:
-        clamp(
-          18px,
-          3vw,
-          34px
-        );
+        clamp(18px, 3vw, 34px);
+
+      margin-bottom: 25px;
     }
 
     #loadingDestination {
-      margin-bottom:
-        24px;
+      font-family: 'Press Start 2P', cursive;
 
-      font-family:
-        'Press Start 2P',
-        cursive;
+      font-size: 9px;
+      line-height: 1.8;
 
-      font-size:
-        9px;
+      color: #d2ad62;
 
-      line-height:
-        1.8;
-
-      color:
-        #d5ad62;
+      margin-bottom: 24px;
     }
 
     .progress-shell {
-      height:
-        30px;
+      width: 100%;
+      height: 30px;
 
-      padding:
-        4px;
+      padding: 4px;
 
-      border:
-        3px solid #fff1c9;
+      border: 3px solid #fff1c7;
     }
 
     #progressBar {
-      width:
-        0%;
-
-      height:
-        100%;
+      width: 0%;
+      height: 100%;
 
       background:
         repeating-linear-gradient(
           90deg,
-          #fff1c9 0 16px,
-          #aa833d 16px 20px
+          #fff1c7 0px,
+          #fff1c7 16px,
+          #ad873f 16px,
+          #ad873f 20px
         );
     }
 
@@ -957,417 +287,155 @@
           0deg,
           #f5f2e9 0px,
           #f5f2e9 2px,
-          #eeeadf 2px,
-          #eeeadf 4px
+          #eee9de 2px,
+          #eee9de 4px
         );
 
-      color:
-        #171717;
+      color: #171717;
     }
 
     .page-wrap {
-      width:
-        min(1180px, 94vw);
+      width: min(1180px, 94vw);
+      height: 100%;
 
-      height:
-        100%;
+      margin: 0 auto;
 
-      margin:
-        0 auto;
-
-      padding:
-        24px 0 28px;
+      padding: 24px 0 28px;
 
       display: flex;
-
-      flex-direction:
-        column;
+      flex-direction: column;
     }
 
     .page-title {
-      height:
-        64px;
+      height: 64px;
+      flex: 0 0 64px;
 
-      flex:
-        0 0 64px;
+      display: grid;
+      place-items: center;
 
-      display:
-        grid;
-
-      place-items:
-        center;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
+      font-family: 'Press Start 2P', cursive;
 
       font-size:
-        clamp(
-          14px,
-          2vw,
-          22px
-        );
+        clamp(14px, 2vw, 22px);
 
-      color:
-        #c3a14c;
+      color: #c4a14b;
     }
 
     .page-card {
-      flex:
-        1;
-
-      min-height:
-        0;
-
-      display:
-        flex;
-
-      flex-direction:
-        column;
-
-      justify-content:
-        center;
-
-      padding:
-        36px;
+      flex: 1;
+      min-height: 0;
 
       background:
-        rgba(
-          255,
-          255,
-          255,
-          .72
-        );
+        rgba(255,255,255,0.72);
 
-      border:
-        4px solid #171717;
-
-      border-radius:
-        16px;
+      border: 4px solid #171717;
+      border-radius: 16px;
 
       box-shadow:
         6px 6px 0 #171717;
+
+      padding: 36px;
+
+      display: flex;
+      flex-direction: column;
+
+      justify-content: center;
     }
 
     .page-card h2 {
-      margin-bottom:
-        22px;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
+      font-family: 'Press Start 2P', cursive;
 
       font-size:
-        clamp(
-          20px,
-          3vw,
-          38px
-        );
+        clamp(20px, 3vw, 38px);
 
-      line-height:
-        1.5;
+      line-height: 1.5;
+
+      margin-bottom: 22px;
     }
 
     .page-card p {
-      max-width:
-        800px;
+      max-width: 800px;
 
-      margin-bottom:
-        28px;
+      font-size: 26px;
+      line-height: 1.35;
 
-      font-size:
-        26px;
+      color: #655d4e;
 
-      line-height:
-        1.35;
-
-      color:
-        #655d4e;
+      margin-bottom: 28px;
     }
 
     .back-button {
-      align-self:
-        flex-start;
+      align-self: flex-start;
 
-      padding:
-        12px 15px;
+      padding: 12px 15px;
 
-      background:
-        #fff1bd;
+      background: #fff1bd;
 
-      border:
-        3px solid #171717;
-
-      border-radius:
-        8px;
+      border: 3px solid #171717;
+      border-radius: 8px;
 
       box-shadow:
         4px 4px 0 #171717;
 
-      font-family:
-        'Press Start 2P',
-        cursive;
+      font-family: 'Press Start 2P', cursive;
 
-      font-size:
-        8px;
+      font-size: 8px;
 
-      cursor:
-        pointer;
+      cursor: pointer;
     }
 
-    /* =====================================================
-       MOBILE
-    ====================================================== */
-
-    @media
-    (max-width: 800px) {
-
-      #deviceScreen {
-        overflow-y:
-          auto;
-      }
-
-      .device {
-        width:
-          94vw;
-
-        height:
-          auto;
-
-        min-height:
-          900px;
-
-        grid-template-columns:
-          1fr;
-
-        padding:
-          20px;
-      }
-
-      .device::before {
-        display:
-          none;
+    @media (max-width: 800px) {
+      .lab-hint {
+        display: none;
       }
 
       .page-card {
-        padding:
-          24px;
+        padding: 24px;
       }
 
       .page-card p {
-        font-size:
-          21px;
+        font-size: 21px;
       }
     }
-
   </style>
 </head>
-
 
 <body>
 
   <!-- =====================================================
-       ENGINEERING DEVICE
+       ENGINEERING LAB
   ====================================================== -->
 
   <section
-    id="deviceScreen"
+    id="labScreen"
     class="screen active"
   >
 
-    <div class="device">
+    <div
+      class="lab-shell"
+      id="labShell"
+    >
 
-      <!-- LEFT -->
+      <canvas
+        id="labCanvas"
+        width="480"
+        height="270"
+      ></canvas>
 
-      <div class="device-left">
-
-        <div class="top-lights">
-
-          <div class="big-light"></div>
-
-          <div class="small-light red"></div>
-
-          <div class="small-light yellow"></div>
-
-          <div class="small-light green"></div>
-
-        </div>
-
-
-        <div class="database-screen">
-
-          <div class="database-label">
-            ENGINEERING PORTFOLIO SYSTEM
-          </div>
-
-          <div class="database-title">
-            ENGINEER<br>
-            DATABASE
-          </div>
-
-          <div
-            class="menu-list"
-            id="menuList"
-          >
-
-            <button
-              class="menu-item selected"
-              data-index="0"
-              data-page="projects"
-            >
-              <span class="selector">▶</span>
-              <span class="menu-name">PROJECTS</span>
-            </button>
-
-
-            <button
-              class="menu-item"
-              data-index="1"
-              data-page="experience"
-            >
-              <span class="selector"></span>
-              <span class="menu-name">EXPERIENCE</span>
-            </button>
-
-
-            <button
-              class="menu-item"
-              data-index="2"
-              data-page="skills"
-            >
-              <span class="selector"></span>
-              <span class="menu-name">SKILLS</span>
-            </button>
-
-
-            <button
-              class="menu-item"
-              data-index="3"
-              data-page="about"
-            >
-              <span class="selector"></span>
-              <span class="menu-name">ABOUT</span>
-            </button>
-
-
-            <button
-              class="menu-item"
-              data-index="4"
-              data-page="contact"
-            >
-              <span class="selector"></span>
-              <span class="menu-name">CONTACT</span>
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <div class="controls-row">
-
-          <div class="dpad">
-
-            <div class="dpad-horizontal"></div>
-
-            <div class="dpad-vertical"></div>
-
-          </div>
-
-
-          <button
-            class="enter-button"
-            id="enterButton"
-          >
-            ENTER
-          </button>
-
-        </div>
-
+      <div class="lab-title">
+        ENGINEERING LAB
       </div>
 
-
-      <!-- RIGHT -->
-
-      <div class="device-right">
-
-        <div class="preview-shell">
-
-          <div class="preview-screen">
-
-            <div class="preview-top">
-              DATABASE ENTRY
-            </div>
-
-            <div id="previewTitle">
-              PROJECT DATABASE
-            </div>
-
-            <div id="previewCount">
-              006 PROJECTS FOUND
-            </div>
-
-            <div id="previewDescription">
-              Engineering builds, CAD work,
-              prototypes and technical projects.
-            </div>
-
-
-            <div class="preview-graphic">
-
-              <div class="scan-circle"></div>
-
-              <div class="scan-line"></div>
-
-              <div class="engineering-symbol"></div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="right-controls">
-
-          <div class="status-panel">
-
-            <div class="status-label">
-              SYSTEM STATUS
-            </div>
-
-            <div id="statusText">
-              READY.<br>
-              SELECT DATABASE ENTRY.
-            </div>
-
-          </div>
-
-
-          <div class="key-panel">
-
-            <div class="key">
-              ↑
-            </div>
-
-            <div class="key">
-              ↓
-            </div>
-
-            <div class="key">
-              ENTER
-            </div>
-
-          </div>
-
-        </div>
-
+      <div class="lab-hint">
+        CLICK SOMETHING<br>
+        TO EXPLORE
       </div>
+
+      <div id="labTooltip"></div>
 
     </div>
 
   </section>
-
 
   <!-- =====================================================
        LOADING
@@ -1385,19 +453,16 @@
       </div>
 
       <div id="loadingDestination">
-        OPENING DATABASE
+        OPENING SECTION
       </div>
 
       <div class="progress-shell">
-
         <div id="progressBar"></div>
-
       </div>
 
     </div>
 
   </section>
-
 
   <!-- =====================================================
        PROJECTS
@@ -1417,18 +482,21 @@
       <div class="page-card">
 
         <h2>
-          PROJECT DATABASE
+          CAD WORKSTATION
         </h2>
 
         <p>
-          Your engineering projects will go here later.
+          Your engineering projects will go here later:
           CAD models, robotics, prototypes,
-          technical drawings, simulation work,
-          videos and interactive models can be added here.
+          technical drawings, simulations,
+          videos and interactive models.
         </p>
 
-        <button class="back-button">
-          ← ENGINEER DATABASE
+        <button
+          class="back-button"
+          data-back="projects"
+        >
+          ← RETURN TO LAB
         </button>
 
       </div>
@@ -1436,7 +504,6 @@
     </div>
 
   </section>
-
 
   <!-- =====================================================
        EXPERIENCE
@@ -1456,19 +523,22 @@
       <div class="page-card">
 
         <h2>
-          EXPERIENCE LOG
+          NOTICE BOARD
         </h2>
 
         <p>
           Your internships,
-          engineering employment,
+          engineering work,
           industry projects
-          and practical experience
+          and professional experience
           will go here later.
         </p>
 
-        <button class="back-button">
-          ← ENGINEER DATABASE
+        <button
+          class="back-button"
+          data-back="experience"
+        >
+          ← RETURN TO LAB
         </button>
 
       </div>
@@ -1476,7 +546,6 @@
     </div>
 
   </section>
-
 
   <!-- =====================================================
        SKILLS
@@ -1496,18 +565,21 @@
       <div class="page-card">
 
         <h2>
-          SKILL DATABASE
+          ROBOTICS BENCH
         </h2>
 
         <p>
           Your engineering skills will go here:
-          CAD, programming, electronics,
-          embedded systems, robotics,
-          controls and simulation.
+          CAD, programming,
+          electronics, embedded systems,
+          robotics, controls and simulation.
         </p>
 
-        <button class="back-button">
-          ← ENGINEER DATABASE
+        <button
+          class="back-button"
+          data-back="skills"
+        >
+          ← RETURN TO LAB
         </button>
 
       </div>
@@ -1515,7 +587,6 @@
     </div>
 
   </section>
-
 
   <!-- =====================================================
        ABOUT
@@ -1539,15 +610,18 @@
         </h2>
 
         <p>
-          Your introduction,
-          degree,
+          Your degree,
+          introduction,
           engineering interests,
-          goals and background
+          background and career goals
           will go here later.
         </p>
 
-        <button class="back-button">
-          ← ENGINEER DATABASE
+        <button
+          class="back-button"
+          data-back="about"
+        >
+          ← RETURN TO LAB
         </button>
 
       </div>
@@ -1555,7 +629,6 @@
     </div>
 
   </section>
-
 
   <!-- =====================================================
        CONTACT
@@ -1575,19 +648,22 @@
       <div class="page-card">
 
         <h2>
-          COMMUNICATION SYSTEM
+          COMMUNICATION TERMINAL
         </h2>
 
         <p>
           Your email,
           LinkedIn,
           CV download
-          and contact information
+          and contact details
           will go here later.
         </p>
 
-        <button class="back-button">
-          ← ENGINEER DATABASE
+        <button
+          class="back-button"
+          data-back="contact"
+        >
+          ← RETURN TO LAB
         </button>
 
       </div>
@@ -1596,14 +672,50 @@
 
   </section>
 
-
   <script>
+
+    /* =====================================================
+       SETUP
+    ====================================================== */
+
+    const canvas =
+      document.getElementById(
+        'labCanvas'
+      );
+
+    const ctx =
+      canvas.getContext(
+        '2d'
+      );
+
+    ctx.imageSmoothingEnabled =
+      false;
+
+    const tooltip =
+      document.getElementById(
+        'labTooltip'
+      );
+
+    const loadingText =
+      document.getElementById(
+        'loadingText'
+      );
+
+    const loadingDestination =
+      document.getElementById(
+        'loadingDestination'
+      );
+
+    const progressBar =
+      document.getElementById(
+        'progressBar'
+      );
 
     const screens = {
 
-      device:
+      lab:
         document.getElementById(
-          'deviceScreen'
+          'labScreen'
         ),
 
       loading:
@@ -1638,354 +750,1597 @@
 
     };
 
+    const W = 480;
+    const H = 270;
 
-    function showScreen(
-      name
-    ) {
+    const CENTER = {
+      x: 240,
+      y: 155
+    };
+
+    const state = {
+
+      player: {
+        x: CENTER.x,
+        y: CENTER.y
+      },
+
+      moving: false,
+      returning: false,
+      hover: null
+
+    };
+
+    function showScreen(name) {
 
       Object
-        .values(
-          screens
-        )
-        .forEach(
-          screen => {
+        .values(screens)
+        .forEach(screen => {
 
-            screen
-              .classList
-              .remove(
-                'active'
-              );
+          screen
+            .classList
+            .remove('active');
 
-          }
-        );
+        });
 
-
-      screens[
-        name
-      ]
+      screens[name]
         .classList
-        .add(
-          'active'
-        );
+        .add('active');
 
     }
 
-
-    /* =====================================================
-       MENU DATABASE
-    ====================================================== */
-
-    const entries = [
-
-      {
-        page:
-          'projects',
-
-        title:
-          'PROJECT DATABASE',
-
-        count:
-          '006 PROJECTS FOUND',
-
-        description:
-          'Engineering builds, CAD work, prototypes and technical projects.',
-
-        loading:
-          'OPENING PROJECT DATABASE'
-      },
-
-
-      {
-        page:
-          'experience',
-
-        title:
-          'EXPERIENCE LOG',
-
-        count:
-          '003 RECORDS FOUND',
-
-        description:
-          'Internships, professional engineering work and industry experience.',
-
-        loading:
-          'OPENING EXPERIENCE LOG'
-      },
-
-
-      {
-        page:
-          'skills',
-
-        title:
-          'SKILL DATABASE',
-
-        count:
-          'MULTIPLE SKILLS DETECTED',
-
-        description:
-          'CAD, programming, electronics, robotics, controls and simulation.',
-
-        loading:
-          'LOADING SKILL DATABASE'
-      },
-
-
-      {
-        page:
-          'about',
-
-        title:
-          'ENGINEER PROFILE',
-
-        count:
-          'PROFILE DATA FOUND',
-
-        description:
-          'Engineering background, education, interests and career direction.',
-
-        loading:
-          'OPENING ENGINEER PROFILE'
-      },
-
-
-      {
-        page:
-          'contact',
-
-        title:
-          'COMMUNICATION SYSTEM',
-
-        count:
-          'CONNECTION AVAILABLE',
-
-        description:
-          'Email, LinkedIn, CV and contact information.',
-
-        loading:
-          'OPENING COMMUNICATION SYSTEM'
-      }
-
-    ];
-
-
-    const menuItems =
-      [
-        ...document
-          .querySelectorAll(
-            '.menu-item'
-          )
-      ];
-
-
-    const previewTitle =
-      document.getElementById(
-        'previewTitle'
-      );
-
-
-    const previewCount =
-      document.getElementById(
-        'previewCount'
-      );
-
-
-    const previewDescription =
-      document.getElementById(
-        'previewDescription'
-      );
-
-
-    const statusText =
-      document.getElementById(
-        'statusText'
-      );
-
-
-    const enterButton =
-      document.getElementById(
-        'enterButton'
-      );
-
-
-    const loadingText =
-      document.getElementById(
-        'loadingText'
-      );
-
-
-    const loadingDestination =
-      document.getElementById(
-        'loadingDestination'
-      );
-
-
-    const progressBar =
-      document.getElementById(
-        'progressBar'
-      );
-
-
-    let selectedIndex =
-      0;
-
-
-    let transitionLocked =
-      false;
-
-
-    function updateSelection(
-      index
+    function rect(
+      x,
+      y,
+      w,
+      h,
+      color
     ) {
 
-      selectedIndex =
+      ctx.fillStyle = color;
 
-        (
-          index +
-          entries.length
+      ctx.fillRect(
+        Math.round(x),
+        Math.round(y),
+        Math.round(w),
+        Math.round(h)
+      );
+
+    }
+
+    /* =====================================================
+       STATIONS
+    ====================================================== */
+
+    const stations = {
+
+      projects: {
+
+        label:
+          'CAD WORKSTATION',
+
+        subtitle:
+          'VIEW PROJECTS',
+
+        loading:
+          'OPENING PROJECT DATABASE',
+
+        box: {
+          x: 40,
+          y: 44,
+          w: 120,
+          h: 78
+        },
+
+        path: [
+
+          CENTER,
+
+          { x: 213, y: 145 },
+
+          { x: 185, y: 132 },
+
+          { x: 158, y: 118 },
+
+          { x: 132, y: 104 },
+
+          { x: 112, y: 94 }
+
+        ]
+
+      },
+
+
+      experience: {
+
+        label:
+          'NOTICE BOARD',
+
+        subtitle:
+          'VIEW EXPERIENCE',
+
+        loading:
+          'OPENING EXPERIENCE LOG',
+
+        box: {
+          x: 320,
+          y: 40,
+          w: 105,
+          h: 68
+        },
+
+        path: [
+
+          CENTER,
+
+          { x: 270, y: 142 },
+
+          { x: 300, y: 128 },
+
+          { x: 330, y: 113 },
+
+          { x: 354, y: 98 },
+
+          { x: 372, y: 86 }
+
+        ]
+
+      },
+
+
+      skills: {
+
+        label:
+          'ROBOTICS BENCH',
+
+        subtitle:
+          'VIEW SKILLS',
+
+        loading:
+          'LOADING SKILL DATABASE',
+
+        box: {
+          x: 330,
+          y: 156,
+          w: 110,
+          h: 78
+        },
+
+        path: [
+
+          CENTER,
+
+          { x: 270, y: 165 },
+
+          { x: 300, y: 176 },
+
+          { x: 328, y: 188 },
+
+          { x: 350, y: 198 },
+
+          { x: 372, y: 206 }
+
+        ]
+
+      },
+
+
+      about: {
+
+        label:
+          'PROFILE DOOR',
+
+        subtitle:
+          'ABOUT ME',
+
+        loading:
+          'OPENING ENGINEER PROFILE',
+
+        box: {
+          x: 190,
+          y: 25,
+          w: 95,
+          h: 62
+        },
+
+        path: [
+
+          CENTER,
+
+          { x: 240, y: 140 },
+
+          { x: 240, y: 125 },
+
+          { x: 240, y: 110 },
+
+          { x: 240, y: 95 },
+
+          { x: 240, y: 80 }
+
+        ]
+
+      },
+
+
+      contact: {
+
+        label:
+          'COMM TERMINAL',
+
+        subtitle:
+          'CONTACT',
+
+        loading:
+          'OPENING COMMUNICATION SYSTEM',
+
+        box: {
+          x: 44,
+          y: 165,
+          w: 100,
+          h: 65
+        },
+
+        path: [
+
+          CENTER,
+
+          { x: 212, y: 166 },
+
+          { x: 184, y: 178 },
+
+          { x: 156, y: 190 },
+
+          { x: 130, y: 200 },
+
+          { x: 108, y: 207 }
+
+        ]
+
+      }
+
+    };
+
+    /* =====================================================
+       FLOOR
+    ====================================================== */
+
+    function drawFloor() {
+
+      rect(
+        0,
+        0,
+        W,
+        H,
+        '#d7cab0'
+      );
+
+      /*
+        tile pattern
+      */
+
+      for (
+        let y = 0;
+        y < H;
+        y += 16
+      ) {
+
+        for (
+          let x = 0;
+          x < W;
+          x += 16
+        ) {
+
+          rect(
+            x,
+            y,
+            15,
+            15,
+            (
+              (
+                x / 16 +
+                y / 16
+              ) %
+              2 ===
+              0
+            )
+              ?
+              '#d9cdb4'
+              :
+              '#d2c5aa'
+          );
+
+        }
+
+      }
+
+      /*
+        wall
+      */
+
+      rect(
+        0,
+        0,
+        W,
+        32,
+        '#7d684f'
+      );
+
+      rect(
+        0,
+        29,
+        W,
+        4,
+        '#44372d'
+      );
+
+      /*
+        side wall shadows
+      */
+
+      rect(
+        0,
+        0,
+        6,
+        H,
+        '#8b7155'
+      );
+
+      rect(
+        W - 6,
+        0,
+        6,
+        H,
+        '#8b7155'
+      );
+
+    }
+
+    /* =====================================================
+       CAD PC
+    ====================================================== */
+
+    function drawCADStation() {
+
+      /*
+        desk
+      */
+
+      rect(
+        48,
+        72,
+        110,
+        18,
+        '#795335'
+      );
+
+      rect(
+        52,
+        90,
+        10,
+        22,
+        '#5f422d'
+      );
+
+      rect(
+        144,
+        90,
+        10,
+        22,
+        '#5f422d'
+      );
+
+      /*
+        monitor
+      */
+
+      rect(
+        78,
+        43,
+        52,
+        34,
+        '#25252a'
+      );
+
+      rect(
+        82,
+        47,
+        44,
+        26,
+        '#78a9ad'
+      );
+
+      /*
+        CAD drawing
+      */
+
+      rect(
+        90,
+        53,
+        20,
+        2,
+        '#d7f1e8'
+      );
+
+      rect(
+        90,
+        53,
+        2,
+        12,
+        '#d7f1e8'
+      );
+
+      rect(
+        90,
+        63,
+        20,
+        2,
+        '#d7f1e8'
+      );
+
+      rect(
+        108,
+        53,
+        2,
+        12,
+        '#d7f1e8'
+      );
+
+      /*
+        monitor stand
+      */
+
+      rect(
+        100,
+        77,
+        8,
+        8,
+        '#333238'
+      );
+
+      rect(
+        92,
+        84,
+        24,
+        3,
+        '#333238'
+      );
+
+      /*
+        keyboard
+      */
+
+      rect(
+        88,
+        92,
+        38,
+        8,
+        '#3c3b40'
+      );
+
+      /*
+        mouse
+      */
+
+      rect(
+        132,
+        93,
+        7,
+        6,
+        '#55545a'
+      );
+
+      /*
+        PC case
+      */
+
+      rect(
+        57,
+        50,
+        16,
+        27,
+        '#424148'
+      );
+
+      rect(
+        60,
+        54,
+        10,
+        4,
+        '#69a8bb'
+      );
+
+    }
+
+    /* =====================================================
+       NOTICE BOARD
+    ====================================================== */
+
+    function drawNoticeBoard() {
+
+      rect(
+        328,
+        46,
+        92,
+        56,
+        '#7d5337'
+      );
+
+      rect(
+        333,
+        51,
+        82,
+        46,
+        '#be9f70'
+      );
+
+      /*
+        pinned notes
+      */
+
+      drawPaper(
+        339,
+        57,
+        20,
+        14,
+        '#f2e8c8'
+      );
+
+      drawPaper(
+        368,
+        55,
+        18,
+        22,
+        '#e4d79e'
+      );
+
+      drawPaper(
+        392,
+        68,
+        16,
+        20,
+        '#f1e3c0'
+      );
+
+      drawPaper(
+        344,
+        78,
+        22,
+        13,
+        '#e8c49c'
+      );
+
+    }
+
+    function drawPaper(
+      x,
+      y,
+      w,
+      h,
+      color
+    ) {
+
+      rect(
+        x,
+        y,
+        w,
+        h,
+        color
+      );
+
+      rect(
+        x + 4,
+        y + 4,
+        w - 8,
+        2,
+        '#9c8c72'
+      );
+
+      rect(
+        x + 4,
+        y + 8,
+        w - 10,
+        2,
+        '#9c8c72'
+      );
+
+      rect(
+        x + w / 2 - 1,
+        y - 2,
+        3,
+        3,
+        '#b55247'
+      );
+
+    }
+
+    /* =====================================================
+       ROBOTICS BENCH
+    ====================================================== */
+
+    function drawRobotBench() {
+
+      /*
+        table
+      */
+
+      rect(
+        330,
+        195,
+        112,
+        18,
+        '#765035'
+      );
+
+      rect(
+        336,
+        213,
+        10,
+        23,
+        '#59402e'
+      );
+
+      rect(
+        426,
+        213,
+        10,
+        23,
+        '#59402e'
+      );
+
+      /*
+        robot base
+      */
+
+      rect(
+        377,
+        184,
+        28,
+        11,
+        '#4e5156'
+      );
+
+      rect(
+        382,
+        178,
+        18,
+        8,
+        '#666a70'
+      );
+
+      /*
+        robot arm
+      */
+
+      drawArmSegment(
+        391,
+        179,
+        382,
+        162
+      );
+
+      drawArmSegment(
+        382,
+        162,
+        397,
+        149
+      );
+
+      drawArmSegment(
+        397,
+        149,
+        410,
+        158
+      );
+
+      /*
+        claw
+      */
+
+      rect(
+        409,
+        156,
+        4,
+        10,
+        '#55585d'
+      );
+
+      rect(
+        413,
+        155,
+        5,
+        3,
+        '#55585d'
+      );
+
+      rect(
+        413,
+        164,
+        5,
+        3,
+        '#55585d'
+      );
+
+      /*
+        electronics
+      */
+
+      rect(
+        342,
+        179,
+        24,
+        14,
+        '#436a4a'
+      );
+
+      rect(
+        346,
+        182,
+        5,
+        4,
+        '#c8c46c'
+      );
+
+      rect(
+        354,
+        182,
+        7,
+        6,
+        '#22282a'
+      );
+
+    }
+
+    function drawArmSegment(
+      x1,
+      y1,
+      x2,
+      y2
+    ) {
+
+      const dx =
+        x2 -
+        x1;
+
+      const dy =
+        y2 -
+        y1;
+
+      const steps =
+        Math.max(
+          Math.abs(dx),
+          Math.abs(dy)
+        );
+
+      for (
+        let i = 0;
+        i <= steps;
+        i++
+      ) {
+
+        const t =
+          i /
+          steps;
+
+        const x =
+          x1 +
+          dx *
+          t;
+
+        const y =
+          y1 +
+          dy *
+          t;
+
+        rect(
+          x - 2,
+          y - 2,
+          5,
+          5,
+          '#60646a'
+        );
+
+      }
+
+      rect(
+        x1 - 4,
+        y1 - 4,
+        8,
+        8,
+        '#35373b'
+      );
+
+      rect(
+        x2 - 4,
+        y2 - 4,
+        8,
+        8,
+        '#35373b'
+      );
+
+    }
+
+    /* =====================================================
+       ABOUT DOOR
+    ====================================================== */
+
+    function drawProfileDoor() {
+
+      rect(
+        212,
+        31,
+        56,
+        53,
+        '#71503b'
+      );
+
+      rect(
+        218,
+        37,
+        44,
+        47,
+        '#94705a'
+      );
+
+      rect(
+        223,
+        42,
+        34,
+        34,
+        '#765743'
+      );
+
+      /*
+        profile card
+      */
+
+      rect(
+        230,
+        47,
+        20,
+        18,
+        '#efe5c8'
+      );
+
+      rect(
+        236,
+        50,
+        8,
+        7,
+        '#6e6e6e'
+      );
+
+      rect(
+        233,
+        60,
+        14,
+        2,
+        '#9e9174'
+      );
+
+      /*
+        knob
+      */
+
+      rect(
+        253,
+        66,
+        4,
+        4,
+        '#d3ad4f'
+      );
+
+    }
+
+    /* =====================================================
+       CONTACT TERMINAL
+    ====================================================== */
+
+    function drawContactTerminal() {
+
+      /*
+        desk
+      */
+
+      rect(
+        50,
+        197,
+        95,
+        16,
+        '#775238'
+      );
+
+      rect(
+        57,
+        213,
+        10,
+        22,
+        '#5d412d'
+      );
+
+      rect(
+        128,
+        213,
+        10,
+        22,
+        '#5d412d'
+      );
+
+      /*
+        screen
+      */
+
+      rect(
+        73,
+        164,
+        48,
+        31,
+        '#25252a'
+      );
+
+      rect(
+        78,
+        169,
+        38,
+        21,
+        '#74a89d'
+      );
+
+      /*
+        mail icon
+      */
+
+      rect(
+        85,
+        175,
+        24,
+        10,
+        '#d7e7d9'
+      );
+
+      rect(
+        87,
+        176,
+        20,
+        2,
+        '#5c786e'
+      );
+
+      /*
+        phone
+      */
+
+      rect(
+        125,
+        178,
+        10,
+        18,
+        '#2e3034'
+      );
+
+      rect(
+        127,
+        181,
+        6,
+        8,
+        '#77a0a8'
+      );
+
+    }
+
+    /* =====================================================
+       ROOM DECORATION
+    ====================================================== */
+
+    function drawDecorations() {
+
+      /*
+        shelves
+      */
+
+      rect(
+        168,
+        48,
+        34,
+        9,
+        '#6c4b32'
+      );
+
+      rect(
+        171,
+        38,
+        7,
+        10,
+        '#b76450'
+      );
+
+      rect(
+        181,
+        40,
+        6,
+        8,
+        '#6686a1'
+      );
+
+      rect(
+        190,
+        36,
+        7,
+        12,
+        '#d3b85f'
+      );
+
+      /*
+        plant
+      */
+
+      rect(
+        290,
+        63,
+        12,
+        10,
+        '#76513b'
+      );
+
+      rect(
+        287,
+        52,
+        5,
+        13,
+        '#4b7948'
+      );
+
+      rect(
+        295,
+        49,
+        5,
+        16,
+        '#548754'
+      );
+
+      /*
+        floor mats
+      */
+
+      rect(
+        191,
+        127,
+        97,
+        60,
+        '#b9ad92'
+      );
+
+      rect(
+        195,
+        131,
+        89,
+        52,
+        '#c4b99e'
+      );
+
+      /*
+        toolbox
+      */
+
+      rect(
+        268,
+        205,
+        30,
+        16,
+        '#b94d43'
+      );
+
+      rect(
+        277,
+        201,
+        12,
+        5,
+        '#873931'
+      );
+
+      /*
+        scattered cable
+      */
+
+      rect(
+        298,
+        135,
+        3,
+        28,
+        '#4a494d'
+      );
+
+      rect(
+        298,
+        160,
+        20,
+        3,
+        '#4a494d'
+      );
+
+    }
+
+    /* =====================================================
+       PLAYER
+    ====================================================== */
+
+    function drawPlayer() {
+
+      const x =
+        Math.round(
+          state.player.x
+        );
+
+      const y =
+        Math.round(
+          state.player.y
+        );
+
+      /*
+        shadow
+      */
+
+      rect(
+        x - 5,
+        y + 10,
+        10,
+        3,
+        'rgba(0,0,0,0.2)'
+      );
+
+      /*
+        hair
+      */
+
+      rect(
+        x - 5,
+        y - 9,
+        10,
+        4,
+        '#2b211c'
+      );
+
+      rect(
+        x - 4,
+        y - 11,
+        8,
+        3,
+        '#2b211c'
+      );
+
+      /*
+        head
+      */
+
+      rect(
+        x - 3,
+        y - 5,
+        6,
+        6,
+        '#d6a178'
+      );
+
+      /*
+        shirt
+      */
+
+      rect(
+        x - 4,
+        y + 1,
+        8,
+        7,
+        '#4279b8'
+      );
+
+      /*
+        arms
+      */
+
+      rect(
+        x - 5,
+        y + 2,
+        1,
+        5,
+        '#d6a178'
+      );
+
+      rect(
+        x + 4,
+        y + 2,
+        1,
+        5,
+        '#d6a178'
+      );
+
+      const phase =
+        Math.floor(
+          performance.now() /
+          120
         ) %
+        2;
 
-        entries.length;
+      if (
+        state.moving &&
+        phase === 0
+      ) {
 
+        rect(
+          x - 3,
+          y + 8,
+          2,
+          5,
+          '#2c2c33'
+        );
 
-      menuItems
-        .forEach(
+        rect(
+          x + 1,
+          y + 7,
+          2,
+          5,
+          '#2c2c33'
+        );
+
+      }
+
+      else {
+
+        rect(
+          x - 3,
+          y + 7,
+          2,
+          5,
+          '#2c2c33'
+        );
+
+        rect(
+          x + 1,
+          y + 8,
+          2,
+          5,
+          '#2c2c33'
+        );
+
+      }
+
+    }
+
+    /* =====================================================
+       DRAW LAB
+    ====================================================== */
+
+    function drawLab() {
+
+      ctx.clearRect(
+        0,
+        0,
+        W,
+        H
+      );
+
+      drawFloor();
+
+      drawDecorations();
+
+      drawCADStation();
+
+      drawNoticeBoard();
+
+      drawRobotBench();
+
+      drawProfileDoor();
+
+      drawContactTerminal();
+
+      drawPlayer();
+
+    }
+
+    /* =====================================================
+       HIT TESTING
+    ====================================================== */
+
+    function inside(
+      x,
+      y,
+      box
+    ) {
+
+      return (
+
+        x >= box.x &&
+
+        x <=
+        box.x +
+        box.w &&
+
+        y >= box.y &&
+
+        y <=
+        box.y +
+        box.h
+
+      );
+
+    }
+
+    function getHoveredStation(
+      x,
+      y
+    ) {
+
+      for (
+        const key
+        of
+        Object.keys(stations)
+      ) {
+
+        if (
+          inside(
+            x,
+            y,
+            stations[key].box
+          )
+        ) {
+
+          return key;
+
+        }
+
+      }
+
+      return null;
+
+    }
+
+    function mouseToCanvas(
+      event
+    ) {
+
+      const bounds =
+        canvas
+          .getBoundingClientRect();
+
+      return {
+
+        x:
+
           (
-            item,
-            i
-          ) => {
+            event.clientX -
+            bounds.left
+          ) *
 
-            const selector =
-              item
-                .querySelector(
-                  '.selector'
-                );
+          W /
+          bounds.width,
 
+
+        y:
+
+          (
+            event.clientY -
+            bounds.top
+          ) *
+
+          H /
+          bounds.height,
+
+
+        screenX:
+          event.clientX -
+          bounds.left,
+
+        screenY:
+          event.clientY -
+          bounds.top
+
+      };
+
+    }
+
+    /* =====================================================
+       HOVER
+    ====================================================== */
+
+    canvas.addEventListener(
+      'mousemove',
+      event => {
+
+        const mouse =
+          mouseToCanvas(
+            event
+          );
+
+        const key =
+          getHoveredStation(
+            mouse.x,
+            mouse.y
+          );
+
+        state.hover =
+          key;
+
+        if (key) {
+
+          canvas.style.cursor =
+            'pointer';
+
+          tooltip.innerHTML =
+
+            stations[key].label +
+
+            '<br>' +
+
+            stations[key].subtitle;
+
+          tooltip
+            .classList
+            .add(
+              'show'
+            );
+
+          tooltip.style.left =
+            mouse.screenX +
+            'px';
+
+          tooltip.style.top =
+            (
+              mouse.screenY -
+              8
+            ) +
+            'px';
+
+        }
+
+        else {
+
+          canvas.style.cursor =
+            'default';
+
+          tooltip
+            .classList
+            .remove(
+              'show'
+            );
+
+        }
+
+      }
+    );
+
+    canvas.addEventListener(
+      'mouseleave',
+      () => {
+
+        tooltip
+          .classList
+          .remove(
+            'show'
+          );
+
+      }
+    );
+
+    /* =====================================================
+       MOVEMENT
+    ====================================================== */
+
+    function moveBetween(
+      start,
+      end,
+      duration = 260
+    ) {
+
+      return new Promise(
+        resolve => {
+
+          const startTime =
+            performance.now();
+
+          function frame(now) {
+
+            const progress =
+              Math.min(
+
+                (
+                  now -
+                  startTime
+                ) /
+                duration,
+
+                1
+              );
+
+            const x =
+
+              start.x +
+
+              (
+                end.x -
+                start.x
+              ) *
+
+              progress;
+
+            const y =
+
+              start.y +
+
+              (
+                end.y -
+                start.y
+              ) *
+
+              progress;
+
+            state.player.x =
+              x;
+
+            state.player.y =
+              y;
 
             if (
-              i ===
-              selectedIndex
+              progress < 1
             ) {
 
-              item
-                .classList
-                .add(
-                  'selected'
-                );
-
-
-              selector
-                .textContent =
-                '▶';
+              requestAnimationFrame(
+                frame
+              );
 
             }
 
             else {
 
-              item
-                .classList
-                .remove(
-                  'selected'
-                );
-
-
-              selector
-                .textContent =
-                '';
+              resolve();
 
             }
 
           }
-        );
 
-
-      const entry =
-        entries[
-          selectedIndex
-        ];
-
-
-      previewTitle
-        .textContent =
-        entry.title;
-
-
-      previewCount
-        .textContent =
-        entry.count;
-
-
-      previewDescription
-        .textContent =
-        entry.description;
-
-
-      statusText.innerHTML =
-
-        'ENTRY SELECTED.<br>' +
-
-        'PRESS ENTER TO OPEN.';
-
-    }
-
-
-    /* =====================================================
-       MENU CLICK
-    ====================================================== */
-
-    menuItems
-      .forEach(
-        (
-          item,
-          index
-        ) => {
-
-          item
-            .addEventListener(
-              'mouseenter',
-              () => {
-
-                updateSelection(
-                  index
-                );
-
-              }
-            );
-
-
-          item
-            .addEventListener(
-              'click',
-              () => {
-
-                updateSelection(
-                  index
-                );
-
-              }
-            );
-
-
-          item
-            .addEventListener(
-              'dblclick',
-              () => {
-
-                openSelected();
-
-              }
-            );
+          requestAnimationFrame(
+            frame
+          );
 
         }
       );
 
+    }
+
+    async function walkPath(
+      points
+    ) {
+
+      state.moving =
+        true;
+
+      for (
+        let i = 0;
+        i <
+        points.length -
+        1;
+        i++
+      ) {
+
+        await moveBetween(
+
+          points[i],
+
+          points[
+            i + 1
+          ]
+
+        );
+
+      }
+
+      state.moving =
+        false;
+
+    }
 
     /* =====================================================
        LOADING
     ====================================================== */
 
     function loadingSequence(
-      entry
+      key
     ) {
 
       return new Promise(
@@ -1995,48 +2350,36 @@
             'loading'
           );
 
-
           loadingDestination
             .textContent =
-            entry.loading;
+            stations[key]
+              .loading;
 
+          loadingText
+            .textContent =
+            'LOADING.';
 
           progressBar
             .style
             .width =
             '0%';
 
+          let dots = 1;
+          let progress = 0;
 
-          loadingText
-            .textContent =
-            'LOADING.';
-
-
-          let dots =
-            1;
-
-
-          let progress =
-            0;
-
-
-          const dotTimer =
+          const dotsTimer =
             setInterval(
               () => {
 
                 dots++;
 
-
                 if (
-                  dots >
-                  3
+                  dots > 3
                 ) {
 
-                  dots =
-                    1;
+                  dots = 1;
 
                 }
-
 
                 loadingText
                   .textContent =
@@ -2052,8 +2395,7 @@
               350
             );
 
-
-          const progressTimer =
+          const barTimer =
             setInterval(
               () => {
 
@@ -2062,7 +2404,6 @@
                   Math.random() *
                   8 +
                   3;
-
 
                 if (
                   progress >
@@ -2073,7 +2414,6 @@
                     96;
 
                 }
-
 
                 progressBar
                   .style
@@ -2087,34 +2427,29 @@
               110
             );
 
-
           setTimeout(
             () => {
 
               clearInterval(
-                dotTimer
+                dotsTimer
               );
-
 
               clearInterval(
-                progressTimer
+                barTimer
               );
-
 
               progressBar
                 .style
                 .width =
                 '100%';
 
-
               loadingText
                 .textContent =
                 'LOADED!';
 
-
               setTimeout(
                 resolve,
-                160
+                180
               );
 
             },
@@ -2127,178 +2462,166 @@
 
     }
 
-
     /* =====================================================
-       OPEN ENTRY
+       CLICK STATION
     ====================================================== */
 
-    async function openSelected() {
+    canvas.addEventListener(
+      'click',
+      async event => {
 
-      if (
-        transitionLocked
-      ) {
+        if (
+          state.moving ||
+          state.returning
+        ) {
 
-        return;
-
-      }
-
-
-      transitionLocked =
-        true;
-
-
-      const entry =
-        entries[
-          selectedIndex
-        ];
-
-
-      statusText.innerHTML =
-
-        'ACCESSING DATABASE...';
-
-
-      await loadingSequence(
-        entry
-      );
-
-
-      showScreen(
-        entry.page
-      );
-
-
-      transitionLocked =
-        false;
-
-    }
-
-
-    enterButton
-      .addEventListener(
-        'click',
-        openSelected
-      );
-
-
-    /* =====================================================
-       KEYBOARD
-    ====================================================== */
-
-    document
-      .addEventListener(
-        'keydown',
-        event => {
-
-          if (
-            !screens
-              .device
-              .classList
-              .contains(
-                'active'
-              )
-          ) {
-
-            return;
-
-          }
-
-
-          if (
-            event.key ===
-            'ArrowUp'
-          ) {
-
-            event
-              .preventDefault();
-
-
-            updateSelection(
-
-              selectedIndex -
-              1
-
-            );
-
-          }
-
-
-          if (
-            event.key ===
-            'ArrowDown'
-          ) {
-
-            event
-              .preventDefault();
-
-
-            updateSelection(
-
-              selectedIndex +
-              1
-
-            );
-
-          }
-
-
-          if (
-            event.key ===
-            'Enter'
-          ) {
-
-            event
-              .preventDefault();
-
-
-            openSelected();
-
-          }
+          return;
 
         }
-      );
 
+        const mouse =
+          mouseToCanvas(
+            event
+          );
+
+        const key =
+          getHoveredStation(
+            mouse.x,
+            mouse.y
+          );
+
+        if (
+          !key
+        ) {
+
+          return;
+
+        }
+
+        tooltip
+          .classList
+          .remove(
+            'show'
+          );
+
+        await walkPath(
+          stations[key].path
+        );
+
+        await loadingSequence(
+          key
+        );
+
+        showScreen(
+          key
+        );
+
+      }
+    );
 
     /* =====================================================
-       RETURN BUTTONS
+       RETURN TO LAB
     ====================================================== */
 
     document
       .querySelectorAll(
-        '.back-button'
+        '[data-back]'
       )
       .forEach(
         button => {
 
-          button
-            .addEventListener(
-              'click',
-              () => {
+          button.addEventListener(
+            'click',
+            async () => {
 
-                showScreen(
-                  'device'
-                );
+              if (
+                state.moving ||
+                state.returning
+              ) {
 
-
-                statusText.innerHTML =
-
-                  'DATABASE READY.<br>' +
-
-                  'SELECT NEXT ENTRY.';
+                return;
 
               }
-            );
+
+              const key =
+                button
+                  .dataset
+                  .back;
+
+              state.returning =
+                true;
+
+              const reversePath =
+
+                [
+                  ...stations[key]
+                    .path
+                ]
+                .reverse();
+
+              showScreen(
+                'lab'
+              );
+
+              /*
+                spawn player
+                beside station
+              */
+
+              state.player.x =
+                reversePath[0].x;
+
+              state.player.y =
+                reversePath[0].y;
+
+              /*
+                little exit delay
+              */
+
+              await new Promise(
+                resolve =>
+                  setTimeout(
+                    resolve,
+                    350
+                  )
+              );
+
+              await walkPath(
+                reversePath
+              );
+
+              state.player.x =
+                CENTER.x;
+
+              state.player.y =
+                CENTER.y;
+
+              state.returning =
+                false;
+
+            }
+          );
 
         }
       );
 
+    /* =====================================================
+       RENDER LOOP
+    ====================================================== */
 
-    updateSelection(
-      0
-    );
+    function render() {
+
+      drawLab();
+
+      requestAnimationFrame(
+        render
+      );
+
+    }
+
+    render();
 
   </script>
 
 </body>
-
 </html>
