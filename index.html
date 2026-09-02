@@ -3,12 +3,12 @@
 
 <head>
 
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
-  />
+  >
 
   <title>Engineering Portfolio</title>
 
@@ -28,7 +28,6 @@
     rel="stylesheet"
   >
 
-
   <style>
 
     * {
@@ -46,13 +45,15 @@
 
       overflow: hidden;
 
-      background: #ffffff;
-
-      color: #171717;
+      background:
+        #1c1b22;
 
       font-family:
         'VT323',
         monospace;
+
+      color:
+        #171717;
 
     }
 
@@ -60,9 +61,11 @@
     button {
 
       font: inherit;
+
       color: inherit;
 
       border: none;
+
       background: none;
 
       cursor: pointer;
@@ -72,15 +75,20 @@
 
     :root {
 
-      --paper: #f5f2e9;
+      --ink:
+        #171717;
 
-      --ink: #171717;
+      --paper:
+        #f5f0df;
 
-      --muted: #6c6454;
+      --cream:
+        #fff6d9;
 
-      --gold: #ccb15f;
+      --gold:
+        #e1be59;
 
-      --gold-soft: #fff2bf;
+      --dark-gold:
+        #9c7932;
 
       --shadow:
         4px 4px 0 #171717;
@@ -102,14 +110,8 @@
 
       pointer-events: none;
 
-      transform:
-        translateY(8px);
-
       transition:
-
-        opacity 0.4s ease,
-
-        transform 0.4s ease;
+        opacity 0.35s ease;
 
     }
 
@@ -120,265 +122,1233 @@
 
       pointer-events: auto;
 
-      transform:
-        translateY(0);
-
     }
 
 
     /* =====================================================
-       LANDING PAGE
+       WORLD MAP SCREEN
     ====================================================== */
 
-    #landing {
+    #worldMap {
+
+      background:
+        #24232a;
 
       display: flex;
 
       align-items: center;
       justify-content: center;
 
-      background:
-        #ffffff;
+    }
+
+
+    .map-shell {
+
+      position: relative;
+
+      width:
+        min(1180px, 96vw);
+
+      height:
+        min(790px, 94vh);
+
+      border:
+        6px solid #171717;
+
+      border-radius:
+        16px;
+
+      box-shadow:
+
+        0 0 0 5px #ad7c45,
+
+        0 0 0 10px #171717;
 
       overflow: hidden;
 
-    }
-
-
-    .landing-inner {
-
-      position: relative;
-
-      display: flex;
-
-      flex-direction: column;
-
-      align-items: center;
-
-      gap: 34px;
-
-    }
-
-
-    .logo-area {
-
-      position: relative;
-
-      width: 300px;
-
-      height: 300px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
+      background:
+        #9cb355;
 
     }
 
 
     /* =====================================================
-       TEMPORARY PORTFOLIO LOGO
+       MAP TITLE
     ====================================================== */
 
-    #portfolioMark {
+    .map-title {
 
-      position: relative;
+      position: absolute;
 
-      width: 210px;
+      top: 15px;
 
-      height: 210px;
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+
+      z-index: 50;
+
+      padding:
+        13px 22px;
+
+      background:
+        #211f23;
+
+      color:
+        #fff6dd;
 
       border:
-        18px solid #111111;
+        4px solid #171717;
 
-      cursor: pointer;
+      border-radius:
+        10px;
 
-      animation:
-        spinMark 10s linear infinite;
+      box-shadow:
 
-      transition:
-        animation-duration 0.35s ease;
+        0 0 0 3px #a87947,
+
+        4px 4px 0 rgba(0,0,0,0.45);
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        clamp(10px, 1.3vw, 16px);
+
+      white-space:
+        nowrap;
+
+    }
+
+
+    /* =====================================================
+       WORLD TERRAIN
+    ====================================================== */
+
+    .world {
+
+      position: absolute;
+
+      inset: 0;
+
+      overflow: hidden;
+
+      background:
+
+        radial-gradient(
+          circle at 26% 29%,
+          rgba(70,117,55,0.85) 0 17%,
+          transparent 18%
+        ),
+
+        radial-gradient(
+          circle at 82% 32%,
+          #8b6141 0 13%,
+          transparent 14%
+        ),
+
+        linear-gradient(
+          180deg,
+          #9fb75a 0%,
+          #adb95a 100%
+        );
+
+    }
+
+
+    /* subtle pixel texture */
+
+    .world::after {
+
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      background:
+
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.025) 0,
+          rgba(255,255,255,0.025) 2px,
+          transparent 2px,
+          transparent 5px
+        );
+
+      z-index: 35;
+
+    }
+
+
+    /* =====================================================
+       WATER
+    ====================================================== */
+
+    .lake {
+
+      position: absolute;
+
+      left: 5%;
+
+      bottom: 9%;
+
+      width: 37%;
+
+      height: 31%;
+
+      background:
+        #68a8d5;
+
+      border:
+        4px solid #365f82;
+
+      border-radius:
+        42% 58% 46% 54% /
+        52% 37% 63% 48%;
+
+      box-shadow:
+
+        inset 0 0 0 5px #8bc5e6,
+
+        4px 4px 0 rgba(0,0,0,0.16);
 
       z-index: 3;
 
     }
 
 
-    #portfolioMark::before,
-    #portfolioMark::after {
+    .lake::after {
 
       content: "";
 
       position: absolute;
 
-      background:
-        #111111;
+      width: 55px;
+
+      height: 20px;
+
+      left: 25%;
+
+      top: 25%;
+
+      border-top:
+        5px solid rgba(255,255,255,0.5);
+
+      border-radius:
+        50%;
 
     }
 
 
-    #portfolioMark::before {
+    /* =====================================================
+       MOUNTAIN REGION
+    ====================================================== */
 
-      width: 72%;
+    .mountain-region {
 
-      height: 18px;
+      position: absolute;
 
-      left: 14%;
+      right: -4%;
 
-      top: 50%;
+      top: 5%;
 
-      transform:
-        translateY(-50%);
-
-    }
-
-
-    #portfolioMark::after {
+      width: 46%;
 
       height: 72%;
 
-      width: 18px;
+      z-index: 4;
 
-      top: 14%;
+    }
+
+
+    .mountain {
+
+      position: absolute;
+
+      width: 180px;
+
+      height: 220px;
+
+      background:
+        #8b5c3f;
+
+      clip-path:
+        polygon(
+          50% 0,
+          100% 100%,
+          0 100%
+        );
+
+      filter:
+        drop-shadow(
+          5px 6px 0 #573d2f
+        );
+
+    }
+
+
+    .mountain::before {
+
+      content: "";
+
+      position: absolute;
+
+      left: 36%;
+
+      top: 0;
+
+      width: 36%;
+
+      height: 42%;
+
+      background:
+        #d7a275;
+
+      clip-path:
+        polygon(
+          50% 0,
+          100% 100%,
+          54% 76%,
+          35% 100%,
+          0 100%
+        );
+
+    }
+
+
+    .m1 {
+
+      right: 14%;
+
+      top: 1%;
+
+      transform:
+        scale(1.2);
+
+    }
+
+
+    .m2 {
+
+      right: 39%;
+
+      top: 22%;
+
+      transform:
+        scale(1);
+
+    }
+
+
+    .m3 {
+
+      right: 0;
+
+      top: 28%;
+
+      transform:
+        scale(0.9);
+
+    }
+
+
+    /* =====================================================
+       FOREST
+    ====================================================== */
+
+    .forest-area {
+
+      position: absolute;
+
+      left: 5%;
+
+      top: 8%;
+
+      width: 47%;
+
+      height: 33%;
+
+      z-index: 5;
+
+    }
+
+
+    .tree {
+
+      position: absolute;
+
+      width: 38px;
+
+      height: 48px;
+
+    }
+
+
+    .tree::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 38px;
+
+      height: 38px;
+
+      border-radius:
+        45%;
+
+      background:
+        #3f7b43;
+
+      border:
+        3px solid #21452c;
+
+      box-shadow:
+
+        inset 6px -5px 0 #315f35,
+
+        3px 3px 0 rgba(0,0,0,0.2);
+
+    }
+
+
+    .tree::after {
+
+      content: "";
+
+      position: absolute;
+
+      left: 15px;
+
+      bottom: 0;
+
+      width: 9px;
+
+      height: 19px;
+
+      background:
+        #755338;
+
+      border:
+        2px solid #402d20;
+
+    }
+
+
+    /* =====================================================
+       PATHS
+    ====================================================== */
+
+    .path {
+
+      position: absolute;
+
+      background:
+        #c79d67;
+
+      border:
+        3px solid #8b6747;
+
+      z-index: 6;
+
+      transform-origin:
+        left center;
+
+      border-radius:
+        20px;
+
+    }
+
+
+    .path-centre-castle {
+
+      left: 50%;
+
+      top: 53%;
+
+      width: 33%;
+
+      height: 19px;
+
+      transform:
+        rotate(-35deg);
+
+    }
+
+
+    .path-centre-mine {
+
+      left: 51%;
+
+      top: 56%;
+
+      width: 31%;
+
+      height: 19px;
+
+      transform:
+        rotate(30deg);
+
+    }
+
+
+    .path-centre-forest {
+
+      left: 48%;
+
+      top: 48%;
+
+      width: 31%;
+
+      height: 19px;
+
+      transform:
+        rotate(-145deg);
+
+    }
+
+
+    .path-centre-village {
+
+      left: 49%;
+
+      top: 57%;
+
+      width: 38%;
+
+      height: 19px;
+
+      transform:
+        rotate(145deg);
+
+    }
+
+
+    .path-centre-port {
+
+      left: 49%;
+
+      top: 58%;
+
+      width: 31%;
+
+      height: 19px;
+
+      transform:
+        rotate(110deg);
+
+    }
+
+
+    /* =====================================================
+       DESTINATIONS
+    ====================================================== */
+
+    .destination {
+
+      position: absolute;
+
+      z-index: 20;
+
+      cursor: pointer;
+
+      transition:
+
+        filter 0.16s ease,
+
+        transform 0.16s ease;
+
+    }
+
+
+    .destination:hover {
+
+      filter:
+        brightness(1.18);
+
+      transform:
+        translateY(-4px);
+
+    }
+
+
+    .destination-label {
+
+      position: absolute;
 
       left: 50%;
 
       transform:
         translateX(-50%);
 
-    }
+      bottom:
+        -35px;
 
+      padding:
+        7px 9px;
 
-    #portfolioMark:hover {
+      background:
+        rgba(25,25,25,0.86);
 
-      animation-duration:
-        30s;
+      color:
+        white;
 
-    }
+      border:
+        2px solid #111;
 
-
-    @keyframes spinMark {
-
-      from {
-
-        transform:
-          rotate(0deg);
-
-      }
-
-      to {
-
-        transform:
-          rotate(360deg);
-
-      }
-
-    }
-
-
-    /* =====================================================
-       LANDING TEXT
-    ====================================================== */
-
-    #stayTuned {
-
-      min-width: 240px;
-
-      text-align: center;
+      border-radius:
+        7px;
 
       font-family:
         'Press Start 2P',
         cursive;
 
-      font-size: 10px;
+      font-size:
+        7px;
 
-      color:
-        #555555;
+      white-space:
+        nowrap;
+
+      opacity:
+        0;
+
+      transition:
+        opacity 0.16s ease;
+
+    }
+
+
+    .destination:hover
+    .destination-label {
+
+      opacity: 1;
 
     }
 
 
     /* =====================================================
-       FLYING ENGINEERING MASCOT
+       CASTLE
     ====================================================== */
 
-    #mascot {
+    #castle {
 
-      position: fixed;
+      right: 8%;
 
-      left: 50%;
-      top: 50%;
+      top: 27%;
 
       width: 145px;
 
-      height: 140px;
+      height: 160px;
+
+    }
+
+
+    .castle-body {
+
+      position: absolute;
+
+      left: 22px;
+
+      bottom: 0;
+
+      width: 105px;
+
+      height: 95px;
+
+      background:
+        #d4d1c3;
+
+      border:
+        4px solid #343434;
+
+      box-shadow:
+        inset -12px 0 0 #aaa79d;
+
+    }
+
+
+    .castle-tower {
+
+      position: absolute;
+
+      bottom: 0;
+
+      width: 42px;
+
+      height: 130px;
+
+      background:
+        #c9c5b9;
+
+      border:
+        4px solid #343434;
+
+    }
+
+
+    .castle-tower.left {
+
+      left: 0;
+
+    }
+
+
+    .castle-tower.right {
+
+      right: 0;
+
+    }
+
+
+    .castle-roof {
+
+      position: absolute;
+
+      width: 52px;
+
+      height: 48px;
+
+      background:
+        #b44e43;
+
+      clip-path:
+        polygon(
+          50% 0,
+          100% 100%,
+          0 100%
+        );
+
+      top: -42px;
+
+      left: -9px;
+
+      filter:
+        drop-shadow(
+          0 4px 0 #6b2f2b
+        );
+
+    }
+
+
+    .castle-door {
+
+      position: absolute;
+
+      bottom: 0;
+
+      left: 50%;
+
+      transform:
+        translateX(-50%);
+
+      width: 27px;
+
+      height: 40px;
+
+      background:
+        #624638;
+
+      border:
+        3px solid #34251e;
+
+      border-radius:
+        12px 12px 0 0;
+
+    }
+
+
+    /* =====================================================
+       MINE
+    ====================================================== */
+
+    #mine {
+
+      right: 13%;
+
+      bottom: 12%;
+
+      width: 145px;
+
+      height: 100px;
+
+    }
+
+
+    .mine-rock {
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+        #76716c;
+
+      clip-path:
+        polygon(
+          13% 38%,
+          28% 12%,
+          51% 2%,
+          75% 16%,
+          95% 48%,
+          88% 100%,
+          10% 100%,
+          0 63%
+        );
+
+      border:
+        4px solid #3b3835;
+
+    }
+
+
+    .mine-hole {
+
+      position: absolute;
+
+      width: 65px;
+
+      height: 62px;
+
+      bottom: 0;
+
+      left: 39px;
+
+      background:
+        #171717;
+
+      border:
+        6px solid #594638;
+
+      border-radius:
+        50% 50% 0 0;
+
+    }
+
+
+    /* =====================================================
+       VILLAGE
+    ====================================================== */
+
+    #village {
+
+      left: 8%;
+
+      bottom: 12%;
+
+      width: 150px;
+
+      height: 115px;
+
+    }
+
+
+    .house {
+
+      position: absolute;
+
+      width: 55px;
+
+      height: 50px;
+
+      background:
+        #e4c996;
+
+      border:
+        3px solid #533c2e;
+
+    }
+
+
+    .house::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 67px;
+
+      height: 37px;
+
+      left: -8px;
+
+      top: -31px;
+
+      background:
+        #a95443;
+
+      clip-path:
+        polygon(
+          50% 0,
+          100% 100%,
+          0 100%
+        );
+
+    }
+
+
+    .h1 {
+
+      left: 8px;
+
+      bottom: 8px;
+
+    }
+
+
+    .h2 {
+
+      right: 6px;
+
+      bottom: 14px;
+
+      transform:
+        scale(0.8);
+
+    }
+
+
+    /* =====================================================
+       FOREST LANDMARK
+    ====================================================== */
+
+    #forest {
+
+      left: 17%;
+
+      top: 19%;
+
+      width: 130px;
+
+      height: 115px;
+
+    }
+
+
+    .forest-shrine {
+
+      position: absolute;
+
+      width: 68px;
+
+      height: 60px;
+
+      left: 31px;
+
+      bottom: 5px;
+
+      background:
+        #bb9368;
+
+      border:
+        4px solid #493629;
+
+    }
+
+
+    .forest-shrine::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 88px;
+
+      height: 40px;
+
+      left: -14px;
+
+      top: -35px;
+
+      background:
+        #8d4b3e;
+
+      clip-path:
+        polygon(
+          50% 0,
+          100% 100%,
+          0 100%
+        );
+
+    }
+
+
+    /* =====================================================
+       PORT
+    ====================================================== */
+
+    #port {
+
+      left: 27%;
+
+      bottom: 6%;
+
+      width: 125px;
+
+      height: 90px;
+
+    }
+
+
+    .dock {
+
+      position: absolute;
+
+      width: 100px;
+
+      height: 22px;
+
+      left: 10px;
+
+      bottom: 20px;
+
+      background:
+        repeating-linear-gradient(
+          90deg,
+          #8a6544 0 14px,
+          #6e4e35 14px 18px
+        );
+
+      border:
+        3px solid #3d2b20;
+
+    }
+
+
+    .boat {
+
+      position: absolute;
+
+      width: 55px;
+
+      height: 25px;
+
+      left: 40px;
+
+      top: 12px;
+
+      background:
+        #d6b177;
+
+      border:
+        3px solid #47362b;
+
+      border-radius:
+        0 0 28px 28px;
+
+    }
+
+
+    /* =====================================================
+       PLAYER
+    ====================================================== */
+
+    #player {
+
+      position: absolute;
+
+      left: 50%;
+
+      top: 55%;
+
+      width: 28px;
+
+      height: 38px;
 
       transform:
         translate(-50%, -50%);
 
+      z-index: 30;
+
+      transition:
+        none;
+
       pointer-events: none;
 
-      z-index: 10;
+      filter:
+        drop-shadow(
+          2px 3px 0 rgba(0,0,0,0.25)
+        );
 
     }
 
 
-    #mascotCanvas {
+    .player-head {
 
       position: absolute;
 
-      left: 50%;
+      left: 7px;
 
-      top: 38px;
+      top: 0;
 
-      width: 96px;
+      width: 15px;
 
-      height: 96px;
+      height: 15px;
 
-      transform:
-        translateX(-50%);
+      background:
+        #d6a57b;
 
-      image-rendering:
-        pixelated;
+      border:
+        2px solid #171717;
 
-      image-rendering:
-        crisp-edges;
+    }
+
+
+    .player-hair {
+
+      position: absolute;
+
+      left: 5px;
+
+      top: -2px;
+
+      width: 19px;
+
+      height: 8px;
+
+      background:
+        #322c29;
+
+      border:
+        2px solid #171717;
+
+    }
+
+
+    .player-body {
+
+      position: absolute;
+
+      left: 4px;
+
+      top: 15px;
+
+      width: 21px;
+
+      height: 16px;
+
+      background:
+        #5276b9;
+
+      border:
+        2px solid #171717;
+
+    }
+
+
+    .player-leg {
+
+      position: absolute;
+
+      top: 30px;
+
+      width: 7px;
+
+      height: 9px;
+
+      background:
+        #323239;
+
+      border:
+        2px solid #171717;
+
+    }
+
+
+    .leg-left {
+
+      left: 5px;
+
+    }
+
+
+    .leg-right {
+
+      right: 4px;
+
+    }
+
+
+    #player.walking
+    .leg-left {
+
+      animation:
+        walkLeft 0.22s infinite alternate;
+
+    }
+
+
+    #player.walking
+    .leg-right {
+
+      animation:
+        walkRight 0.22s infinite alternate;
+
+    }
+
+
+    @keyframes walkLeft {
+
+      from {
+        transform:
+          translateY(-2px);
+      }
+
+      to {
+        transform:
+          translateY(2px);
+      }
+
+    }
+
+
+    @keyframes walkRight {
+
+      from {
+        transform:
+          translateY(2px);
+      }
+
+      to {
+        transform:
+          translateY(-2px);
+      }
 
     }
 
 
     /* =====================================================
-       SPEECH BUBBLE
+       MAP INSTRUCTIONS
     ====================================================== */
 
-    .speech-bubble {
+    .map-help {
 
       position: absolute;
 
-      left: 50%;
+      left: 20px;
 
-      top: -10px;
+      top: 18px;
 
-      transform:
-        translateX(-50%);
-
-      background:
-        #fff9df;
-
-      color:
-        #111111;
-
-      border:
-        3px solid #111111;
-
-      border-radius:
-        10px;
-
-      box-shadow:
-        4px 4px 0 #111111;
+      z-index: 40;
 
       padding:
-        9px 10px;
+        10px 13px;
+
+      background:
+        rgba(255,248,218,0.92);
+
+      border:
+        3px solid #171717;
+
+      border-radius:
+        8px;
+
+      box-shadow:
+        3px 3px 0 #171717;
 
       font-family:
         'Press Start 2P',
@@ -388,428 +1358,7 @@
         7px;
 
       line-height:
-        1.5;
-
-      white-space:
-        nowrap;
-
-      animation:
-        bubbleBounce
-        0.75s
-        ease-in-out
-        infinite
-        alternate;
-
-    }
-
-
-    .speech-bubble::after {
-
-      content: "";
-
-      position: absolute;
-
-      left: 50%;
-
-      bottom: -10px;
-
-      width: 14px;
-
-      height: 14px;
-
-      transform:
-
-        translateX(-50%)
-
-        rotate(45deg);
-
-      background:
-        #fff9df;
-
-      border-right:
-        3px solid #111111;
-
-      border-bottom:
-        3px solid #111111;
-
-    }
-
-
-    @keyframes bubbleBounce {
-
-      from {
-
-        transform:
-
-          translateX(-50%)
-
-          translateY(0);
-
-      }
-
-      to {
-
-        transform:
-
-          translateX(-50%)
-
-          translateY(-3px);
-
-      }
-
-    }
-
-
-    /* =====================================================
-       SPARKLES
-    ====================================================== */
-
-    #sparkleLayer {
-
-      position: fixed;
-
-      inset: 0;
-
-      pointer-events: none;
-
-      z-index: 8;
-
-    }
-
-
-    .sparkle {
-
-      position: absolute;
-
-      width: 4px;
-
-      height: 4px;
-
-      background:
-        #f1ce57;
-
-      box-shadow:
-
-        0 -5px 0 #f1ce57,
-
-        0 5px 0 #f1ce57,
-
-        5px 0 0 #f1ce57,
-
-        -5px 0 0 #f1ce57;
-
-      animation:
-
-        sparklePop
-
-        0.7s
-
-        ease-out
-
-        forwards;
-
-    }
-
-
-    @keyframes sparklePop {
-
-      from {
-
-        opacity: 1;
-
-        transform:
-          scale(0.5);
-
-      }
-
-      to {
-
-        opacity: 0;
-
-        transform:
-
-          translateY(-18px)
-
-          scale(1.5);
-
-      }
-
-    }
-
-
-    /* =====================================================
-       GAME BACKGROUND
-    ====================================================== */
-
-    .game-screen {
-
-      background:
-
-        linear-gradient(
-
-          rgba(255,255,255,0.28),
-
-          rgba(255,255,255,0.28)
-
-        ),
-
-        repeating-linear-gradient(
-
-          0deg,
-
-          #f5f2e9 0px,
-
-          #f5f2e9 2px,
-
-          #f2eee5 2px,
-
-          #f2eee5 4px
-
-        );
-
-      overflow: hidden;
-
-    }
-
-
-    .game-wrap {
-
-      width:
-        min(1200px, 94%);
-
-      height: 100%;
-
-      margin:
-        0 auto;
-
-      padding:
-        22px 0 26px;
-
-      display: flex;
-
-      flex-direction: column;
-
-    }
-
-
-    /* =====================================================
-       SCREEN TITLE
-    ====================================================== */
-
-    .screen-title {
-
-      height: 58px;
-
-      flex:
-        0 0 58px;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size:
-        clamp(
-          15px,
-          1.8vw,
-          23px
-        );
-
-      color:
-        var(--gold);
-
-      text-shadow:
-        2px 2px 0 #ffffff;
-
-      margin-bottom:
-        12px;
-
-    }
-
-
-    /* =====================================================
-       MAIN MENU
-    ====================================================== */
-
-    .menu-layout {
-
-      flex: 1;
-
-      min-height: 0;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding-bottom:
-        12px;
-
-    }
-
-
-    .menu-content {
-
-      width:
-        min(740px, 92%);
-
-      display: flex;
-
-      flex-direction: column;
-
-    }
-
-
-    .tiny-label {
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size: 8px;
-
-      line-height: 1.6;
-
-      color:
-        #8a806b;
-
-      margin-bottom:
-        12px;
-
-    }
-
-
-    .page-heading {
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size:
-        clamp(
-          25px,
-          3.5vw,
-          46px
-        );
-
-      line-height:
-        1.4;
-
-      margin-bottom:
-        16px;
-
-      text-shadow:
-        2px 2px 0 #ffffff;
-
-    }
-
-
-    .menu-description {
-
-      font-size:
-        24px;
-
-      line-height:
-        1.2;
-
-      color:
-        var(--muted);
-
-      margin-bottom:
-        18px;
-
-      max-width:
-        650px;
-
-    }
-
-
-    .menu-options {
-
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 10px;
-
-    }
-
-
-    .menu-option {
-
-      width: 100%;
-
-      text-align: left;
-
-      padding:
-        13px 16px;
-
-      border:
-        3px solid #111111;
-
-      border-radius:
-        10px;
-
-      box-shadow:
-        var(--shadow);
-
-      background:
-        #fbf8ef;
-
-      transition:
-
-        transform 0.14s ease,
-
-        background 0.14s ease;
-
-    }
-
-
-    .menu-option:hover {
-
-      background:
-        var(--gold-soft);
-
-      transform:
-        translate(-2px, -2px);
-
-    }
-
-
-    .menu-option-title {
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size:
-        10px;
-
-      line-height:
-        1.5;
-
-    }
-
-
-    .menu-option-description {
-
-      margin-top:
-        4px;
-
-      font-size:
-        19px;
-
-      line-height:
-        1.15;
-
-      color:
-        var(--muted);
+        1.6;
 
     }
 
@@ -822,17 +1371,17 @@
 
       z-index: 100;
 
-      background:
-        #151411;
-
-      color:
-        #fff1c7;
-
       display: flex;
 
       align-items: center;
 
       justify-content: center;
+
+      background:
+        #151411;
+
+      color:
+        #fff1c7;
 
     }
 
@@ -862,7 +1411,7 @@
         );
 
       margin-bottom:
-        26px;
+        27px;
 
     }
 
@@ -876,14 +1425,14 @@
       font-size:
         9px;
 
-      line-height:
-        1.8;
-
       color:
         #c9b47a;
 
+      line-height:
+        1.8;
+
       margin-bottom:
-        24px;
+        25px;
 
     }
 
@@ -894,7 +1443,7 @@
         100%;
 
       height:
-        28px;
+        30px;
 
       padding:
         4px;
@@ -919,7 +1468,7 @@
 
           90deg,
 
-          #fff1c7 0px,
+          #fff1c7 0,
 
           #fff1c7 16px,
 
@@ -929,21 +1478,59 @@
 
         );
 
-      transition:
-        width 0.1s linear;
-
     }
 
 
     /* =====================================================
-       PLACEHOLDER CONTENT SECTIONS
+       CONTENT PAGE
     ====================================================== */
 
-    .section-layout {
+    .content-screen {
 
-      flex: 1;
+      background:
 
-      min-height: 0;
+        repeating-linear-gradient(
+
+          0deg,
+
+          #f5f2e9 0,
+
+          #f5f2e9 2px,
+
+          #f2eee5 2px,
+
+          #f2eee5 4px
+
+        );
+
+    }
+
+
+    .page-wrap {
+
+      width:
+        min(1150px, 94%);
+
+      height:
+        100%;
+
+      margin:
+        0 auto;
+
+      padding:
+        25px 0;
+
+      display: flex;
+
+      flex-direction: column;
+
+    }
+
+
+    .page-title {
+
+      height:
+        72px;
 
       display: flex;
 
@@ -951,38 +1538,58 @@
 
       justify-content: center;
 
-    }
+      font-family:
+        'Press Start 2P',
+        cursive;
 
+      color:
+        #c7a852;
 
-    .section-card {
-
-      width:
-        min(900px, 94%);
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.6
+      font-size:
+        clamp(
+          16px,
+          2vw,
+          24px
         );
 
-      border:
-        3px solid #111111;
-
-      border-radius:
-        14px;
-
-      box-shadow:
-        5px 5px 0 #111111;
-
-      padding:
-        30px;
+      flex-shrink:
+        0;
 
     }
 
 
-    .section-card h2 {
+    .page-card {
+
+      flex: 1;
+
+      min-height: 0;
+
+      background:
+        rgba(255,255,255,0.65);
+
+      border:
+        4px solid #171717;
+
+      border-radius:
+        15px;
+
+      box-shadow:
+        6px 6px 0 #171717;
+
+      padding:
+        38px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content:
+        center;
+
+    }
+
+
+    .page-card h2 {
 
       font-family:
         'Press Start 2P',
@@ -990,53 +1597,59 @@
 
       font-size:
         clamp(
-          17px,
-          2.3vw,
-          28px
+          20px,
+          3vw,
+          38px
         );
 
       line-height:
         1.5;
 
       margin-bottom:
-        16px;
+        24px;
 
     }
 
 
-    .section-card p {
+    .page-card p {
+
+      max-width:
+        760px;
 
       font-size:
-        23px;
+        27px;
 
       line-height:
-        1.3;
+        1.35;
 
       color:
-        var(--muted);
+        #665e4e;
 
       margin-bottom:
-        20px;
+        28px;
 
     }
 
 
-    .back-button {
+    .map-button {
+
+      align-self:
+        flex-start;
 
       padding:
-        11px 14px;
+        13px 16px;
 
       border:
-        3px solid #111111;
+        3px solid #171717;
 
       border-radius:
         8px;
 
-      box-shadow:
-        var(--shadow);
-
       background:
-        #fff4c9;
+        #fff0b7;
+
+      box-shadow:
+        4px 4px 0 #171717;
 
       font-family:
         'Press Start 2P',
@@ -1046,115 +1659,15 @@
         8px;
 
       transition:
-
-        transform 0.14s ease,
-
-        background 0.14s ease;
+        transform 0.15s ease;
 
     }
 
 
-    .back-button:hover {
-
-      background:
-        var(--gold-soft);
+    .map-button:hover {
 
       transform:
         translate(-2px, -2px);
-
-    }
-
-
-    /* =====================================================
-       SHORT LAPTOP SCREENS
-    ====================================================== */
-
-    @media
-    (max-height: 850px)
-    and
-    (min-width: 701px) {
-
-
-      .game-wrap {
-
-        padding-top:
-          14px;
-
-        padding-bottom:
-          16px;
-
-      }
-
-
-      .screen-title {
-
-        height:
-          46px;
-
-        flex-basis:
-          46px;
-
-        margin-bottom:
-          6px;
-
-        font-size:
-          16px;
-
-      }
-
-
-      .page-heading {
-
-        font-size:
-          32px;
-
-        margin-bottom:
-          10px;
-
-      }
-
-
-      .tiny-label {
-
-        margin-bottom:
-          8px;
-
-      }
-
-
-      .menu-description {
-
-        font-size:
-          21px;
-
-        margin-bottom:
-          12px;
-
-      }
-
-
-      .menu-options {
-
-        gap:
-          8px;
-
-      }
-
-
-      .menu-option {
-
-        padding:
-          10px 14px;
-
-      }
-
-
-      .menu-option-description {
-
-        font-size:
-          17px;
-
-      }
 
     }
 
@@ -1164,101 +1677,75 @@
     ====================================================== */
 
     @media
-    (max-width: 700px) {
+    (max-width: 800px) {
 
 
-      .game-screen {
-
-        overflow-y:
-          auto;
-
-      }
-
-
-      .game-wrap {
+      .map-shell {
 
         width:
-          94%;
+          96vw;
 
         height:
-          auto;
-
-        min-height:
-          100%;
+          92vh;
 
       }
 
 
-      .menu-content {
+      .map-title {
 
-        width:
-          94%;
-
-      }
-
-
-      .logo-area {
-
-        width:
-          220px;
-
-        height:
-          220px;
+        font-size:
+          8px;
 
       }
 
 
-      #portfolioMark {
+      .map-help {
 
-        width:
-          150px;
-
-        height:
-          150px;
-
-        border-width:
-          14px;
+        display:
+          none;
 
       }
 
 
-      #mascot {
+      #castle {
 
         transform:
+          scale(0.7);
 
-          translate(-50%, -50%)
-
-          scale(0.82);
-
-      }
-
-
-      .menu-description,
-
-      .section-card p {
-
-        font-size:
-          20px;
+        transform-origin:
+          center;
 
       }
 
 
-      .menu-option-description {
+      #mine,
+      #forest,
+      #village,
+      #port {
 
-        font-size:
-          18px;
+        transform:
+          scale(0.75);
 
       }
 
 
-      .section-card {
+      .page-card {
 
         padding:
+          24px;
+
+      }
+
+
+      .page-card p {
+
+        font-size:
           22px;
 
       }
 
     }
+
 
   </style>
 
@@ -1269,242 +1756,316 @@
 
 
   <!-- =====================================================
-       LANDING
+       WORLD MAP
   ====================================================== -->
 
   <section
-    id="landing"
+    id="worldMap"
     class="screen active"
   >
 
 
-    <div id="sparkleLayer"></div>
+    <div class="map-shell">
 
 
-    <div class="landing-inner">
+      <div class="map-title">
+
+        ENGINEERING WORLD MAP
+
+      </div>
 
 
-      <div class="logo-area">
+      <div class="map-help">
+
+        SELECT A LOCATION<br>
+
+        TO EXPLORE
+
+      </div>
+
+
+      <div
+        class="world"
+        id="world"
+      >
+
+
+        <!-- WATER -->
+
+
+        <div class="lake"></div>
+
+
+        <!-- MOUNTAINS -->
+
+
+        <div class="mountain-region">
+
+
+          <div class="mountain m1"></div>
+
+          <div class="mountain m2"></div>
+
+          <div class="mountain m3"></div>
+
+
+        </div>
+
+
+        <!-- FOREST -->
+
+
+        <div class="forest-area">
+
+
+          <div
+            class="tree"
+            style="left:5%;top:10%;"
+          ></div>
+
+          <div
+            class="tree"
+            style="left:20%;top:2%;"
+          ></div>
+
+          <div
+            class="tree"
+            style="left:35%;top:12%;"
+          ></div>
+
+          <div
+            class="tree"
+            style="left:52%;top:4%;"
+          ></div>
+
+          <div
+            class="tree"
+            style="left:68%;top:15%;"
+          ></div>
+
+          <div
+            class="tree"
+            style="left:83%;top:8%;"
+          ></div>
+
+          <div
+            class="tree"
+            style="left:10%;top:46%;"
+          ></div>
+
+          <div
+            class="tree"
+            style="left:28%;top:38%;"
+          ></div>
+
+          <div
+            class="tree"
+            style="left:48%;top:44%;"
+          ></div>
+
+          <div
+            class="tree"
+            style="left:72%;top:42%;"
+          ></div>
+
+
+        </div>
+
+
+        <!-- PATHS -->
 
 
         <div
-          id="portfolioMark"
-          title="Enter portfolio"
-          aria-label="Enter portfolio"
+          class="path path-centre-castle"
+        ></div>
+
+        <div
+          class="path path-centre-mine"
+        ></div>
+
+        <div
+          class="path path-centre-forest"
+        ></div>
+
+        <div
+          class="path path-centre-village"
+        ></div>
+
+        <div
+          class="path path-centre-port"
         ></div>
 
 
-      </div>
+        <!-- =================================================
+             FOREST / SKILLS
+        ================================================== -->
 
 
-      <div id="stayTuned">
-
-        LOADING PORTFOLIO.
-
-      </div>
-
-
-    </div>
+        <div
+          id="forest"
+          class="destination"
+          data-destination="skills"
+        >
 
 
-    <!-- FLYING MASCOT -->
+          <div class="forest-shrine"></div>
 
 
-    <div id="mascot">
+          <div class="destination-label">
 
-
-      <div class="speech-bubble">
-
-        CLICK THE LOGO!
-
-      </div>
-
-
-      <canvas
-        id="mascotCanvas"
-        width="96"
-        height="96"
-      ></canvas>
-
-
-    </div>
-
-
-  </section>
-
-
-  <!-- =====================================================
-       MAIN MENU
-  ====================================================== -->
-
-  <section
-    id="menu"
-    class="screen game-screen"
-  >
-
-
-    <div class="game-wrap">
-
-
-      <div class="screen-title">
-
-        MAIN MENU
-
-      </div>
-
-
-      <div class="menu-layout">
-
-
-        <div class="menu-content">
-
-
-          <div class="tiny-label">
-
-            STUDENT ENGINEERING PORTFOLIO
+            SKILL FOREST
 
           </div>
 
 
-          <div class="page-heading">
+        </div>
 
-            CHOOSE<br>
 
-            YOUR PATH
+        <!-- =================================================
+             CASTLE / PROJECTS
+        ================================================== -->
+
+
+        <div
+          id="castle"
+          class="destination"
+          data-destination="projects"
+        >
+
+
+          <div class="castle-body">
+
+            <div class="castle-door"></div>
 
           </div>
 
 
-          <div class="menu-description">
+          <div class="castle-tower left">
 
-            Explore projects,
-            experience, skills and more.
-
-            Your personal details
-            can be added later.
+            <div class="castle-roof"></div>
 
           </div>
 
 
-          <div class="menu-options">
+          <div class="castle-tower right">
 
-
-            <button
-              class="menu-option"
-              data-destination="projects"
-            >
-
-
-              <div class="menu-option-title">
-
-                PROJECTS
-
-              </div>
-
-
-              <div class="menu-option-description">
-
-                Engineering work and student projects.
-
-              </div>
-
-
-            </button>
-
-
-            <button
-              class="menu-option"
-              data-destination="experience"
-            >
-
-
-              <div class="menu-option-title">
-
-                EXPERIENCE
-
-              </div>
-
-
-              <div class="menu-option-description">
-
-                Internships, work and engineering experience.
-
-              </div>
-
-
-            </button>
-
-
-            <button
-              class="menu-option"
-              data-destination="skills"
-            >
-
-
-              <div class="menu-option-title">
-
-                SKILLS
-
-              </div>
-
-
-              <div class="menu-option-description">
-
-                Software, hardware and engineering tools.
-
-              </div>
-
-
-            </button>
-
-
-            <button
-              class="menu-option"
-              data-destination="about"
-            >
-
-
-              <div class="menu-option-title">
-
-                ABOUT
-
-              </div>
-
-
-              <div class="menu-option-description">
-
-                A short introduction about you.
-
-              </div>
-
-
-            </button>
-
-
-            <button
-              class="menu-option"
-              data-destination="contact"
-            >
-
-
-              <div class="menu-option-title">
-
-                CONTACT
-
-              </div>
-
-
-              <div class="menu-option-description">
-
-                Contact details and CV link later.
-
-              </div>
-
-
-            </button>
-
+            <div class="castle-roof"></div>
 
           </div>
+
+
+          <div class="destination-label">
+
+            PROJECT CASTLE
+
+          </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             MINE / EXPERIENCE
+        ================================================== -->
+
+
+        <div
+          id="mine"
+          class="destination"
+          data-destination="experience"
+        >
+
+
+          <div class="mine-rock"></div>
+
+          <div class="mine-hole"></div>
+
+
+          <div class="destination-label">
+
+            EXPERIENCE MINE
+
+          </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             VILLAGE / ABOUT
+        ================================================== -->
+
+
+        <div
+          id="village"
+          class="destination"
+          data-destination="about"
+        >
+
+
+          <div class="house h1"></div>
+
+          <div class="house h2"></div>
+
+
+          <div class="destination-label">
+
+            ABOUT VILLAGE
+
+          </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             PORT / CONTACT
+        ================================================== -->
+
+
+        <div
+          id="port"
+          class="destination"
+          data-destination="contact"
+        >
+
+
+          <div class="boat"></div>
+
+          <div class="dock"></div>
+
+
+          <div class="destination-label">
+
+            CONTACT PORT
+
+          </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             PLAYER
+        ================================================== -->
+
+
+        <div id="player">
+
+
+          <div class="player-hair"></div>
+
+          <div class="player-head"></div>
+
+          <div class="player-body"></div>
+
+          <div
+            class="player-leg leg-left"
+          ></div>
+
+          <div
+            class="player-leg leg-right"
+          ></div>
 
 
         </div>
@@ -1522,6 +2083,7 @@
   <!-- =====================================================
        LOADING SCREEN
   ====================================================== -->
+
 
   <section
     id="loading"
@@ -1541,16 +2103,14 @@
 
       <div id="loadingDestination">
 
-        PLEASE WAIT
+        ENTERING LOCATION
 
       </div>
 
 
       <div class="progress-shell">
 
-
         <div id="progressBar"></div>
-
 
       </div>
 
@@ -1565,56 +2125,51 @@
        PROJECTS
   ====================================================== -->
 
+
   <section
     id="projects"
-    class="screen game-screen"
+    class="screen content-screen"
   >
 
 
-    <div class="game-wrap">
+    <div class="page-wrap">
 
 
-      <div class="screen-title">
+      <div class="page-title">
 
         PROJECTS
 
       </div>
 
 
-      <div class="section-layout">
+      <div class="page-card">
 
 
-        <div class="section-card">
+        <h2>
+
+          PROJECT CASTLE
+
+        </h2>
 
 
-          <h2>
+        <p>
 
-            PROJECT ARCHIVE
+          This will become your engineering project
+          archive. Later we can add your CAD work,
+          robotics projects, prototypes, videos,
+          technical drawings and 360° model previews.
 
-          </h2>
-
-
-          <p>
-
-            Your project cards,
-            images, videos and
-            360° previews will
-            go here later.
-
-          </p>
+        </p>
 
 
-          <button
-            class="back-button"
-            data-menu
-          >
+        <button
+          class="map-button"
+          data-back="projects"
+        >
 
-            ← MAIN MENU
+          ← WORLD MAP
 
-          </button>
-
-
-        </div>
+        </button>
 
 
       </div>
@@ -1630,56 +2185,50 @@
        EXPERIENCE
   ====================================================== -->
 
+
   <section
     id="experience"
-    class="screen game-screen"
+    class="screen content-screen"
   >
 
 
-    <div class="game-wrap">
+    <div class="page-wrap">
 
 
-      <div class="screen-title">
+      <div class="page-title">
 
         EXPERIENCE
 
       </div>
 
 
-      <div class="section-layout">
+      <div class="page-card">
 
 
-        <div class="section-card">
+        <h2>
+
+          EXPERIENCE MINE
+
+        </h2>
 
 
-          <h2>
+        <p>
 
-            QUEST LOG
+          Your internships, engineering employment,
+          project experience and professional work
+          will be shown here later.
 
-          </h2>
-
-
-          <p>
-
-            Your internship,
-            work experience and
-            engineering roles
-            will go here later.
-
-          </p>
+        </p>
 
 
-          <button
-            class="back-button"
-            data-menu
-          >
+        <button
+          class="map-button"
+          data-back="experience"
+        >
 
-            ← MAIN MENU
+          ← WORLD MAP
 
-          </button>
-
-
-        </div>
+        </button>
 
 
       </div>
@@ -1695,58 +2244,50 @@
        SKILLS
   ====================================================== -->
 
+
   <section
     id="skills"
-    class="screen game-screen"
+    class="screen content-screen"
   >
 
 
-    <div class="game-wrap">
+    <div class="page-wrap">
 
 
-      <div class="screen-title">
+      <div class="page-title">
 
         SKILLS
 
       </div>
 
 
-      <div class="section-layout">
+      <div class="page-card">
 
 
-        <div class="section-card">
+        <h2>
+
+          SKILL FOREST
+
+        </h2>
 
 
-          <h2>
+        <p>
 
-            SKILL TREE
+          Your engineering skill tree will live here:
+          CAD, programming, electronics, robotics,
+          controls, embedded systems and simulation.
 
-          </h2>
-
-
-          <p>
-
-            Your CAD,
-            programming,
-            electronics,
-            robotics and
-            engineering skills
-            will go here later.
-
-          </p>
+        </p>
 
 
-          <button
-            class="back-button"
-            data-menu
-          >
+        <button
+          class="map-button"
+          data-back="skills"
+        >
 
-            ← MAIN MENU
+          ← WORLD MAP
 
-          </button>
-
-
-        </div>
+        </button>
 
 
       </div>
@@ -1762,57 +2303,50 @@
        ABOUT
   ====================================================== -->
 
+
   <section
     id="about"
-    class="screen game-screen"
+    class="screen content-screen"
   >
 
 
-    <div class="game-wrap">
+    <div class="page-wrap">
 
 
-      <div class="screen-title">
+      <div class="page-title">
 
         ABOUT
 
       </div>
 
 
-      <div class="section-layout">
+      <div class="page-card">
 
 
-        <div class="section-card">
+        <h2>
+
+          ABOUT VILLAGE
+
+        </h2>
 
 
-          <h2>
+        <p>
 
-            CHARACTER PROFILE
+          Your character profile goes here:
+          degree, university, engineering interests,
+          career goals and a short introduction.
 
-          </h2>
-
-
-          <p>
-
-            Your introduction,
-            degree,
-            engineering interests
-            and career goals
-            will go here later.
-
-          </p>
+        </p>
 
 
-          <button
-            class="back-button"
-            data-menu
-          >
+        <button
+          class="map-button"
+          data-back="about"
+        >
 
-            ← MAIN MENU
+          ← WORLD MAP
 
-          </button>
-
-
-        </div>
+        </button>
 
 
       </div>
@@ -1828,57 +2362,50 @@
        CONTACT
   ====================================================== -->
 
+
   <section
     id="contact"
-    class="screen game-screen"
+    class="screen content-screen"
   >
 
 
-    <div class="game-wrap">
+    <div class="page-wrap">
 
 
-      <div class="screen-title">
+      <div class="page-title">
 
         CONTACT
 
       </div>
 
 
-      <div class="section-layout">
+      <div class="page-card">
 
 
-        <div class="section-card">
+        <h2>
+
+          CONTACT PORT
+
+        </h2>
 
 
-          <h2>
+        <p>
 
-            CONTACT
+          Your email, LinkedIn profile,
+          CV download and contact options
+          will go here.
 
-          </h2>
-
-
-          <p>
-
-            Your email,
-            LinkedIn,
-            CV download and
-            other links
-            will go here later.
-
-          </p>
+        </p>
 
 
-          <button
-            class="back-button"
-            data-menu
-          >
+        <button
+          class="map-button"
+          data-back="contact"
+        >
 
-            ← MAIN MENU
+          ← WORLD MAP
 
-          </button>
-
-
-        </div>
+        </button>
 
 
       </div>
@@ -1901,17 +2428,10 @@
     const screens = {
 
 
-      landing:
+      worldMap:
 
         document.getElementById(
-          'landing'
-        ),
-
-
-      menu:
-
-        document.getElementById(
-          'menu'
+          'worldMap'
         ),
 
 
@@ -1965,20 +2485,23 @@
     ) {
 
 
-      Object.values(
-        screens
-      )
-      .forEach(
-        screen => {
+      Object
+        .values(
+          screens
+        )
+        .forEach(
+          screen => {
 
 
-          screen.classList.remove(
-            'active'
-          );
+            screen
+              .classList
+              .remove(
+                'active'
+              );
 
 
-        }
-      );
+          }
+        );
 
 
       screens[name]
@@ -1992,778 +2515,396 @@
 
 
     /* =====================================================
-       LANDING LOADING TEXT
+       PLAYER
     ====================================================== */
 
 
-    const stayTuned =
+    const world =
 
       document.getElementById(
-        'stayTuned'
+        'world'
       );
 
 
-    let stayDots =
-      1;
-
-
-    setInterval(
-      () => {
-
-
-        stayDots++;
-
-
-        if (
-          stayDots > 3
-        ) {
-
-          stayDots =
-            1;
-
-        }
-
-
-        stayTuned.textContent =
-
-          'LOADING PORTFOLIO' +
-
-          '.'.repeat(
-            stayDots
-          );
-
-
-      },
-
-      450
-
-    );
-
-
-    /* =====================================================
-       LANDING ELEMENTS
-    ====================================================== */
-
-
-    const portfolioMark =
+    const player =
 
       document.getElementById(
-        'portfolioMark'
+        'player'
       );
 
 
-    const mascot =
+    let playerPosition = {
 
-      document.getElementById(
-        'mascot'
-      );
+      x: 50,
 
+      y: 55
 
-    const mascotCanvas =
-
-      document.getElementById(
-        'mascotCanvas'
-      );
+    };
 
 
-    const mascotCtx =
-
-      mascotCanvas.getContext(
-        '2d'
-      );
-
-
-    mascotCtx.imageSmoothingEnabled =
+    let playerMoving =
       false;
 
 
-    const sparkleLayer =
-
-      document.getElementById(
-        'sparkleLayer'
-      );
-
-
-    /* =====================================================
-       PIXEL MASCOT SPRITE
-    ====================================================== */
-
-
-    let mascotBlink =
-      false;
-
-
-    function drawMascot() {
-
-
-      mascotCtx.clearRect(
-        0,
-        0,
-        96,
-        96
-      );
-
-
-      const pixel =
-        4;
-
-
-      const colours = {
-
-
-        O:
-          '#251d24',
-
-
-        P:
-          '#efa8cf',
-
-
-        L:
-          '#ffd2e8',
-
-
-        H:
-          '#f6c735',
-
-
-        D:
-          '#d89c16',
-
-
-        E:
-          '#1a1a1a',
-
-
-        B:
-          '#6bb1c7',
-
-
-        W:
-          '#ffffff'
-
-
-      };
-
-
-      const eyes =
-
-        mascotBlink
-
-          ?
-
-          'PPPEEEEEEEPPP'
-
-          :
-
-          'PPPBPPPPBPPPP';
-
-
-      const sprite = [
-
-
-        '........................',
-
-        '.........HHHHHH.........',
-
-        '.......HHHHHHHHHH.......',
-
-        '......HHHDDDDDDHHH......',
-
-        '.....HHHHHHHHHHHHHH.....',
-
-        '......HHHHHHHHHHHH......',
-
-        '........OOOOOOOO........',
-
-        '......OOOPPPPPPOOO......',
-
-        '.....OOPPPPPPPPPPOO.....',
-
-        '....OOPPPPPPPPPPPPPO....',
-
-        '....OPPPPPPPPPPPPPPPO...',
-
-        '...OPPPPLPPPPPPLPPPPO...',
-
-        '...O' + eyes + 'O...',
-
-        '...OPPPPPPPPPPPPPPPPPO..',
-
-        '....OPPPPPPPPPPPPPPPO...',
-
-        '....OOPPPPPPPPPPPPPO....',
-
-        '.....OOPPPPPPPPPPPO.....',
-
-        '......OOOPPPPPPOOO......',
-
-        '.......OOPPPPPPOO.......',
-
-        '.....WWOOPPPPPPOOWW.....',
-
-        '....WWW..OPPPPPO..WWW...',
-
-        '..........OPPO..........',
-
-        '.........OPPPPO.........',
-
-        '..........OPPO..........'
-
-
-      ];
-
-
-      for (
-        let y = 0;
-
-        y <
-        sprite.length;
-
-        y++
-      ) {
-
-
-        for (
-          let x = 0;
-
-          x <
-          sprite[y].length;
-
-          x++
-        ) {
-
-
-          const symbol =
-            sprite[y][x];
-
-
-          if (
-            symbol === '.'
-          ) {
-
-            continue;
-
-          }
-
-
-          mascotCtx.fillStyle =
-
-            colours[
-              symbol
-            ] ||
-
-            '#000000';
-
-
-          mascotCtx.fillRect(
-
-            x * pixel,
-
-            y * pixel,
-
-            pixel,
-
-            pixel
-
-          );
-
-
-        }
-
-
-      }
-
-
-      /* hard-hat brim */
-
-
-      mascotCtx.fillStyle =
-        '#251d24';
-
-
-      mascotCtx.fillRect(
-
-        22,
-        19,
-        52,
-        4
-
-      );
-
-
-      mascotCtx.fillStyle =
-        '#f6c735';
-
-
-      mascotCtx.fillRect(
-
-        26,
-        19,
-        44,
-        4
-
-      );
-
-
-      /* hard-hat centre ridge */
-
-
-      mascotCtx.fillStyle =
-        '#d89c16';
-
-
-      mascotCtx.fillRect(
-
-        46,
-        5,
-        4,
-        14
-
-      );
-
-
-      /* long tail */
-
-
-      mascotCtx.fillStyle =
-        '#251d24';
-
-
-      mascotCtx.fillRect(
-
-        63,
-        66,
-        24,
-        4
-
-      );
-
-
-      mascotCtx.fillRect(
-
-        83,
-        62,
-        8,
-        4
-
-      );
-
-
-      mascotCtx.fillRect(
-
-        87,
-        57,
-        4,
-        8
-
-      );
-
-
-      mascotCtx.fillStyle =
-        '#efa8cf';
-
-
-      mascotCtx.fillRect(
-
-        67,
-        66,
-        20,
-        4
-
-      );
-
-
-      mascotCtx.fillRect(
-
-        83,
-        62,
-        4,
-        4
-
-      );
-
-
-      mascotCtx.fillRect(
-
-        87,
-        57,
-        4,
-        5
-
-      );
-
-
-      /* feet */
-
-
-      mascotCtx.fillStyle =
-        '#251d24';
-
-
-      mascotCtx.fillRect(
-
-        32,
-        84,
-        10,
-        4
-
-      );
-
-
-      mascotCtx.fillRect(
-
-        53,
-        84,
-        10,
-        4
-
-      );
-
-
-    }
-
-
-    drawMascot();
-
-
-    /* blink */
-
-
-    setInterval(
-
-      () => {
-
-
-        mascotBlink =
-          true;
-
-
-        drawMascot();
-
-
-        setTimeout(
-
-          () => {
-
-
-            mascotBlink =
-              false;
-
-
-            drawMascot();
-
-
-          },
-
-          130
-
-        );
-
-
-      },
-
-      2400
-
-    );
-
-
-    /* =====================================================
-       SPARKLES
-    ====================================================== */
-
-
-    function createSparkle(
+    function setPlayerPosition(
       x,
       y
     ) {
 
 
-      const sparkle =
-
-        document.createElement(
-          'div'
-        );
+      playerPosition.x =
+        x;
 
 
-      sparkle.className =
-        'sparkle';
+      playerPosition.y =
+        y;
 
 
-      sparkle.style.left =
-        x + 'px';
+      player.style.left =
+        x + '%';
 
 
-      sparkle.style.top =
-        y + 'px';
-
-
-      sparkleLayer
-        .appendChild(
-          sparkle
-        );
-
-
-      setTimeout(
-
-        () => {
-
-
-          sparkle.remove();
-
-
-        },
-
-        720
-
-      );
+      player.style.top =
+        y + '%';
 
 
     }
 
 
-    /* =====================================================
-       MASCOT FLIGHT
-    ====================================================== */
-
-
-    let mascotAngle =
-      0;
-
-
-    let mascotDirection =
-      1;
-
-
-    let nextDirectionChange =
-
-      performance.now() +
-
-      5000;
-
-
-    function animateMascot() {
-
-
-      requestAnimationFrame(
-        animateMascot
-      );
-
-
-      if (
-
-        !screens
-          .landing
-          .classList
-          .contains(
-            'active'
-          )
-
-      ) {
-
-        return;
-
-      }
-
-
-      const now =
-        performance.now();
-
-
-      const logoRect =
-
-        portfolioMark
-          .getBoundingClientRect();
-
-
-      const centerX =
-
-        logoRect.left +
-
-        logoRect.width /
-        2;
-
-
-      const centerY =
-
-        logoRect.top +
-
-        logoRect.height /
-        2;
-
-
-      if (
-        now >
-        nextDirectionChange
-      ) {
-
-
-        if (
-          Math.random() <
-          0.45
-        ) {
-
-
-          mascotDirection *=
-            -1;
-
-
-        }
-
-
-        nextDirectionChange =
-
-          now +
-
-          4000 +
-
-          Math.random() *
-          4000;
-
-
-      }
-
-
-      mascotAngle +=
-
-        0.016 *
-
-        mascotDirection;
-
-
-      const radiusX =
-        175;
-
-
-      const radiusY =
-        88;
-
-
-      const x =
-
-        centerX +
-
-        Math.cos(
-          mascotAngle
-        ) *
-
-        radiusX;
-
-
-      const y =
-
-        centerY +
-
-        Math.sin(
-          mascotAngle *
-          1.3
-        ) *
-
-        radiusY +
-
-        Math.sin(
-          mascotAngle *
-          4
-        ) *
-
-        7;
-
-
-      mascot.style.left =
-        x + 'px';
-
-
-      mascot.style.top =
-        y + 'px';
-
-
-      /* face direction */
-
-
-      const facing =
-
-        Math.cos(
-          mascotAngle
-        ) <
-        0
-
-          ?
-
-          -1
-
-          :
-
-          1;
-
-
-      mascotCanvas.style.transform =
-
-        `translateX(-50%) scaleX(${facing})`;
-
-
-      /* random sparkles */
-
-
-      if (
-        Math.random() <
-        0.022
-      ) {
-
-
-        createSparkle(
-
-          x +
-
-          Math.random() *
-          46 -
-
-          23,
-
-
-          y +
-
-          Math.random() *
-          42 -
-
-          21
-
-        );
-
-
-      }
-
-
-    }
-
-
-    animateMascot();
+    setPlayerPosition(
+      50,
+      55
+    );
 
 
     /* =====================================================
-       ENTER PORTFOLIO
+       DESTINATION COORDINATES
     ====================================================== */
 
 
-    portfolioMark
-      .addEventListener(
-
-        'click',
-
-        () => {
+    const destinationPoints = {
 
 
-          showScreen(
-            'menu'
+      projects: {
+
+        x: 82,
+
+        y: 40
+
+      },
+
+
+      experience: {
+
+        x: 82,
+
+        y: 78
+
+      },
+
+
+      skills: {
+
+        x: 24,
+
+        y: 31
+
+      },
+
+
+      about: {
+
+        x: 17,
+
+        y: 78
+
+      },
+
+
+      contact: {
+
+        x: 33,
+
+        y: 82
+
+      }
+
+
+    };
+
+
+    /* =====================================================
+       WAYPOINT PATHS
+    ====================================================== */
+
+
+    const paths = {
+
+
+      projects: [
+
+        { x: 50, y: 55 },
+
+        { x: 60, y: 51 },
+
+        { x: 69, y: 46 },
+
+        { x: 76, y: 42 },
+
+        { x: 82, y: 40 }
+
+      ],
+
+
+      experience: [
+
+        { x: 50, y: 55 },
+
+        { x: 61, y: 62 },
+
+        { x: 70, y: 69 },
+
+        { x: 77, y: 75 },
+
+        { x: 82, y: 78 }
+
+      ],
+
+
+      skills: [
+
+        { x: 50, y: 55 },
+
+        { x: 43, y: 48 },
+
+        { x: 36, y: 41 },
+
+        { x: 29, y: 35 },
+
+        { x: 24, y: 31 }
+
+      ],
+
+
+      about: [
+
+        { x: 50, y: 55 },
+
+        { x: 41, y: 62 },
+
+        { x: 32, y: 68 },
+
+        { x: 24, y: 74 },
+
+        { x: 17, y: 78 }
+
+      ],
+
+
+      contact: [
+
+        { x: 50, y: 55 },
+
+        { x: 46, y: 64 },
+
+        { x: 41, y: 72 },
+
+        { x: 36, y: 79 },
+
+        { x: 33, y: 82 }
+
+      ]
+
+
+    };
+
+
+    /* =====================================================
+       MOVEMENT
+    ====================================================== */
+
+
+    function moveBetweenPoints(
+      start,
+      end,
+      duration
+    ) {
+
+
+      return new Promise(
+        resolve => {
+
+
+          const startTime =
+            performance.now();
+
+
+          function frame(
+            now
+          ) {
+
+
+            const elapsed =
+              now -
+              startTime;
+
+
+            const amount =
+              Math.min(
+                elapsed /
+                duration,
+                1
+              );
+
+
+            const eased =
+
+              amount <
+              0.5
+
+                ?
+
+                2 *
+                amount *
+                amount
+
+                :
+
+                1 -
+
+                Math.pow(
+                  -2 *
+                  amount +
+                  2,
+                  2
+                ) /
+                2;
+
+
+            const x =
+
+              start.x +
+
+              (
+                end.x -
+                start.x
+              ) *
+
+              eased;
+
+
+            const y =
+
+              start.y +
+
+              (
+                end.y -
+                start.y
+              ) *
+
+              eased;
+
+
+            setPlayerPosition(
+              x,
+              y
+            );
+
+
+            if (
+              amount <
+              1
+            ) {
+
+
+              requestAnimationFrame(
+                frame
+              );
+
+
+            }
+
+            else {
+
+
+              resolve();
+
+
+            }
+
+
+          }
+
+
+          requestAnimationFrame(
+            frame
           );
 
 
         }
-
       );
 
 
+    }
+
+
+    async function walkPath(
+      points
+    ) {
+
+
+      playerMoving =
+        true;
+
+
+      player
+        .classList
+        .add(
+          'walking'
+        );
+
+
+      for (
+        let i = 0;
+
+        i <
+        points.length -
+        1;
+
+        i++
+      ) {
+
+
+        await moveBetweenPoints(
+
+          points[i],
+
+          points[i + 1],
+
+          370
+
+        );
+
+
+      }
+
+
+      player
+        .classList
+        .remove(
+          'walking'
+        );
+
+
+      playerMoving =
+        false;
+
+
+    }
+
+
     /* =====================================================
-       LOADING TRANSITIONS
+       LOADING SCREEN
     ====================================================== */
 
 
@@ -2788,226 +2929,187 @@
       );
 
 
-    const messages = {
+    const loadingMessages = {
 
 
       projects:
 
-        'OPENING PROJECT ARCHIVE',
+        'ENTERING PROJECT CASTLE',
 
 
       experience:
 
-        'OPENING QUEST LOG',
+        'ENTERING EXPERIENCE MINE',
 
 
       skills:
 
-        'LOADING SKILL TREE',
+        'ENTERING SKILL FOREST',
 
 
       about:
 
-        'OPENING CHARACTER PROFILE',
+        'ENTERING ABOUT VILLAGE',
 
 
       contact:
 
-        'OPENING CONTACT PAGE'
+        'ENTERING CONTACT PORT'
 
 
     };
 
 
-    let dotTimer =
-      null;
-
-
-    let barTimer =
-      null;
-
-
-    function loadSection(
+    function loadingSequence(
       destination
     ) {
 
 
-      clearInterval(
-        dotTimer
-      );
+      return new Promise(
+        resolve => {
 
 
-      clearInterval(
-        barTimer
-      );
-
-
-      showScreen(
-        'loading'
-      );
-
-
-      loadingDestination
-        .textContent =
-
-        messages[
-          destination
-        ] ||
-
-        'LOADING';
-
-
-      progressBar
-        .style
-        .width =
-
-        '0%';
-
-
-      let dots =
-        1;
-
-
-      let progress =
-        0;
-
-
-      loadingText
-        .textContent =
-
-        'LOADING.';
-
-
-      dotTimer =
-
-        setInterval(
-
-          () => {
-
-
-            dots++;
-
-
-            if (
-              dots > 3
-            ) {
-
-
-              dots =
-                1;
-
-
-            }
-
-
-            loadingText
-              .textContent =
-
-              'LOADING' +
-
-              '.'.repeat(
-                dots
-              );
-
-
-          },
-
-          350
-
-        );
-
-
-      barTimer =
-
-        setInterval(
-
-          () => {
-
-
-            progress +=
-
-              Math.random() *
-              7 +
-
-              3;
-
-
-            if (
-              progress > 96
-            ) {
-
-
-              progress =
-                96;
-
-
-            }
-
-
-            progressBar
-              .style
-              .width =
-
-              progress +
-              '%';
-
-
-          },
-
-          110
-
-        );
-
-
-      setTimeout(
-
-        () => {
-
-
-          clearInterval(
-            dotTimer
+          showScreen(
+            'loading'
           );
 
 
-          clearInterval(
-            barTimer
-          );
+          loadingDestination
+            .textContent =
+
+            loadingMessages[
+              destination
+            ];
 
 
           progressBar
             .style
             .width =
+            '0%';
 
-            '100%';
+
+          let dots =
+            1;
+
+
+          let progress =
+            0;
 
 
           loadingText
             .textContent =
+            'LOADING.';
 
-            'LOADED!';
+
+          const dotsTimer =
+
+            setInterval(
+              () => {
+
+
+                dots++;
+
+
+                if (
+                  dots > 3
+                ) {
+
+                  dots = 1;
+
+                }
+
+
+                loadingText
+                  .textContent =
+
+                  'LOADING' +
+
+                  '.'.repeat(
+                    dots
+                  );
+
+
+              },
+
+              350
+            );
+
+
+          const progressTimer =
+
+            setInterval(
+              () => {
+
+
+                progress +=
+
+                  Math.random() *
+                  8 +
+
+                  3;
+
+
+                if (
+                  progress > 96
+                ) {
+
+                  progress = 96;
+
+                }
+
+
+                progressBar
+                  .style
+                  .width =
+
+                  progress +
+                  '%';
+
+
+              },
+
+              120
+            );
 
 
           setTimeout(
-
             () => {
 
 
-              showScreen(
-                destination
+              clearInterval(
+                dotsTimer
+              );
+
+
+              clearInterval(
+                progressTimer
+              );
+
+
+              progressBar
+                .style
+                .width =
+                '100%';
+
+
+              loadingText
+                .textContent =
+                'LOADED!';
+
+
+              setTimeout(
+                resolve,
+                180
               );
 
 
             },
 
-            160
-
+            3000
           );
 
 
-        },
-
-        3000
-
+        }
       );
 
 
@@ -3015,33 +3117,56 @@
 
 
     /* =====================================================
-       MAIN MENU BUTTONS
+       CLICK DESTINATION
     ====================================================== */
 
 
     document
       .querySelectorAll(
-        '[data-destination]'
+        '.destination'
       )
       .forEach(
+        location => {
 
-        button => {
 
-
-          button
+          location
             .addEventListener(
 
               'click',
 
-              () => {
+              async () => {
 
 
-                loadSection(
+                if (
+                  playerMoving
+                ) {
 
-                  button
+                  return;
+
+                }
+
+
+                const destination =
+
+                  location
                     .dataset
-                    .destination
+                    .destination;
 
+
+                await walkPath(
+                  paths[
+                    destination
+                  ]
+                );
+
+
+                await loadingSequence(
+                  destination
+                );
+
+
+                showScreen(
+                  destination
                 );
 
 
@@ -3051,21 +3176,19 @@
 
 
         }
-
       );
 
 
     /* =====================================================
-       RETURN TO MAIN MENU
+       RETURN TO MAP
     ====================================================== */
 
 
     document
       .querySelectorAll(
-        '[data-menu]'
+        '[data-back]'
       )
       .forEach(
-
         button => {
 
 
@@ -3074,11 +3197,90 @@
 
               'click',
 
-              () => {
+              async () => {
+
+
+                if (
+                  playerMoving
+                ) {
+
+                  return;
+
+                }
+
+
+                const previousLocation =
+
+                  button
+                    .dataset
+                    .back;
+
+
+                const reversePath =
+
+                  [
+                    ...paths[
+                      previousLocation
+                    ]
+                  ]
+                  .reverse();
+
+
+                /* show map first */
 
 
                 showScreen(
-                  'menu'
+                  'worldMap'
+                );
+
+
+                /* put character back
+                   at building entrance */
+
+
+                const startPoint =
+
+                  reversePath[0];
+
+
+                setPlayerPosition(
+
+                  startPoint.x,
+
+                  startPoint.y
+
+                );
+
+
+                /* small delay feels
+                   like character comes
+                   out of building */
+
+
+                await new Promise(
+                  resolve =>
+
+                    setTimeout(
+                      resolve,
+                      420
+                    )
+                );
+
+
+                /* walk home */
+
+
+                await walkPath(
+                  reversePath
+                );
+
+
+                /* guarantee exact centre */
+
+
+                setPlayerPosition(
+                  50,
+                  55
                 );
 
 
@@ -3088,7 +3290,6 @@
 
 
         }
-
       );
 
 
