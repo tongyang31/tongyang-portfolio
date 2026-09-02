@@ -1,27 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Engineering Portfolio</title>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
     href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
@@ -29,1624 +15,567 @@
   >
 
   <style>
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-
     html,
     body {
-
       width: 100%;
       height: 100%;
-
       overflow: hidden;
-
-      background:
-        #1c1b22;
-
-      font-family:
-        'VT323',
-        monospace;
-
-      color:
-        #171717;
-
+      background: #17161c;
+      font-family: 'VT323', monospace;
+      color: #fff;
     }
-
 
     button {
-
       font: inherit;
-
       color: inherit;
-
-      border: none;
-
-      background: none;
-
-      cursor: pointer;
-
     }
-
-
-    :root {
-
-      --ink:
-        #171717;
-
-      --paper:
-        #f5f0df;
-
-      --cream:
-        #fff6d9;
-
-      --gold:
-        #e1be59;
-
-      --dark-gold:
-        #9c7932;
-
-      --shadow:
-        4px 4px 0 #171717;
-
-    }
-
 
     /* =====================================================
        SCREEN SYSTEM
     ====================================================== */
 
     .screen {
+      position: absolute;
+      inset: 0;
 
+      opacity: 0;
+      pointer-events: none;
+
+      transition: opacity 0.35s ease;
+    }
+
+    .screen.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* =====================================================
+       WORLD MAP
+    ====================================================== */
+
+    #worldMap {
+      background: #17161c;
+
+      display: grid;
+      place-items: center;
+
+      padding: 10px;
+    }
+
+    .map-stage {
+      position: relative;
+
+      width: min(1500px, 98vw);
+
+      aspect-ratio: 1536 / 1024;
+
+      max-height: 96vh;
+
+      overflow: hidden;
+
+      border-radius: 10px;
+
+      box-shadow:
+        0 0 0 5px #1a1718,
+        0 0 0 10px #8d603c;
+
+      background: #222;
+    }
+
+    .map-image {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: fill;
+
+      user-select: none;
+      -webkit-user-drag: none;
+
+      pointer-events: none;
+    }
+
+    /* =====================================================
+       CLICKABLE HOTSPOTS
+    ====================================================== */
+
+    .hotspot {
       position: absolute;
 
-      inset: 0;
+      z-index: 20;
+
+      border: 0;
+
+      background: transparent;
+
+      cursor: pointer;
+
+      border-radius: 18px;
+
+      transition:
+        background 0.16s ease,
+        box-shadow 0.16s ease,
+        transform 0.16s ease;
+    }
+
+    .hotspot:hover {
+      background: rgba(255, 245, 173, 0.1);
+
+      box-shadow:
+        0 0 0 3px rgba(255, 232, 130, 0.55),
+        0 0 28px rgba(255, 226, 102, 0.45);
+
+      transform: translateY(-2px);
+    }
+
+    .tooltip {
+      position: absolute;
+
+      left: 50%;
+      bottom: calc(100% + 10px);
+
+      transform:
+        translateX(-50%)
+        translateY(5px);
 
       opacity: 0;
 
       pointer-events: none;
 
-      transition:
-        opacity 0.35s ease;
+      background: #171619;
 
+      border: 3px solid #d2a264;
+
+      box-shadow:
+        4px 4px 0 #111;
+
+      padding: 10px 12px;
+
+      min-width: 190px;
+
+      font-family: 'Press Start 2P', cursive;
+
+      font-size: 8px;
+      line-height: 1.65;
+
+      text-align: center;
+
+      color: #fff;
+
+      transition: 0.16s ease;
+
+      white-space: nowrap;
     }
 
-
-    .screen.active {
-
+    .hotspot:hover .tooltip {
       opacity: 1;
 
-      pointer-events: auto;
-
-    }
-
-
-    /* =====================================================
-       WORLD MAP SCREEN
-    ====================================================== */
-
-    #worldMap {
-
-      background:
-        #24232a;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-    }
-
-
-    .map-shell {
-
-      position: relative;
-
-      width:
-        min(1180px, 96vw);
-
-      height:
-        min(790px, 94vh);
-
-      border:
-        6px solid #171717;
-
-      border-radius:
-        16px;
-
-      box-shadow:
-
-        0 0 0 5px #ad7c45,
-
-        0 0 0 10px #171717;
-
-      overflow: hidden;
-
-      background:
-        #9cb355;
-
-    }
-
-
-    /* =====================================================
-       MAP TITLE
-    ====================================================== */
-
-    .map-title {
-
-      position: absolute;
-
-      top: 15px;
-
-      left: 50%;
-
       transform:
-        translateX(-50%);
-
-      z-index: 50;
-
-      padding:
-        13px 22px;
-
-      background:
-        #211f23;
-
-      color:
-        #fff6dd;
-
-      border:
-        4px solid #171717;
-
-      border-radius:
-        10px;
-
-      box-shadow:
-
-        0 0 0 3px #a87947,
-
-        4px 4px 0 rgba(0,0,0,0.45);
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size:
-        clamp(10px, 1.3vw, 16px);
-
-      white-space:
-        nowrap;
-
+        translateX(-50%)
+        translateY(0);
     }
-
 
     /* =====================================================
-       WORLD TERRAIN
+       HOTSPOT POSITIONS
     ====================================================== */
 
-    .world {
+    #skillsHotspot {
+      left: 10%;
+      top: 15%;
 
-      position: absolute;
-
-      inset: 0;
-
-      overflow: hidden;
-
-      background:
-
-        radial-gradient(
-          circle at 26% 29%,
-          rgba(70,117,55,0.85) 0 17%,
-          transparent 18%
-        ),
-
-        radial-gradient(
-          circle at 82% 32%,
-          #8b6141 0 13%,
-          transparent 14%
-        ),
-
-        linear-gradient(
-          180deg,
-          #9fb75a 0%,
-          #adb95a 100%
-        );
-
+      width: 28%;
+      height: 29%;
     }
 
+    #projectsHotspot {
+      left: 64%;
+      top: 13%;
 
-    /* subtle pixel texture */
-
-    .world::after {
-
-      content: "";
-
-      position: absolute;
-
-      inset: 0;
-
-      pointer-events: none;
-
-      background:
-
-        repeating-linear-gradient(
-          0deg,
-          rgba(255,255,255,0.025) 0,
-          rgba(255,255,255,0.025) 2px,
-          transparent 2px,
-          transparent 5px
-        );
-
-      z-index: 35;
-
-    }
-
-
-    /* =====================================================
-       WATER
-    ====================================================== */
-
-    .lake {
-
-      position: absolute;
-
-      left: 5%;
-
-      bottom: 9%;
-
-      width: 37%;
-
+      width: 24%;
       height: 31%;
-
-      background:
-        #68a8d5;
-
-      border:
-        4px solid #365f82;
-
-      border-radius:
-        42% 58% 46% 54% /
-        52% 37% 63% 48%;
-
-      box-shadow:
-
-        inset 0 0 0 5px #8bc5e6,
-
-        4px 4px 0 rgba(0,0,0,0.16);
-
-      z-index: 3;
-
     }
 
+    #aboutHotspot {
+      left: 4%;
+      top: 52%;
 
-    .lake::after {
+      width: 24%;
+      height: 31%;
+    }
 
-      content: "";
-
-      position: absolute;
-
-      width: 55px;
-
-      height: 20px;
-
+    #contactHotspot {
       left: 25%;
+      top: 64%;
 
-      top: 25%;
-
-      border-top:
-        5px solid rgba(255,255,255,0.5);
-
-      border-radius:
-        50%;
-
+      width: 24%;
+      height: 22%;
     }
 
+    #experienceHotspot {
+      left: 62%;
+      top: 55%;
 
-    /* =====================================================
-       MOUNTAIN REGION
-    ====================================================== */
-
-    .mountain-region {
-
-      position: absolute;
-
-      right: -4%;
-
-      top: 5%;
-
-      width: 46%;
-
-      height: 72%;
-
-      z-index: 4;
-
+      width: 27%;
+      height: 30%;
     }
-
-
-    .mountain {
-
-      position: absolute;
-
-      width: 180px;
-
-      height: 220px;
-
-      background:
-        #8b5c3f;
-
-      clip-path:
-        polygon(
-          50% 0,
-          100% 100%,
-          0 100%
-        );
-
-      filter:
-        drop-shadow(
-          5px 6px 0 #573d2f
-        );
-
-    }
-
-
-    .mountain::before {
-
-      content: "";
-
-      position: absolute;
-
-      left: 36%;
-
-      top: 0;
-
-      width: 36%;
-
-      height: 42%;
-
-      background:
-        #d7a275;
-
-      clip-path:
-        polygon(
-          50% 0,
-          100% 100%,
-          54% 76%,
-          35% 100%,
-          0 100%
-        );
-
-    }
-
-
-    .m1 {
-
-      right: 14%;
-
-      top: 1%;
-
-      transform:
-        scale(1.2);
-
-    }
-
-
-    .m2 {
-
-      right: 39%;
-
-      top: 22%;
-
-      transform:
-        scale(1);
-
-    }
-
-
-    .m3 {
-
-      right: 0;
-
-      top: 28%;
-
-      transform:
-        scale(0.9);
-
-    }
-
-
-    /* =====================================================
-       FOREST
-    ====================================================== */
-
-    .forest-area {
-
-      position: absolute;
-
-      left: 5%;
-
-      top: 8%;
-
-      width: 47%;
-
-      height: 33%;
-
-      z-index: 5;
-
-    }
-
-
-    .tree {
-
-      position: absolute;
-
-      width: 38px;
-
-      height: 48px;
-
-    }
-
-
-    .tree::before {
-
-      content: "";
-
-      position: absolute;
-
-      width: 38px;
-
-      height: 38px;
-
-      border-radius:
-        45%;
-
-      background:
-        #3f7b43;
-
-      border:
-        3px solid #21452c;
-
-      box-shadow:
-
-        inset 6px -5px 0 #315f35,
-
-        3px 3px 0 rgba(0,0,0,0.2);
-
-    }
-
-
-    .tree::after {
-
-      content: "";
-
-      position: absolute;
-
-      left: 15px;
-
-      bottom: 0;
-
-      width: 9px;
-
-      height: 19px;
-
-      background:
-        #755338;
-
-      border:
-        2px solid #402d20;
-
-    }
-
-
-    /* =====================================================
-       PATHS
-    ====================================================== */
-
-    .path {
-
-      position: absolute;
-
-      background:
-        #c79d67;
-
-      border:
-        3px solid #8b6747;
-
-      z-index: 6;
-
-      transform-origin:
-        left center;
-
-      border-radius:
-        20px;
-
-    }
-
-
-    .path-centre-castle {
-
-      left: 50%;
-
-      top: 53%;
-
-      width: 33%;
-
-      height: 19px;
-
-      transform:
-        rotate(-35deg);
-
-    }
-
-
-    .path-centre-mine {
-
-      left: 51%;
-
-      top: 56%;
-
-      width: 31%;
-
-      height: 19px;
-
-      transform:
-        rotate(30deg);
-
-    }
-
-
-    .path-centre-forest {
-
-      left: 48%;
-
-      top: 48%;
-
-      width: 31%;
-
-      height: 19px;
-
-      transform:
-        rotate(-145deg);
-
-    }
-
-
-    .path-centre-village {
-
-      left: 49%;
-
-      top: 57%;
-
-      width: 38%;
-
-      height: 19px;
-
-      transform:
-        rotate(145deg);
-
-    }
-
-
-    .path-centre-port {
-
-      left: 49%;
-
-      top: 58%;
-
-      width: 31%;
-
-      height: 19px;
-
-      transform:
-        rotate(110deg);
-
-    }
-
-
-    /* =====================================================
-       DESTINATIONS
-    ====================================================== */
-
-    .destination {
-
-      position: absolute;
-
-      z-index: 20;
-
-      cursor: pointer;
-
-      transition:
-
-        filter 0.16s ease,
-
-        transform 0.16s ease;
-
-    }
-
-
-    .destination:hover {
-
-      filter:
-        brightness(1.18);
-
-      transform:
-        translateY(-4px);
-
-    }
-
-
-    .destination-label {
-
-      position: absolute;
-
-      left: 50%;
-
-      transform:
-        translateX(-50%);
-
-      bottom:
-        -35px;
-
-      padding:
-        7px 9px;
-
-      background:
-        rgba(25,25,25,0.86);
-
-      color:
-        white;
-
-      border:
-        2px solid #111;
-
-      border-radius:
-        7px;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size:
-        7px;
-
-      white-space:
-        nowrap;
-
-      opacity:
-        0;
-
-      transition:
-        opacity 0.16s ease;
-
-    }
-
-
-    .destination:hover
-    .destination-label {
-
-      opacity: 1;
-
-    }
-
-
-    /* =====================================================
-       CASTLE
-    ====================================================== */
-
-    #castle {
-
-      right: 8%;
-
-      top: 27%;
-
-      width: 145px;
-
-      height: 160px;
-
-    }
-
-
-    .castle-body {
-
-      position: absolute;
-
-      left: 22px;
-
-      bottom: 0;
-
-      width: 105px;
-
-      height: 95px;
-
-      background:
-        #d4d1c3;
-
-      border:
-        4px solid #343434;
-
-      box-shadow:
-        inset -12px 0 0 #aaa79d;
-
-    }
-
-
-    .castle-tower {
-
-      position: absolute;
-
-      bottom: 0;
-
-      width: 42px;
-
-      height: 130px;
-
-      background:
-        #c9c5b9;
-
-      border:
-        4px solid #343434;
-
-    }
-
-
-    .castle-tower.left {
-
-      left: 0;
-
-    }
-
-
-    .castle-tower.right {
-
-      right: 0;
-
-    }
-
-
-    .castle-roof {
-
-      position: absolute;
-
-      width: 52px;
-
-      height: 48px;
-
-      background:
-        #b44e43;
-
-      clip-path:
-        polygon(
-          50% 0,
-          100% 100%,
-          0 100%
-        );
-
-      top: -42px;
-
-      left: -9px;
-
-      filter:
-        drop-shadow(
-          0 4px 0 #6b2f2b
-        );
-
-    }
-
-
-    .castle-door {
-
-      position: absolute;
-
-      bottom: 0;
-
-      left: 50%;
-
-      transform:
-        translateX(-50%);
-
-      width: 27px;
-
-      height: 40px;
-
-      background:
-        #624638;
-
-      border:
-        3px solid #34251e;
-
-      border-radius:
-        12px 12px 0 0;
-
-    }
-
-
-    /* =====================================================
-       MINE
-    ====================================================== */
-
-    #mine {
-
-      right: 13%;
-
-      bottom: 12%;
-
-      width: 145px;
-
-      height: 100px;
-
-    }
-
-
-    .mine-rock {
-
-      position: absolute;
-
-      inset: 0;
-
-      background:
-        #76716c;
-
-      clip-path:
-        polygon(
-          13% 38%,
-          28% 12%,
-          51% 2%,
-          75% 16%,
-          95% 48%,
-          88% 100%,
-          10% 100%,
-          0 63%
-        );
-
-      border:
-        4px solid #3b3835;
-
-    }
-
-
-    .mine-hole {
-
-      position: absolute;
-
-      width: 65px;
-
-      height: 62px;
-
-      bottom: 0;
-
-      left: 39px;
-
-      background:
-        #171717;
-
-      border:
-        6px solid #594638;
-
-      border-radius:
-        50% 50% 0 0;
-
-    }
-
-
-    /* =====================================================
-       VILLAGE
-    ====================================================== */
-
-    #village {
-
-      left: 8%;
-
-      bottom: 12%;
-
-      width: 150px;
-
-      height: 115px;
-
-    }
-
-
-    .house {
-
-      position: absolute;
-
-      width: 55px;
-
-      height: 50px;
-
-      background:
-        #e4c996;
-
-      border:
-        3px solid #533c2e;
-
-    }
-
-
-    .house::before {
-
-      content: "";
-
-      position: absolute;
-
-      width: 67px;
-
-      height: 37px;
-
-      left: -8px;
-
-      top: -31px;
-
-      background:
-        #a95443;
-
-      clip-path:
-        polygon(
-          50% 0,
-          100% 100%,
-          0 100%
-        );
-
-    }
-
-
-    .h1 {
-
-      left: 8px;
-
-      bottom: 8px;
-
-    }
-
-
-    .h2 {
-
-      right: 6px;
-
-      bottom: 14px;
-
-      transform:
-        scale(0.8);
-
-    }
-
-
-    /* =====================================================
-       FOREST LANDMARK
-    ====================================================== */
-
-    #forest {
-
-      left: 17%;
-
-      top: 19%;
-
-      width: 130px;
-
-      height: 115px;
-
-    }
-
-
-    .forest-shrine {
-
-      position: absolute;
-
-      width: 68px;
-
-      height: 60px;
-
-      left: 31px;
-
-      bottom: 5px;
-
-      background:
-        #bb9368;
-
-      border:
-        4px solid #493629;
-
-    }
-
-
-    .forest-shrine::before {
-
-      content: "";
-
-      position: absolute;
-
-      width: 88px;
-
-      height: 40px;
-
-      left: -14px;
-
-      top: -35px;
-
-      background:
-        #8d4b3e;
-
-      clip-path:
-        polygon(
-          50% 0,
-          100% 100%,
-          0 100%
-        );
-
-    }
-
-
-    /* =====================================================
-       PORT
-    ====================================================== */
-
-    #port {
-
-      left: 27%;
-
-      bottom: 6%;
-
-      width: 125px;
-
-      height: 90px;
-
-    }
-
-
-    .dock {
-
-      position: absolute;
-
-      width: 100px;
-
-      height: 22px;
-
-      left: 10px;
-
-      bottom: 20px;
-
-      background:
-        repeating-linear-gradient(
-          90deg,
-          #8a6544 0 14px,
-          #6e4e35 14px 18px
-        );
-
-      border:
-        3px solid #3d2b20;
-
-    }
-
-
-    .boat {
-
-      position: absolute;
-
-      width: 55px;
-
-      height: 25px;
-
-      left: 40px;
-
-      top: 12px;
-
-      background:
-        #d6b177;
-
-      border:
-        3px solid #47362b;
-
-      border-radius:
-        0 0 28px 28px;
-
-    }
-
 
     /* =====================================================
        PLAYER
     ====================================================== */
 
     #player {
-
       position: absolute;
 
-      left: 50%;
+      z-index: 35;
 
-      top: 55%;
+      width: 32px;
+      height: 44px;
 
-      width: 28px;
-
-      height: 38px;
+      left: 48.5%;
+      top: 50.5%;
 
       transform:
         translate(-50%, -50%);
-
-      z-index: 30;
-
-      transition:
-        none;
 
       pointer-events: none;
 
       filter:
         drop-shadow(
-          2px 3px 0 rgba(0,0,0,0.25)
+          2px 3px 0 rgba(0,0,0,0.45)
         );
-
     }
 
-
-    .player-head {
-
+    .p-hair,
+    .p-head,
+    .p-body,
+    .p-leg,
+    .p-arm {
       position: absolute;
+    }
 
+    .p-hair {
       left: 7px;
-
       top: 0;
 
-      width: 15px;
-
-      height: 15px;
-
-      background:
-        #d6a57b;
-
-      border:
-        2px solid #171717;
-
-    }
-
-
-    .player-hair {
-
-      position: absolute;
-
-      left: 5px;
-
-      top: -2px;
-
-      width: 19px;
-
+      width: 18px;
       height: 8px;
 
-      background:
-        #322c29;
-
-      border:
-        2px solid #171717;
-
-    }
-
-
-    .player-body {
-
-      position: absolute;
-
-      left: 4px;
-
-      top: 15px;
-
-      width: 21px;
-
-      height: 16px;
-
-      background:
-        #5276b9;
-
-      border:
-        2px solid #171717;
-
-    }
-
-
-    .player-leg {
-
-      position: absolute;
-
-      top: 30px;
-
-      width: 7px;
-
-      height: 9px;
-
-      background:
-        #323239;
-
-      border:
-        2px solid #171717;
-
-    }
-
-
-    .leg-left {
-
-      left: 5px;
-
-    }
-
-
-    .leg-right {
-
-      right: 4px;
-
-    }
-
-
-    #player.walking
-    .leg-left {
-
-      animation:
-        walkLeft 0.22s infinite alternate;
-
-    }
-
-
-    #player.walking
-    .leg-right {
-
-      animation:
-        walkRight 0.22s infinite alternate;
-
-    }
-
-
-    @keyframes walkLeft {
-
-      from {
-        transform:
-          translateY(-2px);
-      }
-
-      to {
-        transform:
-          translateY(2px);
-      }
-
-    }
-
-
-    @keyframes walkRight {
-
-      from {
-        transform:
-          translateY(2px);
-      }
-
-      to {
-        transform:
-          translateY(-2px);
-      }
-
-    }
-
-
-    /* =====================================================
-       MAP INSTRUCTIONS
-    ====================================================== */
-
-    .map-help {
-
-      position: absolute;
-
-      left: 20px;
-
-      top: 18px;
-
-      z-index: 40;
-
-      padding:
-        10px 13px;
-
-      background:
-        rgba(255,248,218,0.92);
-
-      border:
-        3px solid #171717;
-
-      border-radius:
-        8px;
+      background: #2a1d17;
 
       box-shadow:
-        3px 3px 0 #171717;
-
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size:
-        7px;
-
-      line-height:
-        1.6;
-
+        -3px 3px 0 #2a1d17,
+        3px 2px 0 #2a1d17;
     }
 
+    .p-head {
+      left: 8px;
+      top: 7px;
+
+      width: 16px;
+      height: 14px;
+
+      background: #d8a176;
+
+      border: 2px solid #171717;
+    }
+
+    .p-body {
+      left: 6px;
+      top: 20px;
+
+      width: 20px;
+      height: 15px;
+
+      background: #3978b8;
+
+      border: 2px solid #171717;
+    }
+
+    .p-arm {
+      top: 22px;
+
+      width: 5px;
+      height: 12px;
+
+      background: #d8a176;
+
+      border: 2px solid #171717;
+    }
+
+    .p-arm.left {
+      left: 1px;
+    }
+
+    .p-arm.right {
+      right: 1px;
+    }
+
+    .p-leg {
+      top: 34px;
+
+      width: 7px;
+      height: 10px;
+
+      background: #2d2b34;
+
+      border: 2px solid #171717;
+    }
+
+    .p-leg.left {
+      left: 7px;
+    }
+
+    .p-leg.right {
+      right: 7px;
+    }
+
+    #player.walking .p-leg.left,
+    #player.walking .p-arm.right {
+      animation:
+        stepA 0.18s steps(2, end)
+        infinite alternate;
+    }
+
+    #player.walking .p-leg.right,
+    #player.walking .p-arm.left {
+      animation:
+        stepB 0.18s steps(2, end)
+        infinite alternate;
+    }
+
+    @keyframes stepA {
+      from {
+        transform: translateY(-2px);
+      }
+
+      to {
+        transform: translateY(2px);
+      }
+    }
+
+    @keyframes stepB {
+      from {
+        transform: translateY(2px);
+      }
+
+      to {
+        transform: translateY(-2px);
+      }
+    }
 
     /* =====================================================
        LOADING SCREEN
     ====================================================== */
 
     #loading {
-
       z-index: 100;
 
-      display: flex;
+      background: #151411;
 
-      align-items: center;
+      color: #fff1c7;
 
-      justify-content: center;
+      display: grid;
 
-      background:
-        #151411;
-
-      color:
-        #fff1c7;
-
+      place-items: center;
     }
 
+    .loading-box {
+      width: min(540px, 86vw);
 
-    .loading-content {
-
-      width:
-        min(520px, 86%);
-
-      text-align:
-        center;
-
+      text-align: center;
     }
-
 
     #loadingText {
-
       font-family:
         'Press Start 2P',
         cursive;
 
       font-size:
         clamp(
-          18px,
+          19px,
           3vw,
-          32px
+          34px
         );
 
-      margin-bottom:
-        27px;
-
+      margin-bottom: 26px;
     }
 
-
     #loadingDestination {
-
       font-family:
         'Press Start 2P',
         cursive;
 
-      font-size:
-        9px;
+      font-size: 9px;
 
-      color:
-        #c9b47a;
+      line-height: 1.8;
 
-      line-height:
-        1.8;
+      color: #d0ad63;
 
-      margin-bottom:
-        25px;
-
+      margin-bottom: 26px;
     }
-
 
     .progress-shell {
+      width: 100%;
+      height: 30px;
 
-      width:
-        100%;
+      padding: 4px;
 
-      height:
-        30px;
-
-      padding:
-        4px;
-
-      border:
-        3px solid #fff1c7;
-
+      border: 3px solid #fff1c7;
     }
-
 
     #progressBar {
+      height: 100%;
 
-      width:
-        0%;
-
-      height:
-        100%;
+      width: 0%;
 
       background:
-
         repeating-linear-gradient(
-
           90deg,
-
-          #fff1c7 0,
-
-          #fff1c7 16px,
-
-          #c7aa57 16px,
-
-          #c7aa57 20px
-
+          #fff1c7 0 15px,
+          #b89745 15px 19px
         );
-
     }
 
-
     /* =====================================================
-       CONTENT PAGE
+       CONTENT PAGES
     ====================================================== */
 
     .content-screen {
-
       background:
-
         repeating-linear-gradient(
-
           0deg,
-
           #f5f2e9 0,
-
           #f5f2e9 2px,
-
-          #f2eee5 2px,
-
-          #f2eee5 4px
-
+          #f0ece2 2px,
+          #f0ece2 4px
         );
 
+      color: #171717;
     }
 
-
     .page-wrap {
-
       width:
-        min(1150px, 94%);
+        min(1180px, 94vw);
 
-      height:
-        100%;
+      height: 100%;
 
       margin:
         0 auto;
 
       padding:
-        25px 0;
+        24px 0 28px;
 
       display: flex;
 
       flex-direction: column;
-
     }
 
-
     .page-title {
+      height: 64px;
 
-      height:
-        72px;
+      flex:
+        0 0 64px;
 
-      display: flex;
+      display: grid;
 
-      align-items: center;
-
-      justify-content: center;
+      place-items: center;
 
       font-family:
         'Press Start 2P',
         cursive;
 
-      color:
-        #c7a852;
+      color: #c4a34f;
 
       font-size:
         clamp(
-          16px,
+          15px,
           2vw,
-          24px
+          23px
         );
-
-      flex-shrink:
-        0;
-
     }
 
-
     .page-card {
-
       flex: 1;
 
       min-height: 0;
-
-      background:
-        rgba(255,255,255,0.65);
 
       border:
         4px solid #171717;
 
       border-radius:
-        15px;
+        16px;
 
       box-shadow:
         6px 6px 0 #171717;
 
-      padding:
-        38px;
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.72
+        );
+
+      padding: 36px;
 
       display: flex;
 
       flex-direction: column;
 
-      justify-content:
-        center;
-
+      justify-content: center;
     }
 
-
     .page-card h2 {
-
       font-family:
         'Press Start 2P',
         cursive;
 
       font-size:
         clamp(
-          20px,
+          21px,
           3vw,
-          38px
+          40px
         );
 
-      line-height:
-        1.5;
+      line-height: 1.5;
 
-      margin-bottom:
-        24px;
-
+      margin-bottom: 22px;
     }
-
 
     .page-card p {
+      max-width: 780px;
 
-      max-width:
-        760px;
+      font-size: 26px;
 
-      font-size:
-        27px;
+      line-height: 1.35;
 
-      line-height:
-        1.35;
+      color: #655d4e;
 
-      color:
-        #665e4e;
-
-      margin-bottom:
-        28px;
-
+      margin-bottom: 28px;
     }
 
-
-    .map-button {
-
-      align-self:
-        flex-start;
+    .back-button {
+      align-self: flex-start;
 
       padding:
-        13px 16px;
+        12px 15px;
+
+      background:
+        #fff1bd;
 
       border:
         3px solid #171717;
 
       border-radius:
         8px;
-
-      background:
-        #fff0b7;
 
       box-shadow:
         4px 4px 0 #171717;
@@ -1655,22 +584,18 @@
         'Press Start 2P',
         cursive;
 
-      font-size:
-        8px;
+      font-size: 8px;
+
+      cursor: pointer;
 
       transition:
-        transform 0.15s ease;
-
+        transform 0.14s ease;
     }
 
-
-    .map-button:hover {
-
+    .back-button:hover {
       transform:
         translate(-2px, -2px);
-
     }
-
 
     /* =====================================================
        MOBILE
@@ -1679,81 +604,32 @@
     @media
     (max-width: 800px) {
 
-
-      .map-shell {
-
-        width:
-          96vw;
-
-        height:
-          92vh;
-
+      .map-stage {
+        width: 98vw;
       }
 
-
-      .map-title {
-
-        font-size:
-          8px;
-
-      }
-
-
-      .map-help {
-
-        display:
-          none;
-
-      }
-
-
-      #castle {
-
+      #player {
         transform:
-          scale(0.7);
-
-        transform-origin:
-          center;
-
+          translate(-50%, -50%)
+          scale(0.78);
       }
 
-
-      #mine,
-      #forest,
-      #village,
-      #port {
-
-        transform:
-          scale(0.75);
-
+      .tooltip {
+        display: none;
       }
-
 
       .page-card {
-
-        padding:
-          24px;
-
+        padding: 24px;
       }
-
 
       .page-card p {
-
-        font-size:
-          22px;
-
+        font-size: 21px;
       }
-
     }
-
-
   </style>
-
 </head>
 
-
 <body>
-
 
   <!-- =====================================================
        WORLD MAP
@@ -1764,318 +640,131 @@
     class="screen active"
   >
 
+    <div class="map-stage">
 
-    <div class="map-shell">
-
-
-      <div class="map-title">
-
-        ENGINEERING WORLD MAP
-
-      </div>
-
-
-      <div class="map-help">
-
-        SELECT A LOCATION<br>
-
-        TO EXPLORE
-
-      </div>
-
-
-      <div
-        class="world"
-        id="world"
+      <img
+        src="./engineering-world-map.png"
+        alt="Engineering World Map"
+        class="map-image"
       >
 
 
-        <!-- WATER -->
+      <!-- SKILLS FOREST -->
 
+      <button
+        id="skillsHotspot"
+        class="hotspot"
+        data-destination="skills"
+        aria-label="Skills Forest"
+      >
 
-        <div class="lake"></div>
+        <span class="tooltip">
 
+          SKILLS FOREST<br>
+          Explore skills
 
-        <!-- MOUNTAINS -->
+        </span>
 
+      </button>
 
-        <div class="mountain-region">
 
+      <!-- PROJECT CASTLE -->
 
-          <div class="mountain m1"></div>
+      <button
+        id="projectsHotspot"
+        class="hotspot"
+        data-destination="projects"
+        aria-label="Project Castle"
+      >
 
-          <div class="mountain m2"></div>
+        <span class="tooltip">
 
-          <div class="mountain m3"></div>
+          PROJECT CASTLE<br>
+          View projects
 
+        </span>
 
-        </div>
+      </button>
 
 
-        <!-- FOREST -->
+      <!-- ABOUT VILLAGE -->
 
+      <button
+        id="aboutHotspot"
+        class="hotspot"
+        data-destination="about"
+        aria-label="About Village"
+      >
 
-        <div class="forest-area">
+        <span class="tooltip">
 
+          ABOUT VILLAGE<br>
+          Learn about me
 
-          <div
-            class="tree"
-            style="left:5%;top:10%;"
-          ></div>
+        </span>
 
-          <div
-            class="tree"
-            style="left:20%;top:2%;"
-          ></div>
+      </button>
 
-          <div
-            class="tree"
-            style="left:35%;top:12%;"
-          ></div>
 
-          <div
-            class="tree"
-            style="left:52%;top:4%;"
-          ></div>
+      <!-- CONTACT PORT -->
 
-          <div
-            class="tree"
-            style="left:68%;top:15%;"
-          ></div>
+      <button
+        id="contactHotspot"
+        class="hotspot"
+        data-destination="contact"
+        aria-label="Contact Port"
+      >
 
-          <div
-            class="tree"
-            style="left:83%;top:8%;"
-          ></div>
+        <span class="tooltip">
 
-          <div
-            class="tree"
-            style="left:10%;top:46%;"
-          ></div>
+          CONTACT PORT<br>
+          Get in touch
 
-          <div
-            class="tree"
-            style="left:28%;top:38%;"
-          ></div>
+        </span>
 
-          <div
-            class="tree"
-            style="left:48%;top:44%;"
-          ></div>
+      </button>
 
-          <div
-            class="tree"
-            style="left:72%;top:42%;"
-          ></div>
 
+      <!-- EXPERIENCE MINE -->
 
-        </div>
+      <button
+        id="experienceHotspot"
+        class="hotspot"
+        data-destination="experience"
+        aria-label="Experience Mine"
+      >
 
+        <span class="tooltip">
 
-        <!-- PATHS -->
+          EXPERIENCE MINE<br>
+          View experience
 
+        </span>
 
-        <div
-          class="path path-centre-castle"
-        ></div>
+      </button>
 
-        <div
-          class="path path-centre-mine"
-        ></div>
 
-        <div
-          class="path path-centre-forest"
-        ></div>
+      <!-- PLAYER -->
 
-        <div
-          class="path path-centre-village"
-        ></div>
+      <div id="player">
 
-        <div
-          class="path path-centre-port"
-        ></div>
+        <div class="p-hair"></div>
 
+        <div class="p-head"></div>
 
-        <!-- =================================================
-             FOREST / SKILLS
-        ================================================== -->
+        <div class="p-body"></div>
 
+        <div class="p-arm left"></div>
 
-        <div
-          id="forest"
-          class="destination"
-          data-destination="skills"
-        >
+        <div class="p-arm right"></div>
 
+        <div class="p-leg left"></div>
 
-          <div class="forest-shrine"></div>
-
-
-          <div class="destination-label">
-
-            SKILL FOREST
-
-          </div>
-
-
-        </div>
-
-
-        <!-- =================================================
-             CASTLE / PROJECTS
-        ================================================== -->
-
-
-        <div
-          id="castle"
-          class="destination"
-          data-destination="projects"
-        >
-
-
-          <div class="castle-body">
-
-            <div class="castle-door"></div>
-
-          </div>
-
-
-          <div class="castle-tower left">
-
-            <div class="castle-roof"></div>
-
-          </div>
-
-
-          <div class="castle-tower right">
-
-            <div class="castle-roof"></div>
-
-          </div>
-
-
-          <div class="destination-label">
-
-            PROJECT CASTLE
-
-          </div>
-
-
-        </div>
-
-
-        <!-- =================================================
-             MINE / EXPERIENCE
-        ================================================== -->
-
-
-        <div
-          id="mine"
-          class="destination"
-          data-destination="experience"
-        >
-
-
-          <div class="mine-rock"></div>
-
-          <div class="mine-hole"></div>
-
-
-          <div class="destination-label">
-
-            EXPERIENCE MINE
-
-          </div>
-
-
-        </div>
-
-
-        <!-- =================================================
-             VILLAGE / ABOUT
-        ================================================== -->
-
-
-        <div
-          id="village"
-          class="destination"
-          data-destination="about"
-        >
-
-
-          <div class="house h1"></div>
-
-          <div class="house h2"></div>
-
-
-          <div class="destination-label">
-
-            ABOUT VILLAGE
-
-          </div>
-
-
-        </div>
-
-
-        <!-- =================================================
-             PORT / CONTACT
-        ================================================== -->
-
-
-        <div
-          id="port"
-          class="destination"
-          data-destination="contact"
-        >
-
-
-          <div class="boat"></div>
-
-          <div class="dock"></div>
-
-
-          <div class="destination-label">
-
-            CONTACT PORT
-
-          </div>
-
-
-        </div>
-
-
-        <!-- =================================================
-             PLAYER
-        ================================================== -->
-
-
-        <div id="player">
-
-
-          <div class="player-hair"></div>
-
-          <div class="player-head"></div>
-
-          <div class="player-body"></div>
-
-          <div
-            class="player-leg leg-left"
-          ></div>
-
-          <div
-            class="player-leg leg-right"
-          ></div>
-
-
-        </div>
-
+        <div class="p-leg right"></div>
 
       </div>
 
-
     </div>
-
 
   </section>
 
@@ -2084,29 +773,20 @@
        LOADING SCREEN
   ====================================================== -->
 
-
   <section
     id="loading"
     class="screen"
   >
 
-
-    <div class="loading-content">
-
+    <div class="loading-box">
 
       <div id="loadingText">
-
         LOADING.
-
       </div>
-
 
       <div id="loadingDestination">
-
         ENTERING LOCATION
-
       </div>
-
 
       <div class="progress-shell">
 
@@ -2114,9 +794,7 @@
 
       </div>
 
-
     </div>
-
 
   </section>
 
@@ -2125,45 +803,34 @@
        PROJECTS
   ====================================================== -->
 
-
   <section
     id="projects"
     class="screen content-screen"
   >
 
-
     <div class="page-wrap">
 
-
       <div class="page-title">
-
         PROJECTS
-
       </div>
-
 
       <div class="page-card">
 
-
         <h2>
-
           PROJECT CASTLE
-
         </h2>
-
 
         <p>
 
-          This will become your engineering project
-          archive. Later we can add your CAD work,
-          robotics projects, prototypes, videos,
-          technical drawings and 360° model previews.
+          Your engineering projects will go here later.
+          This can include CAD work, robotics,
+          prototypes, technical drawings,
+          videos and 360° model previews.
 
         </p>
 
-
         <button
-          class="map-button"
+          class="back-button"
           data-back="projects"
         >
 
@@ -2171,12 +838,9 @@
 
         </button>
 
-
       </div>
 
-
     </div>
-
 
   </section>
 
@@ -2185,44 +849,34 @@
        EXPERIENCE
   ====================================================== -->
 
-
   <section
     id="experience"
     class="screen content-screen"
   >
 
-
     <div class="page-wrap">
 
-
       <div class="page-title">
-
         EXPERIENCE
-
       </div>
-
 
       <div class="page-card">
 
-
         <h2>
-
           EXPERIENCE MINE
-
         </h2>
-
 
         <p>
 
-          Your internships, engineering employment,
-          project experience and professional work
-          will be shown here later.
+          Your internships,
+          professional engineering work
+          and other practical experience
+          will go here later.
 
         </p>
 
-
         <button
-          class="map-button"
+          class="back-button"
           data-back="experience"
         >
 
@@ -2230,12 +884,9 @@
 
         </button>
 
-
       </div>
 
-
     </div>
-
 
   </section>
 
@@ -2244,44 +895,34 @@
        SKILLS
   ====================================================== -->
 
-
   <section
     id="skills"
     class="screen content-screen"
   >
 
-
     <div class="page-wrap">
 
-
       <div class="page-title">
-
         SKILLS
-
       </div>
-
 
       <div class="page-card">
 
-
         <h2>
-
-          SKILL FOREST
-
+          SKILLS FOREST
         </h2>
-
 
         <p>
 
-          Your engineering skill tree will live here:
-          CAD, programming, electronics, robotics,
-          controls, embedded systems and simulation.
+          Your engineering skill tree will go here later:
+          CAD, programming, embedded systems,
+          electronics, robotics,
+          controls and simulation.
 
         </p>
 
-
         <button
-          class="map-button"
+          class="back-button"
           data-back="skills"
         >
 
@@ -2289,12 +930,9 @@
 
         </button>
 
-
       </div>
 
-
     </div>
-
 
   </section>
 
@@ -2303,44 +941,34 @@
        ABOUT
   ====================================================== -->
 
-
   <section
     id="about"
     class="screen content-screen"
   >
 
-
     <div class="page-wrap">
 
-
       <div class="page-title">
-
         ABOUT
-
       </div>
-
 
       <div class="page-card">
 
-
         <h2>
-
           ABOUT VILLAGE
-
         </h2>
-
 
         <p>
 
-          Your character profile goes here:
-          degree, university, engineering interests,
-          career goals and a short introduction.
+          Your introduction,
+          degree, engineering interests
+          and career goals
+          will go here later.
 
         </p>
 
-
         <button
-          class="map-button"
+          class="back-button"
           data-back="about"
         >
 
@@ -2348,12 +976,9 @@
 
         </button>
 
-
       </div>
 
-
     </div>
-
 
   </section>
 
@@ -2362,44 +987,35 @@
        CONTACT
   ====================================================== -->
 
-
   <section
     id="contact"
     class="screen content-screen"
   >
 
-
     <div class="page-wrap">
 
-
       <div class="page-title">
-
         CONTACT
-
       </div>
-
 
       <div class="page-card">
 
-
         <h2>
-
           CONTACT PORT
-
         </h2>
-
 
         <p>
 
-          Your email, LinkedIn profile,
-          CV download and contact options
-          will go here.
+          Your email,
+          LinkedIn,
+          CV download
+          and other contact details
+          will go here later.
 
         </p>
 
-
         <button
-          class="map-button"
+          class="back-button"
           data-back="contact"
         >
 
@@ -2407,98 +1023,98 @@
 
         </button>
 
-
       </div>
 
-
     </div>
-
 
   </section>
 
 
   <script>
 
-
     /* =====================================================
-       SCREENS
+       SCREEN SETUP
     ====================================================== */
-
 
     const screens = {
 
-
       worldMap:
-
         document.getElementById(
           'worldMap'
         ),
 
-
       loading:
-
         document.getElementById(
           'loading'
         ),
 
-
       projects:
-
         document.getElementById(
           'projects'
         ),
 
-
       experience:
-
         document.getElementById(
           'experience'
         ),
 
-
       skills:
-
         document.getElementById(
           'skills'
         ),
 
-
       about:
-
         document.getElementById(
           'about'
         ),
 
-
       contact:
-
         document.getElementById(
           'contact'
         )
-
-
     };
 
 
-    function showScreen(
-      name
-    ) {
+    const player =
+      document.getElementById(
+        'player'
+      );
 
+
+    const loadingText =
+      document.getElementById(
+        'loadingText'
+      );
+
+
+    const loadingDestination =
+      document.getElementById(
+        'loadingDestination'
+      );
+
+
+    const progressBar =
+      document.getElementById(
+        'progressBar'
+      );
+
+
+    let playerMoving =
+      false;
+
+
+    function showScreen(name) {
 
       Object
-        .values(
-          screens
-        )
+        .values(screens)
         .forEach(
           screen => {
-
 
             screen
               .classList
               .remove(
                 'active'
               );
-
 
           }
         );
@@ -2509,56 +1125,17 @@
         .add(
           'active'
         );
-
-
     }
 
 
     /* =====================================================
-       PLAYER
+       PLAYER POSITION
     ====================================================== */
-
-
-    const world =
-
-      document.getElementById(
-        'world'
-      );
-
-
-    const player =
-
-      document.getElementById(
-        'player'
-      );
-
-
-    let playerPosition = {
-
-      x: 50,
-
-      y: 55
-
-    };
-
-
-    let playerMoving =
-      false;
-
 
     function setPlayerPosition(
       x,
       y
     ) {
-
-
-      playerPosition.x =
-        x;
-
-
-      playerPosition.y =
-        y;
-
 
       player.style.left =
         x + '%';
@@ -2566,155 +1143,180 @@
 
       player.style.top =
         y + '%';
-
-
     }
 
 
-    setPlayerPosition(
-      50,
-      55
-    );
+    const CENTER = {
 
+      x: 48.5,
 
-    /* =====================================================
-       DESTINATION COORDINATES
-    ====================================================== */
-
-
-    const destinationPoints = {
-
-
-      projects: {
-
-        x: 82,
-
-        y: 40
-
-      },
-
-
-      experience: {
-
-        x: 82,
-
-        y: 78
-
-      },
-
-
-      skills: {
-
-        x: 24,
-
-        y: 31
-
-      },
-
-
-      about: {
-
-        x: 17,
-
-        y: 78
-
-      },
-
-
-      contact: {
-
-        x: 33,
-
-        y: 82
-
-      }
-
-
+      y: 50.5
     };
 
 
     /* =====================================================
-       WAYPOINT PATHS
+       WALKING PATHS
     ====================================================== */
 
-
     const paths = {
+
+      skills: [
+
+        CENTER,
+
+        {
+          x: 42,
+          y: 48
+        },
+
+        {
+          x: 36,
+          y: 42
+        },
+
+        {
+          x: 31,
+          y: 36
+        },
+
+        {
+          x: 26,
+          y: 31
+        }
+
+      ],
 
 
       projects: [
 
-        { x: 50, y: 55 },
+        CENTER,
 
-        { x: 60, y: 51 },
+        {
+          x: 55,
+          y: 49
+        },
 
-        { x: 69, y: 46 },
+        {
+          x: 61,
+          y: 45
+        },
 
-        { x: 76, y: 42 },
+        {
+          x: 67,
+          y: 40
+        },
 
-        { x: 82, y: 40 }
-
-      ],
-
-
-      experience: [
-
-        { x: 50, y: 55 },
-
-        { x: 61, y: 62 },
-
-        { x: 70, y: 69 },
-
-        { x: 77, y: 75 },
-
-        { x: 82, y: 78 }
-
-      ],
-
-
-      skills: [
-
-        { x: 50, y: 55 },
-
-        { x: 43, y: 48 },
-
-        { x: 36, y: 41 },
-
-        { x: 29, y: 35 },
-
-        { x: 24, y: 31 }
+        {
+          x: 73,
+          y: 35
+        }
 
       ],
 
 
       about: [
 
-        { x: 50, y: 55 },
+        CENTER,
 
-        { x: 41, y: 62 },
+        {
+          x: 41,
+          y: 56
+        },
 
-        { x: 32, y: 68 },
+        {
+          x: 34,
+          y: 62
+        },
 
-        { x: 24, y: 74 },
+        {
+          x: 27,
+          y: 68
+        },
 
-        { x: 17, y: 78 }
+        {
+          x: 20,
+          y: 72
+        }
 
       ],
 
 
       contact: [
 
-        { x: 50, y: 55 },
+        CENTER,
 
-        { x: 46, y: 64 },
+        {
+          x: 45,
+          y: 58
+        },
 
-        { x: 41, y: 72 },
+        {
+          x: 41,
+          y: 65
+        },
 
-        { x: 36, y: 79 },
+        {
+          x: 38,
+          y: 72
+        },
 
-        { x: 33, y: 82 }
+        {
+          x: 35,
+          y: 77
+        }
+
+      ],
+
+
+      experience: [
+
+        CENTER,
+
+        {
+          x: 55,
+          y: 57
+        },
+
+        {
+          x: 62,
+          y: 63
+        },
+
+        {
+          x: 69,
+          y: 68
+        },
+
+        {
+          x: 74,
+          y: 73
+        }
 
       ]
 
+    };
+
+
+    /* =====================================================
+       LOADING MESSAGES
+    ====================================================== */
+
+    const loadingMessages = {
+
+      skills:
+        'ENTERING SKILLS FOREST',
+
+      projects:
+        'ENTERING PROJECT CASTLE',
+
+      about:
+        'ENTERING ABOUT VILLAGE',
+
+      contact:
+        'ENTERING CONTACT PORT',
+
+      experience:
+        'ENTERING EXPERIENCE MINE'
 
     };
 
@@ -2723,50 +1325,43 @@
        MOVEMENT
     ====================================================== */
 
-
-    function moveBetweenPoints(
+    function moveBetween(
       start,
       end,
-      duration
+      duration = 340
     ) {
-
 
       return new Promise(
         resolve => {
-
 
           const startTime =
             performance.now();
 
 
-          function frame(
-            now
-          ) {
+          function tick(now) {
 
-
-            const elapsed =
-              now -
-              startTime;
-
-
-            const amount =
+            const p =
               Math.min(
-                elapsed /
+
+                (
+                  now -
+                  startTime
+                ) /
                 duration,
+
                 1
               );
 
 
-            const eased =
+            const ease =
 
-              amount <
-              0.5
+              p < 0.5
 
                 ?
 
                 2 *
-                amount *
-                amount
+                p *
+                p
 
                 :
 
@@ -2774,84 +1369,63 @@
 
                 Math.pow(
                   -2 *
-                  amount +
+                  p +
                   2,
                   2
                 ) /
                 2;
 
 
-            const x =
+            setPlayerPosition(
 
               start.x +
-
               (
                 end.x -
                 start.x
               ) *
-
-              eased;
-
-
-            const y =
+              ease,
 
               start.y +
-
               (
                 end.y -
                 start.y
               ) *
+              ease
 
-              eased;
-
-
-            setPlayerPosition(
-              x,
-              y
             );
 
 
             if (
-              amount <
-              1
+              p < 1
             ) {
 
-
               requestAnimationFrame(
-                frame
+                tick
               );
-
 
             }
 
             else {
 
-
               resolve();
 
-
             }
-
 
           }
 
 
           requestAnimationFrame(
-            frame
+            tick
           );
-
 
         }
       );
-
-
     }
 
 
     async function walkPath(
       points
     ) {
-
 
       playerMoving =
         true;
@@ -2868,23 +1442,18 @@
         let i = 0;
 
         i <
-        points.length -
-        1;
+        points.length - 1;
 
         i++
       ) {
 
-
-        await moveBetweenPoints(
+        await moveBetween(
 
           points[i],
 
-          points[i + 1],
-
-          370
+          points[i + 1]
 
         );
-
 
       }
 
@@ -2898,76 +1467,19 @@
 
       playerMoving =
         false;
-
-
     }
 
 
     /* =====================================================
-       LOADING SCREEN
+       LOADING SEQUENCE
     ====================================================== */
-
-
-    const loadingText =
-
-      document.getElementById(
-        'loadingText'
-      );
-
-
-    const loadingDestination =
-
-      document.getElementById(
-        'loadingDestination'
-      );
-
-
-    const progressBar =
-
-      document.getElementById(
-        'progressBar'
-      );
-
-
-    const loadingMessages = {
-
-
-      projects:
-
-        'ENTERING PROJECT CASTLE',
-
-
-      experience:
-
-        'ENTERING EXPERIENCE MINE',
-
-
-      skills:
-
-        'ENTERING SKILL FOREST',
-
-
-      about:
-
-        'ENTERING ABOUT VILLAGE',
-
-
-      contact:
-
-        'ENTERING CONTACT PORT'
-
-
-    };
-
 
     function loadingSequence(
       destination
     ) {
 
-
       return new Promise(
         resolve => {
-
 
           showScreen(
             'loading'
@@ -2982,9 +1494,16 @@
             ];
 
 
+          loadingText
+            .textContent =
+
+            'LOADING.';
+
+
           progressBar
             .style
             .width =
+
             '0%';
 
 
@@ -2996,16 +1515,9 @@
             0;
 
 
-          loadingText
-            .textContent =
-            'LOADING.';
-
-
-          const dotsTimer =
-
+          const dotTimer =
             setInterval(
               () => {
-
 
                 dots++;
 
@@ -3014,7 +1526,8 @@
                   dots > 3
                 ) {
 
-                  dots = 1;
+                  dots =
+                    1;
 
                 }
 
@@ -3028,32 +1541,31 @@
                     dots
                   );
 
-
               },
 
               350
             );
 
 
-          const progressTimer =
-
+          const barTimer =
             setInterval(
               () => {
-
 
                 progress +=
 
                   Math.random() *
-                  8 +
+                  7 +
 
                   3;
 
 
                 if (
-                  progress > 96
+                  progress >
+                  96
                 ) {
 
-                  progress = 96;
+                  progress =
+                    96;
 
                 }
 
@@ -3065,35 +1577,35 @@
                   progress +
                   '%';
 
-
               },
 
-              120
+              110
             );
 
 
           setTimeout(
             () => {
 
-
               clearInterval(
-                dotsTimer
+                dotTimer
               );
 
 
               clearInterval(
-                progressTimer
+                barTimer
               );
 
 
               progressBar
                 .style
                 .width =
+
                 '100%';
 
 
               loadingText
                 .textContent =
+
                 'LOADED!';
 
 
@@ -3102,40 +1614,31 @@
                 180
               );
 
-
             },
 
             3000
           );
 
-
         }
       );
-
-
     }
 
 
     /* =====================================================
-       CLICK DESTINATION
+       DESTINATION CLICK
     ====================================================== */
-
 
     document
       .querySelectorAll(
-        '.destination'
+        '.hotspot'
       )
       .forEach(
-        location => {
+        button => {
 
-
-          location
+          button
             .addEventListener(
-
               'click',
-
               async () => {
-
 
                 if (
                   playerMoving
@@ -3148,15 +1651,17 @@
 
                 const destination =
 
-                  location
+                  button
                     .dataset
                     .destination;
 
 
                 await walkPath(
+
                   paths[
                     destination
                   ]
+
                 );
 
 
@@ -3169,20 +1674,16 @@
                   destination
                 );
 
-
               }
-
             );
-
 
         }
       );
 
 
     /* =====================================================
-       RETURN TO MAP
+       RETURN TO WORLD MAP
     ====================================================== */
-
 
     document
       .querySelectorAll(
@@ -3191,14 +1692,10 @@
       .forEach(
         button => {
 
-
           button
             .addEventListener(
-
               'click',
-
               async () => {
-
 
                 if (
                   playerMoving
@@ -3209,7 +1706,7 @@
                 }
 
 
-                const previousLocation =
+                const destination =
 
                   button
                     .dataset
@@ -3220,82 +1717,88 @@
 
                   [
                     ...paths[
-                      previousLocation
+                      destination
                     ]
                   ]
                   .reverse();
 
 
-                /* show map first */
-
+                /*
+                  Show map again.
+                */
 
                 showScreen(
                   'worldMap'
                 );
 
 
-                /* put character back
-                   at building entrance */
-
-
-                const startPoint =
-
-                  reversePath[0];
-
+                /*
+                  Spawn character at
+                  destination entrance.
+                */
 
                 setPlayerPosition(
 
-                  startPoint.x,
+                  reversePath[0].x,
 
-                  startPoint.y
+                  reversePath[0].y
 
                 );
 
 
-                /* small delay feels
-                   like character comes
-                   out of building */
-
+                /*
+                  Slight delay so it feels
+                  like player comes out
+                  of the building.
+                */
 
                 await new Promise(
                   resolve =>
 
                     setTimeout(
                       resolve,
-                      420
+                      400
                     )
                 );
 
 
-                /* walk home */
-
+                /*
+                  Walk back to centre.
+                */
 
                 await walkPath(
                   reversePath
                 );
 
 
-                /* guarantee exact centre */
-
-
                 setPlayerPosition(
-                  50,
-                  55
+
+                  CENTER.x,
+
+                  CENTER.y
+
                 );
 
-
               }
-
             );
-
 
         }
       );
 
 
+    /* =====================================================
+       INITIAL POSITION
+    ====================================================== */
+
+    setPlayerPosition(
+
+      CENTER.x,
+
+      CENTER.y
+
+    );
+
   </script>
 
-
 </body>
-
 </html>
