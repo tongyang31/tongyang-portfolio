@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engineering Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #ffffff;
+      color: #171717;
+      font-family: 'VT323', monospace;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
+
+    :root {
+      --paper: #f5f2e9;
+      --ink: #171717;
+      --muted: #6c6454;
+      --gold: #ccb15f;
+      --gold-soft: #fff2bf;
+      --shadow: 4px 4px 0 #171717;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .screen.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* LANDING */
+
+    #landing {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+    }
+
+    .landing-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 34px;
+    }
+
+    #portfolioMark {
+      width: 210px;
+      height: 210px;
+      border: 18px solid #111;
+      position: relative;
+      cursor: pointer;
+      animation: spinMark 10s linear infinite;
+      transition: animation-duration 0.35s ease, transform 0.25s ease;
+    }
+
+    #portfolioMark::before,
+    #portfolioMark::after {
+      content: "";
+      position: absolute;
+      background: #111;
+    }
+
+    #portfolioMark::before {
+      width: 72%;
+      height: 18px;
+      left: 14%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    #portfolioMark::after {
+      height: 72%;
+      width: 18px;
+      top: 14%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    #portfolioMark:hover {
+      animation-duration: 30s;
+      transform: scale(1.03);
+    }
+
+    @keyframes spinMark {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    #stayTuned {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      color: #555;
+      min-width: 190px;
+      text-align: center;
+    }
+
+    /* GAME STYLE */
+
+    .game-screen {
+      background:
+        linear-gradient(rgba(255,255,255,0.28), rgba(255,255,255,0.28)),
+        repeating-linear-gradient(
+          0deg,
+          #f5f2e9 0px,
+          #f5f2e9 2px,
+          #f2eee5 2px,
+          #f2eee5 4px
+        );
+      overflow: hidden;
+    }
+
+    .game-wrap {
+      width: min(1100px, 92%);
+      height: 100%;
+      margin: 0 auto;
+      padding: 24px 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .screen-title {
+      height: 62px;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(14px, 1.8vw, 22px);
+      color: var(--gold);
+      text-shadow: 2px 2px 0 #fff;
+    }
+
+    .menu-layout {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0;
+    }
+
+    .menu-content {
+      width: min(720px, 94%);
+    }
+
+    .tiny-label {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 8px;
+      color: #8a806b;
+      margin-bottom: 14px;
+    }
+
+    .page-heading {
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(26px, 4vw, 48px);
+      line-height: 1.45;
+      margin-bottom: 18px;
+    }
+
+    .menu-description {
+      font-size: 25px;
+      line-height: 1.25;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .menu-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .menu-option,
+    .back-button {
+      border: 3px solid #111;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      background: #fbf8ef;
+      transition: 0.15s ease;
+    }
+
+    .menu-option {
+      width: 100%;
+      text-align: left;
+      padding: 16px 18px;
+    }
+
+    .menu-option:hover,
+    .back-button:hover {
+      background: var(--gold-soft);
+      transform: translate(-2px, -2px);
+    }
+
+    .menu-option-title {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .menu-option-description {
+      margin-top: 6px;
+      font-size: 21px;
+      color: var(--muted);
+    }
+
+    /* LOADING */
+
+    #loading {
+      z-index: 100;
+      background: #151411;
+      color: #fff1c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loading-content {
+      width: min(520px, 86%);
+      text-align: center;
+    }
+
+    #loadingText {
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(18px, 3vw, 32px);
+      margin-bottom: 26px;
+    }
+
+    #loadingDestination {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 9px;
+      color: #c9b47a;
+      margin-bottom: 24px;
+      line-height: 1.8;
+    }
+
+    .progress-shell {
+      width: 100%;
+      height: 28px;
+      border: 3px solid #fff1c7;
+      padding: 4px;
+    }
+
+    #progressBar {
+      height: 100%;
+      width: 0%;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          #fff1c7 0px,
+          #fff1c7 16px,
+          #c7aa57 16px,
+          #c7aa57 20px
+        );
+      transition: width 0.1s linear;
+    }
+
+    /* PLACEHOLDER SECTIONS */
+
+    .section-layout {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0;
+    }
+
+    .section-card {
+      width: min(850px, 94%);
+      background: rgba(255,255,255,0.6);
+      border: 3px solid #111;
+      border-radius: 14px;
+      box-shadow: 5px 5px 0 #111;
+      padding: 34px;
+    }
+
+    .section-card h2 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(18px, 2.5vw, 30px);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .section-card p {
+      font-size: 24px;
+      line-height: 1.35;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .back-button {
+      padding: 12px 15px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 8px;
+    }
+
+    @media (max-width: 700px) {
+      #portfolioMark {
+        width: 150px;
+        height: 150px;
+      }
+
+      .section-card {
+        padding: 22px;
+      }
+
+      .menu-description,
+      .section-card p,
+      .menu-option-description {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LANDING -->
+  <section id="landing" class="screen active">
+    <div class="landing-inner">
+      <div id="portfolioMark" aria-label="Enter portfolio" title="Enter portfolio"></div>
+      <div id="stayTuned">LOADING PORTFOLIO.</div>
+    </div>
+  </section>
+
+  <!-- MAIN MENU -->
+  <section id="menu" class="screen game-screen">
+    <div class="game-wrap">
+      <div class="screen-title">MAIN MENU</div>
+
+      <div class="menu-layout">
+        <div class="menu-content">
+          <div class="tiny-label">STUDENT ENGINEERING PORTFOLIO</div>
+
+          <div class="page-heading">
+            CHOOSE<br>
+            YOUR PATH
+          </div>
+
+          <div class="menu-description">
+            This is the base version. You can add your name,
+            projects, experience and CV later.
+          </div>
+
+          <div class="menu-options">
+            <button class="menu-option" data-destination="projects">
+              <div class="menu-option-title">PROJECTS</div>
+              <div class="menu-option-description">Engineering work and student projects.</div>
+            </button>
+
+            <button class="menu-option" data-destination="experience">
+              <div class="menu-option-title">EXPERIENCE</div>
+              <div class="menu-option-description">Internships, work and engineering experience.</div>
+            </button>
+
+            <button class="menu-option" data-destination="skills">
+              <div class="menu-option-title">SKILLS</div>
+              <div class="menu-option-description">Software, hardware and engineering tools.</div>
+            </button>
+
+            <button class="menu-option" data-destination="about">
+              <div class="menu-option-title">ABOUT</div>
+              <div class="menu-option-description">A short introduction about you.</div>
+            </button>
+
+            <button class="menu-option" data-destination="contact">
+              <div class="menu-option-title">CONTACT</div>
+              <div class="menu-option-description">Contact details and CV link later.</div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOADING -->
+  <section id="loading" class="screen">
+    <div class="loading-content">
+      <div id="loadingText">LOADING.</div>
+      <div id="loadingDestination">PLEASE WAIT</div>
+
+      <div class="progress-shell">
+        <div id="progressBar"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="screen game-screen">
+    <div class="game-wrap">
+      <div class="screen-title">PROJECTS</div>
+      <div class="section-layout">
+        <div class="section-card">
+          <h2>PROJECT ARCHIVE</h2>
+          <p>Your project cards, images, videos and 360° model previews will go here later.</p>
+          <button class="back-button" data-menu>← MAIN MENU</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="screen game-screen">
+    <div class="game-wrap">
+      <div class="screen-title">EXPERIENCE</div>
+      <div class="section-layout">
+        <div class="section-card">
+          <h2>QUEST LOG</h2>
+          <p>Your internship, work experience and engineering roles will go here later.</p>
+          <button class="back-button" data-menu>← MAIN MENU</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="screen game-screen">
+    <div class="game-wrap">
+      <div class="screen-title">SKILLS</div>
+      <div class="section-layout">
+        <div class="section-card">
+          <h2>SKILL TREE</h2>
+          <p>Your CAD, programming, electronics, robotics and engineering skills will go here later.</p>
+          <button class="back-button" data-menu>← MAIN MENU</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="screen game-screen">
+    <div class="game-wrap">
+      <div class="screen-title">ABOUT</div>
+      <div class="section-layout">
+        <div class="section-card">
+          <h2>CHARACTER PROFILE</h2>
+          <p>Your short introduction, degree, engineering interests and career goals will go here later.</p>
+          <button class="back-button" data-menu>← MAIN MENU</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="screen game-screen">
+    <div class="game-wrap">
+      <div class="screen-title">CONTACT</div>
+      <div class="section-layout">
+        <div class="section-card">
+          <h2>CONTACT</h2>
+          <p>Your email, LinkedIn, CV download and other links will go here later.</p>
+          <button class="back-button" data-menu>← MAIN MENU</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const screens = {
+      landing: document.getElementById('landing'),
+      menu: document.getElementById('menu'),
+      loading: document.getElementById('loading'),
+      projects: document.getElementById('projects'),
+      experience: document.getElementById('experience'),
+      skills: document.getElementById('skills'),
+      about: document.getElementById('about'),
+      contact: document.getElementById('contact')
+    };
+
+    function showScreen(name) {
+      Object.values(screens).forEach(screen => screen.classList.remove('active'));
+      screens[name].classList.add('active');
+    }
+
+    /* Landing dots */
+
+    const stayTuned = document.getElementById('stayTuned');
+    let stayDots = 1;
+
+    setInterval(() => {
+      stayDots++;
+      if (stayDots > 3) stayDots = 1;
+
+      stayTuned.textContent =
+        'LOADING PORTFOLIO' +
+        '.'.repeat(stayDots);
+    }, 450);
+
+    /* Enter */
+
+    document
+      .getElementById('portfolioMark')
+      .addEventListener('click', () => {
+        showScreen('menu');
+      });
+
+    /* Loading transition */
+
+    const loadingText = document.getElementById('loadingText');
+    const loadingDestination = document.getElementById('loadingDestination');
+    const progressBar = document.getElementById('progressBar');
+
+    const destinationMessages = {
+      projects: 'OPENING PROJECT ARCHIVE',
+      experience: 'OPENING QUEST LOG',
+      skills: 'LOADING SKILL TREE',
+      about: 'OPENING CHARACTER PROFILE',
+      contact: 'OPENING CONTACT PAGE'
+    };
+
+    let loadingTimer;
+    let progressTimer;
+
+    function loadSection(destination) {
+      clearInterval(loadingTimer);
+      clearInterval(progressTimer);
+
+      showScreen('loading');
+
+      loadingDestination.textContent =
+        destinationMessages[destination] || 'LOADING';
+
+      progressBar.style.width = '0%';
+
+      let dots = 1;
+      let progress = 0;
+
+      loadingText.textContent = 'LOADING.';
+
+      loadingTimer = setInterval(() => {
+        dots++;
+        if (dots > 3) dots = 1;
+        loadingText.textContent = 'LOADING' + '.'.repeat(dots);
+      }, 350);
+
+      progressTimer = setInterval(() => {
+        progress += Math.random() * 7 + 3;
+        if (progress > 96) progress = 96;
+        progressBar.style.width = progress + '%';
+      }, 110);
+
+      setTimeout(() => {
+        clearInterval(loadingTimer);
+        clearInterval(progressTimer);
+
+        progressBar.style.width = '100%';
+        loadingText.textContent = 'LOADED!';
+
+        setTimeout(() => {
+          showScreen(destination);
+        }, 160);
+      }, 3000);
+    }
+
+    document.querySelectorAll('[data-destination]').forEach(button => {
+      button.addEventListener('click', () => {
+        loadSection(button.dataset.destination);
+      });
+    });
+
+    document.querySelectorAll('[data-menu]').forEach(button => {
+      button.addEventListener('click', () => {
+        showScreen('menu');
+      });
+    });
+  </script>
+
+</body>
+</html>
