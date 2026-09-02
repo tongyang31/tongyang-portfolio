@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
-  />
+  >
+
   <title>Engineering Portfolio</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
   <link
     href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
     rel="stylesheet"
-  />
+  >
 
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     html,
@@ -27,22 +39,27 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #1c1a20;
-      font-family: 'VT323', monospace;
-      color: #fff;
+
+      background: #17161c;
+
+      font-family:
+        'VT323',
+        monospace;
     }
 
     button {
       font: inherit;
-      color: inherit;
     }
 
     .screen {
       position: absolute;
       inset: 0;
+
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s ease;
+
+      transition:
+        opacity 0.3s ease;
     }
 
     .screen.active {
@@ -50,180 +67,303 @@
       pointer-events: auto;
     }
 
-    /* =========================
-       WORLD MAP SCREEN
-    ========================= */
+    /* =====================================================
+       MAP SCREEN
+    ====================================================== */
 
     #worldMap {
       display: grid;
       place-items: center;
-      background: #1b1820;
-      padding: 16px;
-    }
 
-    .map-shell {
-      position: relative;
-      width: min(1400px, 96vw);
-      aspect-ratio: 16 / 9;
-      max-height: 92vh;
-      border: 5px solid #171717;
-      border-radius: 12px;
-      box-shadow:
-        0 0 0 5px #8a603d,
-        0 0 0 10px #171717;
-      overflow: hidden;
-      background: #88a94c;
-    }
-
-    .map-shell::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
       background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(255,255,255,0.03) 0px,
-          rgba(255,255,255,0.03) 2px,
-          transparent 2px,
-          transparent 4px
-        );
-      z-index: 20;
+        #1c1a20;
+
+      padding: 14px;
+    }
+
+    .map-frame {
+      position: relative;
+
+      width:
+        min(1450px, 96vw);
+
+      aspect-ratio:
+        16 / 9;
+
+      max-height:
+        94vh;
+
+      overflow: hidden;
+
+      background:
+        #6d9144;
+
+      border:
+        6px solid #18171b;
+
+      border-radius:
+        14px;
+
+      box-shadow:
+        0 0 0 5px #9a6d45,
+        0 0 0 10px #18171b;
     }
 
     #mapCanvas {
       width: 100%;
       height: 100%;
+
       display: block;
+
       image-rendering: pixelated;
       image-rendering: crisp-edges;
-      position: relative;
-      z-index: 1;
+
+      cursor: default;
+    }
+
+    /* subtle CRT / pixel texture */
+
+    .map-frame::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      pointer-events: none;
+
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.025) 0px,
+          rgba(255,255,255,0.025) 2px,
+          transparent 2px,
+          transparent 4px
+        );
+
+      z-index: 30;
     }
 
     .map-title {
       position: absolute;
-      top: 16px;
+
       left: 50%;
-      transform: translateX(-50%);
-      z-index: 30;
+      top: 16px;
 
-      font-family: 'Press Start 2P', cursive;
-      font-size: clamp(10px, 1.3vw, 18px);
+      transform:
+        translateX(-50%);
 
-      color: #fff3d6;
-      background: #1d1a21;
+      z-index: 40;
 
-      border: 4px solid #171717;
-      border-radius: 10px;
+      padding:
+        13px 18px;
+
+      background:
+        #1c1920;
+
+      color:
+        #fff3d2;
+
+      border:
+        4px solid #111;
+
+      border-radius:
+        8px;
+
       box-shadow:
-        0 0 0 3px #94663d,
+        0 0 0 3px #98653e,
         4px 4px 0 rgba(0,0,0,0.4);
 
-      padding: 14px 18px;
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        clamp(
+          9px,
+          1.25vw,
+          16px
+        );
+
       white-space: nowrap;
     }
 
-    .map-hint {
+    .map-help {
       position: absolute;
-      top: 18px;
+
       left: 18px;
-      z-index: 30;
+      top: 18px;
 
-      background: #f8f0d5;
-      color: #171717;
+      z-index: 40;
 
-      border: 4px solid #171717;
-      border-radius: 10px;
-      box-shadow: 4px 4px 0 rgba(0,0,0,0.45);
+      padding:
+        10px 12px;
 
-      padding: 12px 14px;
+      background:
+        #fff6d9;
 
-      font-family: 'Press Start 2P', cursive;
-      font-size: 8px;
-      line-height: 1.7;
-      text-align: center;
+      color:
+        #171717;
+
+      border:
+        3px solid #111;
+
+      border-radius:
+        8px;
+
+      box-shadow:
+        4px 4px 0 rgba(0,0,0,0.4);
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        7px;
+
+      line-height:
+        1.7;
     }
 
-    .tooltip {
+    #mapTooltip {
       position: absolute;
-      z-index: 40;
-      pointer-events: none;
 
-      background: #1b1820;
-      color: #fff7da;
-
-      border: 3px solid #c9985d;
-      box-shadow: 4px 4px 0 rgba(0,0,0,0.45);
-
-      padding: 10px 12px;
-
-      font-family: 'Press Start 2P', cursive;
-      font-size: 8px;
-      line-height: 1.6;
-      white-space: nowrap;
+      z-index: 50;
 
       opacity: 0;
-      transform: translate(-50%, -120%);
-      transition: opacity 0.15s ease;
+      pointer-events: none;
+
+      transform:
+        translate(-50%, -115%);
+
+      padding:
+        10px 11px;
+
+      background:
+        #17161b;
+
+      color:
+        #fff3d5;
+
+      border:
+        3px solid #bf8d51;
+
+      box-shadow:
+        4px 4px 0 #111;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        7px;
+
+      line-height:
+        1.6;
+
+      white-space:
+        nowrap;
+
+      transition:
+        opacity 0.12s ease;
     }
 
-    .tooltip.show {
+    #mapTooltip.show {
       opacity: 1;
     }
 
-    /* =========================
-       LOADING SCREEN
-    ========================= */
+    /* =====================================================
+       LOADING
+    ====================================================== */
 
     #loading {
+      z-index: 100;
+
       display: grid;
       place-items: center;
-      background: #141215;
-      color: #fff2cd;
-      z-index: 100;
+
+      background:
+        #151411;
+
+      color:
+        #fff1c7;
     }
 
     .loading-box {
-      width: min(540px, 88vw);
-      text-align: center;
+      width:
+        min(540px, 86vw);
+
+      text-align:
+        center;
     }
 
     #loadingText {
-      font-family: 'Press Start 2P', cursive;
-      font-size: clamp(18px, 3vw, 34px);
-      margin-bottom: 24px;
-    }
+      margin-bottom:
+        26px;
 
-    #loadingDestination {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 9px;
-      line-height: 1.8;
-      color: #d3af67;
-      margin-bottom: 24px;
-    }
+      font-family:
+        'Press Start 2P',
+        cursive;
 
-    .progress-shell {
-      width: 100%;
-      height: 30px;
-      padding: 4px;
-      border: 3px solid #fff2cd;
-    }
-
-    #progressBar {
-      width: 0%;
-      height: 100%;
-      background:
-        repeating-linear-gradient(
-          90deg,
-          #fff2cd 0 16px,
-          #b18c43 16px 20px
+      font-size:
+        clamp(
+          18px,
+          3vw,
+          34px
         );
     }
 
-    /* =========================
+    #loadingDestination {
+      margin-bottom:
+        24px;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        9px;
+
+      line-height:
+        1.7;
+
+      color:
+        #d0ac62;
+    }
+
+    .progress-shell {
+      width:
+        100%;
+
+      height:
+        30px;
+
+      padding:
+        4px;
+
+      border:
+        3px solid #fff1c7;
+    }
+
+    #progressBar {
+      width:
+        0%;
+
+      height:
+        100%;
+
+      background:
+        repeating-linear-gradient(
+          90deg,
+          #fff1c7 0px,
+          #fff1c7 16px,
+          #b38d43 16px,
+          #b38d43 20px
+        );
+    }
+
+    /* =====================================================
        CONTENT PAGES
-    ========================= */
+    ====================================================== */
 
     .content-screen {
       background:
@@ -234,848 +374,3436 @@
           #eeeadf 2px,
           #eeeadf 4px
         );
-      color: #171717;
+
+      color:
+        #171717;
     }
 
     .page-wrap {
-      width: min(1180px, 94vw);
-      height: 100%;
-      margin: 0 auto;
-      padding: 24px 0 28px;
-      display: flex;
-      flex-direction: column;
+      width:
+        min(1180px, 94vw);
+
+      height:
+        100%;
+
+      margin:
+        0 auto;
+
+      padding:
+        24px 0 28px;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
     }
 
     .page-title {
-      height: 64px;
-      flex: 0 0 64px;
-      display: grid;
-      place-items: center;
-      font-family: 'Press Start 2P', cursive;
-      font-size: clamp(14px, 2vw, 22px);
-      color: #c4a24d;
+      height:
+        64px;
+
+      flex:
+        0 0 64px;
+
+      display:
+        grid;
+
+      place-items:
+        center;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        clamp(
+          14px,
+          2vw,
+          22px
+        );
+
+      color:
+        #c3a14c;
     }
 
     .page-card {
-      flex: 1;
-      min-height: 0;
-      background: rgba(255,255,255,0.72);
-      border: 4px solid #171717;
-      border-radius: 16px;
-      box-shadow: 6px 6px 0 #171717;
-      padding: 36px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      flex:
+        1;
+
+      min-height:
+        0;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      justify-content:
+        center;
+
+      padding:
+        36px;
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.72
+        );
+
+      border:
+        4px solid #171717;
+
+      border-radius:
+        16px;
+
+      box-shadow:
+        6px 6px 0 #171717;
     }
 
     .page-card h2 {
-      font-family: 'Press Start 2P', cursive;
-      font-size: clamp(20px, 3vw, 38px);
-      line-height: 1.5;
-      margin-bottom: 22px;
+      margin-bottom:
+        22px;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        clamp(
+          20px,
+          3vw,
+          38px
+        );
+
+      line-height:
+        1.5;
     }
 
     .page-card p {
-      max-width: 780px;
-      font-size: 26px;
-      line-height: 1.35;
-      color: #655d4e;
-      margin-bottom: 28px;
+      max-width:
+        800px;
+
+      margin-bottom:
+        28px;
+
+      font-size:
+        26px;
+
+      line-height:
+        1.35;
+
+      color:
+        #655d4e;
     }
 
     .back-button {
-      align-self: flex-start;
-      padding: 12px 15px;
-      background: #fff1bd;
-      border: 3px solid #171717;
-      border-radius: 8px;
-      box-shadow: 4px 4px 0 #171717;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 8px;
-      cursor: pointer;
-      transition: transform 0.14s ease;
+      align-self:
+        flex-start;
+
+      padding:
+        12px 15px;
+
+      background:
+        #fff1bd;
+
+      border:
+        3px solid #171717;
+
+      border-radius:
+        8px;
+
+      box-shadow:
+        4px 4px 0 #171717;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        8px;
+
+      cursor:
+        pointer;
+
+      transition:
+        transform 0.14s ease;
     }
 
     .back-button:hover {
-      transform: translate(-2px, -2px);
+      transform:
+        translate(-2px, -2px);
     }
 
-    @media (max-width: 800px) {
-      .map-hint {
-        display: none;
+    @media
+    (max-width: 800px) {
+
+      .map-help {
+        display:
+          none;
       }
 
       .page-card {
-        padding: 24px;
+        padding:
+          24px;
       }
 
       .page-card p {
-        font-size: 21px;
+        font-size:
+          21px;
       }
     }
   </style>
 </head>
 
+
 <body>
 
-  <!-- =========================
+  <!-- =====================================================
        WORLD MAP
-  ========================== -->
+  ====================================================== -->
 
   <section
     id="worldMap"
     class="screen active"
   >
-    <div class="map-shell" id="mapShell">
+
+    <div
+      class="map-frame"
+      id="mapFrame"
+    >
+
+      <canvas
+        id="mapCanvas"
+        width="480"
+        height="270"
+      ></canvas>
+
 
       <div class="map-title">
         ENGINEERING WORLD MAP
       </div>
 
-      <div class="map-hint">
+
+      <div class="map-help">
         SELECT A LOCATION<br>
         TO EXPLORE
       </div>
 
-      <canvas
-        id="mapCanvas"
-        width="384"
-        height="216"
-      ></canvas>
 
-      <div id="tooltip" class="tooltip"></div>
+      <div id="mapTooltip"></div>
 
     </div>
+
   </section>
 
-  <!-- =========================
+
+  <!-- =====================================================
        LOADING
-  ========================== -->
+  ====================================================== -->
 
   <section
     id="loading"
     class="screen"
   >
+
     <div class="loading-box">
-      <div id="loadingText">LOADING.</div>
-      <div id="loadingDestination">ENTERING LOCATION</div>
+
+      <div id="loadingText">
+        LOADING.
+      </div>
+
+      <div id="loadingDestination">
+        ENTERING LOCATION
+      </div>
 
       <div class="progress-shell">
+
         <div id="progressBar"></div>
+
       </div>
+
     </div>
+
   </section>
 
-  <!-- =========================
-       PROJECTS PAGE
-  ========================== -->
+
+  <!-- =====================================================
+       PROJECTS
+  ====================================================== -->
 
   <section
     id="projectsPage"
     class="screen content-screen"
   >
+
     <div class="page-wrap">
-      <div class="page-title">PROJECTS</div>
+
+      <div class="page-title">
+        PROJECTS
+      </div>
+
       <div class="page-card">
-        <h2>PROJECT CASTLE</h2>
+
+        <h2>
+          PROJECT CASTLE
+        </h2>
+
         <p>
-          Your engineering projects will go here later:
+          Your engineering projects will go here later.
           CAD work, robotics, prototypes,
-          technical drawings, videos,
-          and interactive model previews.
+          technical drawings, videos
+          and interactive models can all be added here.
         </p>
-        <button class="back-button" data-back="projects">
+
+        <button
+          class="back-button"
+          data-back="projects"
+        >
           ← WORLD MAP
         </button>
+
       </div>
+
     </div>
+
   </section>
 
-  <!-- =========================
-       EXPERIENCE PAGE
-  ========================== -->
+
+  <!-- EXPERIENCE -->
 
   <section
     id="experiencePage"
     class="screen content-screen"
   >
+
     <div class="page-wrap">
-      <div class="page-title">EXPERIENCE</div>
+
+      <div class="page-title">
+        EXPERIENCE
+      </div>
+
       <div class="page-card">
-        <h2>EXPERIENCE MINE</h2>
+
+        <h2>
+          EXPERIENCE MINE
+        </h2>
+
         <p>
-          Your internships, engineering work
-          and practical project experience
+          Your internship experience,
+          engineering employment
+          and practical professional work
           will go here later.
         </p>
-        <button class="back-button" data-back="experience">
+
+        <button
+          class="back-button"
+          data-back="experience"
+        >
           ← WORLD MAP
         </button>
+
       </div>
+
     </div>
+
   </section>
 
-  <!-- =========================
-       SKILLS PAGE
-  ========================== -->
+
+  <!-- SKILLS -->
 
   <section
     id="skillsPage"
     class="screen content-screen"
   >
+
     <div class="page-wrap">
-      <div class="page-title">SKILLS</div>
+
+      <div class="page-title">
+        SKILLS
+      </div>
+
       <div class="page-card">
-        <h2>SKILLS FOREST</h2>
+
+        <h2>
+          SKILLS FOREST
+        </h2>
+
         <p>
           Your engineering skill tree will go here:
-          CAD, coding, electronics,
-          embedded systems, robotics,
-          controls and simulation.
+          CAD, programming, electronics,
+          embedded systems, controls,
+          robotics and simulation.
         </p>
-        <button class="back-button" data-back="skills">
+
+        <button
+          class="back-button"
+          data-back="skills"
+        >
           ← WORLD MAP
         </button>
+
       </div>
+
     </div>
+
   </section>
 
-  <!-- =========================
-       ABOUT PAGE
-  ========================== -->
+
+  <!-- ABOUT -->
 
   <section
     id="aboutPage"
     class="screen content-screen"
   >
+
     <div class="page-wrap">
-      <div class="page-title">ABOUT</div>
+
+      <div class="page-title">
+        ABOUT
+      </div>
+
       <div class="page-card">
-        <h2>ABOUT VILLAGE</h2>
+
+        <h2>
+          ABOUT VILLAGE
+        </h2>
+
         <p>
-          Your introduction, degree,
-          engineering interests
-          and career goals
+          Your introduction,
+          degree, engineering interests,
+          career goals and background
           will go here later.
         </p>
-        <button class="back-button" data-back="about">
+
+        <button
+          class="back-button"
+          data-back="about"
+        >
           ← WORLD MAP
         </button>
+
       </div>
+
     </div>
+
   </section>
 
-  <!-- =========================
-       CONTACT PAGE
-  ========================== -->
+
+  <!-- CONTACT -->
 
   <section
     id="contactPage"
     class="screen content-screen"
   >
+
     <div class="page-wrap">
-      <div class="page-title">CONTACT</div>
+
+      <div class="page-title">
+        CONTACT
+      </div>
+
       <div class="page-card">
-        <h2>CONTACT PORT</h2>
+
+        <h2>
+          CONTACT PORT
+        </h2>
+
         <p>
-          Your email, LinkedIn,
-          CV link and other contact details
+          Your email,
+          LinkedIn,
+          CV download
+          and contact information
           will go here later.
         </p>
-        <button class="back-button" data-back="contact">
+
+        <button
+          class="back-button"
+          data-back="contact"
+        >
           ← WORLD MAP
         </button>
+
       </div>
+
     </div>
+
   </section>
 
+
   <script>
-    /* =========================
-       SCREEN SYSTEM
-    ========================== */
+
+    /* =====================================================
+       BASIC SETUP
+    ====================================================== */
+
+    const canvas =
+      document.getElementById(
+        'mapCanvas'
+      );
+
+
+    const ctx =
+      canvas.getContext(
+        '2d'
+      );
+
+
+    ctx.imageSmoothingEnabled =
+      false;
+
+
+    const tooltip =
+      document.getElementById(
+        'mapTooltip'
+      );
+
+
+    const mapFrame =
+      document.getElementById(
+        'mapFrame'
+      );
+
+
+    const loadingText =
+      document.getElementById(
+        'loadingText'
+      );
+
+
+    const loadingDestination =
+      document.getElementById(
+        'loadingDestination'
+      );
+
+
+    const progressBar =
+      document.getElementById(
+        'progressBar'
+      );
+
 
     const screens = {
-      worldMap: document.getElementById('worldMap'),
-      loading: document.getElementById('loading'),
-      projects: document.getElementById('projectsPage'),
-      experience: document.getElementById('experiencePage'),
-      skills: document.getElementById('skillsPage'),
-      about: document.getElementById('aboutPage'),
-      contact: document.getElementById('contactPage')
+
+      worldMap:
+        document.getElementById(
+          'worldMap'
+        ),
+
+      loading:
+        document.getElementById(
+          'loading'
+        ),
+
+      projects:
+        document.getElementById(
+          'projectsPage'
+        ),
+
+      experience:
+        document.getElementById(
+          'experiencePage'
+        ),
+
+      skills:
+        document.getElementById(
+          'skillsPage'
+        ),
+
+      about:
+        document.getElementById(
+          'aboutPage'
+        ),
+
+      contact:
+        document.getElementById(
+          'contactPage'
+        )
+
     };
 
-    function showScreen(name) {
-      Object.values(screens).forEach(screen => {
-        screen.classList.remove('active');
-      });
-      screens[name].classList.add('active');
-    }
 
-    /* =========================
-       CANVAS SETUP
-    ========================== */
+    const W =
+      480;
 
-    const canvas = document.getElementById('mapCanvas');
-    const ctx = canvas.getContext('2d');
-    ctx.imageSmoothingEnabled = false;
 
-    const tooltip = document.getElementById('tooltip');
-    const mapShell = document.getElementById('mapShell');
+    const H =
+      270;
 
-    const loadingText = document.getElementById('loadingText');
-    const loadingDestination = document.getElementById('loadingDestination');
-    const progressBar = document.getElementById('progressBar');
 
-    const MAP_W = 384;
-    const MAP_H = 216;
+    const TILE =
+      16;
 
-    const CENTER = { x: 192, y: 112 };
+
+    const CENTER = {
+
+      x: 240,
+
+      y: 145
+
+    };
+
 
     const state = {
-      hover: null,
-      moving: false,
-      player: { x: CENTER.x, y: CENTER.y },
-      returnLock: false
+
+      moving:
+        false,
+
+      returning:
+        false,
+
+      hover:
+        null,
+
+      player: {
+
+        x:
+          CENTER.x,
+
+        y:
+          CENTER.y
+
+      },
+
+      stepFrame:
+        0
+
     };
+
+
+    function showScreen(
+      name
+    ) {
+
+      Object
+        .values(
+          screens
+        )
+        .forEach(
+          screen => {
+
+            screen
+              .classList
+              .remove(
+                'active'
+              );
+
+          }
+        );
+
+
+      screens[
+        name
+      ]
+        .classList
+        .add(
+          'active'
+        );
+
+    }
+
+
+    function rect(
+      x,
+      y,
+      w,
+      h,
+      colour
+    ) {
+
+      ctx.fillStyle =
+        colour;
+
+
+      ctx.fillRect(
+
+        Math.round(x),
+
+        Math.round(y),
+
+        Math.round(w),
+
+        Math.round(h)
+
+      );
+
+    }
+
+
+    /* =====================================================
+       COLOURS
+    ====================================================== */
+
+    const C = {
+
+      grass:
+        '#729d46',
+
+      grassDark:
+        '#527f38',
+
+      grassLight:
+        '#8caf53',
+
+      flower:
+        '#e7ce58',
+
+      dirt:
+        '#b57b49',
+
+      dirtDark:
+        '#875735',
+
+      dirtLight:
+        '#cc955c',
+
+      water:
+        '#455293',
+
+      waterLight:
+        '#6170b2',
+
+      foam:
+        '#9cd0fb',
+
+      sand:
+        '#e9ca87',
+
+      cliff:
+        '#8a5b3f',
+
+      cliffDark:
+        '#5f3d2d',
+
+      treeDark:
+        '#315e36',
+
+      tree:
+        '#447c43',
+
+      treeLight:
+        '#62954f',
+
+      trunk:
+        '#69442c',
+
+      roof:
+        '#bf6550',
+
+      stone:
+        '#8b8e9d',
+
+      stoneLight:
+        '#b1b4c2',
+
+      stoneDark:
+        '#5f6270',
+
+      outline:
+        '#242229'
+
+    };
+
+
+    /* =====================================================
+       MAP LAYOUT
+    ====================================================== */
 
     const locations = {
-      skills: {
-        label: 'SKILLS FOREST',
-        loadText: 'ENTERING SKILLS FOREST',
-        hitbox: { x: 38, y: 28, w: 92, h: 56 },
-        entry: { x: 86, y: 58 },
-        path: [
-          { x: 192, y: 112 },
-          { x: 170, y: 104 },
-          { x: 146, y: 94 },
-          { x: 122, y: 82 },
-          { x: 102, y: 69 },
-          { x: 86, y: 58 }
-        ]
-      },
 
       projects: {
-        label: 'PROJECT CASTLE',
-        loadText: 'ENTERING PROJECT CASTLE',
-        hitbox: { x: 168, y: 18, w: 64, h: 52 },
-        entry: { x: 200, y: 58 },
+
+        label:
+          'PROJECT CASTLE',
+
+        subtitle:
+          'VIEW PROJECTS',
+
+        load:
+          'ENTERING PROJECT CASTLE',
+
+        box: {
+
+          x: 199,
+
+          y: 25,
+
+          w: 86,
+
+          h: 68
+
+        },
+
         path: [
-          { x: 192, y: 112 },
-          { x: 194, y: 100 },
-          { x: 196, y: 88 },
-          { x: 198, y: 76 },
-          { x: 199, y: 66 },
-          { x: 200, y: 58 }
+
+          CENTER,
+
+          { x: 240, y: 130 },
+
+          { x: 240, y: 115 },
+
+          { x: 241, y: 100 },
+
+          { x: 241, y: 85 },
+
+          { x: 241, y: 73 }
+
         ]
+
       },
+
+
+      skills: {
+
+        label:
+          'SKILLS FOREST',
+
+        subtitle:
+          'EXPLORE SKILLS',
+
+        load:
+          'ENTERING SKILLS FOREST',
+
+        box: {
+
+          x: 42,
+
+          y: 28,
+
+          w: 130,
+
+          h: 88
+
+        },
+
+        path: [
+
+          CENTER,
+
+          { x: 220, y: 137 },
+
+          { x: 200, y: 126 },
+
+          { x: 179, y: 113 },
+
+          { x: 158, y: 99 },
+
+          { x: 139, y: 88 },
+
+          { x: 123, y: 80 }
+
+        ]
+
+      },
+
 
       about: {
-        label: 'ABOUT VILLAGE',
-        loadText: 'ENTERING ABOUT VILLAGE',
-        hitbox: { x: 30, y: 136, w: 84, h: 48 },
-        entry: { x: 86, y: 159 },
+
+        label:
+          'ABOUT VILLAGE',
+
+        subtitle:
+          'LEARN ABOUT ME',
+
+        load:
+          'ENTERING ABOUT VILLAGE',
+
+        box: {
+
+          x: 43,
+
+          y: 174,
+
+          w: 120,
+
+          h: 72
+
+        },
+
         path: [
-          { x: 192, y: 112 },
-          { x: 168, y: 124 },
-          { x: 144, y: 136 },
-          { x: 120, y: 147 },
-          { x: 102, y: 154 },
-          { x: 86, y: 159 }
+
+          CENTER,
+
+          { x: 220, y: 155 },
+
+          { x: 200, y: 165 },
+
+          { x: 180, y: 177 },
+
+          { x: 160, y: 189 },
+
+          { x: 140, y: 201 },
+
+          { x: 121, y: 212 }
+
         ]
+
       },
+
 
       contact: {
-        label: 'CONTACT PORT',
-        loadText: 'ENTERING CONTACT PORT',
-        hitbox: { x: 286, y: 70, w: 84, h: 60 },
-        entry: { x: 309, y: 98 },
+
+        label:
+          'CONTACT PORT',
+
+        subtitle:
+          'GET IN TOUCH',
+
+        load:
+          'ENTERING CONTACT PORT',
+
+        box: {
+
+          x: 365,
+
+          y: 66,
+
+          w: 94,
+
+          h: 88
+
+        },
+
         path: [
-          { x: 192, y: 112 },
-          { x: 214, y: 108 },
-          { x: 236, y: 104 },
-          { x: 258, y: 101 },
-          { x: 282, y: 99 },
-          { x: 309, y: 98 }
+
+          CENTER,
+
+          { x: 263, y: 140 },
+
+          { x: 286, y: 133 },
+
+          { x: 309, y: 124 },
+
+          { x: 331, y: 115 },
+
+          { x: 352, y: 105 },
+
+          { x: 374, y: 98 }
+
         ]
+
       },
 
+
       experience: {
-        label: 'EXPERIENCE MINE',
-        loadText: 'ENTERING EXPERIENCE MINE',
-        hitbox: { x: 262, y: 144, w: 64, h: 40 },
-        entry: { x: 286, y: 160 },
+
+        label:
+          'EXPERIENCE MINE',
+
+        subtitle:
+          'VIEW EXPERIENCE',
+
+        load:
+          'ENTERING EXPERIENCE MINE',
+
+        box: {
+
+          x: 340,
+
+          y: 177,
+
+          w: 103,
+
+          h: 70
+
+        },
+
         path: [
-          { x: 192, y: 112 },
-          { x: 214, y: 124 },
-          { x: 236, y: 136 },
-          { x: 256, y: 146 },
-          { x: 272, y: 154 },
-          { x: 286, y: 160 }
+
+          CENTER,
+
+          { x: 261, y: 155 },
+
+          { x: 282, y: 166 },
+
+          { x: 303, y: 178 },
+
+          { x: 323, y: 189 },
+
+          { x: 344, y: 201 },
+
+          { x: 362, y: 212 }
+
         ]
+
       }
+
     };
 
-    /* =========================
-       HELPERS
-    ========================== */
 
-    function rect(x, y, w, h, color) {
-      ctx.fillStyle = color;
-      ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
-    }
+    /* =====================================================
+       GRASS
+    ====================================================== */
 
-    function inBox(px, py, box) {
-      return (
-        px >= box.x &&
-        px <= box.x + box.w &&
-        py >= box.y &&
-        py <= box.y + box.h
+    function drawGrassBase() {
+
+      rect(
+        0,
+        0,
+        W,
+        H,
+        C.grass
       );
-    }
 
-    function sleep(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
 
-    function canvasMouseToMap(event) {
-      const rect = canvas.getBoundingClientRect();
-      const scaleX = MAP_W / rect.width;
-      const scaleY = MAP_H / rect.height;
+      /*
+        Random-looking hand placed grass
+        patches. Static so map doesn't flicker.
+      */
 
-      return {
-        x: (event.clientX - rect.left) * scaleX,
-        y: (event.clientY - rect.top) * scaleY,
-        viewX: event.clientX - rect.left,
-        viewY: event.clientY - rect.top
-      };
-    }
+      const patches = [
 
-    /* =========================
-       PIXEL DRAW FUNCTIONS
-    ========================== */
+        [25,34],
+        [58,28],
+        [92,36],
+        [128,22],
+        [154,46],
 
-    function drawGrass() {
-      rect(0, 0, MAP_W, MAP_H, '#82a74a');
+        [304,32],
+        [333,50],
+        [360,28],
+        [395,44],
 
-      const tufts = [
-        [24, 48], [52, 30], [77, 62], [108, 44], [142, 32], [306, 54],
-        [326, 44], [346, 76], [290, 112], [314, 154], [142, 160], [198, 170],
-        [248, 146], [96, 118], [74, 102], [218, 80], [258, 92], [32, 88]
+        [40,124],
+        [78,136],
+        [117,125],
+        [148,143],
+
+        [288,112],
+        [318,144],
+        [350,136],
+        [409,125],
+
+        [191,202],
+        [222,224],
+        [272,210],
+        [308,229],
+        [420,208]
+
       ];
 
-      tufts.forEach(([x, y]) => drawGrassPatch(x, y));
+
+      patches
+        .forEach(
+          ([x,y]) => {
+
+            drawGrassPatch(
+              x,
+              y
+            );
+
+          }
+        );
+
     }
 
-    function drawGrassPatch(x, y) {
-      rect(x, y, 18, 6, '#5e8738');
-      rect(x + 2, y - 2, 3, 2, '#5e8738');
-      rect(x + 8, y - 3, 3, 3, '#5e8738');
-      rect(x + 14, y - 2, 2, 2, '#5e8738');
-      rect(x + 4, y + 6, 2, 2, '#5e8738');
-      rect(x + 10, y + 6, 3, 2, '#5e8738');
+
+    function drawGrassPatch(
+      x,
+      y
+    ) {
+
+      rect(
+        x,
+        y + 3,
+        20,
+        3,
+        C.grassDark
+      );
+
+
+      rect(
+        x + 3,
+        y,
+        3,
+        4,
+        C.grassDark
+      );
+
+
+      rect(
+        x + 9,
+        y - 2,
+        3,
+        5,
+        C.grassDark
+      );
+
+
+      rect(
+        x + 15,
+        y,
+        3,
+        4,
+        C.grassDark
+      );
+
+
+      rect(
+        x + 5,
+        y + 1,
+        2,
+        2,
+        C.grassLight
+      );
+
+
+      rect(
+        x + 12,
+        y,
+        2,
+        2,
+        C.flower
+      );
+
     }
 
-    function drawWaterAndShore() {
-      /* left-bottom coast */
-      rect(0, 130, 52, 86, '#495294');
-      rect(0, 118, 10, 98, '#93cafc');
-      rect(10, 120, 12, 96, '#f4d49a');
-      rect(22, 122, 10, 92, '#9b6a4a');
-      rect(32, 124, 10, 90, '#6a442f');
-      rect(42, 126, 10, 90, '#82a74a');
 
-      rect(44, 156, 8, 60, '#82a74a');
-      rect(52, 170, 8, 46, '#82a74a');
-      rect(60, 182, 8, 34, '#82a74a');
-      rect(68, 190, 8, 26, '#82a74a');
+    /* =====================================================
+       COAST
+    ====================================================== */
 
-      /* top-right coast */
-      rect(338, 0, 46, 62, '#495294');
-      rect(330, 0, 8, 80, '#93cafc');
-      rect(322, 0, 8, 82, '#f4d49a');
-      rect(314, 0, 8, 86, '#9b6a4a');
-      rect(306, 0, 8, 90, '#6a442f');
+    function drawCoast() {
 
-      rect(300, 46, 6, 20, '#6a442f');
-      rect(294, 54, 6, 20, '#9b6a4a');
-      rect(288, 62, 6, 20, '#f4d49a');
-      rect(282, 70, 6, 20, '#93cafc');
-      rect(276, 78, 6, 22, '#495294');
+      /*
+        Bottom-left ocean.
+      */
 
-      /* small pond near port */
-      rect(298, 84, 44, 24, '#5b67a7');
-      rect(300, 86, 40, 20, '#495294');
-    }
+      rect(
+        0,
+        182,
+        90,
+        88,
+        C.water
+      );
 
-    function drawMountainRange() {
-      const peaks = [148, 162, 176, 190, 204, 218, 232];
-      peaks.forEach((x, i) => drawMountain(x, i % 2 === 0 ? 6 : 10));
-    }
 
-    function drawMountain(x, y) {
-      rect(x, y + 18, 20, 18, '#6a4a35');
-      rect(x + 2, y + 14, 16, 4, '#6a4a35');
-      rect(x + 4, y + 10, 12, 4, '#6a4a35');
-      rect(x + 6, y + 6, 8, 4, '#6a4a35');
-      rect(x + 8, y + 2, 4, 4, '#6a4a35');
+      rect(
+        0,
+        178,
+        92,
+        7,
+        C.waterLight
+      );
 
-      rect(x + 10, y + 8, 4, 4, '#d1a56e');
-      rect(x + 8, y + 12, 4, 4, '#d1a56e');
-    }
 
-    function drawPixelPath(points) {
-      for (let i = 0; i < points.length - 1; i++) {
-        drawPathSegment(points[i], points[i + 1]);
+      /*
+        blocky coastline
+      */
+
+      const shoreline = [
+
+        [84,270],
+        [84,254],
+        [80,254],
+        [80,238],
+        [76,238],
+        [76,222],
+        [72,222],
+        [72,206],
+        [68,206],
+        [68,190],
+        [64,190],
+        [64,176]
+
+      ];
+
+
+      for (
+        let i = 0;
+        i <
+        shoreline.length - 1;
+        i++
+      ) {
+
+        drawShoreSegment(
+
+          shoreline[i],
+
+          shoreline[i + 1]
+
+        );
+
       }
+
+
+      /*
+        Top-right sea.
+      */
+
+      rect(
+        424,
+        0,
+        56,
+        74,
+        C.water
+      );
+
+
+      rect(
+        420,
+        0,
+        6,
+        82,
+        C.waterLight
+      );
+
+
+      rect(
+        414,
+        0,
+        6,
+        86,
+        C.foam
+      );
+
+
+      rect(
+        408,
+        0,
+        6,
+        91,
+        C.sand
+      );
+
+
+      rect(
+        402,
+        0,
+        6,
+        98,
+        C.cliff
+      );
+
+
+      rect(
+        396,
+        38,
+        6,
+        65,
+        C.cliffDark
+      );
+
+
+      rect(
+        402,
+        80,
+        22,
+        8,
+        C.sand
+      );
+
+
+      rect(
+        408,
+        88,
+        18,
+        6,
+        C.foam
+      );
+
     }
 
-    function drawPathSegment(a, b) {
-      const dx = b.x - a.x;
-      const dy = b.y - a.y;
-      const steps = Math.max(Math.abs(dx), Math.abs(dy));
 
-      for (let i = 0; i <= steps; i++) {
-        const x = Math.round(a.x + dx * (i / steps));
-        const y = Math.round(a.y + dy * (i / steps));
+    function drawShoreSegment(
+      a,
+      b
+    ) {
 
-        rect(x - 4, y - 4, 8, 8, '#9a6a41');
-        rect(x - 3, y - 3, 6, 6, '#c89459');
+      const x =
+        Math.min(
+          a[0],
+          b[0]
+        );
+
+
+      const y =
+        Math.min(
+          a[1],
+          b[1]
+        );
+
+
+      const w =
+        Math.max(
+          8,
+          Math.abs(
+            b[0] -
+            a[0]
+          ) +
+          8
+        );
+
+
+      const h =
+        Math.max(
+          8,
+          Math.abs(
+            b[1] -
+            a[1]
+          ) +
+          8
+        );
+
+
+      rect(
+        x,
+        y,
+        w,
+        h,
+        C.cliffDark
+      );
+
+
+      rect(
+        x + 5,
+        y,
+        Math.max(
+          5,
+          w - 5
+        ),
+        h,
+        C.cliff
+      );
+
+
+      rect(
+        x + 10,
+        y,
+        Math.max(
+          5,
+          w - 10
+        ),
+        h,
+        C.sand
+      );
+
+
+      rect(
+        x + 15,
+        y,
+        Math.max(
+          4,
+          w - 15
+        ),
+        h,
+        C.foam
+      );
+
+    }
+
+
+    /* =====================================================
+       MOUNTAINS
+    ====================================================== */
+
+    function drawMountains() {
+
+      const mountains = [
+
+        [176,0],
+        [192,0],
+        [208,0],
+        [224,0],
+        [240,0],
+        [256,0],
+        [272,0],
+        [288,0]
+
+      ];
+
+
+      mountains
+        .forEach(
+          ([x,y],i) => {
+
+            drawMountain(
+
+              x,
+
+              y +
+              (
+                i % 2 === 0
+                  ?
+                  1
+                  :
+                  5
+              )
+
+            );
+
+          }
+        );
+
+    }
+
+
+    function drawMountain(
+      x,
+      y
+    ) {
+
+      rect(
+        x,
+        y + 19,
+        16,
+        10,
+        C.cliffDark
+      );
+
+
+      rect(
+        x + 2,
+        y + 15,
+        12,
+        5,
+        C.cliff
+      );
+
+
+      rect(
+        x + 4,
+        y + 11,
+        8,
+        5,
+        C.cliff
+      );
+
+
+      rect(
+        x + 6,
+        y + 7,
+        4,
+        5,
+        C.cliff
+      );
+
+
+      rect(
+        x + 7,
+        y + 9,
+        3,
+        5,
+        C.sand
+      );
+
+    }
+
+
+    /* =====================================================
+       PATH SYSTEM
+    ====================================================== */
+
+    function drawPaths() {
+
+      Object
+        .values(
+          locations
+        )
+        .forEach(
+          location => {
+
+            drawPath(
+
+              location.path
+
+            );
+
+          }
+        );
+
+
+      drawDirtPatch(
+
+        CENTER.x,
+
+        CENTER.y,
+
+        14
+
+      );
+
+    }
+
+
+    function drawPath(
+      points
+    ) {
+
+      for (
+        let i = 0;
+        i <
+        points.length - 1;
+        i++
+      ) {
+
+        drawPathSegment(
+
+          points[i],
+
+          points[i + 1]
+
+        );
+
       }
+
     }
 
-    function drawAllPaths() {
-      drawPixelPath(locations.projects.path);
-      drawPixelPath(locations.skills.path);
-      drawPixelPath(locations.about.path);
-      drawPixelPath(locations.contact.path);
-      drawPixelPath(locations.experience.path);
 
-      rect(CENTER.x - 6, CENTER.y - 6, 12, 12, '#9a6a41');
-      rect(CENTER.x - 4, CENTER.y - 4, 8, 8, '#c89459');
+    function drawPathSegment(
+      a,
+      b
+    ) {
+
+      const dx =
+        b.x -
+        a.x;
+
+
+      const dy =
+        b.y -
+        a.y;
+
+
+      const steps =
+        Math.max(
+
+          Math.abs(dx),
+
+          Math.abs(dy)
+
+        );
+
+
+      for (
+        let i = 0;
+        i <= steps;
+        i += 2
+      ) {
+
+        const t =
+          i /
+          steps;
+
+
+        const x =
+          a.x +
+          dx *
+          t;
+
+
+        const y =
+          a.y +
+          dy *
+          t;
+
+
+        drawDirtPatch(
+
+          x,
+
+          y,
+
+          9
+
+        );
+
+      }
+
     }
 
-    function drawTree(x, y) {
-      rect(x + 5, y + 14, 4, 8, '#5c3c2c');
-      rect(x + 2, y + 4, 10, 10, '#376c39');
-      rect(x, y + 8, 14, 8, '#376c39');
-      rect(x + 2, y, 10, 6, '#4f8b4b');
-      rect(x + 4, y + 2, 6, 4, '#5f9d55');
+
+    function drawDirtPatch(
+      x,
+      y,
+      size
+    ) {
+
+      rect(
+
+        x -
+        size / 2 -
+
+        1,
+
+        y -
+        size / 2 -
+
+        1,
+
+        size + 2,
+
+        size + 2,
+
+        C.dirtDark
+
+      );
+
+
+      rect(
+
+        x -
+        size / 2,
+
+        y -
+        size / 2,
+
+        size,
+
+        size,
+
+        C.dirt
+
+      );
+
+
+      rect(
+
+        x -
+        size / 2 +
+        2,
+
+        y -
+        size / 2 +
+        2,
+
+        2,
+
+        2,
+
+        C.dirtLight
+
+      );
+
     }
+
+
+    /* =====================================================
+       TREES
+    ====================================================== */
+
+    function drawTree(
+      x,
+      y
+    ) {
+
+      rect(
+        x + 6,
+        y + 15,
+        4,
+        9,
+        C.trunk
+      );
+
+
+      rect(
+        x + 2,
+        y + 8,
+        12,
+        10,
+        C.treeDark
+      );
+
+
+      rect(
+        x,
+        y + 10,
+        16,
+        7,
+        C.tree
+      );
+
+
+      rect(
+        x + 3,
+        y + 4,
+        10,
+        10,
+        C.tree
+      );
+
+
+      rect(
+        x + 5,
+        y + 1,
+        7,
+        8,
+        C.treeLight
+      );
+
+
+      rect(
+        x + 2,
+        y + 8,
+        3,
+        3,
+        C.treeLight
+      );
+
+    }
+
 
     function drawForest() {
-      const trees = [
-        [44, 34], [60, 30], [76, 36], [92, 28],
-        [50, 52], [66, 58], [84, 48], [102, 56]
-      ];
-      trees.forEach(([x, y]) => drawTree(x, y));
 
-      /* shrine */
-      rect(84, 52, 18, 16, '#c7a06c');
-      rect(82, 50, 22, 3, '#4f6641');
-      rect(80, 47, 26, 3, '#4f6641');
-      rect(78, 44, 30, 3, '#4f6641');
+      const trees = [
+
+        [50,38],
+        [66,28],
+        [84,38],
+        [101,27],
+        [119,35],
+
+        [44,57],
+        [61,53],
+        [78,60],
+        [96,54],
+        [114,57],
+
+        [54,78],
+        [73,74],
+        [95,78],
+        [113,73],
+        [132,78]
+
+      ];
+
+
+      trees
+        .forEach(
+          ([x,y]) => {
+
+            drawTree(
+              x,
+              y
+            );
+
+          }
+        );
+
+
+      drawShrine(
+        119,
+        72
+      );
+
     }
+
+
+    function drawShrine(
+      x,
+      y
+    ) {
+
+      rect(
+        x,
+        y,
+        18,
+        16,
+        '#c3a06d'
+      );
+
+
+      rect(
+        x + 3,
+        y + 6,
+        4,
+        10,
+        '#8e6845'
+      );
+
+
+      rect(
+        x + 11,
+        y + 6,
+        4,
+        10,
+        '#8e6845'
+      );
+
+
+      rect(
+        x - 2,
+        y - 4,
+        22,
+        4,
+        '#466540'
+      );
+
+
+      rect(
+        x,
+        y - 7,
+        18,
+        3,
+        '#3e5c39'
+      );
+
+
+      rect(
+        x + 3,
+        y - 10,
+        12,
+        3,
+        '#344e32'
+      );
+
+    }
+
+
+    /* =====================================================
+       CASTLE
+    ====================================================== */
 
     function drawCastle() {
-      /* body */
-      rect(185, 28, 18, 24, '#8e90a0');
-      rect(203, 28, 18, 24, '#8e90a0');
-      rect(198, 20, 10, 36, '#6c6f83');
 
-      /* towers */
-      rect(174, 22, 12, 34, '#7d8090');
-      rect(220, 22, 12, 34, '#7d8090');
+      const x =
+        216;
 
-      /* roofs */
-      rect(173, 18, 14, 4, '#3e3e4d');
-      rect(219, 18, 14, 4, '#3e3e4d');
-      rect(197, 16, 12, 4, '#3e3e4d');
 
-      /* highlights */
-      rect(177, 26, 2, 24, '#aeb1c0');
-      rect(223, 26, 2, 24, '#aeb1c0');
-      rect(201, 24, 2, 24, '#8b8ea0');
+      const y =
+        40;
 
-      /* banners */
-      rect(180, 28, 2, 8, '#b95d59');
-      rect(224, 28, 2, 8, '#b95d59');
 
-      /* door */
-      rect(200, 44, 6, 12, '#2a2731');
+      /*
+        keep it compact!
+      */
+
+      rect(
+        x + 14,
+        y + 17,
+        24,
+        28,
+        C.stone
+      );
+
+
+      rect(
+        x + 2,
+        y + 11,
+        14,
+        36,
+        C.stoneDark
+      );
+
+
+      rect(
+        x + 36,
+        y + 11,
+        14,
+        36,
+        C.stoneDark
+      );
+
+
+      rect(
+        x + 18,
+        y + 10,
+        16,
+        35,
+        C.stone
+      );
+
+
+      /*
+        highlights
+      */
+
+      rect(
+        x + 5,
+        y + 14,
+        3,
+        29,
+        C.stoneLight
+      );
+
+
+      rect(
+        x + 39,
+        y + 14,
+        3,
+        29,
+        C.stoneLight
+      );
+
+
+      rect(
+        x + 21,
+        y + 14,
+        3,
+        28,
+        C.stoneLight
+      );
+
+
+      /*
+        roofs
+      */
+
+      drawRoof(
+        x,
+        y + 7,
+        18,
+        '#333642'
+      );
+
+
+      drawRoof(
+        x + 34,
+        y + 7,
+        18,
+        '#333642'
+      );
+
+
+      drawRoof(
+        x + 16,
+        y + 3,
+        20,
+        '#2b2d38'
+      );
+
+
+      /*
+        banners
+      */
+
+      rect(
+        x + 10,
+        y + 22,
+        3,
+        10,
+        '#b95c58'
+      );
+
+
+      rect(
+        x + 40,
+        y + 22,
+        3,
+        10,
+        '#b95c58'
+      );
+
+
+      /*
+        entrance
+      */
+
+      rect(
+        x + 23,
+        y + 34,
+        8,
+        13,
+        '#232229'
+      );
+
     }
+
+
+    function drawRoof(
+      x,
+      y,
+      w,
+      colour
+    ) {
+
+      rect(
+        x,
+        y,
+        w,
+        4,
+        colour
+      );
+
+
+      rect(
+        x + 2,
+        y - 3,
+        w - 4,
+        3,
+        colour
+      );
+
+
+      rect(
+        x + 5,
+        y - 5,
+        w - 10,
+        2,
+        colour
+      );
+
+    }
+
+
+    /* =====================================================
+       VILLAGE
+    ====================================================== */
 
     function drawVillage() {
-      /* four houses */
-      drawHouse(42, 150);
-      drawHouse(58, 144);
-      drawHouse(52, 164);
-      drawHouse(70, 162);
+
+      drawHouse(
+        69,
+        198
+      );
+
+
+      drawHouse(
+        91,
+        190
+      );
+
+
+      drawHouse(
+        77,
+        217
+      );
+
+
+      drawHouse(
+        103,
+        214
+      );
+
+
+      /*
+        fence
+      */
+
+      for (
+        let x = 60;
+        x <= 119;
+        x += 8
+      ) {
+
+        rect(
+          x,
+          235,
+          3,
+          10,
+          '#765036'
+        );
+
+      }
+
+
+      rect(
+        60,
+        239,
+        62,
+        3,
+        '#765036'
+      );
+
     }
 
-    function drawHouse(x, y) {
-      rect(x, y, 10, 8, '#b9bdcc');
-      rect(x + 2, y + 2, 2, 2, '#2a2731');
-      rect(x + 6, y + 2, 2, 2, '#2a2731');
-      rect(x + 4, y + 5, 2, 3, '#665345');
 
-      rect(x - 1, y - 3, 12, 3, '#c46c58');
-      rect(x + 1, y - 5, 8, 2, '#c46c58');
-      rect(x + 3, y - 7, 4, 2, '#c46c58');
+    function drawHouse(
+      x,
+      y
+    ) {
 
-      rect(x + 7, y - 8, 2, 4, '#d8d6d4');
+      rect(
+        x,
+        y,
+        16,
+        13,
+        '#babdca'
+      );
+
+
+      rect(
+        x + 3,
+        y + 4,
+        3,
+        3,
+        '#34323a'
+      );
+
+
+      rect(
+        x + 10,
+        y + 4,
+        3,
+        3,
+        '#34323a'
+      );
+
+
+      rect(
+        x + 7,
+        y + 8,
+        3,
+        5,
+        '#6f5846'
+      );
+
+
+      rect(
+        x - 2,
+        y - 4,
+        20,
+        4,
+        C.roof
+      );
+
+
+      rect(
+        x + 1,
+        y - 7,
+        14,
+        3,
+        C.roof
+      );
+
+
+      rect(
+        x + 4,
+        y - 10,
+        8,
+        3,
+        C.roof
+      );
+
+
+      /*
+        chimney
+      */
+
+      rect(
+        x + 11,
+        y - 13,
+        3,
+        6,
+        '#8a807d'
+      );
+
     }
 
-    function drawMine() {
-      rect(270, 152, 34, 20, '#76767d');
-      rect(268, 156, 2, 16, '#76767d');
-      rect(304, 156, 2, 16, '#76767d');
 
-      rect(278, 154, 18, 18, '#1a1a1c');
-      rect(280, 154, 14, 2, '#34281d');
-
-      /* torch */
-      rect(302, 145, 2, 10, '#7a5332');
-      rect(300, 142, 6, 4, '#f2b04a');
-    }
+    /* =====================================================
+       CONTACT PORT
+    ====================================================== */
 
     function drawPort() {
-      /* dock */
-      rect(304, 92, 24, 6, '#7a5332');
-      rect(304, 98, 24, 4, '#684528');
-      rect(307, 92, 2, 10, '#523521');
-      rect(315, 92, 2, 10, '#523521');
-      rect(323, 92, 2, 10, '#523521');
 
-      /* huts */
-      drawSmallPortHouse(330, 92);
-      drawSmallPortHouse(348, 88);
+      /*
+        small pond / harbour
+      */
+
+      rect(
+        390,
+        77,
+        70,
+        51,
+        C.water
+      );
+
+
+      rect(
+        390,
+        77,
+        70,
+        5,
+        C.waterLight
+      );
+
+
+      /*
+        shore
+      */
+
+      rect(
+        386,
+        77,
+        4,
+        51,
+        C.foam
+      );
+
+
+      rect(
+        382,
+        77,
+        4,
+        51,
+        C.sand
+      );
+
+
+      /*
+        dock
+      */
+
+      rect(
+        363,
+        102,
+        48,
+        10,
+        '#70482d'
+      );
+
+
+      for (
+        let x = 366;
+        x <
+        410;
+        x += 8
+      ) {
+
+        rect(
+          x,
+          102,
+          3,
+          10,
+          '#4d3324'
+        );
+
+      }
+
+
+      /*
+        hut
+      */
+
+      drawPortHut(
+        414,
+        92
+      );
+
+
+      drawPortHut(
+        441,
+        82
+      );
+
+
+      /*
+        little boat
+      */
+
+      rect(
+        397,
+        117,
+        20,
+        5,
+        '#965c36'
+      );
+
+
+      rect(
+        400,
+        122,
+        14,
+        3,
+        '#6f422a'
+      );
+
+
+      rect(
+        407,
+        104,
+        2,
+        13,
+        '#514034'
+      );
+
+
+      rect(
+        409,
+        105,
+        9,
+        7,
+        '#e9deb9'
+      );
+
     }
 
-    function drawSmallPortHouse(x, y) {
-      rect(x, y, 8, 8, '#b8bbca');
-      rect(x + 2, y + 4, 2, 2, '#2a2731');
-      rect(x + 4, y + 4, 2, 2, '#2a2731');
-      rect(x + 3, y + 6, 2, 2, '#665345');
 
-      rect(x - 1, y - 3, 10, 3, '#c46c58');
-      rect(x + 1, y - 5, 6, 2, '#c46c58');
+    function drawPortHut(
+      x,
+      y
+    ) {
+
+      rect(
+        x,
+        y,
+        14,
+        12,
+        '#babdca'
+      );
+
+
+      rect(
+        x + 5,
+        y + 6,
+        4,
+        6,
+        '#4d4642'
+      );
+
+
+      rect(
+        x - 2,
+        y - 4,
+        18,
+        4,
+        C.roof
+      );
+
+
+      rect(
+        x + 1,
+        y - 7,
+        12,
+        3,
+        C.roof
+      );
+
     }
+
+
+    /* =====================================================
+       MINE
+    ====================================================== */
+
+    function drawMine() {
+
+      const x =
+        348;
+
+
+      const y =
+        199;
+
+
+      /*
+        rock pile
+      */
+
+      rect(
+        x + 5,
+        y + 6,
+        42,
+        23,
+        '#67686d'
+      );
+
+
+      rect(
+        x,
+        y + 12,
+        8,
+        17,
+        '#77787d'
+      );
+
+
+      rect(
+        x + 42,
+        y + 11,
+        8,
+        18,
+        '#77787d'
+      );
+
+
+      rect(
+        x + 9,
+        y + 1,
+        34,
+        8,
+        '#77787d'
+      );
+
+
+      /*
+        entrance
+      */
+
+      rect(
+        x + 15,
+        y + 8,
+        20,
+        21,
+        '#1a191d'
+      );
+
+
+      rect(
+        x + 18,
+        y + 11,
+        14,
+        18,
+        '#121115'
+      );
+
+
+      /*
+        beams
+      */
+
+      rect(
+        x + 13,
+        y + 7,
+        4,
+        22,
+        '#65472f'
+      );
+
+
+      rect(
+        x + 34,
+        y + 7,
+        4,
+        22,
+        '#65472f'
+      );
+
+
+      rect(
+        x + 13,
+        y + 7,
+        25,
+        4,
+        '#65472f'
+      );
+
+
+      /*
+        rocks
+      */
+
+      drawRock(
+        337,
+        224
+      );
+
+
+      drawRock(
+        400,
+        224
+      );
+
+
+      drawRock(
+        411,
+        216
+      );
+
+    }
+
+
+    function drawRock(
+      x,
+      y
+    ) {
+
+      rect(
+        x + 2,
+        y,
+        7,
+        3,
+        '#76777c'
+      );
+
+
+      rect(
+        x,
+        y + 3,
+        11,
+        6,
+        '#67686d'
+      );
+
+
+      rect(
+        x + 3,
+        y + 2,
+        4,
+        2,
+        '#97989d'
+      );
+
+    }
+
+
+    /* =====================================================
+       SMALL DECORATIONS
+    ====================================================== */
+
+    function drawDecorations() {
+
+      /*
+        rocks
+      */
+
+      [
+
+        [183,96],
+        [293,84],
+        [169,181],
+        [285,192],
+        [325,75],
+        [150,226]
+
+      ]
+      .forEach(
+        ([x,y]) => {
+
+          drawRock(
+            x,
+            y
+          );
+
+        }
+      );
+
+
+      /*
+        flowers
+      */
+
+      [
+
+        [176,126],
+        [162,114],
+        [300,160],
+        [326,175],
+        [134,193],
+        [123,181],
+        [340,121]
+
+      ]
+      .forEach(
+        ([x,y]) => {
+
+          rect(
+            x,
+            y,
+            2,
+            2,
+            '#e5cf59'
+          );
+
+
+          rect(
+            x + 2,
+            y + 2,
+            2,
+            2,
+            '#f1e0a3'
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =====================================================
+       PLAYER
+    ====================================================== */
 
     function drawPlayer() {
-      const x = Math.round(state.player.x);
-      const y = Math.round(state.player.y);
 
-      rect(x - 4, y - 8, 8, 4, '#2d221c');   /* hair */
-      rect(x - 3, y - 4, 6, 5, '#d7a177');   /* head */
-      rect(x - 4, y + 1, 8, 6, '#4e79bd');   /* body */
-      rect(x - 5, y + 2, 1, 4, '#d7a177');   /* arm L */
-      rect(x + 4, y + 2, 1, 4, '#d7a177');   /* arm R */
-      rect(x - 3, y + 7, 2, 5, '#2c2b33');   /* leg L */
-      rect(x + 1, y + 7, 2, 5, '#2c2b33');   /* leg R */
+      const x =
+        Math.round(
+          state.player.x
+        );
+
+
+      const y =
+        Math.round(
+          state.player.y
+        );
+
+
+      /*
+        shadow
+      */
+
+      rect(
+        x - 5,
+        y + 9,
+        10,
+        3,
+        'rgba(0,0,0,.22)'
+      );
+
+
+      /*
+        hair
+      */
+
+      rect(
+        x - 4,
+        y - 9,
+        8,
+        4,
+        '#2b211c'
+      );
+
+
+      rect(
+        x - 5,
+        y - 7,
+        10,
+        3,
+        '#2b211c'
+      );
+
+
+      /*
+        head
+      */
+
+      rect(
+        x - 3,
+        y - 5,
+        6,
+        6,
+        '#d5a078'
+      );
+
+
+      /*
+        shirt
+      */
+
+      rect(
+        x - 4,
+        y + 1,
+        8,
+        7,
+        '#457bbb'
+      );
+
+
+      /*
+        tiny backpack
+      */
+
+      rect(
+        x + 4,
+        y + 2,
+        2,
+        5,
+        '#63513d'
+      );
+
+
+      /*
+        walking legs
+      */
+
+      const walking =
+        state.moving;
+
+
+      const phase =
+        Math.floor(
+          performance.now() /
+          120
+        ) %
+        2;
+
+
+      if (
+        walking &&
+        phase === 0
+      ) {
+
+        rect(
+          x - 3,
+          y + 8,
+          2,
+          5,
+          '#2c2b32'
+        );
+
+
+        rect(
+          x + 1,
+          y + 7,
+          2,
+          5,
+          '#2c2b32'
+        );
+
+      }
+
+      else {
+
+        rect(
+          x - 3,
+          y + 7,
+          2,
+          5,
+          '#2c2b32'
+        );
+
+
+        rect(
+          x + 1,
+          y + 8,
+          2,
+          5,
+          '#2c2b32'
+        );
+
+      }
+
     }
 
-    function drawMapLabels() {
-      ctx.fillStyle = '#ffffff';
-      ctx.font = "8px 'Press Start 2P'";
-      ctx.textAlign = 'center';
 
-      ctx.fillText('SKILLS', 88, 88);
-      ctx.fillText('PROJECTS', 202, 68);
-      ctx.fillText('ABOUT', 72, 186);
-      ctx.fillText('CONTACT', 324, 118);
-      ctx.fillText('EXPERIENCE', 286, 184);
-    }
+    /* =====================================================
+       DRAW WORLD
+    ====================================================== */
 
-    function drawMap() {
-      ctx.clearRect(0, 0, MAP_W, MAP_H);
+    function drawWorld() {
 
-      drawGrass();
-      drawWaterAndShore();
-      drawMountainRange();
-      drawAllPaths();
+      ctx.clearRect(
+        0,
+        0,
+        W,
+        H
+      );
+
+
+      drawGrassBase();
+
+      drawCoast();
+
+      drawMountains();
+
+      drawPaths();
+
       drawForest();
+
       drawCastle();
+
       drawVillage();
+
       drawPort();
+
       drawMine();
-      drawMapLabels();
+
+      drawDecorations();
+
       drawPlayer();
+
     }
 
-    /* =========================
-       HOVER / CLICK
-    ========================== */
 
-    function getHoveredLocation(mapX, mapY) {
-      for (const key of Object.keys(locations)) {
-        if (inBox(mapX, mapY, locations[key].hitbox)) {
+    /* =====================================================
+       HITBOXES
+    ====================================================== */
+
+    function inside(
+      x,
+      y,
+      box
+    ) {
+
+      return (
+
+        x >=
+        box.x &&
+
+        x <=
+        box.x +
+        box.w &&
+
+        y >=
+        box.y &&
+
+        y <=
+        box.y +
+        box.h
+
+      );
+
+    }
+
+
+    function hoveredLocation(
+      x,
+      y
+    ) {
+
+      for (
+        const key
+        of
+        Object.keys(
+          locations
+        )
+      ) {
+
+        if (
+          inside(
+
+            x,
+
+            y,
+
+            locations[
+              key
+            ].box
+
+          )
+        ) {
+
           return key;
+
         }
+
       }
+
+
       return null;
+
     }
 
-    canvas.addEventListener('mousemove', (event) => {
-      const pos = canvasMouseToMap(event);
-      const hovered = getHoveredLocation(pos.x, pos.y);
 
-      state.hover = hovered;
-      canvas.style.cursor = hovered ? 'pointer' : 'default';
+    function mouseToCanvas(
+      event
+    ) {
 
-      if (hovered) {
-        tooltip.textContent = locations[hovered].label;
-        tooltip.classList.add('show');
+      const rect =
+        canvas
+          .getBoundingClientRect();
 
-        tooltip.style.left = `${pos.viewX}px`;
-        tooltip.style.top = `${pos.viewY - 10}px`;
-      } else {
-        tooltip.classList.remove('show');
-      }
-    });
 
-    canvas.addEventListener('mouseleave', () => {
-      state.hover = null;
-      tooltip.classList.remove('show');
-      canvas.style.cursor = 'default';
-    });
+      return {
 
-    canvas.addEventListener('click', async (event) => {
-      if (state.moving || state.returnLock) return;
+        x:
 
-      const pos = canvasMouseToMap(event);
-      const hovered = getHoveredLocation(pos.x, pos.y);
-      if (!hovered) return;
+          (
+            event.clientX -
+            rect.left
+          ) *
 
-      await goToLocation(hovered);
-    });
+          W /
+          rect.width,
 
-    /* =========================
-       MOVEMENT
-    ========================== */
 
-    function setPlayerPosition(x, y) {
-      state.player.x = x;
-      state.player.y = y;
+        y:
+
+          (
+            event.clientY -
+            rect.top
+          ) *
+
+          H /
+          rect.height,
+
+
+        screenX:
+
+          event.clientX -
+          rect.left,
+
+
+        screenY:
+
+          event.clientY -
+          rect.top
+
+      };
+
     }
 
-    function moveBetween(start, end, duration = 240) {
-      return new Promise(resolve => {
-        const startTime = performance.now();
 
-        function frame(now) {
-          const t = Math.min((now - startTime) / duration, 1);
-          const ease = t < 0.5
-            ? 2 * t * t
-            : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    /* =====================================================
+       HOVER
+    ====================================================== */
 
-          const x = start.x + (end.x - start.x) * ease;
-          const y = start.y + (end.y - start.y) * ease;
+    canvas
+      .addEventListener(
+        'mousemove',
+        event => {
 
-          setPlayerPosition(x, y);
+          const mouse =
+            mouseToCanvas(
+              event
+            );
 
-          if (t < 1) {
-            requestAnimationFrame(frame);
-          } else {
-            resolve();
+
+          const key =
+            hoveredLocation(
+
+              mouse.x,
+
+              mouse.y
+
+            );
+
+
+          state.hover =
+            key;
+
+
+          if (
+            key
+          ) {
+
+            canvas.style.cursor =
+              'pointer';
+
+
+            tooltip.innerHTML =
+
+              locations[
+                key
+              ].label +
+
+              '<br>' +
+
+              locations[
+                key
+              ].subtitle;
+
+
+            tooltip
+              .classList
+              .add(
+                'show'
+              );
+
+
+            tooltip.style.left =
+              mouse.screenX +
+              'px';
+
+
+            tooltip.style.top =
+              (
+                mouse.screenY -
+                8
+              ) +
+              'px';
+
           }
-        }
 
-        requestAnimationFrame(frame);
-      });
+          else {
+
+            canvas.style.cursor =
+              'default';
+
+
+            tooltip
+              .classList
+              .remove(
+                'show'
+              );
+
+          }
+
+        }
+      );
+
+
+    canvas
+      .addEventListener(
+        'mouseleave',
+        () => {
+
+          tooltip
+            .classList
+            .remove(
+              'show'
+            );
+
+        }
+      );
+
+
+    /* =====================================================
+       MOVEMENT
+    ====================================================== */
+
+    function moveTo(
+      start,
+      end,
+      duration =
+        230
+    ) {
+
+      return new Promise(
+        resolve => {
+
+          const started =
+            performance.now();
+
+
+          function frame(
+            now
+          ) {
+
+            const p =
+              Math.min(
+
+                (
+                  now -
+                  started
+                ) /
+                duration,
+
+                1
+
+              );
+
+
+            /*
+              slight linear-ish motion fits
+              pixel game better.
+            */
+
+            const x =
+
+              start.x +
+
+              (
+                end.x -
+                start.x
+              ) *
+
+              p;
+
+
+            const y =
+
+              start.y +
+
+              (
+                end.y -
+                start.y
+              ) *
+
+              p;
+
+
+            state.player.x =
+              x;
+
+
+            state.player.y =
+              y;
+
+
+            if (
+              p < 1
+            ) {
+
+              requestAnimationFrame(
+                frame
+              );
+
+            }
+
+            else {
+
+              resolve();
+
+            }
+
+          }
+
+
+          requestAnimationFrame(
+            frame
+          );
+
+        }
+      );
+
     }
 
-    async function walkPath(points) {
-      state.moving = true;
 
-      for (let i = 0; i < points.length - 1; i++) {
-        await moveBetween(points[i], points[i + 1]);
+    async function walkPath(
+      points
+    ) {
+
+      state.moving =
+        true;
+
+
+      for (
+        let i = 0;
+        i <
+        points.length - 1;
+        i++
+      ) {
+
+        await moveTo(
+
+          points[i],
+
+          points[
+            i + 1
+          ]
+
+        );
+
       }
 
-      state.moving = false;
+
+      state.moving =
+        false;
+
     }
 
-    /* =========================
+
+    /* =====================================================
        LOADING
-    ========================== */
+    ====================================================== */
 
-    function loadingSequence(locationKey) {
-      return new Promise(resolve => {
-        showScreen('loading');
+    function doLoading(
+      key
+    ) {
 
-        loadingDestination.textContent = locations[locationKey].loadText;
-        loadingText.textContent = 'LOADING.';
-        progressBar.style.width = '0%';
+      return new Promise(
+        resolve => {
 
-        let dots = 1;
-        let progress = 0;
+          showScreen(
+            'loading'
+          );
 
-        const dotsTimer = setInterval(() => {
-          dots++;
-          if (dots > 3) dots = 1;
-          loadingText.textContent = 'LOADING' + '.'.repeat(dots);
-        }, 350);
 
-        const barTimer = setInterval(() => {
-          progress += Math.random() * 8 + 3;
-          if (progress > 96) progress = 96;
-          progressBar.style.width = progress + '%';
-        }, 110);
+          loadingDestination
+            .textContent =
 
-        setTimeout(() => {
-          clearInterval(dotsTimer);
-          clearInterval(barTimer);
-          progressBar.style.width = '100%';
-          loadingText.textContent = 'LOADED!';
-          setTimeout(resolve, 180);
-        }, 3000);
-      });
+            locations[
+              key
+            ].load;
+
+
+          progressBar
+            .style
+            .width =
+            '0%';
+
+
+          loadingText
+            .textContent =
+            'LOADING.';
+
+
+          let dots =
+            1;
+
+
+          let progress =
+            0;
+
+
+          const dotsTimer =
+
+            setInterval(
+              () => {
+
+                dots++;
+
+
+                if (
+                  dots > 3
+                ) {
+
+                  dots =
+                    1;
+
+                }
+
+
+                loadingText
+                  .textContent =
+
+                  'LOADING' +
+
+                  '.'.repeat(
+                    dots
+                  );
+
+              },
+
+              350
+            );
+
+
+          const progressTimer =
+
+            setInterval(
+              () => {
+
+                progress +=
+
+                  Math.random() *
+                  8 +
+                  3;
+
+
+                if (
+                  progress >
+                  96
+                ) {
+
+                  progress =
+                    96;
+
+                }
+
+
+                progressBar
+                  .style
+                  .width =
+
+                  progress +
+                  '%';
+
+              },
+
+              110
+            );
+
+
+          setTimeout(
+            () => {
+
+              clearInterval(
+                dotsTimer
+              );
+
+
+              clearInterval(
+                progressTimer
+              );
+
+
+              progressBar
+                .style
+                .width =
+                '100%';
+
+
+              loadingText
+                .textContent =
+                'LOADED!';
+
+
+              setTimeout(
+                resolve,
+                180
+              );
+
+            },
+
+            3000
+          );
+
+        }
+      );
+
     }
 
-    /* =========================
-       NAVIGATION
-    ========================== */
 
-    async function goToLocation(locationKey) {
-      await walkPath(locations[locationKey].path);
-      await loadingSequence(locationKey);
-      showScreen(locationKey);
-    }
+    /* =====================================================
+       ENTER LOCATION
+    ====================================================== */
 
-    async function returnFromLocation(locationKey) {
-      if (state.moving) return;
+    canvas
+      .addEventListener(
+        'click',
+        async event => {
 
-      state.returnLock = true;
+          if (
+            state.moving ||
+            state.returning
+          ) {
 
-      const reversePath = [...locations[locationKey].path].reverse();
+            return;
 
-      showScreen('worldMap');
-      setPlayerPosition(reversePath[0].x, reversePath[0].y);
+          }
 
-      await sleep(350);
-      await walkPath(reversePath);
-      setPlayerPosition(CENTER.x, CENTER.y);
 
-      state.returnLock = false;
-    }
+          const mouse =
+            mouseToCanvas(
+              event
+            );
 
-    document.querySelectorAll('[data-back]').forEach(button => {
-      button.addEventListener('click', async () => {
-        const destination = button.dataset.back;
-        await returnFromLocation(destination);
-      });
-    });
 
-    /* =========================
+          const key =
+            hoveredLocation(
+
+              mouse.x,
+
+              mouse.y
+
+            );
+
+
+          if (
+            !key
+          ) {
+
+            return;
+
+          }
+
+
+          tooltip
+            .classList
+            .remove(
+              'show'
+            );
+
+
+          await walkPath(
+
+            locations[
+              key
+            ].path
+
+          );
+
+
+          await doLoading(
+            key
+          );
+
+
+          showScreen(
+            key
+          );
+
+        }
+      );
+
+
+    /* =====================================================
+       RETURN
+    ====================================================== */
+
+    document
+      .querySelectorAll(
+        '[data-back]'
+      )
+      .forEach(
+        button => {
+
+          button
+            .addEventListener(
+              'click',
+              async () => {
+
+                if (
+                  state.moving ||
+                  state.returning
+                ) {
+
+                  return;
+
+                }
+
+
+                const key =
+                  button
+                    .dataset
+                    .back;
+
+
+                state.returning =
+                  true;
+
+
+                const reversePath =
+
+                  [
+                    ...locations[
+                      key
+                    ].path
+                  ]
+                  .reverse();
+
+
+                showScreen(
+                  'worldMap'
+                );
+
+
+                /*
+                  spawn at entrance
+                */
+
+                state.player.x =
+                  reversePath[0].x;
+
+
+                state.player.y =
+                  reversePath[0].y;
+
+
+                /*
+                  looks like player exits
+                  the location.
+                */
+
+                await new Promise(
+                  resolve =>
+
+                    setTimeout(
+                      resolve,
+                      350
+                    )
+                );
+
+
+                await walkPath(
+                  reversePath
+                );
+
+
+                state.player.x =
+                  CENTER.x;
+
+
+                state.player.y =
+                  CENTER.y;
+
+
+                state.returning =
+                  false;
+
+              }
+            );
+
+        }
+      );
+
+
+    /* =====================================================
        RENDER LOOP
-    ========================== */
+    ====================================================== */
 
-    function loop() {
-      drawMap();
-      requestAnimationFrame(loop);
+    function render() {
+
+      drawWorld();
+
+
+      requestAnimationFrame(
+        render
+      );
+
     }
 
-    loop();
+
+    render();
+
   </script>
+
 </body>
+
 </html>
