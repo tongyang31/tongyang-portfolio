@@ -3,16 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Engineering Portfolio</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -28,26 +23,18 @@
       overflow: hidden;
       background: #17161c;
       font-family: 'VT323', monospace;
-      color: #fff;
     }
 
     button {
       font: inherit;
-      color: inherit;
     }
-
-    /* =====================================================
-       SCREEN SYSTEM
-    ====================================================== */
 
     .screen {
       position: absolute;
       inset: 0;
-
       opacity: 0;
       pointer-events: none;
-
-      transition: opacity 0.35s ease;
+      transition: opacity .35s ease;
     }
 
     .screen.active {
@@ -56,126 +43,924 @@
     }
 
     /* =====================================================
-       WORLD MAP
+       WORLD MAP SHELL
     ====================================================== */
 
     #worldMap {
-      background: #17161c;
-
       display: grid;
       place-items: center;
-
-      padding: 10px;
+      background: #1d1b21;
+      padding: 12px;
     }
 
-    .map-stage {
+    .map-frame {
       position: relative;
 
-      width: min(1500px, 98vw);
-
-      aspect-ratio: 1536 / 1024;
-
-      max-height: 96vh;
+      width: min(1500px, 97vw);
+      height: min(920px, 94vh);
 
       overflow: hidden;
 
-      border-radius: 10px;
+      background: #8ea653;
+
+      border: 6px solid #171717;
+      border-radius: 14px;
 
       box-shadow:
-        0 0 0 5px #1a1718,
-        0 0 0 10px #8d603c;
-
-      background: #222;
+        0 0 0 5px #9a6942,
+        0 0 0 10px #171717;
     }
 
-    .map-image {
+    .map-frame::after {
+      content: "";
       position: absolute;
       inset: 0;
-
-      width: 100%;
-      height: 100%;
-
-      object-fit: fill;
-
-      user-select: none;
-      -webkit-user-drag: none;
-
       pointer-events: none;
+      z-index: 90;
+
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,.02) 0 2px,
+          transparent 2px 4px
+        );
     }
 
     /* =====================================================
-       CLICKABLE HOTSPOTS
+       TITLE
     ====================================================== */
 
-    .hotspot {
+    .world-title {
       position: absolute;
+      z-index: 80;
 
-      z-index: 20;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
 
-      border: 0;
+      padding: 14px 20px;
 
-      background: transparent;
+      background: #1f1c21;
+      color: #fff6d8;
 
-      cursor: pointer;
-
-      border-radius: 18px;
-
-      transition:
-        background 0.16s ease,
-        box-shadow 0.16s ease,
-        transform 0.16s ease;
-    }
-
-    .hotspot:hover {
-      background: rgba(255, 245, 173, 0.1);
+      border: 4px solid #111;
+      border-radius: 8px;
 
       box-shadow:
-        0 0 0 3px rgba(255, 232, 130, 0.55),
-        0 0 28px rgba(255, 226, 102, 0.45);
+        0 0 0 3px #a57546,
+        4px 4px 0 rgba(0,0,0,.45);
 
-      transform: translateY(-2px);
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(10px, 1.3vw, 17px);
+
+      white-space: nowrap;
     }
 
-    .tooltip {
+    .hint {
+      position: absolute;
+      z-index: 80;
+      left: 24px;
+      top: 24px;
+
+      background: #fff7d8;
+
+      border: 3px solid #111;
+      border-radius: 8px;
+
+      box-shadow: 4px 4px 0 #111;
+
+      padding: 12px 14px;
+
+      color: #171717;
+
+      font-family: 'Press Start 2P', cursive;
+      font-size: 7px;
+      line-height: 1.7;
+    }
+
+    /* =====================================================
+       GRASS TILE TEXTURE
+    ====================================================== */
+
+    .grass-detail {
+      position: absolute;
+      width: 5px;
+      height: 10px;
+
+      border-left: 3px solid #657b37;
+      transform: rotate(15deg);
+
+      opacity: .8;
+      z-index: 2;
+    }
+
+    /* =====================================================
+       RIVER
+    ====================================================== */
+
+    .river {
+      position: absolute;
+      z-index: 3;
+
+      left: 27%;
+      top: -8%;
+
+      width: 230px;
+      height: 120%;
+
+      background: #4f9ad0;
+
+      border-left: 5px solid #286a98;
+      border-right: 5px solid #286a98;
+
+      transform: rotate(14deg);
+
+      clip-path: polygon(
+        36% 0%,
+        90% 0%,
+        72% 14%,
+        96% 25%,
+        61% 39%,
+        83% 54%,
+        55% 66%,
+        77% 81%,
+        47% 100%,
+        2% 100%,
+        29% 80%,
+        4% 67%,
+        36% 52%,
+        8% 37%,
+        46% 24%,
+        21% 11%
+      );
+
+      box-shadow:
+        inset 12px 0 0 rgba(255,255,255,.14),
+        inset -12px 0 0 rgba(0,0,0,.08);
+    }
+
+    .river::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        repeating-linear-gradient(
+          180deg,
+          transparent 0 24px,
+          rgba(255,255,255,.13) 24px 27px
+        );
+
+      animation: waterMove 3s linear infinite;
+    }
+
+    @keyframes waterMove {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(27px);
+      }
+    }
+
+    /* =====================================================
+       PATHS
+    ====================================================== */
+
+    .path {
+      position: absolute;
+      z-index: 8;
+
+      height: 22px;
+
+      background: #c69b62;
+
+      border-top: 4px solid #98704b;
+      border-bottom: 4px solid #98704b;
+
+      border-radius: 20px;
+
+      transform-origin: left center;
+    }
+
+    .path.castle {
+      left: 49%;
+      top: 50%;
+      width: 35%;
+      transform: rotate(-30deg);
+    }
+
+    .path.mine {
+      left: 50%;
+      top: 53%;
+      width: 34%;
+      transform: rotate(30deg);
+    }
+
+    .path.forest {
+      left: 49%;
+      top: 49%;
+      width: 30%;
+      transform: rotate(-150deg);
+    }
+
+    .path.village {
+      left: 48%;
+      top: 54%;
+      width: 37%;
+      transform: rotate(150deg);
+    }
+
+    .path.port {
+      left: 49%;
+      top: 53%;
+      width: 32%;
+      transform: rotate(108deg);
+    }
+
+    /* =====================================================
+       FOREST
+    ====================================================== */
+
+    .forest-zone {
+      position: absolute;
+      left: 4%;
+      top: 7%;
+
+      width: 39%;
+      height: 35%;
+
+      z-index: 10;
+    }
+
+    .tree {
+      position: absolute;
+      width: 42px;
+      height: 56px;
+    }
+
+    .tree .trunk {
+      position: absolute;
+      left: 16px;
+      bottom: 0;
+
+      width: 11px;
+      height: 21px;
+
+      background: #6c4932;
+
+      border: 3px solid #33251d;
+    }
+
+    .tree .leaves {
+      position: absolute;
+      left: 1px;
+      top: 0;
+
+      width: 40px;
+      height: 42px;
+
+      background: #3a743e;
+
+      border: 3px solid #1c4427;
+
+      box-shadow:
+        inset -7px -6px 0 #2b5b31,
+        inset 7px 5px 0 #4e8e4d;
+
+      border-radius: 45% 55% 48% 52%;
+    }
+
+    .tree .leaves::before,
+    .tree .leaves::after {
+      content: "";
+      position: absolute;
+
+      width: 28px;
+      height: 28px;
+
+      background: inherit;
+      border: inherit;
+      border-radius: 50%;
+    }
+
+    .tree .leaves::before {
+      left: -10px;
+      top: 9px;
+    }
+
+    .tree .leaves::after {
+      right: -10px;
+      top: 8px;
+    }
+
+    /* =====================================================
+       FOREST SHRINE
+    ====================================================== */
+
+    #skills {
+      position: absolute;
+
+      left: 16%;
+      top: 20%;
+
+      width: 115px;
+      height: 95px;
+
+      z-index: 25;
+
+      cursor: pointer;
+    }
+
+    .shrine-base {
+      position: absolute;
+
+      left: 20px;
+      bottom: 0;
+
+      width: 75px;
+      height: 55px;
+
+      background: #c29361;
+
+      border: 4px solid #473224;
+    }
+
+    .shrine-roof {
+      position: absolute;
+
+      left: 9px;
+      top: 5px;
+
+      width: 98px;
+      height: 45px;
+
+      background: #466541;
+
+      clip-path: polygon(
+        50% 0,
+        100% 70%,
+        80% 70%,
+        80% 100%,
+        20% 100%,
+        20% 70%,
+        0 70%
+      );
+
+      filter: drop-shadow(0 4px 0 #24372a);
+    }
+
+    /* =====================================================
+       CASTLE
+    ====================================================== */
+
+    #projects {
+      position: absolute;
+
+      right: 7%;
+      top: 18%;
+
+      width: 190px;
+      height: 190px;
+
+      z-index: 25;
+
+      cursor: pointer;
+    }
+
+    .castle-main {
+      position: absolute;
+
+      left: 45px;
+      bottom: 0;
+
+      width: 100px;
+      height: 105px;
+
+      background: #c8c2ad;
+
+      border: 4px solid #34312c;
+
+      box-shadow:
+        inset -12px 0 0 #aaa493;
+    }
+
+    .castle-tower {
+      position: absolute;
+
+      bottom: 0;
+
+      width: 48px;
+      height: 140px;
+
+      background: #beb9a9;
+
+      border: 4px solid #34312c;
+    }
+
+    .castle-tower.left {
+      left: 0;
+    }
+
+    .castle-tower.right {
+      right: 0;
+    }
+
+    .castle-roof {
+      position: absolute;
+
+      left: -9px;
+      top: -47px;
+
+      width: 58px;
+      height: 52px;
+
+      background: #a94b3e;
+
+      clip-path: polygon(
+        50% 0,
+        100% 100%,
+        0 100%
+      );
+
+      filter:
+        drop-shadow(0 4px 0 #682d26);
+    }
+
+    .castle-door {
       position: absolute;
 
       left: 50%;
-      bottom: calc(100% + 10px);
+      bottom: 0;
+
+      transform: translateX(-50%);
+
+      width: 30px;
+      height: 43px;
+
+      background: #654535;
+
+      border: 3px solid #36271f;
+
+      border-radius: 14px 14px 0 0;
+    }
+
+    .castle-flag {
+      position: absolute;
+
+      right: 19px;
+      top: -70px;
+
+      width: 35px;
+      height: 22px;
+
+      background: #bc453c;
+
+      clip-path: polygon(
+        0 0,
+        100% 20%,
+        0 100%
+      );
+
+      transform-origin: left center;
+
+      animation: flagWave .8s steps(2,end) infinite alternate;
+    }
+
+    @keyframes flagWave {
+      from {
+        transform: skewY(-4deg);
+      }
+
+      to {
+        transform: skewY(4deg);
+      }
+    }
+
+    /* =====================================================
+       MOUNTAINS
+    ====================================================== */
+
+    .mountain-zone {
+      position: absolute;
+
+      right: -3%;
+      top: 3%;
+
+      width: 45%;
+      height: 67%;
+
+      z-index: 5;
+    }
+
+    .mountain {
+      position: absolute;
+
+      width: 220px;
+      height: 260px;
+
+      background: #78513a;
+
+      clip-path: polygon(
+        50% 0,
+        100% 100%,
+        0 100%
+      );
+
+      filter:
+        drop-shadow(8px 8px 0 #533826);
+    }
+
+    .mountain::after {
+      content: "";
+
+      position: absolute;
+
+      left: 37%;
+      top: 0;
+
+      width: 30%;
+      height: 42%;
+
+      background: #d0a171;
+
+      clip-path: polygon(
+        50% 0,
+        100% 100%,
+        58% 78%,
+        38% 100%,
+        0 100%
+      );
+    }
+
+    .mountain.m1 {
+      right: 5%;
+      top: 0;
+    }
+
+    .mountain.m2 {
+      right: 35%;
+      top: 17%;
+      transform: scale(.86);
+    }
+
+    .mountain.m3 {
+      right: -9%;
+      top: 30%;
+      transform: scale(.8);
+    }
+
+    /* =====================================================
+       MINE
+    ====================================================== */
+
+    #experience {
+      position: absolute;
+
+      right: 12%;
+      bottom: 10%;
+
+      width: 150px;
+      height: 110px;
+
+      z-index: 26;
+
+      cursor: pointer;
+    }
+
+    .mine-rock {
+      position: absolute;
+      inset: 0;
+
+      background: #74706c;
+
+      clip-path: polygon(
+        12% 34%,
+        28% 12%,
+        50% 2%,
+        75% 12%,
+        95% 46%,
+        87% 100%,
+        8% 100%,
+        0 60%
+      );
+
+      filter:
+        drop-shadow(5px 5px 0 #47433f);
+    }
+
+    .mine-hole {
+      position: absolute;
+
+      left: 40px;
+      bottom: 0;
+
+      width: 70px;
+      height: 66px;
+
+      background: #141414;
+
+      border: 6px solid #5f493a;
+
+      border-radius: 50% 50% 0 0;
+    }
+
+    .torch {
+      position: absolute;
+
+      width: 7px;
+      height: 20px;
+
+      background: #80552e;
+
+      right: 15px;
+      top: 46px;
+    }
+
+    .torch::before {
+      content: "";
+
+      position: absolute;
+
+      left: -5px;
+      top: -15px;
+
+      width: 17px;
+      height: 18px;
+
+      background: #ffb02e;
+
+      clip-path: polygon(
+        50% 0,
+        100% 100%,
+        50% 80%,
+        0 100%
+      );
+
+      animation: flame .25s steps(2,end) infinite alternate;
+    }
+
+    @keyframes flame {
+      from {
+        transform: scaleY(.8);
+      }
+
+      to {
+        transform: scaleY(1.15);
+      }
+    }
+
+    /* =====================================================
+       VILLAGE
+    ====================================================== */
+
+    #about {
+      position: absolute;
+
+      left: 7%;
+      bottom: 8%;
+
+      width: 190px;
+      height: 150px;
+
+      z-index: 25;
+
+      cursor: pointer;
+    }
+
+    .house {
+      position: absolute;
+
+      width: 68px;
+      height: 60px;
+
+      background: #d7bc83;
+
+      border: 4px solid #543b2a;
+
+      bottom: 0;
+    }
+
+    .house::before {
+      content: "";
+
+      position: absolute;
+
+      left: -10px;
+      top: -41px;
+
+      width: 80px;
+      height: 43px;
+
+      background: #a84d3e;
+
+      clip-path: polygon(
+        50% 0,
+        100% 100%,
+        0 100%
+      );
+
+      filter:
+        drop-shadow(0 4px 0 #6c3028);
+    }
+
+    .house.one {
+      left: 5px;
+    }
+
+    .house.two {
+      right: 5px;
+      bottom: 10px;
+      transform: scale(.84);
+    }
+
+    .chimney {
+      position: absolute;
+
+      width: 12px;
+      height: 25px;
+
+      background: #6a4936;
+
+      top: -36px;
+      right: 7px;
+
+      border: 3px solid #3a2a20;
+    }
+
+    .smoke {
+      position: absolute;
+
+      width: 12px;
+      height: 12px;
+
+      border-radius: 50%;
+
+      background: rgba(230,230,230,.7);
+
+      right: 5px;
+      top: -58px;
+
+      animation: smokeUp 2s ease-in-out infinite;
+    }
+
+    @keyframes smokeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(8px) scale(.7);
+      }
+
+      40% {
+        opacity: .8;
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(-20px) scale(1.4);
+      }
+    }
+
+    /* =====================================================
+       PORT
+    ====================================================== */
+
+    #contact {
+      position: absolute;
+
+      left: 27%;
+      bottom: 7%;
+
+      width: 180px;
+      height: 135px;
+
+      z-index: 25;
+
+      cursor: pointer;
+    }
+
+    .dock {
+      position: absolute;
+
+      left: 12px;
+      bottom: 8px;
+
+      width: 150px;
+      height: 30px;
+
+      background:
+        repeating-linear-gradient(
+          90deg,
+          #8b6544 0 18px,
+          #64462e 18px 22px
+        );
+
+      border: 4px solid #3f2b20;
+    }
+
+    .boat {
+      position: absolute;
+
+      left: 63px;
+      top: 25px;
+
+      width: 80px;
+      height: 34px;
+
+      background: #b26a38;
+
+      border: 4px solid #443126;
+
+      border-radius: 0 0 40px 40px;
+
+      animation: boatBob 1.8s ease-in-out infinite alternate;
+    }
+
+    .boat::before {
+      content: "";
+
+      position: absolute;
+
+      left: 38px;
+      top: -38px;
+
+      width: 5px;
+      height: 40px;
+
+      background: #4a382b;
+    }
+
+    .boat::after {
+      content: "";
+
+      position: absolute;
+
+      left: 43px;
+      top: -32px;
+
+      width: 34px;
+      height: 26px;
+
+      background: #efe2c1;
+
+      clip-path: polygon(
+        0 0,
+        100% 50%,
+        0 100%
+      );
+    }
+
+    @keyframes boatBob {
+      from {
+        transform: translateY(-2px) rotate(-1deg);
+      }
+
+      to {
+        transform: translateY(4px) rotate(1deg);
+      }
+    }
+
+    /* =====================================================
+       HOVER LABEL
+    ====================================================== */
+
+    .location-label {
+      position: absolute;
+
+      left: 50%;
+      bottom: -32px;
 
       transform:
         translateX(-50%)
-        translateY(5px);
+        translateY(4px);
 
       opacity: 0;
 
       pointer-events: none;
 
-      background: #171619;
+      background: #18161a;
 
-      border: 3px solid #d2a264;
-
-      box-shadow:
-        4px 4px 0 #111;
-
-      padding: 10px 12px;
-
-      min-width: 190px;
-
-      font-family: 'Press Start 2P', cursive;
-
-      font-size: 8px;
-      line-height: 1.65;
-
-      text-align: center;
+      border: 3px solid #b48550;
 
       color: #fff;
 
-      transition: 0.16s ease;
+      padding: 8px 10px;
 
       white-space: nowrap;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size: 7px;
+
+      box-shadow:
+        3px 3px 0 #111;
+
+      transition: .15s ease;
     }
 
-    .hotspot:hover .tooltip {
+    .location:hover .location-label {
       opacity: 1;
 
       transform:
@@ -183,48 +968,9 @@
         translateY(0);
     }
 
-    /* =====================================================
-       HOTSPOT POSITIONS
-    ====================================================== */
-
-    #skillsHotspot {
-      left: 10%;
-      top: 15%;
-
-      width: 28%;
-      height: 29%;
-    }
-
-    #projectsHotspot {
-      left: 64%;
-      top: 13%;
-
-      width: 24%;
-      height: 31%;
-    }
-
-    #aboutHotspot {
-      left: 4%;
-      top: 52%;
-
-      width: 24%;
-      height: 31%;
-    }
-
-    #contactHotspot {
-      left: 25%;
-      top: 64%;
-
-      width: 24%;
-      height: 22%;
-    }
-
-    #experienceHotspot {
-      left: 62%;
-      top: 55%;
-
-      width: 27%;
-      height: 30%;
+    .location:hover {
+      filter:
+        brightness(1.12);
     }
 
     /* =====================================================
@@ -234,124 +980,94 @@
     #player {
       position: absolute;
 
-      z-index: 35;
+      z-index: 50;
 
-      width: 32px;
-      height: 44px;
+      left: 49%;
+      top: 52%;
 
-      left: 48.5%;
-      top: 50.5%;
+      width: 30px;
+      height: 43px;
 
       transform:
         translate(-50%, -50%);
 
       pointer-events: none;
-
-      filter:
-        drop-shadow(
-          2px 3px 0 rgba(0,0,0,0.45)
-        );
     }
 
-    .p-hair,
-    .p-head,
-    .p-body,
-    .p-leg,
-    .p-arm {
+    .player-hair {
       position: absolute;
-    }
 
-    .p-hair {
       left: 7px;
       top: 0;
 
       width: 18px;
       height: 8px;
 
-      background: #2a1d17;
+      background: #29201b;
 
       box-shadow:
-        -3px 3px 0 #2a1d17,
-        3px 2px 0 #2a1d17;
+        -3px 3px 0 #29201b,
+        3px 2px 0 #29201b;
     }
 
-    .p-head {
+    .player-head {
+      position: absolute;
+
       left: 8px;
       top: 7px;
 
       width: 16px;
-      height: 14px;
-
-      background: #d8a176;
-
-      border: 2px solid #171717;
-    }
-
-    .p-body {
-      left: 6px;
-      top: 20px;
-
-      width: 20px;
       height: 15px;
 
-      background: #3978b8;
+      background: #d5a078;
 
-      border: 2px solid #171717;
+      border: 2px solid #151515;
     }
 
-    .p-arm {
-      top: 22px;
+    .player-shirt {
+      position: absolute;
 
-      width: 5px;
-      height: 12px;
+      left: 5px;
+      top: 21px;
 
-      background: #d8a176;
+      width: 22px;
+      height: 15px;
 
-      border: 2px solid #171717;
+      background: #3f77b2;
+
+      border: 2px solid #151515;
     }
 
-    .p-arm.left {
-      left: 1px;
-    }
+    .player-leg {
+      position: absolute;
 
-    .p-arm.right {
-      right: 1px;
-    }
-
-    .p-leg {
-      top: 34px;
+      top: 35px;
 
       width: 7px;
-      height: 10px;
+      height: 9px;
 
-      background: #2d2b34;
+      background: #2b2a31;
 
-      border: 2px solid #171717;
+      border: 2px solid #151515;
     }
 
-    .p-leg.left {
-      left: 7px;
+    .player-leg.left {
+      left: 6px;
     }
 
-    .p-leg.right {
-      right: 7px;
+    .player-leg.right {
+      right: 5px;
     }
 
-    #player.walking .p-leg.left,
-    #player.walking .p-arm.right {
-      animation:
-        stepA 0.18s steps(2, end)
-        infinite alternate;
+    #player.walking .player-leg.left {
+      animation: walk1 .18s steps(2,end) infinite alternate;
     }
 
-    #player.walking .p-leg.right,
-    #player.walking .p-arm.left {
-      animation:
-        stepB 0.18s steps(2, end)
-        infinite alternate;
+    #player.walking .player-leg.right {
+      animation: walk2 .18s steps(2,end) infinite alternate;
     }
 
-    @keyframes stepA {
+    @keyframes walk1 {
       from {
         transform: translateY(-2px);
       }
@@ -361,7 +1077,7 @@
       }
     }
 
-    @keyframes stepB {
+    @keyframes walk2 {
       from {
         transform: translateY(2px);
       }
@@ -378,48 +1094,30 @@
     #loading {
       z-index: 100;
 
-      background: #151411;
-
-      color: #fff1c7;
-
       display: grid;
-
       place-items: center;
+
+      background: #151411;
+      color: #fff1c7;
     }
 
     .loading-box {
-      width: min(540px, 86vw);
-
+      width: min(520px, 86vw);
       text-align: center;
     }
 
     #loadingText {
-      font-family:
-        'Press Start 2P',
-        cursive;
-
-      font-size:
-        clamp(
-          19px,
-          3vw,
-          34px
-        );
-
-      margin-bottom: 26px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(18px, 3vw, 34px);
+      margin-bottom: 25px;
     }
 
     #loadingDestination {
-      font-family:
-        'Press Start 2P',
-        cursive;
-
+      font-family: 'Press Start 2P', cursive;
       font-size: 9px;
-
+      color: #cba95e;
       line-height: 1.8;
-
-      color: #d0ad63;
-
-      margin-bottom: 26px;
+      margin-bottom: 24px;
     }
 
     .progress-shell {
@@ -432,15 +1130,14 @@
     }
 
     #progressBar {
-      height: 100%;
-
       width: 0%;
+      height: 100%;
 
       background:
         repeating-linear-gradient(
           90deg,
           #fff1c7 0 15px,
-          #b89745 15px 19px
+          #a78742 15px 20px
         );
     }
 
@@ -454,52 +1151,38 @@
           0deg,
           #f5f2e9 0,
           #f5f2e9 2px,
-          #f0ece2 2px,
-          #f0ece2 4px
+          #eee9de 2px,
+          #eee9de 4px
         );
 
       color: #171717;
     }
 
     .page-wrap {
-      width:
-        min(1180px, 94vw);
-
+      width: min(1180px, 94vw);
       height: 100%;
 
-      margin:
-        0 auto;
+      margin: 0 auto;
 
-      padding:
-        24px 0 28px;
+      padding: 25px 0 28px;
 
       display: flex;
-
       flex-direction: column;
     }
 
     .page-title {
       height: 64px;
 
-      flex:
-        0 0 64px;
+      flex: 0 0 64px;
 
       display: grid;
-
       place-items: center;
 
-      font-family:
-        'Press Start 2P',
-        cursive;
+      font-family: 'Press Start 2P', cursive;
 
-      color: #c4a34f;
+      font-size: clamp(15px, 2vw, 23px);
 
-      font-size:
-        clamp(
-          15px,
-          2vw,
-          23px
-        );
+      color: #c5a24c;
     }
 
     .page-card {
@@ -507,43 +1190,26 @@
 
       min-height: 0;
 
-      border:
-        4px solid #171717;
+      background: rgba(255,255,255,.72);
 
-      border-radius:
-        16px;
+      border: 4px solid #171717;
+      border-radius: 16px;
 
       box-shadow:
         6px 6px 0 #171717;
 
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.72
-        );
-
       padding: 36px;
 
       display: flex;
-
       flex-direction: column;
-
       justify-content: center;
     }
 
     .page-card h2 {
-      font-family:
-        'Press Start 2P',
-        cursive;
+      font-family: 'Press Start 2P', cursive;
 
       font-size:
-        clamp(
-          21px,
-          3vw,
-          40px
-        );
+        clamp(21px, 3vw, 40px);
 
       line-height: 1.5;
 
@@ -551,13 +1217,13 @@
     }
 
     .page-card p {
-      max-width: 780px;
+      max-width: 800px;
+
+      color: #655d4f;
 
       font-size: 26px;
 
       line-height: 1.35;
-
-      color: #655d4e;
 
       margin-bottom: 28px;
     }
@@ -565,57 +1231,41 @@
     .back-button {
       align-self: flex-start;
 
-      padding:
-        12px 15px;
+      padding: 12px 15px;
 
-      background:
-        #fff1bd;
+      background: #fff1bd;
 
-      border:
-        3px solid #171717;
-
-      border-radius:
-        8px;
+      border: 3px solid #171717;
+      border-radius: 8px;
 
       box-shadow:
         4px 4px 0 #171717;
 
-      font-family:
-        'Press Start 2P',
-        cursive;
+      font-family: 'Press Start 2P', cursive;
 
       font-size: 8px;
 
       cursor: pointer;
-
-      transition:
-        transform 0.14s ease;
-    }
-
-    .back-button:hover {
-      transform:
-        translate(-2px, -2px);
     }
 
     /* =====================================================
        MOBILE
     ====================================================== */
 
-    @media
-    (max-width: 800px) {
+    @media (max-width: 800px) {
+      .hint {
+        display: none;
+      }
 
-      .map-stage {
-        width: 98vw;
+      .map-frame {
+        width: 97vw;
+        height: 90vh;
       }
 
       #player {
         transform:
           translate(-50%, -50%)
-          scale(0.78);
-      }
-
-      .tooltip {
-        display: none;
+          scale(.8);
       }
 
       .page-card {
@@ -635,148 +1285,220 @@
        WORLD MAP
   ====================================================== -->
 
-  <section
-    id="worldMap"
-    class="screen active"
-  >
+  <section id="worldMap" class="screen active">
 
-    <div class="map-stage">
+    <div class="map-frame">
 
-      <img
-        src="./engineering-world-map.png"
-        alt="Engineering World Map"
-        class="map-image"
-      >
+      <div class="world-title">
+        ENGINEERING WORLD MAP
+      </div>
 
+      <div class="hint">
+        SELECT A LOCATION<br>
+        TO EXPLORE
+      </div>
 
-      <!-- SKILLS FOREST -->
+      <!-- grass details -->
 
-      <button
-        id="skillsHotspot"
-        class="hotspot"
+      <div class="grass-detail" style="left:46%;top:21%;"></div>
+      <div class="grass-detail" style="left:52%;top:34%;"></div>
+      <div class="grass-detail" style="left:58%;top:18%;"></div>
+      <div class="grass-detail" style="left:16%;top:48%;"></div>
+      <div class="grass-detail" style="left:63%;top:61%;"></div>
+      <div class="grass-detail" style="left:45%;top:74%;"></div>
+      <div class="grass-detail" style="left:73%;top:50%;"></div>
+
+      <!-- river -->
+
+      <div class="river"></div>
+
+      <!-- mountains -->
+
+      <div class="mountain-zone">
+        <div class="mountain m1"></div>
+        <div class="mountain m2"></div>
+        <div class="mountain m3"></div>
+      </div>
+
+      <!-- forest -->
+
+      <div class="forest-zone">
+
+        <div class="tree" style="left:2%;top:8%;">
+          <div class="trunk"></div>
+          <div class="leaves"></div>
+        </div>
+
+        <div class="tree" style="left:15%;top:1%;">
+          <div class="trunk"></div>
+          <div class="leaves"></div>
+        </div>
+
+        <div class="tree" style="left:29%;top:11%;">
+          <div class="trunk"></div>
+          <div class="leaves"></div>
+        </div>
+
+        <div class="tree" style="left:44%;top:3%;">
+          <div class="trunk"></div>
+          <div class="leaves"></div>
+        </div>
+
+        <div class="tree" style="left:61%;top:13%;">
+          <div class="trunk"></div>
+          <div class="leaves"></div>
+        </div>
+
+        <div class="tree" style="left:76%;top:5%;">
+          <div class="trunk"></div>
+          <div class="leaves"></div>
+        </div>
+
+        <div class="tree" style="left:7%;top:45%;">
+          <div class="trunk"></div>
+          <div class="leaves"></div>
+        </div>
+
+        <div class="tree" style="left:24%;top:39%;">
+          <div class="trunk"></div>
+          <div class="leaves"></div>
+        </div>
+
+        <div class="tree" style="left:52%;top:42%;">
+          <div class="trunk"></div>
+          <div class="leaves"></div>
+        </div>
+
+        <div class="tree" style="left:73%;top:45%;">
+          <div class="trunk"></div>
+          <div class="leaves"></div>
+        </div>
+
+      </div>
+
+      <!-- paths -->
+
+      <div class="path castle"></div>
+      <div class="path mine"></div>
+      <div class="path forest"></div>
+      <div class="path village"></div>
+      <div class="path port"></div>
+
+      <!-- skills forest -->
+
+      <div
+        id="skills"
+        class="location"
         data-destination="skills"
-        aria-label="Skills Forest"
       >
+        <div class="shrine-roof"></div>
+        <div class="shrine-base"></div>
 
-        <span class="tooltip">
+        <div class="location-label">
+          SKILLS FOREST
+        </div>
+      </div>
 
-          SKILLS FOREST<br>
-          Explore skills
+      <!-- project castle -->
 
-        </span>
-
-      </button>
-
-
-      <!-- PROJECT CASTLE -->
-
-      <button
-        id="projectsHotspot"
-        class="hotspot"
+      <div
+        id="projects"
+        class="location"
         data-destination="projects"
-        aria-label="Project Castle"
       >
 
-        <span class="tooltip">
+        <div class="castle-main">
+          <div class="castle-door"></div>
+        </div>
 
-          PROJECT CASTLE<br>
-          View projects
+        <div class="castle-tower left">
+          <div class="castle-roof"></div>
+        </div>
 
-        </span>
+        <div class="castle-tower right">
+          <div class="castle-roof"></div>
+          <div class="castle-flag"></div>
+        </div>
 
-      </button>
+        <div class="location-label">
+          PROJECT CASTLE
+        </div>
 
+      </div>
 
-      <!-- ABOUT VILLAGE -->
+      <!-- experience mine -->
 
-      <button
-        id="aboutHotspot"
-        class="hotspot"
-        data-destination="about"
-        aria-label="About Village"
-      >
-
-        <span class="tooltip">
-
-          ABOUT VILLAGE<br>
-          Learn about me
-
-        </span>
-
-      </button>
-
-
-      <!-- CONTACT PORT -->
-
-      <button
-        id="contactHotspot"
-        class="hotspot"
-        data-destination="contact"
-        aria-label="Contact Port"
-      >
-
-        <span class="tooltip">
-
-          CONTACT PORT<br>
-          Get in touch
-
-        </span>
-
-      </button>
-
-
-      <!-- EXPERIENCE MINE -->
-
-      <button
-        id="experienceHotspot"
-        class="hotspot"
+      <div
+        id="experience"
+        class="location"
         data-destination="experience"
-        aria-label="Experience Mine"
+      >
+        <div class="mine-rock"></div>
+        <div class="mine-hole"></div>
+        <div class="torch"></div>
+
+        <div class="location-label">
+          EXPERIENCE MINE
+        </div>
+      </div>
+
+      <!-- about village -->
+
+      <div
+        id="about"
+        class="location"
+        data-destination="about"
       >
 
-        <span class="tooltip">
+        <div class="house one">
+          <div class="chimney"></div>
+          <div class="smoke"></div>
+        </div>
 
-          EXPERIENCE MINE<br>
-          View experience
+        <div class="house two"></div>
 
-        </span>
+        <div class="location-label">
+          ABOUT VILLAGE
+        </div>
 
-      </button>
+      </div>
 
+      <!-- contact port -->
 
-      <!-- PLAYER -->
+      <div
+        id="contact"
+        class="location"
+        data-destination="contact"
+      >
+
+        <div class="dock"></div>
+        <div class="boat"></div>
+
+        <div class="location-label">
+          CONTACT PORT
+        </div>
+
+      </div>
+
+      <!-- player -->
 
       <div id="player">
-
-        <div class="p-hair"></div>
-
-        <div class="p-head"></div>
-
-        <div class="p-body"></div>
-
-        <div class="p-arm left"></div>
-
-        <div class="p-arm right"></div>
-
-        <div class="p-leg left"></div>
-
-        <div class="p-leg right"></div>
-
+        <div class="player-hair"></div>
+        <div class="player-head"></div>
+        <div class="player-shirt"></div>
+        <div class="player-leg left"></div>
+        <div class="player-leg right"></div>
       </div>
 
     </div>
 
   </section>
 
-
   <!-- =====================================================
-       LOADING SCREEN
+       LOADING
   ====================================================== -->
 
-  <section
-    id="loading"
-    class="screen"
-  >
+  <section id="loading" class="screen">
 
     <div class="loading-box">
 
@@ -789,22 +1511,19 @@
       </div>
 
       <div class="progress-shell">
-
         <div id="progressBar"></div>
-
       </div>
 
     </div>
 
   </section>
 
-
   <!-- =====================================================
-       PROJECTS
+       PROJECTS PAGE
   ====================================================== -->
 
   <section
-    id="projects"
+    id="projectsPage"
     class="screen content-screen"
   >
 
@@ -821,21 +1540,17 @@
         </h2>
 
         <p>
-
-          Your engineering projects will go here later.
-          This can include CAD work, robotics,
-          prototypes, technical drawings,
-          videos and 360° model previews.
-
+          Your engineering projects will go here later:
+          CAD work, robotics, prototypes,
+          technical drawings, videos
+          and interactive model previews.
         </p>
 
         <button
           class="back-button"
           data-back="projects"
         >
-
           ← WORLD MAP
-
         </button>
 
       </div>
@@ -844,13 +1559,10 @@
 
   </section>
 
-
-  <!-- =====================================================
-       EXPERIENCE
-  ====================================================== -->
+  <!-- EXPERIENCE -->
 
   <section
-    id="experience"
+    id="experiencePage"
     class="screen content-screen"
   >
 
@@ -867,21 +1579,15 @@
         </h2>
 
         <p>
-
-          Your internships,
-          professional engineering work
-          and other practical experience
-          will go here later.
-
+          Your internship and professional
+          engineering experience will go here later.
         </p>
 
         <button
           class="back-button"
           data-back="experience"
         >
-
           ← WORLD MAP
-
         </button>
 
       </div>
@@ -890,13 +1596,10 @@
 
   </section>
 
-
-  <!-- =====================================================
-       SKILLS
-  ====================================================== -->
+  <!-- SKILLS -->
 
   <section
-    id="skills"
+    id="skillsPage"
     class="screen content-screen"
   >
 
@@ -913,21 +1616,16 @@
         </h2>
 
         <p>
-
-          Your engineering skill tree will go here later:
+          Your engineering skill tree will go here:
           CAD, programming, embedded systems,
-          electronics, robotics,
-          controls and simulation.
-
+          electronics, robotics and control.
         </p>
 
         <button
           class="back-button"
           data-back="skills"
         >
-
           ← WORLD MAP
-
         </button>
 
       </div>
@@ -936,13 +1634,10 @@
 
   </section>
 
-
-  <!-- =====================================================
-       ABOUT
-  ====================================================== -->
+  <!-- ABOUT -->
 
   <section
-    id="about"
+    id="aboutPage"
     class="screen content-screen"
   >
 
@@ -959,21 +1654,16 @@
         </h2>
 
         <p>
-
-          Your introduction,
-          degree, engineering interests
-          and career goals
-          will go here later.
-
+          Your degree, introduction,
+          engineering interests
+          and career goals will go here.
         </p>
 
         <button
           class="back-button"
           data-back="about"
         >
-
           ← WORLD MAP
-
         </button>
 
       </div>
@@ -982,13 +1672,10 @@
 
   </section>
 
-
-  <!-- =====================================================
-       CONTACT
-  ====================================================== -->
+  <!-- CONTACT -->
 
   <section
-    id="contact"
+    id="contactPage"
     class="screen content-screen"
   >
 
@@ -1005,22 +1692,16 @@
         </h2>
 
         <p>
-
-          Your email,
-          LinkedIn,
-          CV download
-          and other contact details
+          Your email, LinkedIn,
+          CV download and contact details
           will go here later.
-
         </p>
 
         <button
           class="back-button"
           data-back="contact"
         >
-
           ← WORLD MAP
-
         </button>
 
       </div>
@@ -1029,12 +1710,7 @@
 
   </section>
 
-
   <script>
-
-    /* =====================================================
-       SCREEN SETUP
-    ====================================================== */
 
     const screens = {
 
@@ -1050,27 +1726,27 @@
 
       projects:
         document.getElementById(
-          'projects'
+          'projectsPage'
         ),
 
       experience:
         document.getElementById(
-          'experience'
+          'experiencePage'
         ),
 
       skills:
         document.getElementById(
-          'skills'
+          'skillsPage'
         ),
 
       about:
         document.getElementById(
-          'about'
+          'aboutPage'
         ),
 
       contact:
         document.getElementById(
-          'contact'
+          'contactPage'
         )
     };
 
@@ -1103,7 +1779,9 @@
       false;
 
 
-    function showScreen(name) {
+    function showScreen(
+      name
+    ) {
 
       Object
         .values(screens)
@@ -1128,10 +1806,6 @@
     }
 
 
-    /* =====================================================
-       PLAYER POSITION
-    ====================================================== */
-
     function setPlayerPosition(
       x,
       y
@@ -1147,68 +1821,93 @@
 
 
     const CENTER = {
-
-      x: 48.5,
-
-      y: 50.5
+      x: 49,
+      y: 52
     };
 
 
     /* =====================================================
-       WALKING PATHS
+       WALK ROUTES
     ====================================================== */
 
     const paths = {
-
-      skills: [
-
-        CENTER,
-
-        {
-          x: 42,
-          y: 48
-        },
-
-        {
-          x: 36,
-          y: 42
-        },
-
-        {
-          x: 31,
-          y: 36
-        },
-
-        {
-          x: 26,
-          y: 31
-        }
-
-      ],
-
 
       projects: [
 
         CENTER,
 
         {
-          x: 55,
+          x: 56,
           y: 49
         },
 
         {
-          x: 61,
-          y: 45
+          x: 64,
+          y: 44
         },
 
         {
-          x: 67,
-          y: 40
+          x: 72,
+          y: 37
         },
 
         {
-          x: 73,
+          x: 80,
+          y: 31
+        }
+
+      ],
+
+
+      experience: [
+
+        CENTER,
+
+        {
+          x: 58,
+          y: 58
+        },
+
+        {
+          x: 66,
+          y: 64
+        },
+
+        {
+          x: 75,
+          y: 72
+        },
+
+        {
+          x: 81,
+          y: 79
+        }
+
+      ],
+
+
+      skills: [
+
+        CENTER,
+
+        {
+          x: 43,
+          y: 47
+        },
+
+        {
+          x: 36,
+          y: 41
+        },
+
+        {
+          x: 29,
           y: 35
+        },
+
+        {
+          x: 22,
+          y: 29
         }
 
       ],
@@ -1220,22 +1919,22 @@
 
         {
           x: 41,
-          y: 56
+          y: 58
         },
 
         {
-          x: 34,
-          y: 62
+          x: 33,
+          y: 65
         },
 
         {
-          x: 27,
-          y: 68
-        },
-
-        {
-          x: 20,
+          x: 25,
           y: 72
+        },
+
+        {
+          x: 15,
+          y: 80
         }
 
       ],
@@ -1246,50 +1945,23 @@
         CENTER,
 
         {
-          x: 45,
-          y: 58
+          x: 46,
+          y: 61
         },
 
         {
           x: 41,
-          y: 65
+          y: 70
         },
 
         {
-          x: 38,
-          y: 72
+          x: 37,
+          y: 79
         },
 
         {
-          x: 35,
-          y: 77
-        }
-
-      ],
-
-
-      experience: [
-
-        CENTER,
-
-        {
-          x: 55,
-          y: 57
-        },
-
-        {
-          x: 62,
-          y: 63
-        },
-
-        {
-          x: 69,
-          y: 68
-        },
-
-        {
-          x: 74,
-          y: 73
+          x: 33,
+          y: 84
         }
 
       ]
@@ -1297,38 +1969,29 @@
     };
 
 
-    /* =====================================================
-       LOADING MESSAGES
-    ====================================================== */
-
     const loadingMessages = {
-
-      skills:
-        'ENTERING SKILLS FOREST',
 
       projects:
         'ENTERING PROJECT CASTLE',
+
+      experience:
+        'ENTERING EXPERIENCE MINE',
+
+      skills:
+        'ENTERING SKILLS FOREST',
 
       about:
         'ENTERING ABOUT VILLAGE',
 
       contact:
-        'ENTERING CONTACT PORT',
-
-      experience:
-        'ENTERING EXPERIENCE MINE'
-
+        'ENTERING CONTACT PORT'
     };
 
-
-    /* =====================================================
-       MOVEMENT
-    ====================================================== */
 
     function moveBetween(
       start,
       end,
-      duration = 340
+      duration = 360
     ) {
 
       return new Promise(
@@ -1338,30 +2001,28 @@
             performance.now();
 
 
-          function tick(now) {
+          function frame(now) {
 
-            const p =
+            const progress =
               Math.min(
-
                 (
                   now -
                   startTime
                 ) /
                 duration,
-
                 1
               );
 
 
-            const ease =
-
-              p < 0.5
+            const eased =
+              progress <
+              0.5
 
                 ?
 
                 2 *
-                p *
-                p
+                progress *
+                progress
 
                 :
 
@@ -1369,38 +2030,44 @@
 
                 Math.pow(
                   -2 *
-                  p +
+                  progress +
                   2,
                   2
                 ) /
                 2;
 
 
-            setPlayerPosition(
-
+            const x =
               start.x +
               (
                 end.x -
                 start.x
               ) *
-              ease,
+              eased;
 
+
+            const y =
               start.y +
               (
                 end.y -
                 start.y
               ) *
-              ease
+              eased;
 
+
+            setPlayerPosition(
+              x,
+              y
             );
 
 
             if (
-              p < 1
+              progress <
+              1
             ) {
 
               requestAnimationFrame(
-                tick
+                frame
               );
 
             }
@@ -1415,7 +2082,7 @@
 
 
           requestAnimationFrame(
-            tick
+            frame
           );
 
         }
@@ -1442,7 +2109,8 @@
         let i = 0;
 
         i <
-        points.length - 1;
+        points.length -
+        1;
 
         i++
       ) {
@@ -1470,10 +2138,6 @@
     }
 
 
-    /* =====================================================
-       LOADING SEQUENCE
-    ====================================================== */
-
     function loadingSequence(
       destination
     ) {
@@ -1496,14 +2160,12 @@
 
           loadingText
             .textContent =
-
             'LOADING.';
 
 
           progressBar
             .style
             .width =
-
             '0%';
 
 
@@ -1523,7 +2185,8 @@
 
 
                 if (
-                  dots > 3
+                  dots >
+                  3
                 ) {
 
                   dots =
@@ -1552,10 +2215,8 @@
               () => {
 
                 progress +=
-
                   Math.random() *
                   7 +
-
                   3;
 
 
@@ -1599,13 +2260,11 @@
               progressBar
                 .style
                 .width =
-
                 '100%';
 
 
               loadingText
                 .textContent =
-
                 'LOADED!';
 
 
@@ -1625,17 +2284,17 @@
 
 
     /* =====================================================
-       DESTINATION CLICK
+       CLICK LOCATION
     ====================================================== */
 
     document
       .querySelectorAll(
-        '.hotspot'
+        '.location'
       )
       .forEach(
-        button => {
+        location => {
 
-          button
+          location
             .addEventListener(
               'click',
               async () => {
@@ -1643,25 +2302,20 @@
                 if (
                   playerMoving
                 ) {
-
                   return;
-
                 }
 
 
                 const destination =
-
-                  button
+                  location
                     .dataset
                     .destination;
 
 
                 await walkPath(
-
                   paths[
                     destination
                   ]
-
                 );
 
 
@@ -1682,7 +2336,7 @@
 
 
     /* =====================================================
-       RETURN TO WORLD MAP
+       RETURN FROM LOCATION
     ====================================================== */
 
     document
@@ -1700,21 +2354,17 @@
                 if (
                   playerMoving
                 ) {
-
                   return;
-
                 }
 
 
                 const destination =
-
                   button
                     .dataset
                     .back;
 
 
                 const reversePath =
-
                   [
                     ...paths[
                       destination
@@ -1723,19 +2373,10 @@
                   .reverse();
 
 
-                /*
-                  Show map again.
-                */
-
                 showScreen(
                   'worldMap'
                 );
 
-
-                /*
-                  Spawn character at
-                  destination entrance.
-                */
 
                 setPlayerPosition(
 
@@ -1746,15 +2387,8 @@
                 );
 
 
-                /*
-                  Slight delay so it feels
-                  like player comes out
-                  of the building.
-                */
-
                 await new Promise(
                   resolve =>
-
                     setTimeout(
                       resolve,
                       400
@@ -1762,21 +2396,14 @@
                 );
 
 
-                /*
-                  Walk back to centre.
-                */
-
                 await walkPath(
                   reversePath
                 );
 
 
                 setPlayerPosition(
-
                   CENTER.x,
-
                   CENTER.y
-
                 );
 
               }
@@ -1786,16 +2413,9 @@
       );
 
 
-    /* =====================================================
-       INITIAL POSITION
-    ====================================================== */
-
     setPlayerPosition(
-
       CENTER.x,
-
       CENTER.y
-
     );
 
   </script>
