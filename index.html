@@ -29,13 +29,15 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #08100a;
+      background: #081008;
       font-family: 'VT323', monospace;
-      color: #c7d59c;
+      color: #c5d39b;
     }
 
     button {
       font: inherit;
+      border: none;
+      background: none;
     }
 
     .screen {
@@ -43,7 +45,7 @@
       inset: 0;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.22s steps(4, end);
+      transition: opacity 0.2s steps(3, end);
     }
 
     .screen.active {
@@ -52,71 +54,74 @@
     }
 
     /* =====================================================
-       RADAR LANDING SCREEN
+       RADAR SCREEN
     ====================================================== */
 
     #radarScreen {
       display: grid;
       place-items: center;
-      padding: 18px;
-
+      padding: 16px;
       background:
         repeating-linear-gradient(
           0deg,
-          #08100a 0px,
-          #08100a 3px,
-          #0a140c 3px,
-          #0a140c 6px
+          #071007 0px,
+          #071007 3px,
+          #091309 3px,
+          #091309 6px
         );
     }
 
     .radar-shell {
       position: relative;
+      width: min(1680px, 98vw);
+      height: min(860px, 95vh);
+      overflow: hidden;
 
-      width: min(1400px, 96vw);
-      height: min(820px, 92vh);
+      background: #0b120b;
 
-      background: #11170f;
-
-      border: 6px solid #39472e;
+      border: 4px solid #56664a;
 
       box-shadow:
-        0 0 0 5px #10170d,
-        0 0 0 9px #677853,
-        12px 12px 0 #030503;
-
-      overflow: hidden;
+        0 0 0 6px #111811,
+        0 0 0 10px #4a5a40,
+        12px 12px 0 #020402;
     }
 
     .radar-shell::before {
       content: "";
       position: absolute;
-      inset: 0;
-      z-index: 80;
+      inset: 10px;
+      border: 3px solid rgba(124, 142, 102, 0.35);
       pointer-events: none;
+      z-index: 2;
+    }
 
+    .radar-shell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 100;
+      pointer-events: none;
       background:
         repeating-linear-gradient(
           0deg,
           transparent 0px,
-          transparent 3px,
-          rgba(150, 180, 110, 0.035) 3px,
-          rgba(150, 180, 110, 0.035) 4px
+          transparent 2px,
+          rgba(164, 187, 129, 0.03) 2px,
+          rgba(164, 187, 129, 0.03) 3px
         );
     }
 
     .top-panel {
       position: absolute;
-      left: 20px;
-      right: 20px;
-      top: 16px;
-
-      z-index: 50;
+      top: 38px;
+      left: 40px;
+      right: 40px;
+      z-index: 30;
 
       display: flex;
-      align-items: flex-start;
       justify-content: space-between;
-
+      align-items: flex-start;
       gap: 20px;
     }
 
@@ -125,650 +130,468 @@
     }
 
     .system-code {
-      margin-bottom: 10px;
-
+      margin-bottom: 14px;
       font-family: 'Press Start 2P', cursive;
       font-size: 7px;
-      color: #72845e;
       line-height: 1.6;
+      color: #748564;
     }
 
     .main-title {
       font-family: 'Press Start 2P', cursive;
-
-      font-size:
-        clamp(
-          15px,
-          2vw,
-          28px
-        );
-
-      line-height: 1.5;
-
-      color: #d1dba8;
-
-      text-shadow:
-        4px 4px 0 #020402;
+      font-size: clamp(18px, 2.2vw, 34px);
+      line-height: 1.45;
+      color: #d6e2ae;
+      text-shadow: 4px 4px 0 #020402;
     }
 
     .status-block {
       text-align: right;
-
       font-family: 'Press Start 2P', cursive;
       font-size: 7px;
       line-height: 1.8;
-
-      color: #81956c;
+      color: #889b72;
     }
 
     .status-live {
-      color: #b5cc82;
+      color: #c8dca1;
     }
 
     .blink-dot {
       display: inline-block;
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       margin-right: 7px;
-      background: #8fa85f;
-      animation: statusBlink 0.7s steps(1) infinite;
+      background: #9bb46d;
+      animation: blinkPulse 0.8s steps(1) infinite;
     }
 
-    @keyframes statusBlink {
-      0%,
-      49% {
+    @keyframes blinkPulse {
+      0%, 49% {
         opacity: 1;
       }
-
-      50%,
-      100% {
-        opacity: 0.2;
+      50%, 100% {
+        opacity: 0.25;
       }
     }
 
     /* =====================================================
-       RADAR
+       RADAR FIELD
     ====================================================== */
 
-    .radar-area {
+    .radar-field {
       position: absolute;
-
-      left: 50%;
-      top: 53%;
-
-      transform: translate(-50%, -50%);
-
-      width: min(720px, 61vw, 75vh);
-      aspect-ratio: 1 / 1;
-
-      border: 4px solid #50623f;
-
-      border-radius: 50%;
-
-      background:
-        radial-gradient(
-          circle at center,
-          rgba(113, 137, 82, 0.16),
-          rgba(20, 30, 17, 0.45) 62%,
-          rgba(8, 13, 8, 0.9) 100%
-        );
-
-      box-shadow:
-        inset 0 0 0 4px rgba(112, 132, 82, 0.15),
-        0 0 0 4px #0b1009;
-    }
-
-    .ring {
-      position: absolute;
-
-      left: 50%;
-      top: 50%;
-
-      transform: translate(-50%, -50%);
-
-      border:
-        2px solid rgba(128, 151, 94, 0.34);
-
-      border-radius: 50%;
-
-      pointer-events: none;
-    }
-
-    .ring.r1 {
-      width: 25%;
-      height: 25%;
-    }
-
-    .ring.r2 {
-      width: 50%;
-      height: 50%;
-    }
-
-    .ring.r3 {
-      width: 75%;
-      height: 75%;
-    }
-
-    .crosshair-h,
-    .crosshair-v {
-      position: absolute;
-
-      left: 50%;
-      top: 50%;
-
-      transform: translate(-50%, -50%);
-
-      background:
-        rgba(124, 147, 91, 0.28);
-
-      pointer-events: none;
-    }
-
-    .crosshair-h {
-      width: 100%;
-      height: 2px;
-    }
-
-    .crosshair-v {
-      width: 2px;
-      height: 100%;
-    }
-
-    .radar-sweep {
-      position: absolute;
-
-      left: 50%;
-      top: 50%;
-
-      width: 50%;
-      height: 50%;
-
-      transform-origin: 0 0;
-
-      clip-path:
-        polygon(
-          0 0,
-          100% 18%,
-          100% 0
-        );
+      left: 40px;
+      right: 40px;
+      top: 130px;
+      bottom: 130px;
+      overflow: hidden;
+      z-index: 5;
 
       background:
         linear-gradient(
+          rgba(92, 110, 73, 0.08),
+          rgba(92, 110, 73, 0.08)
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent 0px,
+          transparent 89px,
+          rgba(128, 148, 101, 0.14) 89px,
+          rgba(128, 148, 101, 0.14) 91px
+        ),
+        repeating-linear-gradient(
           90deg,
-          rgba(130, 168, 88, 0.5),
-          rgba(130, 168, 88, 0.04)
+          transparent 0px,
+          transparent 89px,
+          rgba(128, 148, 101, 0.14) 89px,
+          rgba(128, 148, 101, 0.14) 91px
         );
-
-      animation:
-        radarSpin 4.6s linear infinite;
-
-      pointer-events: none;
-
-      z-index: 3;
     }
 
-    .radar-line {
-      position: absolute;
-
-      left: 50%;
-      top: 50%;
-
-      width: 49%;
-      height: 2px;
-
-      transform-origin: left center;
-
-      background: #8ead67;
-
-      animation:
-        radarSpin 4.6s linear infinite;
-
-      box-shadow:
-        0 0 8px rgba(157, 194, 103, 0.35);
-
-      pointer-events: none;
-
-      z-index: 4;
-    }
-
-    @keyframes radarSpin {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* =====================================================
-       CENTER CORE
-    ====================================================== */
-
-    .core {
-      position: absolute;
-
-      left: 50%;
-      top: 50%;
-
-      transform: translate(-50%, -50%);
-
-      width: 56px;
-      height: 56px;
-
-      z-index: 10;
-
-      border: 3px solid #708557;
-
-      background: #131d11;
-
-      box-shadow:
-        4px 4px 0 #020402;
-    }
-
-    .core::before,
-    .core::after {
+    .radar-field::before {
       content: "";
       position: absolute;
-      background: #879d68;
+      inset: 0;
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(160, 190, 120, 0.06),
+          rgba(0, 0, 0, 0) 60%
+        );
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .core::before {
-      left: 7px;
-      right: 7px;
-      top: 25px;
-      height: 3px;
-    }
-
-    .core::after {
-      top: 7px;
-      bottom: 7px;
-      left: 25px;
-      width: 3px;
-    }
-
-    .core-dot {
+    .cross-x,
+    .cross-y {
       position: absolute;
+      background: rgba(145, 167, 113, 0.26);
+      z-index: 2;
+      pointer-events: none;
+    }
 
+    .cross-x {
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 3px;
+      transform: translateY(-50%);
+    }
+
+    .cross-y {
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 3px;
+      transform: translateX(-50%);
+    }
+
+    .core-box {
+      position: absolute;
       left: 50%;
       top: 50%;
-
+      width: 78px;
+      height: 78px;
       transform: translate(-50%, -50%);
+      z-index: 10;
 
-      width: 12px;
-      height: 12px;
+      background: #111910;
+      border: 4px solid #8ba16d;
+      box-shadow: 5px 5px 0 #030503;
+    }
 
-      background: #b7c986;
+    .core-box::before,
+    .core-box::after {
+      content: "";
+      position: absolute;
+      background: #b7c989;
+    }
+
+    .core-box::before {
+      left: 12px;
+      right: 12px;
+      top: 36px;
+      height: 5px;
+    }
+
+    .core-box::after {
+      top: 12px;
+      bottom: 12px;
+      left: 36px;
+      width: 5px;
     }
 
     .core-label {
       position: absolute;
-
       left: 50%;
-      top: calc(50% + 43px);
-
+      top: calc(50% + 55px);
       transform: translateX(-50%);
-
-      z-index: 10;
-
+      z-index: 11;
       white-space: nowrap;
-
       font-family: 'Press Start 2P', cursive;
-      font-size: 6px;
-
-      color: #7e9365;
+      font-size: 7px;
+      color: #86986d;
     }
 
     /* =====================================================
-       CLICKABLE TARGETS
+       SWEEP
     ====================================================== */
 
-    .target {
+    .sweep-wrap {
       position: absolute;
-
-      z-index: 20;
-
+      left: 50%;
+      top: 50%;
+      width: 1400px;
+      height: 1400px;
       transform: translate(-50%, -50%);
-
-      background: transparent;
-
-      border: 0;
-
-      cursor: pointer;
-
-      color: inherit;
-
-      text-align: center;
-
-      min-width: 130px;
-      min-height: 70px;
-
-      display: flex;
-      flex-direction: column;
-
-      align-items: center;
-      justify-content: center;
-
-      gap: 10px;
+      transform-origin: center center;
+      z-index: 4;
+      pointer-events: none;
+      animation: rotateSweep 6s linear infinite;
     }
 
-    .target-dot-wrap {
-      position: relative;
-
-      width: 34px;
-      height: 34px;
-
-      display: grid;
-      place-items: center;
-    }
-
-    .target-dot {
-      position: relative;
-
-      width: 14px;
-      height: 14px;
-
-      background: #b84c4a;
-
-      border: 3px solid #421d1c;
-
-      box-shadow:
-        3px 3px 0 #070907;
-
-      z-index: 3;
-
-      transition:
-        transform 0.12s steps(2, end),
-        background 0.12s steps(2, end);
-    }
-
-    .target-pulse {
+    .sweep-beam {
       position: absolute;
-
-      inset: 0;
-
-      border: 2px solid rgba(194, 83, 75, 0.55);
-
-      animation:
-        targetPulse 1.4s steps(6) infinite;
-    }
-
-    @keyframes targetPulse {
-      0% {
-        transform: scale(0.35);
-        opacity: 0.9;
-      }
-
-      100% {
-        transform: scale(1.2);
-        opacity: 0;
-      }
-    }
-
-    .target-label {
-      font-family: 'Press Start 2P', cursive;
-
-      font-size:
-        clamp(
-          6px,
-          0.8vw,
-          10px
+      left: 50%;
+      top: 50%;
+      width: 46%;
+      height: 220px;
+      transform-origin: left center;
+      transform: translateY(-50%);
+      clip-path: polygon(0 50%, 100% 0, 100% 100%);
+      background:
+        linear-gradient(
+          90deg,
+          rgba(190, 220, 136, 0.55),
+          rgba(190, 220, 136, 0.04)
         );
-
-      line-height: 1.5;
-
-      color: #93a875;
-
-      white-space: nowrap;
-
-      text-shadow:
-        2px 2px 0 #020302;
+      filter: blur(1px);
     }
 
-    .target-number {
-      font-family: 'Press Start 2P', cursive;
-
-      font-size: 5px;
-
-      color: #5e704e;
+    .sweep-line {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 47%;
+      height: 3px;
+      transform-origin: left center;
+      transform: translateY(-50%);
+      background: #d2eaa2;
+      box-shadow: 0 0 12px rgba(201, 233, 143, 0.45);
     }
 
-    .target:hover .target-dot,
-    .target:focus-visible .target-dot {
-      transform: scale(1.35);
-      background: #e36a5e;
-    }
-
-    .target:hover .target-label,
-    .target:focus-visible .target-label {
-      color: #c7d9a0;
-    }
-
-    .target:focus-visible {
-      outline: 3px solid #899d6d;
-      outline-offset: 4px;
-    }
-
-    .target.locked .target-dot {
-      background: #ff7968;
-
-      animation:
-        lockedBlink 0.18s steps(1) infinite;
-    }
-
-    @keyframes lockedBlink {
-      0%,
-      49% {
-        opacity: 1;
+    @keyframes rotateSweep {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
       }
-
-      50%,
-      100% {
-        opacity: 0.3;
+      to {
+        transform: translate(-50%, -50%) rotate(360deg);
       }
-    }
-
-    .target.projects {
-      left: 62%;
-      top: 23%;
-    }
-
-    .target.experience {
-      left: 24%;
-      top: 39%;
-    }
-
-    .target.skills {
-      left: 76%;
-      top: 47%;
-    }
-
-    .target.about {
-      left: 31%;
-      top: 73%;
-    }
-
-    .target.contact {
-      left: 69%;
-      top: 76%;
     }
 
     /* =====================================================
-       FAKE BLIPS
+       BACKGROUND BLIPS
     ====================================================== */
 
-    .blip {
+    .bg-blip {
       position: absolute;
-
-      width: 5px;
-      height: 5px;
-
-      background: #5f7350;
-
-      z-index: 8;
-
-      animation:
-        blipFlash 2.4s steps(1) infinite;
-
+      width: 8px;
+      height: 8px;
+      background: #758863;
+      z-index: 6;
       pointer-events: none;
+      animation: bgFlash 2.2s steps(1) infinite;
     }
 
-    @keyframes blipFlash {
-      0%,
-      30% {
+    @keyframes bgFlash {
+      0%, 40% {
         opacity: 0.15;
       }
-
-      31%,
-      48% {
-        opacity: 0.75;
+      41%, 55% {
+        opacity: 0.85;
       }
-
-      49%,
-      100% {
+      56%, 100% {
         opacity: 0.2;
       }
     }
 
-    .blip.b1 {
-      left: 38%;
-      top: 28%;
-      animation-delay: -0.4s;
+    .b1 { left: 18%; top: 24%; animation-delay: -0.4s; }
+    .b2 { left: 66%; top: 32%; animation-delay: -1.2s; }
+    .b3 { left: 57%; top: 68%; animation-delay: -0.9s; }
+    .b4 { left: 31%; top: 73%; animation-delay: -1.7s; }
+    .b5 { left: 78%; top: 57%; animation-delay: -0.3s; }
+    .b6 { left: 44%; top: 22%; animation-delay: -1.5s; }
+
+    /* =====================================================
+       TARGETS
+    ====================================================== */
+
+    .target {
+      position: absolute;
+      z-index: 20;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      color: inherit;
+      text-align: left;
     }
 
-    .blip.b2 {
-      left: 57%;
-      top: 64%;
-      animation-delay: -1.2s;
+    .target-dot-wrap {
+      position: relative;
+      width: 46px;
+      height: 46px;
+      flex: 0 0 46px;
     }
 
-    .blip.b3 {
-      left: 42%;
-      top: 82%;
-      animation-delay: -0.8s;
+    .target-pulse {
+      position: absolute;
+      inset: 0;
+      border: 3px solid rgba(201, 83, 80, 0.55);
+      animation: targetPulse 1.5s steps(6) infinite;
     }
 
-    .blip.b4 {
-      left: 82%;
-      top: 30%;
-      animation-delay: -1.8s;
+    .target-dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 24px;
+      height: 24px;
+      transform: translate(-50%, -50%);
+      background: #c35d5a;
+      border: 4px solid #4d1f1d;
+      box-shadow: 4px 4px 0 #070707;
+      transition: transform 0.15s steps(2, end), background 0.15s steps(2, end);
     }
 
-    .blip.b5 {
-      left: 19%;
-      top: 58%;
-      animation-delay: -2.1s;
+    @keyframes targetPulse {
+      0% {
+        transform: scale(0.45);
+        opacity: 0.9;
+      }
+      100% {
+        transform: scale(1.3);
+        opacity: 0;
+      }
+    }
+
+    .target-text {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .target-label {
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(8px, 1vw, 15px);
+      line-height: 1.4;
+      color: #ceddad;
+      text-shadow: 3px 3px 0 #020302;
+    }
+
+    .target-number {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 6px;
+      color: #7f8f6a;
+    }
+
+    .target:hover .target-dot,
+    .target:focus-visible .target-dot {
+      transform: translate(-50%, -50%) scale(1.28);
+      background: #ef7f72;
+    }
+
+    .target:hover .target-label,
+    .target:focus-visible .target-label {
+      color: #f0f6db;
+    }
+
+    .target:focus-visible {
+      outline: 3px solid #b5c792;
+      outline-offset: 6px;
+    }
+
+    .target.locked .target-dot {
+      background: #ff8f85;
+      animation: targetLock 0.16s steps(1) infinite;
+    }
+
+    @keyframes targetLock {
+      0%, 49% {
+        opacity: 1;
+      }
+      50%, 100% {
+        opacity: 0.35;
+      }
+    }
+
+    .target.projects {
+      left: 64%;
+      top: 23%;
+    }
+
+    .target.experience {
+      left: 37%;
+      top: 40%;
+    }
+
+    .target.skills {
+      left: 73%;
+      top: 49%;
+    }
+
+    .target.about {
+      left: 41%;
+      top: 73%;
+    }
+
+    .target.contact {
+      left: 68%;
+      top: 76%;
     }
 
     /* =====================================================
-       LOWER INFO PANELS
+       BOTTOM PANELS
     ====================================================== */
 
     .bottom-panel {
       position: absolute;
-
-      left: 20px;
-      right: 20px;
-      bottom: 16px;
-
-      z-index: 50;
+      left: 40px;
+      right: 40px;
+      bottom: 34px;
+      z-index: 40;
 
       display: grid;
-
-      grid-template-columns:
-        1.15fr 0.85fr;
-
-      gap: 18px;
+      grid-template-columns: 1.25fr 0.9fr;
+      gap: 24px;
     }
 
     .readout,
     .help-panel {
-      min-height: 78px;
-
-      padding: 13px;
-
-      background: #10180e;
-
-      border: 3px solid #35452d;
-
-      box-shadow:
-        4px 4px 0 #020402;
+      min-height: 104px;
+      padding: 16px 20px;
+      background: rgba(8, 14, 8, 0.9);
+      border: 3px solid #536448;
+      box-shadow: 4px 4px 0 #020402;
     }
 
     .panel-label {
-      margin-bottom: 8px;
-
+      margin-bottom: 12px;
       font-family: 'Press Start 2P', cursive;
-      font-size: 6px;
-      color: #5f7350;
+      font-size: 7px;
+      color: #778966;
     }
 
     #readoutText {
       font-family: 'Press Start 2P', cursive;
-
       font-size: 7px;
-
-      line-height: 1.7;
-
-      color: #9daf7c;
+      line-height: 1.8;
+      color: #c4d79b;
     }
 
     .cursor-block {
       display: inline-block;
-
-      width: 7px;
-      height: 9px;
-
-      margin-left: 4px;
-
-      background: #9aac77;
-
-      animation:
-        cursorBlink 0.7s steps(1) infinite;
+      width: 8px;
+      height: 10px;
+      margin-left: 5px;
+      background: #b5c88a;
+      animation: cursorBlink 0.8s steps(1) infinite;
     }
 
     @keyframes cursorBlink {
-      0%,
-      49% {
+      0%, 49% {
         opacity: 1;
       }
-
-      50%,
-      100% {
+      50%, 100% {
         opacity: 0;
       }
     }
 
     .help-panel {
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
+      gap: 14px;
+    }
 
-      gap: 10px;
+    .help-text,
+    .targets-count {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 7px;
+      line-height: 1.8;
     }
 
     .help-text {
-      font-family: 'Press Start 2P', cursive;
-
-      font-size: 6px;
-
-      line-height: 1.8;
-
-      color: #71835d;
+      color: #96a97a;
     }
 
     .targets-count {
       text-align: right;
-
-      font-family: 'Press Start 2P', cursive;
-
-      font-size: 6px;
-
-      line-height: 1.8;
-
-      color: #a4b782;
+      color: #cedea9;
     }
 
     /* =====================================================
@@ -777,86 +600,62 @@
 
     #loading {
       z-index: 100;
-
       display: grid;
       place-items: center;
-
       background:
         repeating-linear-gradient(
           0deg,
-          #080d08 0px,
-          #080d08 3px,
-          #0b120a 3px,
-          #0b120a 6px
+          #070b07 0px,
+          #070b07 3px,
+          #0a1009 3px,
+          #0a1009 6px
         );
-
-      color: #c1cd91;
     }
 
     .loading-box {
-      width: min(560px, 88vw);
+      width: min(580px, 88vw);
       text-align: center;
     }
 
     .loading-terminal {
       padding: 30px;
-
-      border: 5px solid #687452;
-
-      background: #11150f;
-
-      box-shadow:
-        8px 8px 0 #030403;
+      background: #0e140d;
+      border: 5px solid #697857;
+      box-shadow: 8px 8px 0 #020402;
     }
 
     #loadingText {
-      margin-bottom: 20px;
-
+      margin-bottom: 18px;
       font-family: 'Press Start 2P', cursive;
-
-      font-size:
-        clamp(
-          17px,
-          3vw,
-          30px
-        );
-
-      color: #c7d493;
+      font-size: clamp(17px, 3vw, 30px);
+      color: #c6d79d;
     }
 
     #loadingDestination {
-      margin-bottom: 22px;
-
+      margin-bottom: 20px;
       font-family: 'Press Start 2P', cursive;
-
       font-size: 8px;
-
-      line-height: 1.8;
-
-      color: #859463;
+      line-height: 1.7;
+      color: #839264;
     }
 
     .progress-shell {
       height: 30px;
-
       padding: 4px;
-
-      border: 4px solid #7d895f;
-
-      background: #0a0c09;
+      border: 4px solid #76825c;
+      background: #0a0d08;
     }
 
     #progressBar {
       width: 0%;
       height: 100%;
-
       background:
         repeating-linear-gradient(
           90deg,
-          #aebf7d 0px,
-          #aebf7d 13px,
-          transparent 13px,
-          transparent 17px
+          #b0c27e 0px,
+          #b0c27e 14px,
+          transparent 14px,
+          transparent 18px
         );
     }
 
@@ -873,135 +672,85 @@
           #14141a 3px,
           #14141a 6px
         );
-
       color: #d9d7ce;
     }
 
     .page-wrap {
       width: min(1180px, 94vw);
       height: 100%;
-
       margin: 0 auto;
-
       padding: 28px 0;
-
       display: flex;
       flex-direction: column;
     }
 
     .page-title {
       height: 60px;
-
       flex: 0 0 60px;
-
       display: grid;
       place-items: center;
-
       font-family: 'Press Start 2P', cursive;
-
-      font-size:
-        clamp(
-          14px,
-          2vw,
-          21px
-        );
-
+      font-size: clamp(14px, 2vw, 21px);
       color: #9dad79;
     }
 
     .page-card {
       flex: 1;
-
       min-height: 0;
-
       padding: 38px;
-
       display: flex;
-
       flex-direction: column;
-
       justify-content: center;
-
       background: #17191a;
-
       border: 5px solid #384032;
-
-      box-shadow:
-        8px 8px 0 #050507;
+      box-shadow: 8px 8px 0 #050507;
     }
 
     .page-code {
       margin-bottom: 15px;
-
       color: #657159;
-
       font-family: 'Press Start 2P', cursive;
-
       font-size: 7px;
     }
 
     .page-card h2 {
       margin-bottom: 23px;
-
       font-family: 'Press Start 2P', cursive;
-
-      font-size:
-        clamp(
-          20px,
-          3vw,
-          37px
-        );
-
+      font-size: clamp(20px, 3vw, 37px);
       line-height: 1.5;
-
       color: #d5dfad;
     }
 
     .page-card p {
       max-width: 800px;
-
       margin-bottom: 28px;
-
       color: #aab399;
-
       font-size: 25px;
-
       line-height: 1.35;
     }
 
     .back-button {
       align-self: flex-start;
-
       padding: 12px 14px;
-
       background: #829560;
-
       border: 4px solid #10140e;
-
-      box-shadow:
-        5px 5px 0 #050705;
-
+      box-shadow: 5px 5px 0 #050705;
       color: #10140e;
-
       font-family: 'Press Start 2P', cursive;
-
       font-size: 7px;
-
       cursor: pointer;
     }
 
     .back-button:hover {
       transform: translate(-2px, -2px);
-
-      box-shadow:
-        7px 7px 0 #050705;
+      box-shadow: 7px 7px 0 #050705;
     }
 
     /* =====================================================
        MOBILE
     ====================================================== */
 
-    @media (max-width: 800px) {
+    @media (max-width: 980px) {
 
       html,
       body {
@@ -1009,16 +758,19 @@
       }
 
       #radarScreen {
-        min-height: 100vh;
         overflow-y: auto;
+        min-height: 100vh;
       }
 
       .radar-shell {
-        width: 94vw;
-        height: 880px;
+        width: 96vw;
+        height: 980px;
       }
 
       .top-panel {
+        left: 24px;
+        right: 24px;
+        top: 24px;
         flex-direction: column;
       }
 
@@ -1026,17 +778,26 @@
         text-align: left;
       }
 
-      .radar-area {
-        width: min(88vw, 540px);
-        top: 50%;
+      .radar-field {
+        left: 24px;
+        right: 24px;
+        top: 170px;
+        bottom: 180px;
       }
 
       .bottom-panel {
+        left: 24px;
+        right: 24px;
+        bottom: 24px;
         grid-template-columns: 1fr;
       }
 
       .target {
-        min-width: 100px;
+        gap: 10px;
+      }
+
+      .target-label {
+        font-size: 9px;
       }
 
       .page-card {
@@ -1049,20 +810,16 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-
-      .radar-sweep,
-      .radar-line,
-      .target-pulse,
-      .blip,
+      .blink-dot,
       .cursor-block,
-      .blink-dot {
+      .target-pulse,
+      .bg-blip,
+      .sweep-wrap {
         animation: none !important;
       }
-
     }
   </style>
 </head>
-
 <body>
 
   <!-- =====================================================
@@ -1073,13 +830,10 @@
     id="radarScreen"
     class="screen active"
   >
-
     <div class="radar-shell">
 
       <div class="top-panel">
-
         <div class="title-block">
-
           <div class="system-code">
             TY-01 // RADAR NAVIGATION SYSTEM
           </div>
@@ -1088,244 +842,149 @@
             TONGYANG'S<br>
             ENGINEERING DATABASE
           </div>
-
         </div>
 
         <div class="status-block">
-
           <div>
             <span class="blink-dot"></span>
-            <span class="status-live">
-              RADAR ONLINE
-            </span>
+            <span class="status-live">RADAR ONLINE</span>
           </div>
-
-          <div>
-            RANGE // PORTFOLIO
-          </div>
-
-          <div>
-            TARGETS // 005
-          </div>
-
+          <div>RANGE // PORTFOLIO</div>
+          <div>TARGETS // 005</div>
         </div>
-
       </div>
 
+      <div class="radar-field">
 
-      <div class="radar-area">
+        <div class="cross-x"></div>
+        <div class="cross-y"></div>
 
-        <div class="ring r1"></div>
-        <div class="ring r2"></div>
-        <div class="ring r3"></div>
-
-        <div class="crosshair-h"></div>
-        <div class="crosshair-v"></div>
-
-        <div class="radar-sweep"></div>
-        <div class="radar-line"></div>
-
-
-        <div class="core">
-
-          <div class="core-dot"></div>
-
+        <div class="sweep-wrap">
+          <div class="sweep-beam"></div>
+          <div class="sweep-line"></div>
         </div>
 
-        <div class="core-label">
-          TY // ENGINEER
-        </div>
+        <div class="core-box"></div>
+        <div class="core-label">TY // ENGINEER</div>
 
-
-        <!-- Fake background blips -->
-
-        <div class="blip b1"></div>
-        <div class="blip b2"></div>
-        <div class="blip b3"></div>
-        <div class="blip b4"></div>
-        <div class="blip b5"></div>
-
-
-        <!-- PROJECTS -->
+        <div class="bg-blip b1"></div>
+        <div class="bg-blip b2"></div>
+        <div class="bg-blip b3"></div>
+        <div class="bg-blip b4"></div>
+        <div class="bg-blip b5"></div>
+        <div class="bg-blip b6"></div>
 
         <button
           class="target projects"
           data-index="0"
           type="button"
         >
-
           <div class="target-dot-wrap">
-
             <div class="target-pulse"></div>
-
             <div class="target-dot"></div>
-
           </div>
 
-          <div class="target-label">
-            PROJECTS
+          <div class="target-text">
+            <div class="target-label">PROJECTS</div>
+            <div class="target-number">TARGET 001</div>
           </div>
-
-          <div class="target-number">
-            TARGET 001
-          </div>
-
         </button>
-
-
-        <!-- EXPERIENCE -->
 
         <button
           class="target experience"
           data-index="1"
           type="button"
         >
-
           <div class="target-dot-wrap">
-
             <div class="target-pulse"></div>
-
             <div class="target-dot"></div>
-
           </div>
 
-          <div class="target-label">
-            EXPERIENCE
+          <div class="target-text">
+            <div class="target-label">EXPERIENCE</div>
+            <div class="target-number">TARGET 002</div>
           </div>
-
-          <div class="target-number">
-            TARGET 002
-          </div>
-
         </button>
-
-
-        <!-- SKILLS -->
 
         <button
           class="target skills"
           data-index="2"
           type="button"
         >
-
           <div class="target-dot-wrap">
-
             <div class="target-pulse"></div>
-
             <div class="target-dot"></div>
-
           </div>
 
-          <div class="target-label">
-            SKILLS
+          <div class="target-text">
+            <div class="target-label">SKILLS</div>
+            <div class="target-number">TARGET 003</div>
           </div>
-
-          <div class="target-number">
-            TARGET 003
-          </div>
-
         </button>
-
-
-        <!-- ABOUT -->
 
         <button
           class="target about"
           data-index="3"
           type="button"
         >
-
           <div class="target-dot-wrap">
-
             <div class="target-pulse"></div>
-
             <div class="target-dot"></div>
-
           </div>
 
-          <div class="target-label">
-            ABOUT
+          <div class="target-text">
+            <div class="target-label">ABOUT</div>
+            <div class="target-number">TARGET 004</div>
           </div>
-
-          <div class="target-number">
-            TARGET 004
-          </div>
-
         </button>
-
-
-        <!-- CONTACT -->
 
         <button
           class="target contact"
           data-index="4"
           type="button"
         >
-
           <div class="target-dot-wrap">
-
             <div class="target-pulse"></div>
-
             <div class="target-dot"></div>
-
           </div>
 
-          <div class="target-label">
-            CONTACT
+          <div class="target-text">
+            <div class="target-label">CONTACT</div>
+            <div class="target-number">TARGET 005</div>
           </div>
-
-          <div class="target-number">
-            TARGET 005
-          </div>
-
         </button>
 
       </div>
 
-
       <div class="bottom-panel">
 
         <div class="readout">
-
           <div class="panel-label">
             TARGET READOUT
           </div>
 
           <div id="readoutText">
-
             SCANNING FOR DATABASE TARGETS...
-
             <span class="cursor-block"></span>
-
           </div>
-
         </div>
 
-
         <div class="help-panel">
-
           <div class="help-text">
-
             SELECT TARGET<br>
             CLICK TO ACCESS
-
           </div>
 
           <div class="targets-count">
-
             005 SIGNALS<br>
             DETECTED
-
           </div>
-
         </div>
 
       </div>
 
     </div>
-
   </section>
-
 
   <!-- =====================================================
        LOADING
@@ -1335,56 +994,31 @@
     id="loading"
     class="screen"
   >
-
     <div class="loading-box">
-
       <div class="loading-terminal">
-
-        <div id="loadingText">
-          LOCKING TARGET.
-        </div>
-
-        <div id="loadingDestination">
-          OPENING DATABASE
-        </div>
+        <div id="loadingText">LOCKING TARGET.</div>
+        <div id="loadingDestination">OPENING DATABASE</div>
 
         <div class="progress-shell">
-
           <div id="progressBar"></div>
-
         </div>
-
       </div>
-
     </div>
-
   </section>
 
-
-  <!-- =====================================================
-       PROJECTS
-  ====================================================== -->
+  <!-- PROJECTS -->
 
   <section
     id="projectsPage"
     class="screen content-screen"
   >
-
     <div class="page-wrap">
-
-      <div class="page-title">
-        PROJECTS
-      </div>
+      <div class="page-title">PROJECTS</div>
 
       <div class="page-card">
+        <div class="page-code">TARGET // PRJ-001</div>
 
-        <div class="page-code">
-          TARGET // PRJ-001
-        </div>
-
-        <h2>
-          PROJECT DATABASE
-        </h2>
+        <h2>PROJECT DATABASE</h2>
 
         <p>
           Your engineering projects will go here later.
@@ -1399,38 +1033,23 @@
         >
           ◀ RETURN TO RADAR
         </button>
-
       </div>
-
     </div>
-
   </section>
 
-
-  <!-- =====================================================
-       EXPERIENCE
-  ====================================================== -->
+  <!-- EXPERIENCE -->
 
   <section
     id="experiencePage"
     class="screen content-screen"
   >
-
     <div class="page-wrap">
-
-      <div class="page-title">
-        EXPERIENCE
-      </div>
+      <div class="page-title">EXPERIENCE</div>
 
       <div class="page-card">
+        <div class="page-code">TARGET // EXP-002</div>
 
-        <div class="page-code">
-          TARGET // EXP-002
-        </div>
-
-        <h2>
-          EXPERIENCE LOG
-        </h2>
+        <h2>EXPERIENCE LOG</h2>
 
         <p>
           Your internships, engineering employment,
@@ -1444,38 +1063,23 @@
         >
           ◀ RETURN TO RADAR
         </button>
-
       </div>
-
     </div>
-
   </section>
 
-
-  <!-- =====================================================
-       SKILLS
-  ====================================================== -->
+  <!-- SKILLS -->
 
   <section
     id="skillsPage"
     class="screen content-screen"
   >
-
     <div class="page-wrap">
-
-      <div class="page-title">
-        SKILLS
-      </div>
+      <div class="page-title">SKILLS</div>
 
       <div class="page-card">
+        <div class="page-code">TARGET // SKL-003</div>
 
-        <div class="page-code">
-          TARGET // SKL-003
-        </div>
-
-        <h2>
-          SKILL DATABASE
-        </h2>
+        <h2>SKILL DATABASE</h2>
 
         <p>
           Your engineering skills will go here:
@@ -1490,38 +1094,23 @@
         >
           ◀ RETURN TO RADAR
         </button>
-
       </div>
-
     </div>
-
   </section>
 
-
-  <!-- =====================================================
-       ABOUT
-  ====================================================== -->
+  <!-- ABOUT -->
 
   <section
     id="aboutPage"
     class="screen content-screen"
   >
-
     <div class="page-wrap">
-
-      <div class="page-title">
-        ABOUT
-      </div>
+      <div class="page-title">ABOUT</div>
 
       <div class="page-card">
+        <div class="page-code">TARGET // USR-004</div>
 
-        <div class="page-code">
-          TARGET // USR-004
-        </div>
-
-        <h2>
-          ENGINEER PROFILE
-        </h2>
+        <h2>ENGINEER PROFILE</h2>
 
         <p>
           Your introduction, degree,
@@ -1535,38 +1124,23 @@
         >
           ◀ RETURN TO RADAR
         </button>
-
       </div>
-
     </div>
-
   </section>
 
-
-  <!-- =====================================================
-       CONTACT
-  ====================================================== -->
+  <!-- CONTACT -->
 
   <section
     id="contactPage"
     class="screen content-screen"
   >
-
     <div class="page-wrap">
-
-      <div class="page-title">
-        CONTACT
-      </div>
+      <div class="page-title">CONTACT</div>
 
       <div class="page-card">
+        <div class="page-code">TARGET // COM-005</div>
 
-        <div class="page-code">
-          TARGET // COM-005
-        </div>
-
-        <h2>
-          COMMUNICATION SYSTEM
-        </h2>
+        <h2>COMMUNICATION SYSTEM</h2>
 
         <p>
           Your email, LinkedIn,
@@ -1580,450 +1154,162 @@
         >
           ◀ RETURN TO RADAR
         </button>
-
       </div>
-
     </div>
-
   </section>
 
-
   <script>
-
     const screens = {
-
-      radar:
-        document.getElementById(
-          'radarScreen'
-        ),
-
-      loading:
-        document.getElementById(
-          'loading'
-        ),
-
-      projects:
-        document.getElementById(
-          'projectsPage'
-        ),
-
-      experience:
-        document.getElementById(
-          'experiencePage'
-        ),
-
-      skills:
-        document.getElementById(
-          'skillsPage'
-        ),
-
-      about:
-        document.getElementById(
-          'aboutPage'
-        ),
-
-      contact:
-        document.getElementById(
-          'contactPage'
-        )
-
+      radar: document.getElementById('radarScreen'),
+      loading: document.getElementById('loading'),
+      projects: document.getElementById('projectsPage'),
+      experience: document.getElementById('experiencePage'),
+      skills: document.getElementById('skillsPage'),
+      about: document.getElementById('aboutPage'),
+      contact: document.getElementById('contactPage')
     };
 
-
     function showScreen(name) {
+      Object.values(screens).forEach(screen => {
+        screen.classList.remove('active');
+      });
 
-      Object
-        .values(screens)
-        .forEach(screen => {
-
-          screen
-            .classList
-            .remove('active');
-
-        });
-
-
-      screens[name]
-        .classList
-        .add('active');
-
+      screens[name].classList.add('active');
     }
-
 
     const entries = [
-
       {
         page: 'projects',
-        title: 'PROJECT DATABASE',
         code: 'TARGET 001',
-        description:
-          'Engineering builds, CAD work, prototypes and technical projects.',
-        loading:
-          'ACCESSING PROJECT DATABASE'
+        title: 'PROJECT DATABASE',
+        description: 'Engineering builds, CAD work, prototypes and technical projects.',
+        loading: 'ACCESSING PROJECT DATABASE'
       },
-
       {
         page: 'experience',
-        title: 'EXPERIENCE LOG',
         code: 'TARGET 002',
-        description:
-          'Internships, industry work and professional engineering experience.',
-        loading:
-          'ACCESSING EXPERIENCE LOG'
+        title: 'EXPERIENCE LOG',
+        description: 'Internships, industry work and professional engineering experience.',
+        loading: 'ACCESSING EXPERIENCE LOG'
       },
-
       {
         page: 'skills',
-        title: 'SKILL DATABASE',
         code: 'TARGET 003',
-        description:
-          'CAD, programming, electronics, robotics, controls and simulation.',
-        loading:
-          'ACCESSING SKILL DATABASE'
+        title: 'SKILL DATABASE',
+        description: 'CAD, programming, electronics, robotics, controls and simulation.',
+        loading: 'ACCESSING SKILL DATABASE'
       },
-
       {
         page: 'about',
-        title: 'ENGINEER PROFILE',
         code: 'TARGET 004',
-        description:
-          'Education, engineering interests, profile and career direction.',
-        loading:
-          'ACCESSING ENGINEER PROFILE'
+        title: 'ENGINEER PROFILE',
+        description: 'Education, engineering interests, profile and career direction.',
+        loading: 'ACCESSING ENGINEER PROFILE'
       },
-
       {
         page: 'contact',
-        title: 'COMMUNICATION SYSTEM',
         code: 'TARGET 005',
-        description:
-          'Email, LinkedIn, GitHub, CV and communication channels.',
-        loading:
-          'OPENING COMMUNICATION LINK'
+        title: 'COMMUNICATION SYSTEM',
+        description: 'Email, LinkedIn, GitHub, CV and communication channels.',
+        loading: 'OPENING COMMUNICATION LINK'
       }
-
     ];
 
+    const targets = [...document.querySelectorAll('.target')];
+    const readoutText = document.getElementById('readoutText');
+    const loadingText = document.getElementById('loadingText');
+    const loadingDestination = document.getElementById('loadingDestination');
+    const progressBar = document.getElementById('progressBar');
 
-    const targets = [
-      ...document.querySelectorAll(
-        '.target'
-      )
-    ];
-
-
-    const readoutText =
-      document.getElementById(
-        'readoutText'
-      );
-
-
-    const loadingText =
-      document.getElementById(
-        'loadingText'
-      );
-
-
-    const loadingDestination =
-      document.getElementById(
-        'loadingDestination'
-      );
-
-
-    const progressBar =
-      document.getElementById(
-        'progressBar'
-      );
-
-
-    let transitionLocked =
-      false;
-
+    let transitionLocked = false;
 
     function updateReadout(index) {
-
-      const entry =
-        entries[index];
-
+      const entry = entries[index];
 
       readoutText.innerHTML =
-
-        entry.code +
-
-        ' // ' +
-
-        entry.title +
-
-        '<br>' +
-
+        entry.code + ' // ' + entry.title + '<br>' +
         entry.description +
-
         '<span class="cursor-block"></span>';
-
     }
 
+    function loadingSequence(entry) {
+      return new Promise(resolve => {
+        showScreen('loading');
 
-    targets.forEach(
-      (
-        target,
-        index
-      ) => {
+        loadingText.textContent = 'LOCKING TARGET.';
+        loadingDestination.textContent = entry.loading;
+        progressBar.style.width = '0%';
 
-        target.addEventListener(
-          'mouseenter',
-          () => {
+        let dots = 1;
+        let progress = 0;
 
-            updateReadout(
-              index
-            );
+        const dotTimer = setInterval(() => {
+          dots++;
+          if (dots > 3) dots = 1;
 
+          loadingText.textContent = 'LOCKING TARGET' + '.'.repeat(dots);
+        }, 300);
+
+        const progressTimer = setInterval(() => {
+          progress += Math.random() * 8 + 4;
+
+          if (progress > 96) {
+            progress = 96;
           }
-        );
 
+          progressBar.style.width = progress + '%';
+        }, 100);
 
-        target.addEventListener(
-          'focus',
-          () => {
+        setTimeout(() => {
+          clearInterval(dotTimer);
+          clearInterval(progressTimer);
 
-            updateReadout(
-              index
-            );
+          progressBar.style.width = '100%';
+          loadingText.textContent = 'TARGET LOCKED';
 
-          }
-        );
-
-
-        target.addEventListener(
-          'click',
-          async () => {
-
-            if (
-              transitionLocked
-            ) {
-              return;
-            }
-
-
-            transitionLocked =
-              true;
-
-
-            targets.forEach(
-              item => {
-
-                item.classList.remove(
-                  'locked'
-                );
-
-              }
-            );
-
-
-            target.classList.add(
-              'locked'
-            );
-
-
-            updateReadout(
-              index
-            );
-
-
-            await new Promise(
-              resolve =>
-                setTimeout(
-                  resolve,
-                  280
-                )
-            );
-
-
-            await loadingSequence(
-              entries[index]
-            );
-
-
-            target.classList.remove(
-              'locked'
-            );
-
-
-            showScreen(
-              entries[index].page
-            );
-
-
-            transitionLocked =
-              false;
-
-          }
-        );
-
-      }
-    );
-
-
-    function loadingSequence(
-      entry
-    ) {
-
-      return new Promise(
-        resolve => {
-
-          showScreen(
-            'loading'
-          );
-
-
-          loadingText
-            .textContent =
-            'LOCKING TARGET.';
-
-
-          loadingDestination
-            .textContent =
-            entry.loading;
-
-
-          progressBar
-            .style
-            .width =
-            '0%';
-
-
-          let dots = 1;
-          let progress = 0;
-
-
-          const dotTimer =
-            setInterval(
-              () => {
-
-                dots++;
-
-                if (
-                  dots > 3
-                ) {
-                  dots = 1;
-                }
-
-
-                loadingText
-                  .textContent =
-
-                  'LOCKING TARGET' +
-
-                  '.'.repeat(
-                    dots
-                  );
-
-              },
-
-              300
-            );
-
-
-          const progressTimer =
-            setInterval(
-              () => {
-
-                progress +=
-                  Math.random() *
-                  8 +
-                  3;
-
-
-                if (
-                  progress > 96
-                ) {
-
-                  progress = 96;
-
-                }
-
-
-                progressBar
-                  .style
-                  .width =
-
-                  progress +
-                  '%';
-
-              },
-
-              100
-            );
-
-
-          setTimeout(
-            () => {
-
-              clearInterval(
-                dotTimer
-              );
-
-
-              clearInterval(
-                progressTimer
-              );
-
-
-              progressBar
-                .style
-                .width =
-                '100%';
-
-
-              loadingText
-                .textContent =
-                'TARGET LOCKED';
-
-
-              setTimeout(
-                resolve,
-                180
-              );
-
-            },
-
-            2600
-          );
-
-        }
-      );
-
+          setTimeout(resolve, 180);
+        }, 2600);
+      });
     }
 
+    targets.forEach((target, index) => {
+      target.addEventListener('mouseenter', () => {
+        updateReadout(index);
+      });
 
-    document
-      .querySelectorAll(
-        '.back-button'
-      )
-      .forEach(
-        button => {
+      target.addEventListener('focus', () => {
+        updateReadout(index);
+      });
 
-          button.addEventListener(
-            'click',
-            () => {
+      target.addEventListener('click', async () => {
+        if (transitionLocked) return;
 
-              showScreen(
-                'radar'
-              );
+        transitionLocked = true;
 
+        targets.forEach(item => item.classList.remove('locked'));
+        target.classList.add('locked');
 
-              readoutText.innerHTML =
+        updateReadout(index);
 
-                'SCANNING FOR DATABASE TARGETS...' +
+        await new Promise(resolve => setTimeout(resolve, 250));
+        await loadingSequence(entries[index]);
 
-                '<span class="cursor-block"></span>';
+        target.classList.remove('locked');
+        showScreen(entries[index].page);
 
-            }
-          );
+        transitionLocked = false;
+      });
+    });
 
-        }
-      );
+    document.querySelectorAll('.back-button').forEach(button => {
+      button.addEventListener('click', () => {
+        showScreen('radar');
 
+        readoutText.innerHTML =
+          'SCANNING FOR DATABASE TARGETS...' +
+          '<span class="cursor-block"></span>';
+      });
+    });
   </script>
-
 </body>
 </html>
