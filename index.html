@@ -2,16 +2,25 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
-  />
+  >
 
-  <title>Engineering Portfolio Lab</title>
+  <title>Engineering Portfolio</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
 
   <link
     href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
@@ -19,6 +28,11 @@
   >
 
   <style>
+
+    /* ======================================================
+       RESET
+    ====================================================== */
+
     * {
       margin: 0;
       padding: 0;
@@ -31,25 +45,73 @@
       height: 100%;
       overflow: hidden;
 
-      background: #17161b;
-      color: #171717;
+      background: #0d0d12;
 
-      font-family: 'VT323', monospace;
+      font-family:
+        'VT323',
+        monospace;
+
+      color: #f4eedc;
     }
 
     button {
       font: inherit;
-      color: inherit;
     }
+
+    :root {
+
+      --shell:
+        #842b31;
+
+      --shell-light:
+        #a83e43;
+
+      --shell-dark:
+        #4d171d;
+
+      --shell-black:
+        #171419;
+
+      --lcd:
+        #b7c88b;
+
+      --lcd-light:
+        #cfdb9f;
+
+      --lcd-dark:
+        #4d5e3d;
+
+      --lcd-black:
+        #283126;
+
+      --cream:
+        #eee7cd;
+
+      --yellow:
+        #d8b54c;
+
+      --dark-yellow:
+        #876d2e;
+
+      --pixel-shadow:
+        6px 6px 0 #08070a;
+
+    }
+
+    /* ======================================================
+       SCREEN SYSTEM
+    ====================================================== */
 
     .screen {
       position: absolute;
       inset: 0;
 
       opacity: 0;
+
       pointer-events: none;
 
-      transition: opacity 0.3s ease;
+      transition:
+        opacity 0.22s steps(4, end);
     }
 
     .screen.active {
@@ -57,387 +119,2185 @@
       pointer-events: auto;
     }
 
-    /* =====================================================
-       LAB SCREEN
+    /* ======================================================
+       BACKGROUND
     ====================================================== */
 
-    #labScreen {
+    #deviceScreen {
+
       display: grid;
+
       place-items: center;
 
-      background: #18171d;
+      padding: 24px;
 
-      padding: 16px;
+      background:
+
+        repeating-linear-gradient(
+          0deg,
+          #111016 0px,
+          #111016 3px,
+          #0c0b10 3px,
+          #0c0b10 6px
+        );
+
     }
 
-    .lab-shell {
+    /* ======================================================
+       DEVICE BODY
+    ====================================================== */
+
+    .device {
+
       position: relative;
 
-      width: min(1450px, 96vw);
-      aspect-ratio: 16 / 9;
+      width:
+        min(1240px, 95vw);
 
-      max-height: 94vh;
+      height:
+        min(720px, 91vh);
 
-      overflow: hidden;
+      display: grid;
 
-      border: 6px solid #171717;
-      border-radius: 14px;
+      grid-template-columns:
+        0.94fr 1.06fr;
+
+      gap: 24px;
+
+      padding:
+        22px;
+
+      background:
+        var(--shell);
+
+      border:
+        8px solid #151217;
+
+      border-radius:
+        10px;
 
       box-shadow:
-        0 0 0 5px #8e6947,
-        0 0 0 10px #171717;
 
-      background: #d7ccb3;
+        0 0 0 6px
+        var(--shell-dark),
+
+        0 0 0 10px
+        #151217,
+
+        16px 16px 0
+        #050507;
+
     }
 
-    .lab-shell::after {
+    /*
+      Chunkier upper shell
+    */
+
+    .device::after {
+
       content: "";
 
       position: absolute;
-      inset: 0;
 
-      z-index: 80;
+      left: 8px;
+      right: 8px;
+
+      top: 8px;
+
+      height: 11px;
+
+      background:
+        var(--shell-light);
+
+      pointer-events: none;
+
+    }
+
+    /*
+      Central hinge
+    */
+
+    .hinge {
+
+      position: absolute;
+
+      top: 0;
+      bottom: 0;
+
+      left: 49.2%;
+
+      width: 24px;
+
+      background:
+        #41151a;
+
+      border-left:
+        6px solid #151217;
+
+      border-right:
+        6px solid #151217;
+
+      z-index: 4;
+
+    }
+
+    .hinge::before,
+    .hinge::after {
+
+      content: "";
+
+      position: absolute;
+
+      left: -6px;
+
+      width: 24px;
+
+      height: 54px;
+
+      background:
+        #642127;
+
+      border:
+        6px solid #151217;
+
+    }
+
+    .hinge::before {
+      top: 90px;
+    }
+
+    .hinge::after {
+      bottom: 90px;
+    }
+
+    /* ======================================================
+       LEFT SIDE
+    ====================================================== */
+
+    .device-left {
+
+      position: relative;
+
+      z-index: 5;
+
+      min-width: 0;
+
+      display: flex;
+
+      flex-direction: column;
+
+      padding-right: 6px;
+
+    }
+
+    /* ======================================================
+       LIGHTS
+    ====================================================== */
+
+    .top-lights {
+
+      height: 70px;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+
+      flex-shrink: 0;
+
+      padding:
+        4px 6px 12px;
+
+    }
+
+    .big-light {
+
+      position: relative;
+
+      width: 54px;
+      height: 54px;
+
+      background:
+        #62b7c9;
+
+      border:
+        6px solid #19161a;
+
+      outline:
+        5px solid #eee8d3;
+
+      box-shadow:
+        5px 5px 0 #09080a;
+
+      /*
+        deliberately pixel-ish instead of circular
+      */
+
+      clip-path:
+        polygon(
+          25% 0,
+          75% 0,
+          100% 25%,
+          100% 75%,
+          75% 100%,
+          25% 100%,
+          0 75%,
+          0 25%
+        );
+
+    }
+
+    .big-light::before {
+
+      content: "";
+
+      position: absolute;
+
+      left: 10px;
+      top: 9px;
+
+      width: 14px;
+      height: 9px;
+
+      background:
+        #d9fbff;
+
+    }
+
+    .big-light::after {
+
+      content: "";
+
+      position: absolute;
+
+      right: 7px;
+      bottom: 7px;
+
+      width: 13px;
+      height: 13px;
+
+      background:
+        #3b8798;
+
+    }
+
+    .small-light {
+
+      width: 16px;
+      height: 16px;
+
+      border:
+        4px solid #171419;
+
+      box-shadow:
+        2px 2px 0 #080709;
+
+    }
+
+    .small-light.red {
+      background: #c85856;
+    }
+
+    .small-light.yellow {
+      background: #d8b84d;
+    }
+
+    .small-light.green {
+      background: #6a9c56;
+    }
+
+    /* ======================================================
+       LEFT LCD / MENU
+    ====================================================== */
+
+    .database-shell {
+
+      flex: 1;
+
+      min-height: 0;
+
+      padding: 10px;
+
+      background:
+        #38373a;
+
+      border:
+        6px solid #151217;
+
+      box-shadow:
+        6px 6px 0 #080709;
+
+    }
+
+    .database-screen {
+
+      position: relative;
+
+      width: 100%;
+      height: 100%;
+
+      overflow: hidden;
+
+      padding:
+        24px;
+
+      background:
+        #17181b;
+
+      border:
+        4px solid #09090b;
+
+    }
+
+    /*
+      Dark CRT scanlines
+    */
+
+    .database-screen::after {
+
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
 
       pointer-events: none;
 
       background:
         repeating-linear-gradient(
           0deg,
-          rgba(0,0,0,0.025) 0px,
-          rgba(0,0,0,0.025) 2px,
-          transparent 2px,
-          transparent 4px
+          transparent 0px,
+          transparent 3px,
+          rgba(255,255,255,0.025) 3px,
+          rgba(255,255,255,0.025) 4px
         );
+
     }
 
-    #labCanvas {
+    .database-label {
+
+      position: relative;
+
+      z-index: 2;
+
+      margin-bottom: 16px;
+
+      color:
+        #83927c;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        7px;
+
+      line-height: 1.6;
+
+    }
+
+    .database-title {
+
+      position: relative;
+
+      z-index: 2;
+
+      margin-bottom:
+        25px;
+
+      color:
+        #eee9d9;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        clamp(
+          18px,
+          2vw,
+          27px
+        );
+
+      line-height:
+        1.55;
+
+      text-shadow:
+        4px 4px 0 #080709;
+
+    }
+
+    /* ======================================================
+       MENU
+    ====================================================== */
+
+    .menu-list {
+
+      position: relative;
+
+      z-index: 2;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 8px;
+
+    }
+
+    .menu-item {
+
+      position: relative;
+
       width: 100%;
-      height: 100%;
 
-      display: block;
+      min-height: 50px;
 
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      padding:
+        10px 12px;
+
+      border:
+        4px solid transparent;
+
+      background:
+        transparent;
+
+      color:
+        #c8c7bf;
+
+      cursor: pointer;
+
+      text-align: left;
+
+    }
+
+    .menu-item:hover {
+
+      color:
+        #f3eedc;
+
+    }
+
+    .menu-item.selected {
+
+      background:
+        #d3b84f;
+
+      color:
+        #181615;
+
+      border-color:
+        #161317;
+
+      box-shadow:
+        5px 5px 0 #050507;
+
+    }
+
+    /*
+      little pixel corners
+    */
+
+    .menu-item.selected::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 6px;
+      height: 6px;
+
+      background:
+        #f3d964;
+
+      top: 3px;
+      left: 3px;
+
+    }
+
+    .selector {
+
+      width: 16px;
+
+      flex:
+        0 0 16px;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        9px;
+
+      animation:
+        selectorBlink 0.7s steps(1) infinite;
+
+    }
+
+    @keyframes selectorBlink {
+
+      0%,
+      55% {
+        opacity: 1;
+      }
+
+      56%,
+      100% {
+        opacity: 0.35;
+      }
+
+    }
+
+    .menu-name {
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        clamp(
+          9px,
+          1vw,
+          12px
+        );
+
+    }
+
+    /* ======================================================
+       LEFT CONTROLS
+    ====================================================== */
+
+    .controls-row {
+
+      height: 110px;
+
+      flex-shrink: 0;
+
+      margin-top: 15px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      padding:
+        0 8px;
+
+    }
+
+    /* ======================================================
+       D-PAD
+    ====================================================== */
+
+    .dpad {
+
+      position: relative;
+
+      width: 94px;
+      height: 94px;
+
+    }
+
+    .dpad-center,
+    .dpad-up,
+    .dpad-down,
+    .dpad-left,
+    .dpad-right {
+
+      position: absolute;
+
+      background:
+        #242329;
+
+      border:
+        4px solid #111015;
+
+      box-shadow:
+        3px 3px 0 #080709;
+
+      cursor: pointer;
+
+    }
+
+    .dpad-center {
+
+      left: 32px;
+      top: 32px;
+
+      width: 30px;
+      height: 30px;
 
       cursor: default;
+
     }
 
-    .lab-title {
+    .dpad-up {
+
+      left: 32px;
+      top: 0;
+
+      width: 30px;
+      height: 36px;
+
+    }
+
+    .dpad-down {
+
+      left: 32px;
+      bottom: 0;
+
+      width: 30px;
+      height: 36px;
+
+    }
+
+    .dpad-left {
+
+      left: 0;
+      top: 32px;
+
+      width: 36px;
+      height: 30px;
+
+    }
+
+    .dpad-right {
+
+      right: 0;
+      top: 32px;
+
+      width: 36px;
+      height: 30px;
+
+    }
+
+    .dpad-up:active,
+    .dpad-down:active,
+    .dpad-left:active,
+    .dpad-right:active {
+
+      transform:
+        translate(2px, 2px);
+
+      box-shadow:
+        1px 1px 0 #080709;
+
+    }
+
+    .arrow-pixel {
+
       position: absolute;
 
       left: 50%;
-      top: 16px;
+      top: 50%;
 
-      transform: translateX(-50%);
+      transform:
+        translate(-50%, -50%);
 
-      z-index: 90;
+      color:
+        #828087;
 
-      padding: 13px 18px;
-
-      background: #1b1a1f;
-
-      color: #fff3d5;
-
-      border: 4px solid #111;
-      border-radius: 9px;
-
-      box-shadow:
-        0 0 0 3px #99704a,
-        4px 4px 0 rgba(0,0,0,0.4);
-
-      font-family: 'Press Start 2P', cursive;
+      font-family:
+        'Press Start 2P',
+        cursive;
 
       font-size:
-        clamp(10px, 1.3vw, 17px);
-
-      white-space: nowrap;
-    }
-
-    .lab-hint {
-      position: absolute;
-
-      top: 20px;
-      left: 20px;
-
-      z-index: 90;
-
-      background: #fff3d3;
-      color: #171717;
-
-      border: 3px solid #171717;
-      border-radius: 8px;
-
-      box-shadow:
-        4px 4px 0 rgba(0,0,0,0.4);
-
-      padding: 11px 13px;
-
-      font-family: 'Press Start 2P', cursive;
-
-      font-size: 7px;
-      line-height: 1.7;
-    }
-
-    #labTooltip {
-      position: absolute;
-
-      z-index: 100;
-
-      opacity: 0;
+        10px;
 
       pointer-events: none;
 
+    }
+
+    /* ======================================================
+       ACTION BUTTONS
+    ====================================================== */
+
+    .action-buttons {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 16px;
+
       transform:
-        translate(-50%, -120%);
+        rotate(-8deg);
 
-      background: #1a181d;
-      color: #fff2cf;
+    }
 
-      border: 3px solid #c29456;
+    .action-button {
+
+      width: 58px;
+      height: 58px;
+
+      border:
+        5px solid #151217;
+
+      background:
+        #2d2931;
+
+      color:
+        #d7cfc1;
 
       box-shadow:
-        4px 4px 0 #111;
+        5px 5px 0 #070609;
 
-      padding: 10px 12px;
+      font-family:
+        'Press Start 2P',
+        cursive;
 
-      font-family: 'Press Start 2P', cursive;
+      font-size:
+        10px;
 
-      font-size: 7px;
-      line-height: 1.6;
+      cursor: pointer;
 
-      white-space: nowrap;
+      clip-path:
+        polygon(
+          15% 0,
+          85% 0,
+          100% 15%,
+          100% 85%,
+          85% 100%,
+          15% 100%,
+          0 85%,
+          0 15%
+        );
 
-      transition: opacity 0.12s ease;
     }
 
-    #labTooltip.show {
-      opacity: 1;
+    .action-button.primary {
+
+      background:
+        #d2ae45;
+
+      color:
+        #151217;
+
     }
 
-    /* =====================================================
-       LOADING
+    .action-button:active {
+
+      transform:
+        translate(3px, 3px);
+
+      box-shadow:
+        2px 2px 0 #070609;
+
+    }
+
+    /* ======================================================
+       RIGHT SIDE
+    ====================================================== */
+
+    .device-right {
+
+      position: relative;
+
+      z-index: 5;
+
+      min-width: 0;
+
+      display: flex;
+
+      flex-direction: column;
+
+      padding-left: 6px;
+
+    }
+
+    /* ======================================================
+       LCD FRAME
+    ====================================================== */
+
+    .preview-shell {
+
+      flex: 1;
+
+      min-height: 0;
+
+      padding:
+        13px;
+
+      background:
+        #88857c;
+
+      border:
+        7px solid #151217;
+
+      box-shadow:
+        6px 6px 0 #080709;
+
+    }
+
+    .preview-bezel {
+
+      width: 100%;
+      height: 100%;
+
+      padding:
+        9px;
+
+      background:
+        #d2cdbc;
+
+      border:
+        4px solid #49463f;
+
+    }
+
+    .preview-screen {
+
+      position: relative;
+
+      width: 100%;
+      height: 100%;
+
+      overflow: hidden;
+
+      padding:
+        24px 24px 20px;
+
+      background:
+        var(--lcd);
+
+      border:
+        5px solid #20231d;
+
+      color:
+        var(--lcd-black);
+
+      box-shadow:
+        inset 0 0 0 4px #86966b;
+
+    }
+
+    /*
+      LCD pixel grid
+    */
+
+    .preview-screen::before {
+
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      z-index: 5;
+
+      background:
+
+        repeating-linear-gradient(
+          0deg,
+          transparent 0px,
+          transparent 3px,
+          rgba(38,50,32,0.07) 3px,
+          rgba(38,50,32,0.07) 4px
+        ),
+
+        repeating-linear-gradient(
+          90deg,
+          transparent 0px,
+          transparent 3px,
+          rgba(38,50,32,0.035) 3px,
+          rgba(38,50,32,0.035) 4px
+        );
+
+    }
+
+    /*
+      LCD flicker
+    */
+
+    .preview-screen::after {
+
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      z-index: 6;
+
+      pointer-events: none;
+
+      background:
+        rgba(220,235,177,0.025);
+
+      animation:
+        lcdFlicker 0.22s steps(2) infinite;
+
+    }
+
+    @keyframes lcdFlicker {
+
+      0% {
+        opacity: 0.2;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
+
+      100% {
+        opacity: 0.35;
+      }
+
+    }
+
+    /* ======================================================
+       SCREEN TEXT
+    ====================================================== */
+
+    .preview-top-row {
+
+      position: relative;
+
+      z-index: 2;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-bottom:
+        15px;
+
+    }
+
+    .preview-top {
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        7px;
+
+      color:
+        #4e603f;
+
+    }
+
+    .entry-number {
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        7px;
+
+      color:
+        #4e603f;
+
+    }
+
+    #previewTitle {
+
+      position: relative;
+
+      z-index: 2;
+
+      margin-bottom:
+        13px;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        clamp(
+          17px,
+          2vw,
+          28px
+        );
+
+      line-height:
+        1.5;
+
+      color:
+        #293324;
+
+    }
+
+    #previewCount {
+
+      position: relative;
+
+      z-index: 2;
+
+      display: inline-block;
+
+      padding:
+        5px 7px;
+
+      margin-bottom:
+        17px;
+
+      background:
+        rgba(54,69,44,0.14);
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        7px;
+
+      color:
+        #526345;
+
+    }
+
+    #previewDescription {
+
+      position: relative;
+
+      z-index: 2;
+
+      max-width:
+        68%;
+
+      font-size:
+        clamp(
+          19px,
+          1.8vw,
+          26px
+        );
+
+      line-height:
+        1.18;
+
+      color:
+        #34422f;
+
+    }
+
+    /* ======================================================
+       PIXEL PREVIEW
+    ====================================================== */
+
+    .preview-graphic {
+
+      position: absolute;
+
+      z-index: 1;
+
+      right: 5%;
+
+      bottom: 7%;
+
+      width: 190px;
+      height: 180px;
+
+    }
+
+    #pixelCanvas {
+
+      width: 190px;
+      height: 180px;
+
+      image-rendering:
+        pixelated;
+
+      image-rendering:
+        crisp-edges;
+
+    }
+
+    /* scanning line */
+
+    .scan-line {
+
+      position: absolute;
+
+      z-index: 3;
+
+      left: 0;
+      right: 0;
+
+      top: 5px;
+
+      height: 4px;
+
+      background:
+        rgba(46,60,38,0.32);
+
+      animation:
+        scanMove
+        2.5s
+        steps(16)
+        infinite;
+
+      pointer-events: none;
+
+    }
+
+    @keyframes scanMove {
+
+      from {
+        transform:
+          translateY(0);
+      }
+
+      to {
+        transform:
+          translateY(168px);
+      }
+
+    }
+
+    /* ======================================================
+       RIGHT LOWER CONTROLS
+    ====================================================== */
+
+    .right-controls {
+
+      height: 110px;
+
+      flex-shrink: 0;
+
+      display: grid;
+
+      grid-template-columns:
+        1.3fr 0.8fr;
+
+      gap: 14px;
+
+      margin-top: 15px;
+
+    }
+
+    .status-panel,
+    .key-panel {
+
+      position: relative;
+
+      padding:
+        13px;
+
+      background:
+        #632128;
+
+      border:
+        5px solid #151217;
+
+      box-shadow:
+        5px 5px 0 #080709;
+
+    }
+
+    .status-label {
+
+      margin-bottom:
+        8px;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        6px;
+
+      color:
+        #b9947c;
+
+    }
+
+    #statusText {
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        7px;
+
+      color:
+        #e8d6bb;
+
+      line-height:
+        1.7;
+
+    }
+
+    .status-cursor {
+
+      display:
+        inline-block;
+
+      width:
+        7px;
+
+      height:
+        10px;
+
+      margin-left:
+        3px;
+
+      background:
+        #d9be79;
+
+      vertical-align:
+        -1px;
+
+      animation:
+        cursorBlink 0.7s steps(1) infinite;
+
+    }
+
+    @keyframes cursorBlink {
+
+      0%,
+      49% {
+        opacity: 1;
+      }
+
+      50%,
+      100% {
+        opacity: 0;
+      }
+
+    }
+
+    .key-panel {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 8px;
+
+    }
+
+    .mini-key {
+
+      min-width:
+        39px;
+
+      padding:
+        9px 6px;
+
+      background:
+        #252329;
+
+      color:
+        #d7d1c5;
+
+      border:
+        4px solid #121015;
+
+      box-shadow:
+        3px 3px 0 #080709;
+
+      text-align: center;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        6px;
+
+    }
+
+    /* ======================================================
+       DECORATIVE PIXEL SCREWS
+    ====================================================== */
+
+    .screw {
+
+      position: absolute;
+
+      width: 12px;
+      height: 12px;
+
+      background:
+        #28252a;
+
+      border:
+        3px solid #151217;
+
+      z-index: 10;
+
+    }
+
+    .screw::after {
+
+      content: "";
+
+      position: absolute;
+
+      left: 2px;
+      top: 2px;
+
+      width: 3px;
+      height: 3px;
+
+      background:
+        #706b6f;
+
+    }
+
+    .screw.one {
+      left: 13px;
+      bottom: 13px;
+    }
+
+    .screw.two {
+      right: 13px;
+      bottom: 13px;
+    }
+
+    .screw.three {
+      right: 13px;
+      top: 13px;
+    }
+
+    /* ======================================================
+       LOADING SCREEN
     ====================================================== */
 
     #loading {
+
       z-index: 100;
 
       display: grid;
+
       place-items: center;
 
-      background: #141215;
+      background:
+        #08070b;
 
-      color: #fff1c7;
+      color:
+        #c1cd91;
+
     }
 
     .loading-box {
-      width: min(540px, 86vw);
-      text-align: center;
+
+      width:
+        min(560px, 88vw);
+
+      text-align:
+        center;
+
+    }
+
+    .loading-terminal {
+
+      padding:
+        30px;
+
+      border:
+        5px solid #687452;
+
+      background:
+        #11150f;
+
+      box-shadow:
+        8px 8px 0 #030403;
+
     }
 
     #loadingText {
-      font-family: 'Press Start 2P', cursive;
+
+      margin-bottom:
+        20px;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
 
       font-size:
-        clamp(18px, 3vw, 34px);
+        clamp(
+          17px,
+          3vw,
+          30px
+        );
 
-      margin-bottom: 25px;
+      color:
+        #c7d493;
+
     }
 
     #loadingDestination {
-      font-family: 'Press Start 2P', cursive;
 
-      font-size: 9px;
-      line-height: 1.8;
+      margin-bottom:
+        22px;
 
-      color: #d2ad62;
+      font-family:
+        'Press Start 2P',
+        cursive;
 
-      margin-bottom: 24px;
+      font-size:
+        8px;
+
+      line-height:
+        1.8;
+
+      color:
+        #859463;
+
     }
 
     .progress-shell {
-      width: 100%;
-      height: 30px;
 
-      padding: 4px;
+      height:
+        30px;
 
-      border: 3px solid #fff1c7;
+      padding:
+        4px;
+
+      border:
+        4px solid #7d895f;
+
+      background:
+        #0a0c09;
+
     }
 
     #progressBar {
+
       width: 0%;
+
       height: 100%;
 
       background:
+
         repeating-linear-gradient(
           90deg,
-          #fff1c7 0px,
-          #fff1c7 16px,
-          #ad873f 16px,
-          #ad873f 20px
+          #aebf7d 0px,
+          #aebf7d 13px,
+          transparent 13px,
+          transparent 17px
         );
+
     }
 
-    /* =====================================================
+    /* ======================================================
        CONTENT PAGES
     ====================================================== */
 
     .content-screen {
-      background:
-        repeating-linear-gradient(
-          0deg,
-          #f5f2e9 0px,
-          #f5f2e9 2px,
-          #eee9de 2px,
-          #eee9de 4px
-        );
 
-      color: #171717;
+      background:
+        #101015;
+
+      color:
+        #d9d7ce;
+
     }
 
     .page-wrap {
-      width: min(1180px, 94vw);
+
+      width:
+        min(1180px, 94vw);
+
       height: 100%;
 
-      margin: 0 auto;
+      margin:
+        0 auto;
 
-      padding: 24px 0 28px;
+      padding:
+        28px 0;
 
       display: flex;
+
       flex-direction: column;
+
     }
 
     .page-title {
-      height: 64px;
-      flex: 0 0 64px;
+
+      height: 60px;
+
+      flex:
+        0 0 60px;
 
       display: grid;
+
       place-items: center;
 
-      font-family: 'Press Start 2P', cursive;
+      font-family:
+        'Press Start 2P',
+        cursive;
 
       font-size:
-        clamp(14px, 2vw, 22px);
+        clamp(
+          14px,
+          2vw,
+          21px
+        );
 
-      color: #c4a14b;
+      color:
+        #c7b15d;
+
     }
 
     .page-card {
+
       flex: 1;
+
       min-height: 0;
 
-      background:
-        rgba(255,255,255,0.72);
-
-      border: 4px solid #171717;
-      border-radius: 16px;
-
-      box-shadow:
-        6px 6px 0 #171717;
-
-      padding: 36px;
+      padding:
+        38px;
 
       display: flex;
+
       flex-direction: column;
 
       justify-content: center;
+
+      background:
+        #1a1a1f;
+
+      border:
+        5px solid #333038;
+
+      box-shadow:
+        8px 8px 0 #050507;
+
+    }
+
+    .page-code {
+
+      margin-bottom:
+        15px;
+
+      color:
+        #76727d;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        7px;
+
     }
 
     .page-card h2 {
-      font-family: 'Press Start 2P', cursive;
+
+      margin-bottom:
+        23px;
+
+      font-family:
+        'Press Start 2P',
+        cursive;
 
       font-size:
-        clamp(20px, 3vw, 38px);
+        clamp(
+          20px,
+          3vw,
+          37px
+        );
 
-      line-height: 1.5;
+      line-height:
+        1.5;
 
-      margin-bottom: 22px;
+      color:
+        #f0ebdd;
+
     }
 
     .page-card p {
-      max-width: 800px;
 
-      font-size: 26px;
-      line-height: 1.35;
+      max-width:
+        800px;
 
-      color: #655d4e;
+      margin-bottom:
+        28px;
 
-      margin-bottom: 28px;
+      color:
+        #aaa6ad;
+
+      font-size:
+        25px;
+
+      line-height:
+        1.35;
+
     }
 
     .back-button {
-      align-self: flex-start;
 
-      padding: 12px 15px;
+      align-self:
+        flex-start;
 
-      background: #fff1bd;
+      padding:
+        12px 14px;
 
-      border: 3px solid #171717;
-      border-radius: 8px;
+      background:
+        #c8aa4d;
+
+      border:
+        4px solid #111015;
 
       box-shadow:
-        4px 4px 0 #171717;
+        5px 5px 0 #050507;
 
-      font-family: 'Press Start 2P', cursive;
+      color:
+        #151217;
 
-      font-size: 8px;
+      font-family:
+        'Press Start 2P',
+        cursive;
+
+      font-size:
+        7px;
 
       cursor: pointer;
+
     }
 
-    @media (max-width: 800px) {
-      .lab-hint {
-        display: none;
+    .back-button:hover {
+
+      transform:
+        translate(-2px, -2px);
+
+      box-shadow:
+        7px 7px 0 #050507;
+
+    }
+
+    /* ======================================================
+       RESPONSIVE
+    ====================================================== */
+
+    @media
+    (max-height: 820px)
+    and
+    (min-width: 801px) {
+
+      .device {
+
+        height:
+          92vh;
+
+        padding:
+          18px;
+
+      }
+
+      .top-lights {
+
+        height:
+          59px;
+
+      }
+
+      .big-light {
+
+        width:
+          44px;
+
+        height:
+          44px;
+
+      }
+
+      .database-screen {
+
+        padding:
+          18px;
+
+      }
+
+      .database-title {
+
+        font-size:
+          18px;
+
+        margin-bottom:
+          16px;
+
+      }
+
+      .menu-item {
+
+        min-height:
+          42px;
+
+        padding:
+          8px 10px;
+
+      }
+
+      .controls-row {
+
+        height:
+          88px;
+
+      }
+
+      .dpad {
+
+        transform:
+          scale(0.82);
+
+        transform-origin:
+          left center;
+
+      }
+
+      .action-buttons {
+
+        transform:
+          rotate(-8deg)
+          scale(0.84);
+
+      }
+
+      .preview-screen {
+
+        padding:
+          18px;
+
+      }
+
+      .right-controls {
+
+        height:
+          90px;
+
+      }
+
+    }
+
+    @media
+    (max-width: 800px) {
+
+      html,
+      body {
+
+        overflow-y:
+          auto;
+
+      }
+
+      #deviceScreen {
+
+        min-height:
+          100vh;
+
+        overflow-y:
+          auto;
+
+      }
+
+      .device {
+
+        width:
+          94vw;
+
+        height:
+          auto;
+
+        min-height:
+          1050px;
+
+        grid-template-columns:
+          1fr;
+
+        padding:
+          18px;
+
+      }
+
+      .hinge {
+
+        display:
+          none;
+
+      }
+
+      .device-left,
+      .device-right {
+
+        padding:
+          0;
+
+      }
+
+      .preview-shell {
+
+        min-height:
+          430px;
+
+      }
+
+      .right-controls {
+
+        min-height:
+          120px;
+
+      }
+
+      #previewDescription {
+
+        max-width:
+          58%;
+
       }
 
       .page-card {
-        padding: 24px;
+
+        padding:
+          24px;
+
       }
 
       .page-card p {
-        font-size: 21px;
+
+        font-size:
+          21px;
+
       }
+
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- =====================================================
-       ENGINEERING LAB
+  <!-- ======================================================
+       MAIN ENGINEERING DEVICE
   ====================================================== -->
 
   <section
-    id="labScreen"
+    id="deviceScreen"
     class="screen active"
   >
 
-    <div
-      class="lab-shell"
-      id="labShell"
-    >
+    <div class="device">
 
-      <canvas
-        id="labCanvas"
-        width="480"
-        height="270"
-      ></canvas>
+      <div class="hinge"></div>
 
-      <div class="lab-title">
-        ENGINEERING LAB
+      <div class="screw one"></div>
+      <div class="screw two"></div>
+      <div class="screw three"></div>
+
+
+      <!-- ==================================================
+           LEFT HALF
+      =================================================== -->
+
+      <div class="device-left">
+
+        <div class="top-lights">
+
+          <div class="big-light"></div>
+
+          <div class="small-light red"></div>
+
+          <div class="small-light yellow"></div>
+
+          <div class="small-light green"></div>
+
+        </div>
+
+
+        <div class="database-shell">
+
+          <div class="database-screen">
+
+            <div class="database-label">
+              TY-01 // ENGINEERING PORTFOLIO
+            </div>
+
+            <div class="database-title">
+              ENGINEER<br>
+              DATABASE
+            </div>
+
+
+            <div
+              class="menu-list"
+              id="menuList"
+            >
+
+              <button
+                class="menu-item selected"
+                data-index="0"
+              >
+
+                <span class="selector">
+                  ▶
+                </span>
+
+                <span class="menu-name">
+                  PROJECTS
+                </span>
+
+              </button>
+
+
+              <button
+                class="menu-item"
+                data-index="1"
+              >
+
+                <span class="selector"></span>
+
+                <span class="menu-name">
+                  EXPERIENCE
+                </span>
+
+              </button>
+
+
+              <button
+                class="menu-item"
+                data-index="2"
+              >
+
+                <span class="selector"></span>
+
+                <span class="menu-name">
+                  SKILLS
+                </span>
+
+              </button>
+
+
+              <button
+                class="menu-item"
+                data-index="3"
+              >
+
+                <span class="selector"></span>
+
+                <span class="menu-name">
+                  ABOUT
+                </span>
+
+              </button>
+
+
+              <button
+                class="menu-item"
+                data-index="4"
+              >
+
+                <span class="selector"></span>
+
+                <span class="menu-name">
+                  CONTACT
+                </span>
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- CONTROLS -->
+
+        <div class="controls-row">
+
+          <div class="dpad">
+
+            <button
+              class="dpad-up"
+              id="upButton"
+              aria-label="Move up"
+            >
+              <span class="arrow-pixel">
+                ▲
+              </span>
+            </button>
+
+            <button
+              class="dpad-down"
+              id="downButton"
+              aria-label="Move down"
+            >
+              <span class="arrow-pixel">
+                ▼
+              </span>
+            </button>
+
+            <div class="dpad-left">
+              <span class="arrow-pixel">
+                ◀
+              </span>
+            </div>
+
+            <div class="dpad-right">
+              <span class="arrow-pixel">
+                ▶
+              </span>
+            </div>
+
+            <div class="dpad-center"></div>
+
+          </div>
+
+
+          <div class="action-buttons">
+
+            <button
+              class="action-button"
+              id="bButton"
+            >
+              B
+            </button>
+
+            <button
+              class="action-button primary"
+              id="enterButton"
+            >
+              A
+            </button>
+
+          </div>
+
+        </div>
+
       </div>
 
-      <div class="lab-hint">
-        CLICK SOMETHING<br>
-        TO EXPLORE
-      </div>
 
-      <div id="labTooltip"></div>
+      <!-- ==================================================
+           RIGHT HALF
+      =================================================== -->
+
+      <div class="device-right">
+
+
+        <div class="preview-shell">
+
+          <div class="preview-bezel">
+
+            <div class="preview-screen">
+
+              <div class="scan-line"></div>
+
+
+              <div class="preview-top-row">
+
+                <div class="preview-top">
+                  DATABASE ENTRY
+                </div>
+
+                <div
+                  class="entry-number"
+                  id="entryNumber"
+                >
+                  ENTRY 001
+                </div>
+
+              </div>
+
+
+              <div id="previewTitle">
+                PROJECT DATABASE
+              </div>
+
+
+              <div id="previewCount">
+                006 FILES FOUND
+              </div>
+
+
+              <div id="previewDescription">
+
+                Engineering builds,
+                CAD work,
+                prototypes and
+                technical projects.
+
+              </div>
+
+
+              <div class="preview-graphic">
+
+                <canvas
+                  id="pixelCanvas"
+                  width="95"
+                  height="90"
+                ></canvas>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div class="right-controls">
+
+          <div class="status-panel">
+
+            <div class="status-label">
+              SYSTEM STATUS
+            </div>
+
+            <div id="statusText">
+
+              ENTRY SELECTED.<br>
+
+              PRESS A TO OPEN.
+
+              <span class="status-cursor"></span>
+
+            </div>
+
+          </div>
+
+
+          <div class="key-panel">
+
+            <div class="mini-key">
+              ↑
+            </div>
+
+            <div class="mini-key">
+              ↓
+            </div>
+
+            <div class="mini-key">
+              A
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
 
     </div>
 
   </section>
 
-  <!-- =====================================================
+
+  <!-- ======================================================
        LOADING
   ====================================================== -->
 
@@ -448,23 +2308,30 @@
 
     <div class="loading-box">
 
-      <div id="loadingText">
-        LOADING.
-      </div>
+      <div class="loading-terminal">
 
-      <div id="loadingDestination">
-        OPENING SECTION
-      </div>
+        <div id="loadingText">
+          LOADING.
+        </div>
 
-      <div class="progress-shell">
-        <div id="progressBar"></div>
+        <div id="loadingDestination">
+          OPENING DATABASE
+        </div>
+
+        <div class="progress-shell">
+
+          <div id="progressBar"></div>
+
+        </div>
+
       </div>
 
     </div>
 
   </section>
 
-  <!-- =====================================================
+
+  <!-- ======================================================
        PROJECTS
   ====================================================== -->
 
@@ -481,22 +2348,25 @@
 
       <div class="page-card">
 
+        <div class="page-code">
+          FILE // PRJ-001
+        </div>
+
         <h2>
-          CAD WORKSTATION
+          PROJECT DATABASE
         </h2>
 
         <p>
-          Your engineering projects will go here later:
+
+          Your engineering projects will go here later.
           CAD models, robotics, prototypes,
           technical drawings, simulations,
-          videos and interactive models.
+          videos and interactive models can be added here.
+
         </p>
 
-        <button
-          class="back-button"
-          data-back="projects"
-        >
-          ← RETURN TO LAB
+        <button class="back-button">
+          ◀ RETURN TO DATABASE
         </button>
 
       </div>
@@ -505,7 +2375,8 @@
 
   </section>
 
-  <!-- =====================================================
+
+  <!-- ======================================================
        EXPERIENCE
   ====================================================== -->
 
@@ -522,23 +2393,27 @@
 
       <div class="page-card">
 
+        <div class="page-code">
+          FILE // EXP-002
+        </div>
+
         <h2>
-          NOTICE BOARD
+          EXPERIENCE LOG
         </h2>
 
         <p>
+
           Your internships,
-          engineering work,
-          industry projects
-          and professional experience
-          will go here later.
+          engineering employment,
+          industry work,
+          engineering projects
+          and practical professional experience
+          will be displayed here.
+
         </p>
 
-        <button
-          class="back-button"
-          data-back="experience"
-        >
-          ← RETURN TO LAB
+        <button class="back-button">
+          ◀ RETURN TO DATABASE
         </button>
 
       </div>
@@ -547,7 +2422,8 @@
 
   </section>
 
-  <!-- =====================================================
+
+  <!-- ======================================================
        SKILLS
   ====================================================== -->
 
@@ -564,22 +2440,28 @@
 
       <div class="page-card">
 
+        <div class="page-code">
+          FILE // SKL-003
+        </div>
+
         <h2>
-          ROBOTICS BENCH
+          SKILL DATABASE
         </h2>
 
         <p>
-          Your engineering skills will go here:
+
+          Your engineering capabilities will go here:
           CAD, programming,
-          electronics, embedded systems,
-          robotics, controls and simulation.
+          electronics,
+          embedded systems,
+          robotics,
+          controls,
+          simulation and manufacturing tools.
+
         </p>
 
-        <button
-          class="back-button"
-          data-back="skills"
-        >
-          ← RETURN TO LAB
+        <button class="back-button">
+          ◀ RETURN TO DATABASE
         </button>
 
       </div>
@@ -588,7 +2470,8 @@
 
   </section>
 
-  <!-- =====================================================
+
+  <!-- ======================================================
        ABOUT
   ====================================================== -->
 
@@ -605,23 +2488,28 @@
 
       <div class="page-card">
 
+        <div class="page-code">
+          FILE // USR-004
+        </div>
+
         <h2>
           ENGINEER PROFILE
         </h2>
 
         <p>
-          Your degree,
-          introduction,
-          engineering interests,
-          background and career goals
-          will go here later.
+
+          Your introduction,
+          degree,
+          engineering background,
+          interests,
+          career goals
+          and profile information
+          will be displayed here.
+
         </p>
 
-        <button
-          class="back-button"
-          data-back="about"
-        >
-          ← RETURN TO LAB
+        <button class="back-button">
+          ◀ RETURN TO DATABASE
         </button>
 
       </div>
@@ -630,7 +2518,8 @@
 
   </section>
 
-  <!-- =====================================================
+
+  <!-- ======================================================
        CONTACT
   ====================================================== -->
 
@@ -647,23 +2536,27 @@
 
       <div class="page-card">
 
+        <div class="page-code">
+          FILE // COM-005
+        </div>
+
         <h2>
-          COMMUNICATION TERMINAL
+          COMMUNICATION SYSTEM
         </h2>
 
         <p>
+
           Your email,
           LinkedIn,
-          CV download
-          and contact details
+          CV download,
+          GitHub
+          and other contact information
           will go here later.
+
         </p>
 
-        <button
-          class="back-button"
-          data-back="contact"
-        >
-          ← RETURN TO LAB
+        <button class="back-button">
+          ◀ RETURN TO DATABASE
         </button>
 
       </div>
@@ -672,50 +2565,18 @@
 
   </section>
 
+
   <script>
 
-    /* =====================================================
-       SETUP
+    /* ======================================================
+       SCREEN SETUP
     ====================================================== */
-
-    const canvas =
-      document.getElementById(
-        'labCanvas'
-      );
-
-    const ctx =
-      canvas.getContext(
-        '2d'
-      );
-
-    ctx.imageSmoothingEnabled =
-      false;
-
-    const tooltip =
-      document.getElementById(
-        'labTooltip'
-      );
-
-    const loadingText =
-      document.getElementById(
-        'loadingText'
-      );
-
-    const loadingDestination =
-      document.getElementById(
-        'loadingDestination'
-      );
-
-    const progressBar =
-      document.getElementById(
-        'progressBar'
-      );
 
     const screens = {
 
-      lab:
+      device:
         document.getElementById(
-          'labScreen'
+          'deviceScreen'
         ),
 
       loading:
@@ -750,1597 +2611,1035 @@
 
     };
 
-    const W = 480;
-    const H = 270;
 
-    const CENTER = {
-      x: 240,
-      y: 155
-    };
-
-    const state = {
-
-      player: {
-        x: CENTER.x,
-        y: CENTER.y
-      },
-
-      moving: false,
-      returning: false,
-      hover: null
-
-    };
-
-    function showScreen(name) {
-
-      Object
-        .values(screens)
-        .forEach(screen => {
-
-          screen
-            .classList
-            .remove('active');
-
-        });
-
-      screens[name]
-        .classList
-        .add('active');
-
-    }
-
-    function rect(
-      x,
-      y,
-      w,
-      h,
-      color
+    function showScreen(
+      name
     ) {
 
-      ctx.fillStyle = color;
+      Object
+        .values(
+          screens
+        )
+        .forEach(
+          screen => {
 
-      ctx.fillRect(
-        Math.round(x),
-        Math.round(y),
-        Math.round(w),
-        Math.round(h)
-      );
+            screen
+              .classList
+              .remove(
+                'active'
+              );
+
+          }
+        );
+
+
+      screens[
+        name
+      ]
+        .classList
+        .add(
+          'active'
+        );
 
     }
 
-    /* =====================================================
-       STATIONS
+
+    /* ======================================================
+       DATABASE ENTRIES
     ====================================================== */
 
-    const stations = {
+    const entries = [
 
-      projects: {
+      {
 
-        label:
-          'CAD WORKSTATION',
+        page:
+          'projects',
 
-        subtitle:
-          'VIEW PROJECTS',
+        number:
+          'ENTRY 001',
+
+        title:
+          'PROJECT DATABASE',
+
+        count:
+          '006 FILES FOUND',
+
+        description:
+          'Engineering builds, CAD work, prototypes and technical projects.',
 
         loading:
-          'OPENING PROJECT DATABASE',
+          'ACCESSING PROJECT DATABASE',
 
-        box: {
-          x: 40,
-          y: 44,
-          w: 120,
-          h: 78
-        },
-
-        path: [
-
-          CENTER,
-
-          { x: 213, y: 145 },
-
-          { x: 185, y: 132 },
-
-          { x: 158, y: 118 },
-
-          { x: 132, y: 104 },
-
-          { x: 112, y: 94 }
-
-        ]
+        icon:
+          'project'
 
       },
 
 
-      experience: {
+      {
 
-        label:
-          'NOTICE BOARD',
+        page:
+          'experience',
 
-        subtitle:
-          'VIEW EXPERIENCE',
+        number:
+          'ENTRY 002',
+
+        title:
+          'EXPERIENCE LOG',
+
+        count:
+          '003 RECORDS FOUND',
+
+        description:
+          'Internships, engineering roles and professional industry experience.',
 
         loading:
-          'OPENING EXPERIENCE LOG',
+          'ACCESSING EXPERIENCE LOG',
 
-        box: {
-          x: 320,
-          y: 40,
-          w: 105,
-          h: 68
-        },
-
-        path: [
-
-          CENTER,
-
-          { x: 270, y: 142 },
-
-          { x: 300, y: 128 },
-
-          { x: 330, y: 113 },
-
-          { x: 354, y: 98 },
-
-          { x: 372, y: 86 }
-
-        ]
+        icon:
+          'experience'
 
       },
 
 
-      skills: {
+      {
 
-        label:
-          'ROBOTICS BENCH',
+        page:
+          'skills',
 
-        subtitle:
-          'VIEW SKILLS',
+        number:
+          'ENTRY 003',
+
+        title:
+          'SKILL DATABASE',
+
+        count:
+          'SYSTEMS DETECTED',
+
+        description:
+          'CAD, programming, electronics, robotics, controls and simulation.',
 
         loading:
           'LOADING SKILL DATABASE',
 
-        box: {
-          x: 330,
-          y: 156,
-          w: 110,
-          h: 78
-        },
-
-        path: [
-
-          CENTER,
-
-          { x: 270, y: 165 },
-
-          { x: 300, y: 176 },
-
-          { x: 328, y: 188 },
-
-          { x: 350, y: 198 },
-
-          { x: 372, y: 206 }
-
-        ]
+        icon:
+          'skills'
 
       },
 
 
-      about: {
+      {
 
-        label:
-          'PROFILE DOOR',
+        page:
+          'about',
 
-        subtitle:
-          'ABOUT ME',
+        number:
+          'ENTRY 004',
+
+        title:
+          'ENGINEER PROFILE',
+
+        count:
+          'USER DATA FOUND',
+
+        description:
+          'Education, engineering interests, profile and career direction.',
 
         loading:
-          'OPENING ENGINEER PROFILE',
+          'ACCESSING ENGINEER PROFILE',
 
-        box: {
-          x: 190,
-          y: 25,
-          w: 95,
-          h: 62
-        },
-
-        path: [
-
-          CENTER,
-
-          { x: 240, y: 140 },
-
-          { x: 240, y: 125 },
-
-          { x: 240, y: 110 },
-
-          { x: 240, y: 95 },
-
-          { x: 240, y: 80 }
-
-        ]
+        icon:
+          'about'
 
       },
 
 
-      contact: {
+      {
 
-        label:
-          'COMM TERMINAL',
+        page:
+          'contact',
 
-        subtitle:
-          'CONTACT',
+        number:
+          'ENTRY 005',
+
+        title:
+          'COMMUNICATION',
+
+        count:
+          'LINK AVAILABLE',
+
+        description:
+          'Email, LinkedIn, GitHub, CV and communication channels.',
 
         loading:
-          'OPENING COMMUNICATION SYSTEM',
+          'OPENING COMMUNICATION LINK',
 
-        box: {
-          x: 44,
-          y: 165,
-          w: 100,
-          h: 65
-        },
-
-        path: [
-
-          CENTER,
-
-          { x: 212, y: 166 },
-
-          { x: 184, y: 178 },
-
-          { x: 156, y: 190 },
-
-          { x: 130, y: 200 },
-
-          { x: 108, y: 207 }
-
-        ]
+        icon:
+          'contact'
 
       }
 
-    };
+    ];
 
-    /* =====================================================
-       FLOOR
+
+    /* ======================================================
+       ELEMENTS
     ====================================================== */
 
-    function drawFloor() {
+    const menuItems = [
 
-      rect(
-        0,
-        0,
-        W,
-        H,
-        '#d7cab0'
+      ...document
+        .querySelectorAll(
+          '.menu-item'
+        )
+
+    ];
+
+
+    const previewTitle =
+      document.getElementById(
+        'previewTitle'
       );
 
-      /*
-        tile pattern
-      */
 
-      for (
-        let y = 0;
-        y < H;
-        y += 16
-      ) {
-
-        for (
-          let x = 0;
-          x < W;
-          x += 16
-        ) {
-
-          rect(
-            x,
-            y,
-            15,
-            15,
-            (
-              (
-                x / 16 +
-                y / 16
-              ) %
-              2 ===
-              0
-            )
-              ?
-              '#d9cdb4'
-              :
-              '#d2c5aa'
-          );
-
-        }
-
-      }
-
-      /*
-        wall
-      */
-
-      rect(
-        0,
-        0,
-        W,
-        32,
-        '#7d684f'
+    const previewCount =
+      document.getElementById(
+        'previewCount'
       );
 
-      rect(
-        0,
-        29,
-        W,
-        4,
-        '#44372d'
+
+    const previewDescription =
+      document.getElementById(
+        'previewDescription'
       );
 
-      /*
-        side wall shadows
-      */
 
-      rect(
-        0,
-        0,
-        6,
-        H,
-        '#8b7155'
+    const entryNumber =
+      document.getElementById(
+        'entryNumber'
       );
 
-      rect(
-        W - 6,
-        0,
-        6,
-        H,
-        '#8b7155'
+
+    const statusText =
+      document.getElementById(
+        'statusText'
       );
 
-    }
 
-    /* =====================================================
-       CAD PC
+    const enterButton =
+      document.getElementById(
+        'enterButton'
+      );
+
+
+    const bButton =
+      document.getElementById(
+        'bButton'
+      );
+
+
+    const upButton =
+      document.getElementById(
+        'upButton'
+      );
+
+
+    const downButton =
+      document.getElementById(
+        'downButton'
+      );
+
+
+    const loadingText =
+      document.getElementById(
+        'loadingText'
+      );
+
+
+    const loadingDestination =
+      document.getElementById(
+        'loadingDestination'
+      );
+
+
+    const progressBar =
+      document.getElementById(
+        'progressBar'
+      );
+
+
+    /* ======================================================
+       PIXEL PREVIEW CANVAS
     ====================================================== */
 
-    function drawCADStation() {
-
-      /*
-        desk
-      */
-
-      rect(
-        48,
-        72,
-        110,
-        18,
-        '#795335'
+    const pixelCanvas =
+      document.getElementById(
+        'pixelCanvas'
       );
 
-      rect(
-        52,
-        90,
-        10,
-        22,
-        '#5f422d'
+
+    const pctx =
+      pixelCanvas.getContext(
+        '2d'
       );
 
-      rect(
-        144,
-        90,
-        10,
-        22,
-        '#5f422d'
-      );
 
-      /*
-        monitor
-      */
+    pctx.imageSmoothingEnabled =
+      false;
 
-      rect(
-        78,
-        43,
-        52,
-        34,
-        '#25252a'
-      );
 
-      rect(
-        82,
-        47,
-        44,
-        26,
-        '#78a9ad'
-      );
+    const PIXEL_DARK =
+      '#3d4c35';
 
-      /*
-        CAD drawing
-      */
 
-      rect(
-        90,
-        53,
-        20,
-        2,
-        '#d7f1e8'
-      );
+    const PIXEL_MID =
+      '#5d704e';
 
-      rect(
-        90,
-        53,
-        2,
-        12,
-        '#d7f1e8'
-      );
 
-      rect(
-        90,
-        63,
-        20,
-        2,
-        '#d7f1e8'
-      );
+    const PIXEL_LIGHT =
+      '#809267';
 
-      rect(
-        108,
-        53,
-        2,
-        12,
-        '#d7f1e8'
-      );
 
-      /*
-        monitor stand
-      */
-
-      rect(
-        100,
-        77,
-        8,
-        8,
-        '#333238'
-      );
-
-      rect(
-        92,
-        84,
-        24,
-        3,
-        '#333238'
-      );
-
-      /*
-        keyboard
-      */
-
-      rect(
-        88,
-        92,
-        38,
-        8,
-        '#3c3b40'
-      );
-
-      /*
-        mouse
-      */
-
-      rect(
-        132,
-        93,
-        7,
-        6,
-        '#55545a'
-      );
-
-      /*
-        PC case
-      */
-
-      rect(
-        57,
-        50,
-        16,
-        27,
-        '#424148'
-      );
-
-      rect(
-        60,
-        54,
-        10,
-        4,
-        '#69a8bb'
-      );
-
-    }
-
-    /* =====================================================
-       NOTICE BOARD
-    ====================================================== */
-
-    function drawNoticeBoard() {
-
-      rect(
-        328,
-        46,
-        92,
-        56,
-        '#7d5337'
-      );
-
-      rect(
-        333,
-        51,
-        82,
-        46,
-        '#be9f70'
-      );
-
-      /*
-        pinned notes
-      */
-
-      drawPaper(
-        339,
-        57,
-        20,
-        14,
-        '#f2e8c8'
-      );
-
-      drawPaper(
-        368,
-        55,
-        18,
-        22,
-        '#e4d79e'
-      );
-
-      drawPaper(
-        392,
-        68,
-        16,
-        20,
-        '#f1e3c0'
-      );
-
-      drawPaper(
-        344,
-        78,
-        22,
-        13,
-        '#e8c49c'
-      );
-
-    }
-
-    function drawPaper(
+    function px(
       x,
       y,
       w,
       h,
-      color
+      color =
+        PIXEL_DARK
     ) {
 
-      rect(
+      pctx.fillStyle =
+        color;
+
+
+      pctx.fillRect(
         x,
         y,
         w,
-        h,
-        color
-      );
-
-      rect(
-        x + 4,
-        y + 4,
-        w - 8,
-        2,
-        '#9c8c72'
-      );
-
-      rect(
-        x + 4,
-        y + 8,
-        w - 10,
-        2,
-        '#9c8c72'
-      );
-
-      rect(
-        x + w / 2 - 1,
-        y - 2,
-        3,
-        3,
-        '#b55247'
+        h
       );
 
     }
 
-    /* =====================================================
-       ROBOTICS BENCH
+
+    function clearPixelCanvas() {
+
+      pctx.clearRect(
+        0,
+        0,
+        95,
+        90
+      );
+
+    }
+
+
+    /* ======================================================
+       PROJECT ICON
     ====================================================== */
 
-    function drawRobotBench() {
+    function drawProjectIcon() {
+
+      clearPixelCanvas();
+
 
       /*
-        table
+        CAD monitor
       */
 
-      rect(
-        330,
-        195,
-        112,
-        18,
-        '#765035'
+      px(
+        12,
+        20,
+        52,
+        35
       );
 
-      rect(
-        336,
-        213,
-        10,
-        23,
-        '#59402e'
-      );
 
-      rect(
-        426,
-        213,
-        10,
-        23,
-        '#59402e'
-      );
-
-      /*
-        robot base
-      */
-
-      rect(
-        377,
-        184,
-        28,
-        11,
-        '#4e5156'
-      );
-
-      rect(
-        382,
-        178,
-        18,
-        8,
-        '#666a70'
-      );
-
-      /*
-        robot arm
-      */
-
-      drawArmSegment(
-        391,
-        179,
-        382,
-        162
-      );
-
-      drawArmSegment(
-        382,
-        162,
-        397,
-        149
-      );
-
-      drawArmSegment(
-        397,
-        149,
-        410,
-        158
-      );
-
-      /*
-        claw
-      */
-
-      rect(
-        409,
-        156,
-        4,
-        10,
-        '#55585d'
-      );
-
-      rect(
-        413,
-        155,
-        5,
-        3,
-        '#55585d'
-      );
-
-      rect(
-        413,
-        164,
-        5,
-        3,
-        '#55585d'
-      );
-
-      /*
-        electronics
-      */
-
-      rect(
-        342,
-        179,
+      px(
+        16,
         24,
-        14,
-        '#436a4a'
+        44,
+        27,
+        PIXEL_LIGHT
       );
 
-      rect(
-        346,
-        182,
-        5,
+
+      /*
+        model outline
+      */
+
+      px(
+        24,
+        31,
+        22,
+        3,
+        PIXEL_DARK
+      );
+
+
+      px(
+        24,
+        31,
+        3,
+        13,
+        PIXEL_DARK
+      );
+
+
+      px(
+        24,
+        41,
+        22,
+        3,
+        PIXEL_DARK
+      );
+
+
+      px(
+        43,
+        31,
+        3,
+        13,
+        PIXEL_DARK
+      );
+
+
+      /*
+        stand
+      */
+
+      px(
+        34,
+        55,
+        8,
+        10
+      );
+
+
+      px(
+        25,
+        64,
+        26,
+        4
+      );
+
+
+      /*
+        gear
+      */
+
+      px(
+        68,
+        47,
+        12,
+        12,
+        PIXEL_MID
+      );
+
+
+      px(
+        64,
+        51,
+        20,
         4,
-        '#c8c46c'
+        PIXEL_MID
       );
 
-      rect(
-        354,
-        182,
-        7,
+
+      px(
+        72,
+        43,
+        4,
+        20,
+        PIXEL_MID
+      );
+
+
+      px(
+        71,
+        50,
         6,
-        '#22282a'
+        6,
+        '#b7c88b'
       );
 
     }
 
-    function drawArmSegment(
-      x1,
-      y1,
-      x2,
-      y2
-    ) {
 
-      const dx =
-        x2 -
-        x1;
-
-      const dy =
-        y2 -
-        y1;
-
-      const steps =
-        Math.max(
-          Math.abs(dx),
-          Math.abs(dy)
-        );
-
-      for (
-        let i = 0;
-        i <= steps;
-        i++
-      ) {
-
-        const t =
-          i /
-          steps;
-
-        const x =
-          x1 +
-          dx *
-          t;
-
-        const y =
-          y1 +
-          dy *
-          t;
-
-        rect(
-          x - 2,
-          y - 2,
-          5,
-          5,
-          '#60646a'
-        );
-
-      }
-
-      rect(
-        x1 - 4,
-        y1 - 4,
-        8,
-        8,
-        '#35373b'
-      );
-
-      rect(
-        x2 - 4,
-        y2 - 4,
-        8,
-        8,
-        '#35373b'
-      );
-
-    }
-
-    /* =====================================================
-       ABOUT DOOR
+    /* ======================================================
+       EXPERIENCE ICON
     ====================================================== */
 
-    function drawProfileDoor() {
+    function drawExperienceIcon() {
 
-      rect(
-        212,
-        31,
+      clearPixelCanvas();
+
+
+      /*
+        briefcase
+      */
+
+      px(
+        19,
+        34,
+        58,
+        34
+      );
+
+
+      px(
+        23,
+        38,
+        50,
+        26,
+        PIXEL_LIGHT
+      );
+
+
+      /*
+        handle
+      */
+
+      px(
+        35,
+        25,
+        26,
+        5
+      );
+
+
+      px(
+        35,
+        29,
+        5,
+        8
+      );
+
+
+      px(
         56,
-        53,
-        '#71503b'
+        29,
+        5,
+        8
       );
 
-      rect(
-        218,
-        37,
+
+      /*
+        middle latch
+      */
+
+      px(
         44,
-        47,
-        '#94705a'
+        45,
+        9,
+        9,
+        PIXEL_DARK
       );
 
-      rect(
-        223,
+
+      /*
+        log lines
+      */
+
+      px(
+        28,
+        55,
+        13,
+        3,
+        PIXEL_MID
+      );
+
+
+      px(
+        57,
+        55,
+        11,
+        3,
+        PIXEL_MID
+      );
+
+    }
+
+
+    /* ======================================================
+       SKILLS ICON
+    ====================================================== */
+
+    function drawSkillsIcon() {
+
+      clearPixelCanvas();
+
+
+      /*
+        gear
+      */
+
+      px(
+        35,
+        25,
+        28,
+        35,
+        PIXEL_MID
+      );
+
+
+      px(
+        29,
+        31,
+        40,
+        23,
+        PIXEL_MID
+      );
+
+
+      px(
+        41,
+        19,
+        16,
+        47,
+        PIXEL_MID
+      );
+
+
+      /*
+        gear cutout
+      */
+
+      px(
         42,
         34,
-        34,
-        '#765743'
-      );
-
-      /*
-        profile card
-      */
-
-      rect(
-        230,
-        47,
-        20,
-        18,
-        '#efe5c8'
-      );
-
-      rect(
-        236,
-        50,
-        8,
-        7,
-        '#6e6e6e'
-      );
-
-      rect(
-        233,
-        60,
         14,
-        2,
-        '#9e9174'
+        14,
+        '#b7c88b'
       );
 
-      /*
-        knob
-      */
-
-      rect(
-        253,
-        66,
-        4,
-        4,
-        '#d3ad4f'
-      );
-
-    }
-
-    /* =====================================================
-       CONTACT TERMINAL
-    ====================================================== */
-
-    function drawContactTerminal() {
 
       /*
-        desk
+        wrench
       */
 
-      rect(
-        50,
-        197,
-        95,
+      px(
         16,
-        '#775238'
-      );
-
-      rect(
-        57,
-        213,
-        10,
-        22,
-        '#5d412d'
-      );
-
-      rect(
-        128,
-        213,
-        10,
-        22,
-        '#5d412d'
-      );
-
-      /*
-        screen
-      */
-
-      rect(
-        73,
-        164,
-        48,
-        31,
-        '#25252a'
-      );
-
-      rect(
-        78,
-        169,
-        38,
-        21,
-        '#74a89d'
-      );
-
-      /*
-        mail icon
-      */
-
-      rect(
-        85,
-        175,
-        24,
-        10,
-        '#d7e7d9'
-      );
-
-      rect(
-        87,
-        176,
-        20,
-        2,
-        '#5c786e'
-      );
-
-      /*
-        phone
-      */
-
-      rect(
-        125,
-        178,
-        10,
-        18,
-        '#2e3034'
-      );
-
-      rect(
-        127,
-        181,
-        6,
-        8,
-        '#77a0a8'
-      );
-
-    }
-
-    /* =====================================================
-       ROOM DECORATION
-    ====================================================== */
-
-    function drawDecorations() {
-
-      /*
-        shelves
-      */
-
-      rect(
-        168,
-        48,
-        34,
-        9,
-        '#6c4b32'
-      );
-
-      rect(
-        171,
-        38,
-        7,
-        10,
-        '#b76450'
-      );
-
-      rect(
-        181,
-        40,
-        6,
-        8,
-        '#6686a1'
-      );
-
-      rect(
-        190,
-        36,
-        7,
-        12,
-        '#d3b85f'
-      );
-
-      /*
-        plant
-      */
-
-      rect(
-        290,
-        63,
-        12,
-        10,
-        '#76513b'
-      );
-
-      rect(
-        287,
-        52,
-        5,
-        13,
-        '#4b7948'
-      );
-
-      rect(
-        295,
-        49,
-        5,
-        16,
-        '#548754'
-      );
-
-      /*
-        floor mats
-      */
-
-      rect(
-        191,
-        127,
-        97,
         60,
-        '#b9ad92'
+        42,
+        6,
+        PIXEL_DARK
       );
 
-      rect(
-        195,
-        131,
-        89,
-        52,
-        '#c4b99e'
-      );
 
-      /*
-        toolbox
-      */
-
-      rect(
-        268,
-        205,
-        30,
-        16,
-        '#b94d43'
-      );
-
-      rect(
-        277,
-        201,
+      px(
         12,
-        5,
-        '#873931'
+        56,
+        12,
+        14,
+        PIXEL_DARK
       );
 
-      /*
-        scattered cable
-      */
 
-      rect(
-        298,
-        135,
-        3,
-        28,
-        '#4a494d'
-      );
-
-      rect(
-        298,
-        160,
-        20,
-        3,
-        '#4a494d'
+      px(
+        14,
+        59,
+        7,
+        8,
+        '#b7c88b'
       );
 
     }
 
-    /* =====================================================
-       PLAYER
+
+    /* ======================================================
+       ABOUT ICON
     ====================================================== */
 
-    function drawPlayer() {
+    function drawAboutIcon() {
 
-      const x =
-        Math.round(
-          state.player.x
-        );
+      clearPixelCanvas();
 
-      const y =
-        Math.round(
-          state.player.y
-        );
-
-      /*
-        shadow
-      */
-
-      rect(
-        x - 5,
-        y + 10,
-        10,
-        3,
-        'rgba(0,0,0,0.2)'
-      );
-
-      /*
-        hair
-      */
-
-      rect(
-        x - 5,
-        y - 9,
-        10,
-        4,
-        '#2b211c'
-      );
-
-      rect(
-        x - 4,
-        y - 11,
-        8,
-        3,
-        '#2b211c'
-      );
 
       /*
         head
       */
 
-      rect(
-        x - 3,
-        y - 5,
-        6,
-        6,
-        '#d6a178'
+      px(
+        36,
+        18,
+        24,
+        23
       );
+
+
+      px(
+        40,
+        22,
+        16,
+        17,
+        PIXEL_LIGHT
+      );
+
 
       /*
-        shirt
+        hair
       */
 
-      rect(
-        x - 4,
-        y + 1,
-        8,
-        7,
-        '#4279b8'
+      px(
+        38,
+        19,
+        20,
+        6,
+        PIXEL_DARK
       );
+
 
       /*
-        arms
+        body
       */
 
-      rect(
-        x - 5,
-        y + 2,
-        1,
-        5,
-        '#d6a178'
+      px(
+        27,
+        47,
+        42,
+        26
       );
 
-      rect(
-        x + 4,
-        y + 2,
-        1,
-        5,
-        '#d6a178'
+
+      px(
+        33,
+        51,
+        30,
+        22,
+        PIXEL_MID
       );
 
-      const phase =
-        Math.floor(
-          performance.now() /
-          120
-        ) %
-        2;
 
-      if (
-        state.moving &&
-        phase === 0
-      ) {
+      /*
+        shoulders
+      */
 
-        rect(
-          x - 3,
-          y + 8,
-          2,
-          5,
-          '#2c2c33'
-        );
-
-        rect(
-          x + 1,
-          y + 7,
-          2,
-          5,
-          '#2c2c33'
-        );
-
-      }
-
-      else {
-
-        rect(
-          x - 3,
-          y + 7,
-          2,
-          5,
-          '#2c2c33'
-        );
-
-        rect(
-          x + 1,
-          y + 8,
-          2,
-          5,
-          '#2c2c33'
-        );
-
-      }
+      px(
+        21,
+        58,
+        54,
+        15
+      );
 
     }
 
-    /* =====================================================
-       DRAW LAB
+
+    /* ======================================================
+       CONTACT ICON
     ====================================================== */
 
-    function drawLab() {
+    function drawContactIcon() {
 
-      ctx.clearRect(
-        0,
-        0,
-        W,
-        H
+      clearPixelCanvas();
+
+
+      /*
+        envelope
+      */
+
+      px(
+        16,
+        30,
+        64,
+        40
       );
 
-      drawFloor();
 
-      drawDecorations();
-
-      drawCADStation();
-
-      drawNoticeBoard();
-
-      drawRobotBench();
-
-      drawProfileDoor();
-
-      drawContactTerminal();
-
-      drawPlayer();
-
-    }
-
-    /* =====================================================
-       HIT TESTING
-    ====================================================== */
-
-    function inside(
-      x,
-      y,
-      box
-    ) {
-
-      return (
-
-        x >= box.x &&
-
-        x <=
-        box.x +
-        box.w &&
-
-        y >= box.y &&
-
-        y <=
-        box.y +
-        box.h
-
+      px(
+        21,
+        35,
+        54,
+        30,
+        PIXEL_LIGHT
       );
 
-    }
 
-    function getHoveredStation(
-      x,
-      y
-    ) {
+      /*
+        diagonal envelope folds
+      */
 
       for (
-        const key
-        of
-        Object.keys(stations)
+        let i = 0;
+        i < 19;
+        i++
       ) {
 
-        if (
-          inside(
-            x,
-            y,
-            stations[key].box
-          )
-        ) {
+        px(
+          22 + i,
+          36 + i,
+          3,
+          3,
+          PIXEL_MID
+        );
 
-          return key;
 
-        }
+        px(
+          72 - i,
+          36 + i,
+          3,
+          3,
+          PIXEL_MID
+        );
 
       }
 
-      return null;
+
+      /*
+        signal
+      */
+
+      px(
+        75,
+        17,
+        4,
+        4
+      );
+
+
+      px(
+        81,
+        13,
+        4,
+        4
+      );
+
+
+      px(
+        87,
+        9,
+        4,
+        4
+      );
 
     }
 
-    function mouseToCanvas(
-      event
+
+    function drawPreviewIcon(
+      type
     ) {
 
-      const bounds =
-        canvas
-          .getBoundingClientRect();
+      if (
+        type ===
+        'project'
+      ) {
 
-      return {
+        drawProjectIcon();
 
-        x:
-
-          (
-            event.clientX -
-            bounds.left
-          ) *
-
-          W /
-          bounds.width,
+      }
 
 
-        y:
+      if (
+        type ===
+        'experience'
+      ) {
 
-          (
-            event.clientY -
-            bounds.top
-          ) *
+        drawExperienceIcon();
 
-          H /
-          bounds.height,
+      }
 
 
-        screenX:
-          event.clientX -
-          bounds.left,
+      if (
+        type ===
+        'skills'
+      ) {
 
-        screenY:
-          event.clientY -
-          bounds.top
+        drawSkillsIcon();
 
-      };
+      }
+
+
+      if (
+        type ===
+        'about'
+      ) {
+
+        drawAboutIcon();
+
+      }
+
+
+      if (
+        type ===
+        'contact'
+      ) {
+
+        drawContactIcon();
+
+      }
 
     }
 
-    /* =====================================================
-       HOVER
+
+    /* ======================================================
+       SELECTION
     ====================================================== */
 
-    canvas.addEventListener(
-      'mousemove',
-      event => {
+    let selectedIndex =
+      0;
 
-        const mouse =
-          mouseToCanvas(
-            event
-          );
 
-        const key =
-          getHoveredStation(
-            mouse.x,
-            mouse.y
-          );
+    let transitionLocked =
+      false;
 
-        state.hover =
-          key;
 
-        if (key) {
-
-          canvas.style.cursor =
-            'pointer';
-
-          tooltip.innerHTML =
-
-            stations[key].label +
-
-            '<br>' +
-
-            stations[key].subtitle;
-
-          tooltip
-            .classList
-            .add(
-              'show'
-            );
-
-          tooltip.style.left =
-            mouse.screenX +
-            'px';
-
-          tooltip.style.top =
-            (
-              mouse.screenY -
-              8
-            ) +
-            'px';
-
-        }
-
-        else {
-
-          canvas.style.cursor =
-            'default';
-
-          tooltip
-            .classList
-            .remove(
-              'show'
-            );
-
-        }
-
-      }
-    );
-
-    canvas.addEventListener(
-      'mouseleave',
-      () => {
-
-        tooltip
-          .classList
-          .remove(
-            'show'
-          );
-
-      }
-    );
-
-    /* =====================================================
-       MOVEMENT
-    ====================================================== */
-
-    function moveBetween(
-      start,
-      end,
-      duration = 260
+    function updateSelection(
+      index
     ) {
 
-      return new Promise(
-        resolve => {
+      selectedIndex =
 
-          const startTime =
-            performance.now();
+        (
+          index +
+          entries.length
+        ) %
 
-          function frame(now) {
+        entries.length;
 
-            const progress =
-              Math.min(
 
-                (
-                  now -
-                  startTime
-                ) /
-                duration,
+      menuItems
+        .forEach(
+          (
+            item,
+            i
+          ) => {
 
-                1
-              );
+            const selector =
+              item
+                .querySelector(
+                  '.selector'
+                );
 
-            const x =
-
-              start.x +
-
-              (
-                end.x -
-                start.x
-              ) *
-
-              progress;
-
-            const y =
-
-              start.y +
-
-              (
-                end.y -
-                start.y
-              ) *
-
-              progress;
-
-            state.player.x =
-              x;
-
-            state.player.y =
-              y;
 
             if (
-              progress < 1
+              i ===
+              selectedIndex
             ) {
 
-              requestAnimationFrame(
-                frame
-              );
+              item
+                .classList
+                .add(
+                  'selected'
+                );
+
+
+              selector
+                .textContent =
+                '▶';
 
             }
 
             else {
 
-              resolve();
+              item
+                .classList
+                .remove(
+                  'selected'
+                );
+
+
+              selector
+                .textContent =
+                '';
 
             }
 
           }
+        );
 
-          requestAnimationFrame(
-            frame
-          );
+
+      const entry =
+        entries[
+          selectedIndex
+        ];
+
+
+      entryNumber.textContent =
+        entry.number;
+
+
+      previewTitle.textContent =
+        entry.title;
+
+
+      previewCount.textContent =
+        entry.count;
+
+
+      previewDescription.textContent =
+        entry.description;
+
+
+      drawPreviewIcon(
+        entry.icon
+      );
+
+
+      statusText.innerHTML =
+
+        'ENTRY SELECTED.<br>' +
+
+        'PRESS A TO OPEN.' +
+
+        '<span class="status-cursor"></span>';
+
+    }
+
+
+    /* ======================================================
+       MENU MOUSE
+    ====================================================== */
+
+    menuItems
+      .forEach(
+        (
+          item,
+          index
+        ) => {
+
+          item
+            .addEventListener(
+              'mouseenter',
+              () => {
+
+                updateSelection(
+                  index
+                );
+
+              }
+            );
+
+
+          item
+            .addEventListener(
+              'click',
+              () => {
+
+                updateSelection(
+                  index
+                );
+
+              }
+            );
+
+
+          item
+            .addEventListener(
+              'dblclick',
+              openSelected
+            );
 
         }
       );
 
-    }
 
-    async function walkPath(
-      points
-    ) {
-
-      state.moving =
-        true;
-
-      for (
-        let i = 0;
-        i <
-        points.length -
-        1;
-        i++
-      ) {
-
-        await moveBetween(
-
-          points[i],
-
-          points[
-            i + 1
-          ]
-
-        );
-
-      }
-
-      state.moving =
-        false;
-
-    }
-
-    /* =====================================================
+    /* ======================================================
        LOADING
     ====================================================== */
 
     function loadingSequence(
-      key
+      entry
     ) {
 
       return new Promise(
@@ -2350,28 +3649,38 @@
             'loading'
           );
 
+
           loadingDestination
             .textContent =
-            stations[key]
-              .loading;
+            entry.loading;
+
 
           loadingText
             .textContent =
             'LOADING.';
+
 
           progressBar
             .style
             .width =
             '0%';
 
-          let dots = 1;
-          let progress = 0;
 
-          const dotsTimer =
+          let dots =
+            1;
+
+
+          let progress =
+            0;
+
+
+          const dotTimer =
+
             setInterval(
               () => {
 
                 dots++;
+
 
                 if (
                   dots > 3
@@ -2380,6 +3689,7 @@
                   dots = 1;
 
                 }
+
 
                 loadingText
                   .textContent =
@@ -2392,28 +3702,31 @@
 
               },
 
-              350
+              320
             );
 
-          const barTimer =
+
+          const progressTimer =
+
             setInterval(
               () => {
 
                 progress +=
 
                   Math.random() *
-                  8 +
+                  7 +
                   3;
 
+
                 if (
-                  progress >
-                  96
+                  progress > 96
                 ) {
 
                   progress =
                     96;
 
                 }
+
 
                 progressBar
                   .style
@@ -2424,32 +3737,37 @@
 
               },
 
-              110
+              100
             );
+
 
           setTimeout(
             () => {
 
               clearInterval(
-                dotsTimer
+                dotTimer
               );
 
+
               clearInterval(
-                barTimer
+                progressTimer
               );
+
 
               progressBar
                 .style
                 .width =
                 '100%';
 
+
               loadingText
                 .textContent =
-                'LOADED!';
+                'ACCESS GRANTED';
+
 
               setTimeout(
                 resolve,
-                180
+                200
               );
 
             },
@@ -2462,166 +3780,233 @@
 
     }
 
-    /* =====================================================
-       CLICK STATION
+
+    /* ======================================================
+       OPEN SECTION
     ====================================================== */
 
-    canvas.addEventListener(
-      'click',
-      async event => {
+    async function openSelected() {
 
-        if (
-          state.moving ||
-          state.returning
-        ) {
+      if (
+        transitionLocked
+      ) {
 
-          return;
-
-        }
-
-        const mouse =
-          mouseToCanvas(
-            event
-          );
-
-        const key =
-          getHoveredStation(
-            mouse.x,
-            mouse.y
-          );
-
-        if (
-          !key
-        ) {
-
-          return;
-
-        }
-
-        tooltip
-          .classList
-          .remove(
-            'show'
-          );
-
-        await walkPath(
-          stations[key].path
-        );
-
-        await loadingSequence(
-          key
-        );
-
-        showScreen(
-          key
-        );
+        return;
 
       }
-    );
 
-    /* =====================================================
-       RETURN TO LAB
+
+      transitionLocked =
+        true;
+
+
+      const entry =
+        entries[
+          selectedIndex
+        ];
+
+
+      statusText.innerHTML =
+
+        'ACCESSING FILE...'
+
+        +
+
+        '<span class="status-cursor"></span>';
+
+
+      await loadingSequence(
+        entry
+      );
+
+
+      showScreen(
+        entry.page
+      );
+
+
+      transitionLocked =
+        false;
+
+    }
+
+
+    /* ======================================================
+       CONTROLS
+    ====================================================== */
+
+    enterButton
+      .addEventListener(
+        'click',
+        openSelected
+      );
+
+
+    upButton
+      .addEventListener(
+        'click',
+        () => {
+
+          updateSelection(
+            selectedIndex -
+            1
+          );
+
+        }
+      );
+
+
+    downButton
+      .addEventListener(
+        'click',
+        () => {
+
+          updateSelection(
+            selectedIndex +
+            1
+          );
+
+        }
+      );
+
+
+    bButton
+      .addEventListener(
+        'click',
+        () => {
+
+          statusText.innerHTML =
+
+            'CANCELLED.<br>' +
+
+            'SELECT DATABASE ENTRY.' +
+
+            '<span class="status-cursor"></span>';
+
+        }
+      );
+
+
+    /* ======================================================
+       KEYBOARD
+    ====================================================== */
+
+    document
+      .addEventListener(
+        'keydown',
+        event => {
+
+          if (
+            !screens
+              .device
+              .classList
+              .contains(
+                'active'
+              )
+          ) {
+
+            return;
+
+          }
+
+
+          if (
+            event.key ===
+            'ArrowUp'
+          ) {
+
+            event
+              .preventDefault();
+
+
+            updateSelection(
+              selectedIndex -
+              1
+            );
+
+          }
+
+
+          if (
+            event.key ===
+            'ArrowDown'
+          ) {
+
+            event
+              .preventDefault();
+
+
+            updateSelection(
+              selectedIndex +
+              1
+            );
+
+          }
+
+
+          if (
+            event.key ===
+            'Enter'
+          ) {
+
+            event
+              .preventDefault();
+
+
+            openSelected();
+
+          }
+
+        }
+      );
+
+
+    /* ======================================================
+       RETURN
     ====================================================== */
 
     document
       .querySelectorAll(
-        '[data-back]'
+        '.back-button'
       )
       .forEach(
         button => {
 
-          button.addEventListener(
-            'click',
-            async () => {
+          button
+            .addEventListener(
+              'click',
+              () => {
 
-              if (
-                state.moving ||
-                state.returning
-              ) {
+                showScreen(
+                  'device'
+                );
 
-                return;
+
+                statusText.innerHTML =
+
+                  'DATABASE READY.<br>' +
+
+                  'SELECT NEXT ENTRY.' +
+
+                  '<span class="status-cursor"></span>';
 
               }
-
-              const key =
-                button
-                  .dataset
-                  .back;
-
-              state.returning =
-                true;
-
-              const reversePath =
-
-                [
-                  ...stations[key]
-                    .path
-                ]
-                .reverse();
-
-              showScreen(
-                'lab'
-              );
-
-              /*
-                spawn player
-                beside station
-              */
-
-              state.player.x =
-                reversePath[0].x;
-
-              state.player.y =
-                reversePath[0].y;
-
-              /*
-                little exit delay
-              */
-
-              await new Promise(
-                resolve =>
-                  setTimeout(
-                    resolve,
-                    350
-                  )
-              );
-
-              await walkPath(
-                reversePath
-              );
-
-              state.player.x =
-                CENTER.x;
-
-              state.player.y =
-                CENTER.y;
-
-              state.returning =
-                false;
-
-            }
-          );
+            );
 
         }
       );
 
-    /* =====================================================
-       RENDER LOOP
+
+    /* ======================================================
+       INITIAL STATE
     ====================================================== */
 
-    function render() {
-
-      drawLab();
-
-      requestAnimationFrame(
-        render
-      );
-
-    }
-
-    render();
+    updateSelection(
+      0
+    );
 
   </script>
 
 </body>
+
 </html>
