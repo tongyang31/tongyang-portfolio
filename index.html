@@ -1,753 +1,877 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TongYang | Engineering Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TongYang | Engineering Portfolio</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&family=Press+Start+2P&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&family=Press+Start+2P&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --bg: #0a0d12;
-      --panel: #11161d;
-      --panel-2: #171e27;
-      --line: rgba(214, 228, 255, 0.72);
-      --line-soft: rgba(214, 228, 255, 0.20);
-      --text: #ecf3ff;
-      --muted: #9aa8ba;
-      --accent: #cfe1ff;
-      --accent-soft: rgba(207, 225, 255, 0.18);
-    }
+<style>
+:root {
+  --bg: #02050d;
+  --white: #eff6ff;
+  --blue: #7fbaff;
+  --muted: #93a9c8;
+}
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Inter", sans-serif;
-    }
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--white);
+  font-family: "Inter", sans-serif;
+}
 
-    button,
-    a {
-      font: inherit;
-    }
+button {
+  font: inherit;
+}
 
-    .view {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity .55s ease, visibility .55s ease;
-    }
+.page {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .55s ease, visibility .55s ease;
+}
 
-    .view.active {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
+.page.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 
-    /* =========================================================
-       SPACE LANDING — LAYERED RIGHT-TO-LEFT PARALLAX
-    ========================================================= */
-    #landing { cursor: pointer; isolation: isolate; overflow: hidden; background: #020710; }
-    .space-backdrop {
-      position: absolute; inset: -3% -10%; z-index: 0;
-      background: url("./space-background.webp") center center / cover no-repeat;
-      image-rendering: auto;
-      animation: spaceDrift 55s ease-in-out infinite alternate;
-      will-change: transform;
-    }
-    @keyframes spaceDrift {
-      from { transform: translate3d(5%,0,0) scale(1.035); }
-      to { transform: translate3d(-5%,0,0) scale(1.035); }
-    }
-    .space-shade { position:absolute; inset:0; z-index:1; pointer-events:none;
-      background: radial-gradient(ellipse 45% 38% at 50% 47%, rgba(2,7,20,.74),rgba(2,7,20,.28) 76%,transparent),
-      linear-gradient(180deg,rgba(0,0,0,.12),transparent 18%,transparent 80%,rgba(0,0,0,.15)); }
-    #starCanvas { position:absolute; inset:0; width:100%; height:100%; z-index:2; pointer-events:none; }
-    .landing-ui { position:relative; z-index:3; width:100%; height:100%; display:grid; place-items:center; text-align:center; padding:5vh 5vw; }
-    .landing-center { transform: translateY(-3vh); }
-    .name { font-family:"Orbitron",sans-serif; font-size:clamp(36px,5.2vw,82px); font-weight:500;
-      letter-spacing:.20em; margin-left:.20em; color:#f0f8ff; white-space:nowrap;
-      text-shadow:0 0 7px rgba(227,242,255,.55),0 0 22px rgba(128,182,255,.33); }
-    .portfolio-title { margin-top:26px; font-family:"Press Start 2P",monospace;
-      font-size:clamp(8px,1.05vw,15px); letter-spacing:.16em; line-height:1.85;
-      color:#f2f8ff; text-shadow:0 0 8px #2b72bb; }
-    .role { margin-top:25px; font-family:"Orbitron",sans-serif;
-      font-size:clamp(9px,1.0vw,14px); font-weight:400; letter-spacing:.28em; margin-left:.28em;
-      color:#b4d3fc; text-shadow:0 0 12px rgba(106,177,255,.28); }
-    .access-prompt { position:absolute; left:50%; bottom:15%; transform:translateX(-50%); white-space:nowrap;
-      font-family:"Press Start 2P",monospace; font-size:clamp(6px,.77vw,11px); letter-spacing:.08em;
-      color:#ddecff; text-shadow:0 0 10px rgba(126,186,255,.40);
-      animation:accessBlink 1.28s steps(1,end) infinite; }
-    .access-prompt::after { content:""; display:block; width:28px; height:2px; background:#c9e8ff;
-      margin:19px auto 0; box-shadow:0 0 8px rgba(107,180,255,.50); }
-    @keyframes accessBlink {0%,55% {opacity:1;} 56%,100% {opacity:.19;}}
-    .landing-flash {position:absolute; inset:0; z-index:50; opacity:0;pointer-events:none;background:#def1ff;}
-    #landing.entering .landing-flash {animation:flashOut .75s ease forwards;}
-    #landing.entering .landing-center {animation:centerExit .75s ease forwards;}
-    @keyframes flashOut {0%{opacity:0;}48%{opacity:.28;}70%{opacity:.02;}100%{opacity:0;}}
-    @keyframes centerExit {from{opacity:1;transform:translateY(-3vh) scale(1);}to{opacity:0;transform:translateY(-3vh) scale(1.025);}}
-    /* =========================================================
-       DATABASE MENU
-    ========================================================= */
+/* LANDING PAGE */
 
-    #database {
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 50% 35%, rgba(166,190,224,.07), transparent 35%),
-        linear-gradient(180deg, #0d1117 0%, #090c11 100%);
-    }
+#landing {
+  cursor: pointer;
+  background: #02050d;
+  isolation: isolate;
+}
 
-    .db-grid {
-      position: absolute;
-      inset: 0;
-      opacity: .35;
-      background:
-        linear-gradient(rgba(211,227,248,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(211,227,248,.035) 1px, transparent 1px);
-      background-size: 44px 44px;
-      mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 84%, transparent);
-    }
+#spaceCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
 
-    .database-wrap {
-      position: relative;
-      z-index: 2;
-      width: min(1180px, 91vw);
-      height: 100%;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 56px;
-      padding: 7vh 0;
-    }
+.space-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(1, 5, 14, .58) 0%,
+      rgba(1, 5, 14, .23) 45%,
+      rgba(1, 5, 14, .06) 100%
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 3px,
+      rgba(3, 8, 18, .13) 4px
+    );
+}
 
-    .db-heading {
-      text-align: center;
-    }
+.landing-content {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 24px;
+}
 
-    .db-eyebrow {
-      font-family: "Press Start 2P", monospace;
-      font-size: 7px;
-      letter-spacing: .12em;
-      color: #718096;
-      margin-bottom: 15px;
-    }
+.title-group {
+  transform: translateY(-3vh);
+}
 
-    .db-heading h2 {
-      font-family: "Orbitron", sans-serif;
-      font-size: clamp(26px, 3.2vw, 46px);
-      letter-spacing: .13em;
-      margin-left: .13em;
-      font-weight: 500;
-      color: #eef5ff;
-    }
+.name {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 500;
+  font-size: clamp(42px, 6.5vw, 104px);
+  letter-spacing: .20em;
+  margin-left: .20em;
+  line-height: 1.25;
+  color: #f0f6ff;
+  text-shadow:
+    0 0 8px rgba(172, 209, 255, .7),
+    0 0 32px rgba(43, 127, 255, .35);
+}
 
-    .db-heading p {
-      margin-top: 14px;
-      color: #7f8da1;
-      font-size: 13px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
+.portfolio-title {
+  margin-top: 22px;
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(10px, 1.4vw, 17px);
+  line-height: 2;
+  letter-spacing: .08em;
+  text-shadow: 0 0 12px rgba(115, 166, 255, .4);
+}
 
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 16px;
-    }
+.role {
+  margin-top: 25px;
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(10px, 1.1vw, 15px);
+  letter-spacing: .30em;
+  margin-left: .30em;
+  color: #a8c2e3;
+}
 
-    .category {
-      position: relative;
-      min-height: 210px;
-      padding: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      color: #e7eef8;
-      text-decoration: none;
-      cursor: pointer;
-      border: 1px solid rgba(198,214,237,.28);
-      background:
-        linear-gradient(145deg,
-          rgba(255,255,255,.035),
-          rgba(255,255,255,.012) 50%,
-          rgba(159,187,225,.035));
-      backdrop-filter: blur(8px);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.015);
-      transition:
-        transform .26s ease,
-        border-color .26s ease,
-        background .26s ease,
-        box-shadow .26s ease;
-    }
+.enter-text {
+  position: absolute;
+  left: 50%;
+  bottom: 13%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(7px, .8vw, 11px);
+  color: #dceeff;
+  text-shadow: 0 0 12px rgba(91, 167, 255, .6);
+  animation: blink 1.3s steps(1, end) infinite;
+}
 
-    .category::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 28px;
-      height: 1px;
-      background: #d7e7ff;
-      opacity: .7;
-    }
+.enter-text::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 35px;
+  background: #9ad2ff;
+  margin: 20px auto 0;
+  box-shadow: 0 0 12px #60aaff;
+}
 
-    .category:hover {
-      transform: translateY(-7px);
-      border-color: rgba(217,231,251,.78);
-      background:
-        linear-gradient(145deg,
-          rgba(203,222,248,.10),
-          rgba(255,255,255,.025) 52%,
-          rgba(154,184,227,.07));
-      box-shadow:
-        0 0 24px rgba(173,202,242,.08),
-        inset 0 0 28px rgba(209,228,255,.025);
-    }
+@keyframes blink {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: .17; }
+}
 
-    .category-number {
-      font-family: "Press Start 2P", monospace;
-      font-size: 7px;
-      color: #748297;
-    }
+.transition-flash {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: #cde5ff;
+  opacity: 0;
+}
 
-    .category-name {
-      font-family: "Press Start 2P", monospace;
-      font-size: clamp(9px, .9vw, 12px);
-      line-height: 1.7;
-    }
+#landing.entering .transition-flash {
+  animation: flash .8s ease forwards;
+}
 
-    .category-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 12px;
-    }
+@keyframes flash {
+  0% { opacity: 0; }
+  45% { opacity: .55; }
+  100% { opacity: 0; }
+}
 
-    .category-hint {
-      color: #6e7b8c;
-      font-size: 11px;
-      letter-spacing: .10em;
-      text-transform: uppercase;
-    }
+/* DATABASE MENU */
 
-    .category-arrow {
-      font-size: 22px;
-      color: #bcd2f0;
-      transform: translateX(0);
-      transition: transform .25s ease;
-    }
+#database {
+  overflow-y: auto;
+  background:
+    radial-gradient(ellipse at 50% 20%, #101e39, transparent 65%),
+    #040810;
+}
 
-    .category:hover .category-arrow {
-      transform: translateX(6px);
-    }
+.database-container {
+  width: min(1220px, 92%);
+  min-height: 100%;
+  margin: auto;
+  padding: 95px 0 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+}
 
-    .db-back {
-      position: absolute;
-      top: 28px;
-      left: 32px;
-      z-index: 8;
-      border: 0;
-      background: transparent;
-      color: #7d8a9c;
-      font-family: "Press Start 2P", monospace;
-      font-size: 7px;
-      cursor: pointer;
-      letter-spacing: .06em;
-    }
+.database-header {
+  text-align: center;
+}
 
-    .db-back:hover {
-      color: #eef5ff;
-    }
+.small-label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #7494bb;
+  letter-spacing: .06em;
+}
 
-    /* =========================================================
-       CONTENT VIEWS
-    ========================================================= */
+.database-header h2 {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 500;
+  font-size: clamp(27px, 4vw, 48px);
+  letter-spacing: .14em;
+  margin: 24px 0 15px;
+}
 
-    .content-view {
-      overflow-y: auto;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(165,189,222,.07), transparent 34%),
-        #0a0d12;
-    }
+.database-header p {
+  color: #92a9c7;
+  font-size: 13px;
+  letter-spacing: .18em;
+}
 
-    .content-inner {
-      width: min(1000px, 90vw);
-      min-height: 100vh;
-      margin: 0 auto;
-      padding: 90px 0 70px;
-    }
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
 
-    .content-kicker {
-      font-family: "Press Start 2P", monospace;
-      font-size: 7px;
-      color: #6f7d91;
-      letter-spacing: .08em;
-      margin-bottom: 18px;
-    }
+.menu-card {
+  position: relative;
+  min-height: 200px;
+  padding: 22px 17px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(158, 198, 255, .085),
+      rgba(158, 198, 255, .012)
+    );
+  border: 1px solid rgba(149, 190, 255, .28);
+  color: var(--white);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform .25s ease,
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
 
-    .content-inner h2 {
-      font-family: "Orbitron", sans-serif;
-      font-size: clamp(34px, 5vw, 62px);
-      font-weight: 500;
-      letter-spacing: .10em;
-      color: #eef5ff;
-      margin-bottom: 20px;
-    }
+.menu-card:hover {
+  transform: translateY(-7px);
+  border-color: #95c6ff;
+  background: rgba(123, 183, 255, .14);
+  box-shadow: 0 0 30px rgba(67, 138, 255, .16);
+}
 
-    .content-inner p {
-      max-width: 760px;
-      color: #95a2b4;
-      font-size: 17px;
-      line-height: 1.75;
-    }
+.card-num {
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  color: #799bc6;
+}
 
-    .content-back {
-      margin-top: 34px;
-      border: 1px solid rgba(207,224,246,.28);
-      background: rgba(255,255,255,.025);
-      padding: 14px 18px;
-      color: #dce8f8;
-      cursor: pointer;
-      font-family: "Press Start 2P", monospace;
-      font-size: 7px;
-      transition: .2s ease;
-    }
+.card-name {
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(9px, .92vw, 12px);
+  line-height: 1.8;
+}
 
-    .content-back:hover {
-      border-color: rgba(224,235,250,.75);
-      background: rgba(214,229,249,.07);
-    }
+.card-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    /* =========================================================
-       RESPONSIVE
-    ========================================================= */
+.card-caption {
+  font-size: 11px;
+  color: #839ab9;
+  letter-spacing: .05em;
+}
 
-    @media (max-width: 900px) {
-      .name {
-        font-size: clamp(38px, 9vw, 64px);
-        letter-spacing: .14em;
-        margin-left: .14em;
-      }
+.card-arrow {
+  font-size: 24px;
+  color: #a7ceff;
+}
 
-      .portfolio-title {
-        font-size: 9px;
-      }
+.return-button {
+  position: absolute;
+  top: 30px;
+  left: 35px;
+  border: 0;
+  background: none;
+  color: #a9bdd7;
+  cursor: pointer;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+}
 
-      .role {
-        font-size: 9px;
-      }
+.return-button:hover {
+  color: white;
+}
 
-      .category-grid {
-        grid-template-columns: 1fr 1fr;
-      }
+/* CONTENT SECTIONS */
 
-      #database,
-      .content-view {
-        overflow-y: auto;
-      }
+.content-page {
+  background:
+    radial-gradient(ellipse at top, #14233c, transparent 55%),
+    #060a12;
+  overflow-y: auto;
+}
 
-      .database-wrap {
-        height: auto;
-        min-height: 100vh;
-        padding: 100px 0 60px;
-      }
+.content-container {
+  max-width: 1000px;
+  width: 90%;
+  min-height: 100%;
+  margin: auto;
+  padding: 110px 0 70px;
+}
 
-      .category {
-        min-height: 160px;
-      }
-    }
+.content-container h2 {
+  margin: 25px 0;
+  font-family: "Orbitron", sans-serif;
+  font-weight: 500;
+  font-size: clamp(34px, 5vw, 65px);
+  letter-spacing: .1em;
+}
 
-    @media (max-width: 560px) {
+.content-container p {
+  color: #a4b6cf;
+  font-size: 19px;
+  line-height: 1.8;
+  max-width: 800px;
+}
 
-      .landing-center {
-        transform: translateY(-5vh);
-      }
+.back-button {
+  margin-top: 40px;
+  padding: 16px 22px;
+  border: 1px solid #7797c1;
+  background: rgba(130, 180, 250, .07);
+  color: #d5e6ff;
+  font-family: "Press Start 2P", monospace;
+  font-size: 8px;
+  cursor: pointer;
+}
 
-      .name {
-        font-size: 34px;
-        letter-spacing: .10em;
-        margin-left: .10em;
-      }
+.back-button:hover {
+  background: rgba(130, 180, 250, .2);
+}
 
-      .portfolio-title {
-        font-size: 8px;
-        letter-spacing: .10em;
-      }
+/* MOBILE */
 
-      .role {
-        font-size: 8px;
-        letter-spacing: .18em;
-        margin-left: .18em;
-      }
+@media (max-width: 900px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-      .access-prompt {
-        bottom: 11vh;
-        font-size: 6px;
-      }
+  .menu-card {
+    min-height: 160px;
+  }
 
-      .category-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+  .name {
+    font-size: clamp(35px, 8vw, 65px);
+    letter-spacing: .10em;
+    margin-left: .10em;
+  }
+}
 
-    @media (prefers-reduced-motion: reduce) {
-      .space-backdrop { animation: none; }
-      .access-prompt {
-        animation: none;
-      }
+@media (max-width: 530px) {
+  .name {
+    font-size: 36px;
+    letter-spacing: .04em;
+    margin-left: .04em;
+  }
 
-      .view {
-        transition: none;
-      }
+  .portfolio-title {
+    font-size: 8px;
+  }
 
-      .category {
-        transition: none;
-      }
-    }
-  </style>
+  .role {
+    font-size: 8px;
+    letter-spacing: .12em;
+  }
+
+  .enter-text {
+    font-size: 6px;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .database-container {
+    padding-top: 110px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-text {
+    animation: none;
+  }
+
+  .page, .menu-card {
+    transition: none;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- ======================================================
-       PAGE 1 — LANDING
-  ======================================================= -->
+<!-- LANDING PAGE -->
 
-  <section id="landing" class="view active" aria-label="Portfolio landing page">
+<section id="landing" class="page active" tabindex="0">
+  <canvas id="spaceCanvas"></canvas>
+  <div class="space-overlay"></div>
 
-
-
-    <div class="space-backdrop" aria-hidden="true"></div>
-    <div class="space-shade" aria-hidden="true"></div>
-    <canvas id="starCanvas" aria-hidden="true"></canvas>
-    <div class="landing-ui">
-      <div class="landing-center">
-        <h1 class="name">TONGYANG</h1>
-        <div class="portfolio-title">ENGINEERING PORTFOLIO</div>
-        <div class="role">MECHATRONICS ENGINEER</div>
-      </div>
-
-      <div class="access-prompt">
-        PRESS ANYWHERE TO ACCESS DATABASE
-      </div>
+  <div class="landing-content">
+    <div class="title-group">
+      <h1 class="name">TONGYANG</h1>
+      <div class="portfolio-title">ENGINEERING PORTFOLIO</div>
+      <div class="role">MECHATRONICS ENGINEER</div>
     </div>
 
-    <div class="landing-flash" aria-hidden="true"></div>
-  </section>
-
-
-  <!-- ======================================================
-       PAGE 2 — CATEGORY DATABASE
-  ======================================================= -->
-
-  <section id="database" class="view" aria-label="Engineering portfolio database">
-    <div class="db-grid" aria-hidden="true"></div>
-
-    <button class="db-back" id="backToLanding" type="button">
-      ← RETURN
-    </button>
-
-    <div class="database-wrap">
-      <div class="db-heading">
-        <div class="db-eyebrow">TY_01 // ENGINEERING DATABASE</div>
-        <h2>SELECT DATABASE</h2>
-        <p>Choose a section to explore</p>
-      </div>
-
-      <div class="category-grid">
-
-        <button class="category" data-page="projects" type="button">
-          <span class="category-number">01</span>
-          <span class="category-name">PROJECTS</span>
-          <span class="category-bottom">
-            <span class="category-hint">Engineering work</span>
-            <span class="category-arrow">→</span>
-          </span>
-        </button>
-
-        <button class="category" data-page="experience" type="button">
-          <span class="category-number">02</span>
-          <span class="category-name">EXPERIENCE</span>
-          <span class="category-bottom">
-            <span class="category-hint">Industry</span>
-            <span class="category-arrow">→</span>
-          </span>
-        </button>
-
-        <button class="category" data-page="skills" type="button">
-          <span class="category-number">03</span>
-          <span class="category-name">SKILLS</span>
-          <span class="category-bottom">
-            <span class="category-hint">Tools & systems</span>
-            <span class="category-arrow">→</span>
-          </span>
-        </button>
-
-        <button class="category" data-page="about" type="button">
-          <span class="category-number">04</span>
-          <span class="category-name">ABOUT</span>
-          <span class="category-bottom">
-            <span class="category-hint">Profile</span>
-            <span class="category-arrow">→</span>
-          </span>
-        </button>
-
-        <button class="category" data-page="contact" type="button">
-          <span class="category-number">05</span>
-          <span class="category-name">CONTACT</span>
-          <span class="category-bottom">
-            <span class="category-hint">Connect</span>
-            <span class="category-arrow">→</span>
-          </span>
-        </button>
-
-      </div>
+    <div class="enter-text">
+      PRESS ANYWHERE TO ACCESS DATABASE
     </div>
-  </section>
+  </div>
 
+  <div class="transition-flash"></div>
+</section>
 
-  <!-- ======================================================
-       PROJECTS
-  ======================================================= -->
+<!-- DATABASE MENU -->
 
-  <section id="projects" class="view content-view">
-    <div class="content-inner">
-      <div class="content-kicker">DATABASE // 01</div>
-      <h2>PROJECTS</h2>
-      <p>
-        Your engineering projects will go here later — CAD models, robotics,
-        prototypes, embedded systems, technical drawings, simulations and
-        interactive project showcases.
-      </p>
+<section id="database" class="page">
+  <button class="return-button" id="returnLanding">
+    ← RETURN
+  </button>
 
-      <button class="content-back" type="button">
-        ← RETURN TO DATABASE
+  <div class="database-container">
+
+    <div class="database-header">
+      <div class="small-label">TY_01 // PORTFOLIO SYSTEM</div>
+      <h2>ENGINEERING DATABASE</h2>
+      <p>SELECT A CATEGORY TO EXPLORE</p>
+    </div>
+
+    <div class="menu-grid">
+
+      <button class="menu-card" data-target="projects">
+        <span class="card-num">01</span>
+        <span class="card-name">PROJECTS</span>
+        <span class="card-bottom">
+          <span class="card-caption">Engineering work</span>
+          <span class="card-arrow">→</span>
+        </span>
       </button>
-    </div>
-  </section>
 
-
-  <!-- ======================================================
-       EXPERIENCE
-  ======================================================= -->
-
-  <section id="experience" class="view content-view">
-    <div class="content-inner">
-      <div class="content-kicker">DATABASE // 02</div>
-      <h2>EXPERIENCE</h2>
-      <p>
-        Your internship, engineering employment, industry experience and
-        practical engineering work can be presented here.
-      </p>
-
-      <button class="content-back" type="button">
-        ← RETURN TO DATABASE
+      <button class="menu-card" data-target="experience">
+        <span class="card-num">02</span>
+        <span class="card-name">EXPERIENCE</span>
+        <span class="card-bottom">
+          <span class="card-caption">Industry work</span>
+          <span class="card-arrow">→</span>
+        </span>
       </button>
-    </div>
-  </section>
 
-
-  <!-- ======================================================
-       SKILLS
-  ======================================================= -->
-
-  <section id="skills" class="view content-view">
-    <div class="content-inner">
-      <div class="content-kicker">DATABASE // 03</div>
-      <h2>SKILLS</h2>
-      <p>
-        Add your CAD, programming, robotics, embedded systems, electronics,
-        simulation, manufacturing and engineering software skills here.
-      </p>
-
-      <button class="content-back" type="button">
-        ← RETURN TO DATABASE
+      <button class="menu-card" data-target="skills">
+        <span class="card-num">03</span>
+        <span class="card-name">SKILLS</span>
+        <span class="card-bottom">
+          <span class="card-caption">Tools & systems</span>
+          <span class="card-arrow">→</span>
+        </span>
       </button>
-    </div>
-  </section>
 
-
-  <!-- ======================================================
-       ABOUT
-  ======================================================= -->
-
-  <section id="about" class="view content-view">
-    <div class="content-inner">
-      <div class="content-kicker">DATABASE // 04</div>
-      <h2>ABOUT</h2>
-      <p>
-        Introduce your engineering background, degree, interests, design
-        approach and career direction here.
-      </p>
-
-      <button class="content-back" type="button">
-        ← RETURN TO DATABASE
+      <button class="menu-card" data-target="about">
+        <span class="card-num">04</span>
+        <span class="card-name">ABOUT</span>
+        <span class="card-bottom">
+          <span class="card-caption">Engineer profile</span>
+          <span class="card-arrow">→</span>
+        </span>
       </button>
-    </div>
-  </section>
 
-
-  <!-- ======================================================
-       CONTACT
-  ======================================================= -->
-
-  <section id="contact" class="view content-view">
-    <div class="content-inner">
-      <div class="content-kicker">DATABASE // 05</div>
-      <h2>CONTACT</h2>
-      <p>
-        Add your email, LinkedIn, GitHub, CV link and other professional contact
-        information here.
-      </p>
-
-      <button class="content-back" type="button">
-        ← RETURN TO DATABASE
+      <button class="menu-card" data-target="contact">
+        <span class="card-num">05</span>
+        <span class="card-name">CONTACT</span>
+        <span class="card-bottom">
+          <span class="card-caption">Connect with me</span>
+          <span class="card-arrow">→</span>
+        </span>
       </button>
+
     </div>
-  </section>
+  </div>
+</section>
 
+<!-- PROJECTS -->
 
-  <script>
+<section id="projects" class="page content-page">
+  <div class="content-container">
+    <div class="small-label">DATABASE // 01</div>
+    <h2>PROJECTS</h2>
+    <p>
+      My engineering projects will be featured here,
+      including robotics, CAD, mechanical design,
+      embedded systems, prototypes and simulations.
+    </p>
+    <button class="back-button">← RETURN TO DATABASE</button>
+  </div>
+</section>
 
-    // Layered starfield: seamless pixel-like sparks and horizontal streaks drift right-to-left.
-    const starCanvas = document.getElementById("starCanvas");
-    const starCtx = starCanvas.getContext("2d", { alpha: true });
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const particles = [];
-    let canvasWidth = 0, canvasHeight = 0, lastFrame = 0;
+<!-- EXPERIENCE -->
 
-    function resizeStars() {
-      const rect = starCanvas.getBoundingClientRect();
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
-      canvasWidth = Math.max(1, Math.ceil(rect.width));
-      canvasHeight = Math.max(1, Math.ceil(rect.height));
-      starCanvas.width = Math.ceil(canvasWidth * ratio);
-      starCanvas.height = Math.ceil(canvasHeight * ratio);
-      starCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
-      particles.length = 0;
-      const count = Math.min(125, Math.floor(canvasWidth * canvasHeight / 15000));
-      for (let i = 0; i < count; i++) {
-        const depth = .4 + Math.random() * 1.7;
-        particles.push({
-          x: Math.random() * canvasWidth, y: Math.random() * canvasHeight,
-          v: (7 + Math.random() * 26) * depth,
-          size: Math.random() > .90 ? 2 : 1,
-          streak: Math.random() > .86,
-          alpha: .23 + Math.random() * .55,
-          blue: Math.random() > .5
-        });
-      }
+<section id="experience" class="page content-page">
+  <div class="content-container">
+    <div class="small-label">DATABASE // 02</div>
+    <h2>EXPERIENCE</h2>
+    <p>
+      My professional engineering experience,
+      internships and industry projects will be
+      displayed here.
+    </p>
+    <button class="back-button">← RETURN TO DATABASE</button>
+  </div>
+</section>
+
+<!-- SKILLS -->
+
+<section id="skills" class="page content-page">
+  <div class="content-container">
+    <div class="small-label">DATABASE // 03</div>
+    <h2>SKILLS</h2>
+    <p>
+      My skills in CAD, mechanical engineering,
+      electronics, software, robotics and
+      engineering simulation will be presented here.
+    </p>
+    <button class="back-button">← RETURN TO DATABASE</button>
+  </div>
+</section>
+
+<!-- ABOUT -->
+
+<section id="about" class="page content-page">
+  <div class="content-container">
+    <div class="small-label">DATABASE // 04</div>
+    <h2>ABOUT</h2>
+    <p>
+      My background, engineering education,
+      technical interests and career goals
+      will be introduced here.
+    </p>
+    <button class="back-button">← RETURN TO DATABASE</button>
+  </div>
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact" class="page content-page">
+  <div class="content-container">
+    <div class="small-label">DATABASE // 05</div>
+    <h2>CONTACT</h2>
+    <p>
+      My email, LinkedIn, GitHub and CV
+      will be available here.
+    </p>
+    <button class="back-button">← RETURN TO DATABASE</button>
+  </div>
+</section>
+
+<script>
+/* ======================================================
+   PAGE NAVIGATION
+====================================================== */
+
+const pages = document.querySelectorAll(".page");
+const landing = document.getElementById("landing");
+
+let transitioning = false;
+
+function showPage(pageId) {
+  pages.forEach(page => {
+    page.classList.toggle("active", page.id === pageId);
+  });
+}
+
+function enterDatabase() {
+  if (transitioning || !landing.classList.contains("active")) {
+    return;
+  }
+
+  transitioning = true;
+  landing.classList.add("entering");
+
+  setTimeout(() => {
+    showPage("database");
+    landing.classList.remove("entering");
+    transitioning = false;
+  }, 800);
+}
+
+landing.addEventListener("click", enterDatabase);
+
+landing.addEventListener("keydown", event => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    enterDatabase();
+  }
+});
+
+document.getElementById("returnLanding")
+  .addEventListener("click", () => showPage("landing"));
+
+document.querySelectorAll(".menu-card").forEach(card => {
+  card.addEventListener("click", () => {
+    showPage(card.dataset.target);
+  });
+});
+
+document.querySelectorAll(".back-button").forEach(button => {
+  button.addEventListener("click", () => {
+    showPage("database");
+  });
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key !== "Escape") return;
+
+  const active = document.querySelector(".page.active");
+
+  if (!active || active.id === "landing") return;
+
+  showPage(active.id === "database" ? "landing" : "database");
+});
+
+/* ======================================================
+   ANIMATED PIXEL SPACE BACKGROUND
+   Stars continuously move RIGHT TO LEFT
+====================================================== */
+
+const canvas = document.getElementById("spaceCanvas");
+const ctx = canvas.getContext("2d", { alpha: false });
+
+let W = 0;
+let H = 0;
+let stars = [];
+let streaks = [];
+let particles = [];
+
+const random = (min, max) =>
+  Math.random() * (max - min) + min;
+
+function resizeCanvas() {
+  W = window.innerWidth;
+  H = window.innerHeight;
+
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  canvas.width = Math.round(W * dpr);
+  canvas.height = Math.round(H * dpr);
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.imageSmoothingEnabled = false;
+
+  createSpace();
+}
+
+function createSpace() {
+  stars = [];
+  streaks = [];
+  particles = [];
+
+  const starCount = Math.min(
+    650,
+    Math.max(180, Math.floor(W * H / 2200))
+  );
+
+  for (let i = 0; i < starCount; i++) {
+    stars.push({
+      x: random(0, W),
+      y: random(0, H),
+      size: random(0.6, 2.2),
+      speed: random(0.12, 0.85),
+      brightness: random(0.25, 1),
+      twinkle: random(0, Math.PI * 2)
+    });
+  }
+
+  for (let i = 0; i < 35; i++) {
+    streaks.push({
+      x: random(0, W),
+      y: random(0, H),
+      length: random(18, 125),
+      speed: random(1.0, 3.8),
+      alpha: random(0.12, 0.5)
+    });
+  }
+
+  for (let i = 0; i < 220; i++) {
+    particles.push({
+      x: random(0, W),
+      y: random(0, H),
+      size: random(1, 3),
+      speed: random(0.15, 0.5),
+      alpha: random(0.04, 0.25)
+    });
+  }
+}
+
+function drawBackground() {
+  ctx.fillStyle = "#02050d";
+  ctx.fillRect(0, 0, W, H);
+
+  // Faint blue nebula glow
+  const nebula = ctx.createRadialGradient(
+    W * 0.32, H * 0.48, 0,
+    W * 0.32, H * 0.48, W * 0.65
+  );
+
+  nebula.addColorStop(0, "rgba(12,60,125,0.20)");
+  nebula.addColorStop(0.45, "rgba(7,30,75,0.13)");
+  nebula.addColorStop(1, "rgba(0,0,0,0)");
+
+  ctx.fillStyle = nebula;
+  ctx.fillRect(0, 0, W, H);
+
+  const nebula2 = ctx.createRadialGradient(
+    W * 0.80, H * 0.75, 0,
+    W * 0.80, H * 0.75, W * 0.45
+  );
+
+  nebula2.addColorStop(0, "rgba(32,75,165,0.18)");
+  nebula2.addColorStop(1, "rgba(0,0,0,0)");
+
+  ctx.fillStyle = nebula2;
+  ctx.fillRect(0, 0, W, H);
+}
+
+function drawStars(dt, time) {
+  for (const s of stars) {
+    s.x -= s.speed * dt;
+
+    if (s.x < -5) {
+      s.x = W + 5;
+      s.y = random(0, H);
     }
 
-    function drawStars(time) {
-      let dt = Math.min((time - lastFrame) / 1000 || 0, .06);
-      lastFrame = time;
-      starCtx.clearRect(0, 0, canvasWidth, canvasHeight);
-      for (const p of particles) {
-        if (!reduceMotion && document.getElementById("landing").classList.contains("active")) {
-          p.x -= p.v * dt;
-          if (p.x < -45) { p.x = canvasWidth + 45; p.y = Math.random() * canvasHeight; }
-        }
-        starCtx.globalAlpha = p.alpha;
-        starCtx.fillStyle = p.blue ? "#76b6ff" : "#e8f5ff";
-        if (p.streak) {
-          starCtx.fillRect(Math.round(p.x), Math.round(p.y), 14 + p.v * .25, 1);
-          starCtx.globalAlpha = p.alpha * .6;
-          starCtx.fillRect(Math.round(p.x + 5), Math.round(p.y-1), 4, 1);
-        } else {
-          starCtx.fillRect(Math.round(p.x), Math.round(p.y), p.size, p.size);
-        }
-      }
-      starCtx.globalAlpha = 1;
-      if (!reduceMotion) requestAnimationFrame(drawStars);
-    }
-    window.addEventListener("resize", resizeStars);
-    resizeStars();
-    requestAnimationFrame(drawStars);
+    const twinkle =
+      0.75 + Math.sin(time * 0.0016 + s.twinkle) * 0.25;
 
-    const views = [...document.querySelectorAll(".view")];
-    const landing = document.getElementById("landing");
-    const database = document.getElementById("database");
-    const backToLanding = document.getElementById("backToLanding");
-    let transitioning = false;
+    ctx.fillStyle =
+      `rgba(177,211,255,${s.brightness * twinkle})`;
 
-    function showView(id) {
-      views.forEach(view => {
-        view.classList.toggle("active", view.id === id);
-      });
+    ctx.fillRect(
+      Math.round(s.x),
+      Math.round(s.y),
+      Math.max(1, Math.round(s.size)),
+      Math.max(1, Math.round(s.size))
+    );
+  }
+}
+
+function drawStreaks(dt) {
+  for (const s of streaks) {
+    s.x -= s.speed * dt;
+
+    if (s.x + s.length < 0) {
+      s.x = W + random(10, 300);
+      s.y = random(0, H);
     }
 
-    function enterDatabase() {
-      if (transitioning || !landing.classList.contains("active")) return;
+    const gradient = ctx.createLinearGradient(
+      s.x, s.y, s.x + s.length, s.y
+    );
 
-      transitioning = true;
-      landing.classList.add("entering");
+    gradient.addColorStop(0, "rgba(45,120,255,0)");
+    gradient.addColorStop(
+      0.75, `rgba(65,150,255,${s.alpha * 0.5})`
+    );
+    gradient.addColorStop(
+      1, `rgba(190,220,255,${s.alpha})`
+    );
 
-      setTimeout(() => {
-        showView("database");
-        landing.classList.remove("entering");
-        transitioning = false;
-      }, 760);
+    ctx.fillStyle = gradient;
+
+    ctx.fillRect(
+      s.x,
+      s.y,
+      s.length,
+      1 + s.alpha * 3
+    );
+  }
+}
+
+function drawParticles(dt) {
+  for (const p of particles) {
+    p.x -= p.speed * dt;
+
+    if (p.x < -5) {
+      p.x = W + 5;
+      p.y = random(0, H);
     }
 
-    landing.addEventListener("click", enterDatabase);
+    ctx.fillStyle = `rgba(45,125,255,${p.alpha})`;
 
-    landing.addEventListener("keydown", event => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        enterDatabase();
-      }
-    });
+    ctx.fillRect(
+      Math.round(p.x),
+      Math.round(p.y),
+      p.size,
+      p.size
+    );
+  }
+}
 
-    landing.tabIndex = 0;
+function drawBrightStar(x, y, size) {
+  const glow = ctx.createRadialGradient(
+    x, y, 0, x, y, size * 8
+  );
 
-    backToLanding.addEventListener("click", () => {
-      showView("landing");
-    });
+  glow.addColorStop(0, "rgba(235,247,255,0.8)");
+  glow.addColorStop(0.2, "rgba(115,185,255,0.28)");
+  glow.addColorStop(1, "rgba(20,80,180,0)");
 
-    document.querySelectorAll(".category").forEach(button => {
-      button.addEventListener("click", () => {
-        const target = button.dataset.page;
-        showView(target);
-      });
-    });
+  ctx.fillStyle = glow;
+  ctx.fillRect(
+    x - size * 8,
+    y - size * 8,
+    size * 16,
+    size * 16
+  );
 
-    document.querySelectorAll(".content-back").forEach(button => {
-      button.addEventListener("click", () => {
-        showView("database");
-      });
-    });
+  ctx.fillStyle = "#e7f4ff";
+  ctx.fillRect(x - size * 4, y, size * 8, 1);
+  ctx.fillRect(x, y - size * 4, 1, size * 8);
+  ctx.fillRect(x - 2, y - 2, 4, 4);
+}
 
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape") {
-        const active = document.querySelector(".view.active");
+let previousTime = 0;
 
-        if (!active) return;
+function animate(time) {
+  const dt = Math.min(
+    (time - previousTime) / 16.67 || 1,
+    2.5
+  );
 
-        if (active.id === "landing") return;
+  previousTime = time;
 
-        if (active.id === "database") {
-          showView("landing");
-        } else {
-          showView("database");
-        }
-      }
-    });
-  </script>
+  if (!document.hidden) {
+    drawBackground();
+    drawParticles(dt);
+    drawStars(dt, time);
+    drawStreaks(dt);
+
+    // Small fixed bright stars in the background
+    drawBrightStar(W * 0.20, H * 0.23, 2);
+    drawBrightStar(W * 0.78, H * 0.28, 2.5);
+    drawBrightStar(W * 0.68, H * 0.83, 2);
+  }
+
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener("resize", resizeCanvas);
+
+resizeCanvas();
+requestAnimationFrame(animate);
+</script>
+
 </body>
 </html>
