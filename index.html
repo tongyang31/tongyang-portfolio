@@ -642,7 +642,7 @@ document.addEventListener("keydown", event => {
 
 /* ======================================================
    ANIMATED PIXEL SPACE BACKGROUND
-   Stars continuously move RIGHT TO LEFT
+   Stars continuously move LEFT TO RIGHT
 ====================================================== */
 
 const canvas = document.getElementById("spaceCanvas");
@@ -745,10 +745,11 @@ function drawBackground() {
 
 function drawStars(dt, time) {
   for (const s of stars) {
-    s.x -= s.speed * dt;
+    // Move LEFT TO RIGHT
+    s.x += s.speed * dt;
 
-    if (s.x < -5) {
-      s.x = W + 5;
+    if (s.x > W + 5) {
+      s.x = -5;
       s.y = random(0, H);
     }
 
@@ -769,10 +770,11 @@ function drawStars(dt, time) {
 
 function drawStreaks(dt) {
   for (const s of streaks) {
-    s.x -= s.speed * dt;
+    // Move LEFT TO RIGHT
+    s.x += s.speed * dt;
 
-    if (s.x + s.length < 0) {
-      s.x = W + random(10, 300);
+    if (s.x > W + 5) {
+      s.x = -s.length - random(10, 300);
       s.y = random(0, H);
     }
 
@@ -801,10 +803,11 @@ function drawStreaks(dt) {
 
 function drawParticles(dt) {
   for (const p of particles) {
-    p.x -= p.speed * dt;
+    // Move LEFT TO RIGHT
+    p.x += p.speed * dt;
 
-    if (p.x < -5) {
-      p.x = W + 5;
+    if (p.x > W + 5) {
+      p.x = -5;
       p.y = random(0, H);
     }
 
@@ -858,7 +861,6 @@ function animate(time) {
     drawStars(dt, time);
     drawStreaks(dt);
 
-    // Small fixed bright stars in the background
     drawBrightStar(W * 0.20, H * 0.23, 2);
     drawBrightStar(W * 0.78, H * 0.28, 2.5);
     drawBrightStar(W * 0.68, H * 0.83, 2);
