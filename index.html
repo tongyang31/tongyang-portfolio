@@ -2,1981 +2,2146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#02050d">
-  <title>TONGYANG | Engineering Portfolio</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&family=Press+Start+2P&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #02050d;
-      --white: #eff6ff;
-      --muted: #94abc8;
-      --border: rgba(146,190,255,.28);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: var(--bg);
-      color: var(--white);
-      font-family: Inter, Arial, sans-serif;
-    }
-
-    button {
-      font: inherit;
-    }
-
-    .page {
-      position: fixed;
-      inset: 0;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity .55s ease, visibility .55s ease;
-    }
-
-    .page.active {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-    }
-
-    /* ===========================
-       LANDING PAGE
-    ============================ */
-
-    #landing {
-      cursor: pointer;
-      isolation: isolate;
-      background: #02050d;
-    }
-
-    #spaceCanvas {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      display: block;
-    }
-
-    .space-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      background:
-        radial-gradient(
-          ellipse 70% 50% at center,
-          rgba(1,5,14,.37),
-          rgba(1,5,14,.13) 65%,
-          transparent
-        ),
-        repeating-linear-gradient(
-          to bottom,
-          transparent 0,
-          transparent 4px,
-          rgba(255,255,255,.012) 5px
-        );
-    }
-
-    .landing-content {
-      position: relative;
-      z-index: 2;
-      min-height: 100%;
-      display: grid;
-      place-items: center;
-      padding: 24px;
-      text-align: center;
-    }
-
-    .title-group {
-      transform: translateY(-3vh);
-    }
-
-    .name {
-      margin: 0 0 0 .18em;
-      font: 500 clamp(42px,6.5vw,104px)/1.25
-        Orbitron, Arial, sans-serif;
-      letter-spacing: .18em;
-      color: #f1f6ff;
-      text-shadow:
-        0 0 8px rgba(172,209,255,.7),
-        0 0 32px rgba(43,127,255,.35);
-    }
-
-    .portfolio-title {
-      margin-top: 22px;
-      font: normal clamp(10px,1.4vw,17px)/2
-        'Press Start 2P', monospace;
-      letter-spacing: .08em;
-      text-shadow:
-        0 0 12px rgba(115,166,255,.4);
-    }
-
-    .role {
-      margin: 25px 0 0 .3em;
-      font: 400 clamp(10px,1.1vw,15px)/1.5
-        Orbitron, Arial, sans-serif;
-      letter-spacing: .3em;
-      color: #abc5e6;
-    }
-
-    .enter-text {
-      position: absolute;
-      left: 50%;
-      bottom: 12.5%;
-      transform: translateX(-50%);
-      white-space: nowrap;
-      color: #e2efff;
-      font: normal clamp(7px,.8vw,11px)/1.8
-        'Press Start 2P', monospace;
-      text-shadow:
-        0 0 12px rgba(91,167,255,.55);
-      animation: blink 1.3s steps(1,end) infinite;
-    }
-
-    .enter-text::after {
-      content: '';
-      display: block;
-      width: 35px;
-      height: 2px;
-      margin: 20px auto 0;
-      background: #9ad2ff;
-      box-shadow: 0 0 12px #60aaff;
-    }
-
-    @keyframes blink {
-      0%, 55% { opacity: 1; }
-      56%, 100% { opacity: .18; }
-    }
-
-    .transition-flash {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      pointer-events: none;
-      background: #cde5ff;
-      opacity: 0;
-    }
-
-    /* ===========================
-       DATABASE MENU
-    ============================ */
-
-    #database {
-      overflow-y: auto;
-      background:
-        radial-gradient(
-          ellipse at 50% 20%,
-          #101e39,
-          transparent 65%
-        ),
-        #040810;
-    }
-
-    .database-container {
-      width: min(1220px,92%);
-      min-height: 100%;
-      margin: auto;
-      padding: 95px 0 80px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 50px;
-    }
-
-    .database-header {
-      text-align: center;
-    }
-
-    .small-label {
-      font: normal 8px/1.8
-        'Press Start 2P', monospace;
-      color: #7494bb;
-      letter-spacing: .06em;
-    }
-
-    .database-header h2 {
-      font: 500 clamp(27px,4vw,48px)/1.3
-        Orbitron, Arial, sans-serif;
-      letter-spacing: .14em;
-      margin: 24px 0 15px;
-    }
-
-    .database-header p {
-      color: #92a9c7;
-      font-size: 13px;
-      letter-spacing: .18em;
-    }
-
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(5,minmax(0,1fr));
-      gap: 16px;
-    }
-
-    .menu-card {
-      min-width: 0;
-      min-height: 200px;
-      padding: 22px 17px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(158,198,255,.085),
-          rgba(158,198,255,.012)
-        );
-      border: 1px solid var(--border);
-      color: var(--white);
-      text-align: left;
-      cursor: pointer;
-      transition:
-        transform .25s,
-        background .25s,
-        border-color .25s,
-        box-shadow .25s;
-    }
-
-    .menu-card:hover,
-    .menu-card:focus-visible {
-      transform: translateY(-7px);
-      border-color: #95c6ff;
-      background: rgba(123,183,255,.14);
-      box-shadow:
-        0 0 30px rgba(67,138,255,.16);
-    }
-
-    .card-num {
-      font: 8px 'Press Start 2P', monospace;
-      color: #799bc6;
-    }
-
-    .card-name {
-      font: clamp(9px,.92vw,12px)/1.8
-        'Press Start 2P', monospace;
-    }
-
-    .card-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .card-caption {
-      font-size: 11px;
-      color: #839ab9;
-      letter-spacing: .05em;
-    }
-
-    .card-arrow {
-      font-size: 24px;
-      color: #a7ceff;
-    }
-
-    .return-button {
-      position: absolute;
-      top: 30px;
-      left: 35px;
-      border: 0;
-      background: none;
-      color: #a9bdd7;
-      cursor: pointer;
-      font: 8px 'Press Start 2P', monospace;
-    }
-
-    .return-button:hover {
-      color: white;
-    }
-
-    /* ===========================
-       CONTENT PAGES
-    ============================ */
-
-    .content-page {
-      overflow-y: auto;
-      background:
-        radial-gradient(
-          ellipse at top,
-          #14233c,
-          transparent 55%
-        ),
-        #060a12;
-    }
-
-    .content-container {
-      max-width: 1000px;
-      width: 90%;
-      min-height: 100%;
-      margin: auto;
-      padding: 110px 0 70px;
-    }
-
-    .content-container h2 {
-      margin: 25px 0;
-      font: 500 clamp(34px,5vw,65px)/1.3
-        Orbitron, Arial, sans-serif;
-      letter-spacing: .1em;
-    }
-
-    .content-container p {
-      color: #a4b6cf;
-      font-size: 19px;
-      line-height: 1.8;
-      max-width: 800px;
-    }
-
-    .back-button {
-      margin-top: 40px;
-      padding: 16px 22px;
-      border: 1px solid #7797c1;
-      background: rgba(130,180,250,.07);
-      color: #d5e6ff;
-      font: 8px 'Press Start 2P', monospace;
-      cursor: pointer;
-    }
-
-    .back-button:hover {
-      background: rgba(130,180,250,.2);
-    }
-
-    /* ===========================
-       RESPONSIVE DESIGN
-    ============================ */
-
-    @media (max-width: 900px) {
-      .menu-grid {
-        grid-template-columns:
-          repeat(2,minmax(0,1fr));
-      }
-
-      .menu-card {
-        min-height: 160px;
-      }
-
-      .name {
-        font-size: clamp(35px,8vw,65px);
-        letter-spacing: .1em;
-        margin-left: .1em;
-      }
-    }
-
-    @media (max-width: 530px) {
-      .name {
-        font-size: clamp(28px,9vw,36px);
-        letter-spacing: .04em;
-        margin-left: .04em;
-      }
-
-      .portfolio-title {
-        font-size: clamp(6px,2vw,8px);
-      }
-
-      .role {
-        font-size: 8px;
-        letter-spacing: .12em;
-      }
-
-      .enter-text {
-        font-size: clamp(5px,1.5vw,7px);
-      }
-
-      .menu-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .database-container {
-        padding-top: 110px;
-      }
-
-      .return-button {
-        left: 5%;
-      }
-    }
-
-    /* ===========================
-       SPACESHIP TAKEOFF ANIMATION
-    ============================ */
-
-    .launch-scene {
-      position: absolute;
-      inset: 0;
-      z-index: 4;
-      display: block;
-      overflow: hidden;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition:
-        opacity .30s ease,
-        visibility .30s ease;
-    }
-
-    #landing.entering .launch-scene {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    #landing.entering .landing-content {
-      opacity: 0;
-      transform: translateY(-16px);
-      transition:
-        opacity .26s ease,
-        transform .26s ease;
-    }
-
-    .launch-veil {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(
-          ellipse 60% 70% at center,
-          rgba(5,15,43,.55),
-          rgba(1,4,14,.76)
-        );
-    }
-
-    .launch-speed {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      background-image:
-        linear-gradient(
-          180deg,
-          transparent 0%,
-          rgba(104,171,255,.17) 55%,
-          transparent 100%
-        );
-      background-size: 1px 140px;
-      background-repeat: repeat;
-      mask-image:
-        repeating-linear-gradient(
-          90deg,
-          #000 0,
-          #000 2px,
-          transparent 2px,
-          transparent 52px
-        );
-    }
-
-    #landing.entering .launch-speed {
-      animation:
-        speedAppear 2.8s ease-in-out .3s both;
-    }
-
-    @keyframes speedAppear {
-      0% {
-        opacity: 0;
-        transform: translateY(-22%);
-      }
-
-      35% {
-        opacity: .25;
-      }
-
-      78% {
-        opacity: .45;
-      }
-
-      100% {
-        opacity: .15;
-        transform: translateY(75%);
-      }
-    }
-
-    /* TAKEOFF HUD TEXT */
-
-    .launch-hud {
-      position: absolute;
-      top: clamp(80px,15vh,160px);
-      left: 16px;
-      right: 16px;
-      text-align: center;
-      z-index: 6;
-      text-shadow:
-        0 0 22px rgba(7,17,39,.95);
-    }
-
-    .launch-hud-kicker {
-      color: #7faadb;
-      font: normal clamp(7px,.72vw,10px)/1.5
-        'Press Start 2P', monospace;
-      letter-spacing: .08em;
-    }
-
-    .launch-hud-title {
-      margin: 18px 0 16px;
-      font: 500 clamp(19px,2.2vw,34px)/1.5
-        Orbitron, Arial, sans-serif;
-      letter-spacing: .15em;
-      color: #f1f7ff;
-      text-shadow:
-        0 0 18px rgba(120,184,255,.5);
-    }
-
-    .launch-hud-destination {
-      color: #90accb;
-      font: normal clamp(8px,.77vw,11px)/1.9
-        'Press Start 2P', monospace;
-    }
-
-    .launch-hud-destination strong {
-      color: #dfefff;
-      font-weight: normal;
-    }
-
-    /* PROGRESS BAR */
-
-    .launch-progress {
-      position: relative;
-      width: min(325px,70vw);
-      height: 3px;
-      overflow: hidden;
-      margin: 28px auto 15px;
-      background: rgba(117,164,213,.19);
-      border-left: 1px solid #9ac8ff;
-      border-right: 1px solid #9ac8ff;
-    }
-
-    .launch-progress-fill {
-      display: block;
-      width: 100%;
-      height: 100%;
-      background:
-        linear-gradient(
-          90deg,
-          #4269b5,
-          #c8ecff
-        );
-      box-shadow: 0 0 14px #74bbff;
-      transform: translateX(-100%);
-    }
-
-    #landing.entering .launch-progress-fill {
-      animation:
-        launchProgress 2.85s linear forwards;
-    }
-
-    @keyframes launchProgress {
-      to {
-        transform: translateX(0);
-      }
-    }
-
-    .launch-status {
-      color: #8baed2;
-      font: normal 8px/1.6
-        'Press Start 2P', monospace;
-      letter-spacing: .05em;
-    }
-
-    /* MAIN LAUNCH SPACESHIP */
-
-    .launch-ship {
-      position: absolute;
-      bottom: -225px;
-      left: 50%;
-      z-index: 5;
-      width: 120px;
-      height: 164px;
-      transform:
-        translateX(-50%) scale(.9);
-      filter:
-        drop-shadow(
-          0 0 15px rgba(122,185,255,.35)
-        );
-      will-change: transform;
-    }
-
-    #landing.entering .launch-ship {
-      animation:
-        shipAscend 2.78s
-        cubic-bezier(.32,.05,.56,.95)
-        .12s both;
-    }
-
-    @keyframes shipAscend {
-      0% {
-        transform:
-          translate(-50%,0) scale(.82);
-      }
-
-      18% {
-        transform:
-          translate(-50%,-22vh) scale(.91);
-      }
-
-      52% {
-        transform:
-          translate(-50%,-71vh) scale(1);
-      }
-
-      100% {
-        transform:
-          translate(-50%,-145vh) scale(.88);
-      }
-    }
-
-    .launch-ship canvas {
-      position: relative;
-      z-index: 2;
-      display: block;
-      width: 120px;
-      height: 164px;
-      image-rendering: pixelated;
-      filter:
-        drop-shadow(
-          0 0 6px rgba(181,213,255,.22)
-        );
-    }
-
-    /* BLUE ROCKET ENGINE EXHAUST */
-
-    .launch-flame {
-      position: absolute;
-      top: 148px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
-      width: 24px;
-      height: 190px;
-      background:
-        linear-gradient(
-          180deg,
-          #eefcff 0%,
-          #62b6ff 13%,
-          rgba(33,118,255,.55) 44%,
-          rgba(22,54,175,0) 100%
-        );
-      clip-path:
-        polygon(
-          22% 0,
-          78% 0,
-          95% 31%,
-          65% 100%,
-          36% 91%,
-          5% 31%
-        );
-      filter:
-        drop-shadow(
-          0 0 19px rgba(75,160,255,.75)
-        );
-      transform-origin: center top;
-      animation:
-        flamePulse .16s ease-in-out
-        infinite alternate;
-    }
-
-    .launch-flame::before {
-      content: '';
-      position: absolute;
-      inset: 0 6px 40%;
-      background:
-        linear-gradient(
-          #fff,
-          rgba(212,241,255,.6),
-          transparent
-        );
-    }
-
-    @keyframes flamePulse {
-      from {
-        transform:
-          translateX(-50%) scaleY(.85);
-      }
-
-      to {
-        transform:
-          translateX(-50%) scaleY(1.13);
-      }
-    }
-
-    /* ARRIVAL FLASH */
-
-    #landing.entering .transition-flash {
-      animation:
-        launchEndFlash .55s ease-in
-        2.65s both;
-      z-index: 8;
-    }
-
-    @keyframes launchEndFlash {
-      0% { opacity: 0; }
-      48% { opacity: .18; }
-      100% { opacity: .8; }
-    }
-
-    @media (max-width: 530px) {
-      .launch-hud {
-        top: 15vh;
-      }
-
-      .launch-hud-title {
-        letter-spacing: .07em;
-      }
-
-      .launch-hud-destination {
-        line-height: 2.3;
-      }
-
-      .launch-hud-destination strong {
-        display: block;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .enter-text {
-        animation: none;
-      }
-
-      .page,
-      .menu-card {
-        transition: none;
-      }
-
-      #landing.entering .launch-ship,
-      #landing.entering .launch-speed,
-      #landing.entering .launch-progress-fill,
-      #landing.entering .transition-flash,
-      .launch-flame {
-        animation: none;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#02050d">
+<title>TONGYANG | Engineering Portfolio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&family=Press+Start+2P&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #02050d;
+  --white: #eff6ff;
+  --muted: #94abc8;
+  --border: rgba(146,190,255,.28);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--white);
+  font-family: Inter, Arial, sans-serif;
+}
+
+button { font: inherit; }
+
+.page {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .55s ease, visibility .55s ease;
+}
+
+.page.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* =========================
+   LANDING SCREEN
+========================= */
+
+#landing {
+  cursor: pointer;
+  isolation: isolate;
+  background: #02050d;
+}
+
+#spaceCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: block;
+}
+
+.space-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 70% 50% at center,
+      rgba(1,5,14,.37),
+      rgba(1,5,14,.13) 65%,
+      transparent
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 4px,
+      rgba(255,255,255,.012) 5px
+    );
+}
+
+.landing-content {
+  position: relative;
+  z-index: 2;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.title-group {
+  transform: translateY(-3vh);
+}
+
+.name {
+  margin: 0 0 0 .18em;
+  font: 500 clamp(42px,6.5vw,104px)/1.25 Orbitron,Arial,sans-serif;
+  letter-spacing: .18em;
+  color: #f1f6ff;
+  text-shadow:
+    0 0 8px rgba(172,209,255,.7),
+    0 0 32px rgba(43,127,255,.35);
+}
+
+.portfolio-title {
+  margin-top: 22px;
+  font: normal clamp(10px,1.4vw,17px)/2 'Press Start 2P',monospace;
+  letter-spacing: .08em;
+  text-shadow: 0 0 12px rgba(115,166,255,.4);
+}
+
+.role {
+  margin: 25px 0 0 .3em;
+  font: 400 clamp(10px,1.1vw,15px)/1.5 Orbitron,Arial,sans-serif;
+  letter-spacing: .3em;
+  color: #abc5e6;
+}
+
+.enter-text {
+  position: absolute;
+  left: 50%;
+  bottom: 12.5%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  color: #e2efff;
+  font: normal clamp(7px,.8vw,11px)/1.8 'Press Start 2P',monospace;
+  text-shadow: 0 0 12px rgba(91,167,255,.55);
+  animation: blink 1.3s steps(1,end) infinite;
+}
+
+.enter-text::after {
+  content: '';
+  display: block;
+  width: 35px;
+  height: 2px;
+  margin: 20px auto 0;
+  background: #9ad2ff;
+  box-shadow: 0 0 12px #60aaff;
+}
+
+@keyframes blink {
+  0%,55% { opacity: 1; }
+  56%,100% { opacity: .18; }
+}
+
+.transition-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: #cde5ff;
+  opacity: 0;
+}
+
+/* =========================
+   SPACESHIP TAKEOFF
+========================= */
+
+.launch-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .3s ease, visibility .3s ease;
+}
+
+#landing.entering .launch-scene {
+  opacity: 1;
+  visibility: visible;
+}
+
+#landing.entering .landing-content {
+  opacity: 0;
+  transform: translateY(-16px);
+  transition: opacity .26s ease, transform .26s ease;
+}
+
+.launch-veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 60% 70% at center,
+      rgba(5,15,43,.55),
+      rgba(1,4,14,.76)
+    );
+}
+
+.launch-speed {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-image:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(104,171,255,.17) 55%,
+      transparent 100%
+    );
+  background-size: 1px 140px;
+  background-repeat: repeat;
+  mask-image:
+    repeating-linear-gradient(
+      90deg,
+      #000 0,
+      #000 2px,
+      transparent 2px,
+      transparent 52px
+    );
+}
+
+#landing.entering .launch-speed {
+  animation: speedAppear 2.8s ease-in-out .3s both;
+}
+
+@keyframes speedAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(-22%);
+  }
+  35% { opacity: .25; }
+  78% { opacity: .45; }
+  100% {
+    opacity: .15;
+    transform: translateY(75%);
+  }
+}
+
+.launch-hud {
+  position: absolute;
+  top: clamp(80px,15vh,160px);
+  left: 16px;
+  right: 16px;
+  text-align: center;
+  z-index: 6;
+  text-shadow: 0 0 22px rgba(7,17,39,.95);
+}
+
+.launch-hud-kicker {
+  color: #7faadb;
+  font: normal clamp(7px,.72vw,10px)/1.5 'Press Start 2P',monospace;
+  letter-spacing: .08em;
+}
+
+.launch-hud-title {
+  margin: 18px 0 16px;
+  font: 500 clamp(19px,2.2vw,34px)/1.5 Orbitron,Arial,sans-serif;
+  letter-spacing: .15em;
+  color: #f1f7ff;
+  text-shadow: 0 0 18px rgba(120,184,255,.5);
+}
+
+.launch-hud-destination {
+  color: #90accb;
+  font: normal clamp(8px,.77vw,11px)/1.9 'Press Start 2P',monospace;
+}
+
+.launch-hud-destination strong {
+  color: #dfefff;
+  font-weight: normal;
+}
+
+.launch-progress {
+  position: relative;
+  width: min(325px,70vw);
+  height: 3px;
+  overflow: hidden;
+  margin: 28px auto 15px;
+  background: rgba(117,164,213,.19);
+  border-left: 1px solid #9ac8ff;
+  border-right: 1px solid #9ac8ff;
+}
+
+.launch-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,#4269b5,#c8ecff);
+  box-shadow: 0 0 14px #74bbff;
+  transform: translateX(-100%);
+}
+
+#landing.entering .launch-progress-fill {
+  animation: launchProgress 2.85s linear forwards;
+}
+
+@keyframes launchProgress {
+  to { transform: translateX(0); }
+}
+
+.launch-status {
+  color: #8baed2;
+  font: normal 8px/1.6 'Press Start 2P',monospace;
+  letter-spacing: .05em;
+}
+
+.launch-ship {
+  position: absolute;
+  bottom: -225px;
+  left: 50%;
+  z-index: 5;
+  width: 120px;
+  height: 164px;
+  transform: translateX(-50%) scale(.9);
+  filter: drop-shadow(0 0 15px rgba(122,185,255,.35));
+  will-change: transform;
+}
+
+#landing.entering .launch-ship {
+  animation:
+    shipAscend 2.78s
+    cubic-bezier(.32,.05,.56,.95)
+    .12s both;
+}
+
+@keyframes shipAscend {
+  0% {
+    transform: translate(-50%,0) scale(.82);
+  }
+  18% {
+    transform: translate(-50%,-22vh) scale(.91);
+  }
+  52% {
+    transform: translate(-50%,-71vh) scale(1);
+  }
+  100% {
+    transform: translate(-50%,-145vh) scale(.88);
+  }
+}
+
+.launch-ship canvas {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 120px;
+  height: 164px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 6px rgba(181,213,255,.22));
+}
+
+.launch-flame {
+  position: absolute;
+  top: 148px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: 24px;
+  height: 190px;
+  background:
+    linear-gradient(
+      180deg,
+      #eefcff 0%,
+      #62b6ff 13%,
+      rgba(33,118,255,.55) 44%,
+      rgba(22,54,175,0) 100%
+    );
+  clip-path:
+    polygon(
+      22% 0,
+      78% 0,
+      95% 31%,
+      65% 100%,
+      36% 91%,
+      5% 31%
+    );
+  filter: drop-shadow(0 0 19px rgba(75,160,255,.75));
+  transform-origin: center top;
+  animation: flamePulse .16s ease-in-out infinite alternate;
+}
+
+.launch-flame::before {
+  content: '';
+  position: absolute;
+  inset: 0 6px 40%;
+  background:
+    linear-gradient(
+      #fff,
+      rgba(212,241,255,.6),
+      transparent
+    );
+}
+
+@keyframes flamePulse {
+  from {
+    transform: translateX(-50%) scaleY(.85);
+  }
+  to {
+    transform: translateX(-50%) scaleY(1.13);
+  }
+}
+
+#landing.entering .transition-flash {
+  animation: launchEndFlash .55s ease-in 2.65s both;
+  z-index: 8;
+}
+
+@keyframes launchEndFlash {
+  0% { opacity: 0; }
+  48% { opacity: .18; }
+  100% { opacity: .8; }
+}
+
+/* =========================
+   DESTINATION SELECTION
+========================= */
+
+#database {
+  isolation: isolate;
+  overflow-y: auto;
+  background: #030712;
+}
+
+#database::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 70% 65% at 50% 38%,
+      rgba(24,48,91,.31),
+      transparent 74%
+    ),
+    radial-gradient(
+      1px 1px at 15% 23%,
+      rgba(189,222,255,.8) 95%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 83% 65%,
+      rgba(159,194,240,.8) 95%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 65% 14%,
+      rgba(148,202,255,.65) 95%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 34% 81%,
+      rgba(169,210,255,.8) 95%,
+      transparent
+    ),
+    linear-gradient(
+      180deg,
+      #020610 0%,
+      #071021 50%,
+      #030712 100%
+    );
+  background-size:
+    auto,
+    320px 260px,
+    390px 350px,
+    430px 310px,
+    450px 400px,
+    auto;
+}
+
+#database::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 5px,
+      rgba(151,194,242,.012) 6px
+    );
+}
+
+.nav-shell {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+  width: min(1180px,94%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 29px 0 27px;
+}
+
+.nav-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #8daacc;
+  font: 500 10px/1.5 Orbitron,sans-serif;
+  letter-spacing: .15em;
+  padding: 0 2px 17px;
+  border-bottom: 1px solid rgba(135,183,233,.21);
+}
+
+.nav-topbar strong {
+  color: #e6f3ff;
+  font-weight: 500;
+}
+
+.nav-topbar .status {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 9px;
+}
+
+.nav-topbar .status i {
+  width: 6px;
+  height: 6px;
+  background: #91e1cb;
+  display: block;
+  border-radius: 50%;
+  box-shadow: 0 0 11px #91e1cb;
+}
+
+.nav-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 48px 0 30px;
+}
+
+.nav-eyebrow {
+  color: #87a5c8;
+  font: 8px/1.8 'Press Start 2P',monospace;
+  letter-spacing: .06em;
+  text-align: center;
+}
+
+.nav-title {
+  margin: 23px 0 10px;
+  color: #eef6ff;
+  text-align: center;
+  font: 500 clamp(28px,4.3vw,60px)/1.2 Orbitron,sans-serif;
+  letter-spacing: .14em;
+  text-shadow: 0 0 28px rgba(133,190,255,.2);
+}
+
+.nav-subtitle {
+  color: #839ec0;
+  letter-spacing: .16em;
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+  margin: 8px 0 34px;
+}
+
+.nav-console {
+  position: relative;
+  width: min(800px,100%);
+  padding: 15px;
+  border: 1px solid rgba(145,190,238,.33);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(16,32,57,.76),
+      rgba(4,11,25,.83)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(201,229,255,.11),
+    0 20px 50px rgba(0,0,0,.34);
+}
+
+.nav-console::before,
+.nav-console::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  width: 20px;
+  height: 20px;
+}
+
+.nav-console::before {
+  top: -1px;
+  left: -1px;
+  border-left: 2px solid #9bcfff;
+  border-top: 2px solid #9bcfff;
+}
+
+.nav-console::after {
+  bottom: -1px;
+  right: -1px;
+  border-right: 2px solid #9bcfff;
+  border-bottom: 2px solid #9bcfff;
+}
+
+.nav-console-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 9px 13px;
+  color: #6e8ba9;
+  font: 7px/1.7 'Press Start 2P',monospace;
+  letter-spacing: .06em;
+}
+
+.nav-list {
+  display: grid;
+  gap: 8px;
+}
+
+.nav-destination {
+  position: relative;
+  display: grid;
+  grid-template-columns: 70px 1fr auto 25px;
+  align-items: center;
+  gap: 13px;
+  min-height: 69px;
+  width: 100%;
+  padding: 15px 20px;
+  text-align: left;
+  cursor: pointer;
+  color: #e0edfc;
+  background:
+    linear-gradient(
+      95deg,
+      rgba(14,29,50,.88),
+      rgba(8,17,31,.85)
+    );
+  border: 1px solid rgba(124,164,207,.24);
+  transition:
+    background .2s,
+    border-color .2s,
+    transform .2s,
+    box-shadow .2s;
+}
+
+.nav-destination:hover,
+.nav-destination:focus-visible {
+  outline: none;
+  transform: translateX(4px);
+  border-color: rgba(156,214,255,.78);
+  background:
+    linear-gradient(
+      95deg,
+      rgba(37,78,120,.49),
+      rgba(13,34,60,.69)
+    );
+  box-shadow:
+    inset 3px 0 #9bd6ff,
+    0 0 20px rgba(84,160,239,.09);
+}
+
+.nav-number {
+  color: #7896bc;
+  font: 8px/1.3 'Press Start 2P',monospace;
+  white-space: nowrap;
+}
+
+.nav-name {
+  font: 500 clamp(12px,1.5vw,17px)/1.4 Orbitron,sans-serif;
+  letter-spacing: .11em;
+}
+
+.nav-zone {
+  color: #6685a6;
+  font: 8px/1.5 'Press Start 2P',monospace;
+  white-space: nowrap;
+}
+
+.nav-destination:hover .nav-zone,
+.nav-destination:focus-visible .nav-zone {
+  color: #a5d8ff;
+}
+
+.nav-arrow {
+  color: #86b8ea;
+  font: 22px/1 Orbitron,sans-serif;
+  text-align: right;
+}
+
+.nav-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  width: min(800px,100%);
+  padding: 18px 2px 0;
+}
+
+.nav-foot button {
+  border: 0;
+  background: none;
+  padding: 8px 1px;
+  cursor: pointer;
+  color: #90aed2;
+  font: 8px/1.8 'Press Start 2P',monospace;
+}
+
+.nav-foot button:hover,
+.nav-foot button:focus-visible {
+  color: #e4f5ff;
+}
+
+.nav-foot span {
+  color: #6b89ac;
+  font: 8px/1.8 'Press Start 2P',monospace;
+}
+
+/* =========================
+   LANDING TRANSITION
+========================= */
+
+.landing-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 17px;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(20,55,100,.94),
+      #020510 74%
+    );
+  text-align: center;
+  transition: opacity .2s, visibility .2s;
+}
+
+.landing-transition.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.landing-transition span,
+.landing-transition small {
+  color: #a5d2fb;
+  font: 8px/1.8 'Press Start 2P',monospace;
+}
+
+.landing-transition strong {
+  font: 500 clamp(22px,4vw,42px)/1.3 Orbitron,sans-serif;
+  letter-spacing: .13em;
+  color: #eef8ff;
+}
+
+.landing-loading {
+  height: 2px;
+  width: min(300px,75vw);
+  background: #294767;
+  overflow: hidden;
+}
+
+.landing-loading i {
+  display: block;
+  background: #b4dfff;
+  height: 100%;
+  width: 100%;
+  transform: translateX(-100%);
+}
+
+.landing-transition.show .landing-loading i {
+  animation: loadLanding .65s ease-out forwards;
+}
+
+@keyframes loadLanding {
+  to { transform: translateX(0); }
+}
+
+/* =========================
+   CONTENT PAGES
+========================= */
+
+.content-page {
+  overflow-y: auto;
+  background:
+    radial-gradient(
+      ellipse at top,
+      #14233c,
+      transparent 55%
+    ),
+    #060a12;
+}
+
+.content-container {
+  max-width: 1000px;
+  width: 90%;
+  min-height: 100%;
+  margin: auto;
+  padding: 110px 0 70px;
+}
+
+.small-label {
+  font: normal 8px/1.8 'Press Start 2P',monospace;
+  color: #7494bb;
+  letter-spacing: .06em;
+}
+
+.content-container h2 {
+  margin: 25px 0;
+  font: 500 clamp(34px,5vw,65px)/1.3 Orbitron,sans-serif;
+  letter-spacing: .1em;
+}
+
+.content-container p {
+  color: #a4b6cf;
+  font-size: 19px;
+  line-height: 1.8;
+  max-width: 800px;
+}
+
+.back-button {
+  margin-top: 40px;
+  padding: 16px 22px;
+  border: 1px solid #7797c1;
+  background: rgba(130,180,250,.07);
+  color: #d5e6ff;
+  font: 8px 'Press Start 2P',monospace;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background: rgba(130,180,250,.2);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+  .nav-shell {
+    width: 93%;
+    padding: 17px 0;
+  }
+
+  .nav-main {
+    padding: 40px 0 20px;
+  }
+
+  .nav-title {
+    letter-spacing: .06em;
+    font-size: clamp(25px,7vw,42px);
+  }
+
+  .nav-subtitle {
+    font-size: 11px;
+    letter-spacing: .06em;
+    margin-bottom: 26px;
+  }
+
+  .nav-console {
+    padding: 10px;
+  }
+
+  .nav-destination {
+    grid-template-columns: 45px 1fr 20px;
+    min-height: 66px;
+    padding: 12px 10px;
+    gap: 7px;
+  }
+
+  .nav-zone {
+    display: none;
+  }
+
+  .nav-number {
+    font-size: 7px;
+  }
+
+  .nav-name {
+    font-size: clamp(11px,3.1vw,15px);
+    letter-spacing: .05em;
+  }
+
+  .nav-topbar {
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+
+  .nav-topbar .status {
+    font-size: 7px;
+  }
+
+  .nav-foot span {
+    display: none;
+  }
+
+  .nav-console-heading {
+    font-size: 6px;
+  }
+}
+
+@media (max-width: 530px) {
+  .name {
+    font-size: clamp(28px,9vw,36px);
+    letter-spacing: .04em;
+    margin-left: .04em;
+  }
+
+  .portfolio-title {
+    font-size: clamp(6px,2vw,8px);
+  }
+
+  .role {
+    font-size: 8px;
+    letter-spacing: .12em;
+  }
+
+  .enter-text {
+    font-size: clamp(5px,1.5vw,7px);
+  }
+
+  .launch-hud {
+    top: 15vh;
+  }
+
+  .launch-hud-title {
+    letter-spacing: .07em;
+  }
+
+  .launch-hud-destination {
+    line-height: 2.3;
+  }
+
+  .launch-hud-destination strong {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter-text {
+    animation: none;
+  }
+
+  .page,
+  .nav-destination {
+    transition: none;
+  }
+
+  #landing.entering .launch-ship,
+  #landing.entering .launch-speed,
+  #landing.entering .launch-progress-fill,
+  #landing.entering .transition-flash,
+  .launch-flame {
+    animation: none;
+  }
+
+  .landing-transition.show .landing-loading i {
+    animation: none;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- ===========================
-       LANDING SCREEN
-  ============================ -->
+<!-- =========================
+     LANDING SCREEN
+========================= -->
 
-  <section
-    id="landing"
-    class="page active"
-    tabindex="0"
-    aria-label="Enter TongYang engineering portfolio"
-  >
-    <canvas
-      id="spaceCanvas"
-      aria-hidden="true"
-    ></canvas>
+<section
+  id="landing"
+  class="page active"
+  tabindex="0"
+  aria-label="Enter TongYang engineering portfolio"
+>
+  <canvas id="spaceCanvas" aria-hidden="true"></canvas>
+  <div class="space-overlay"></div>
 
-    <div class="space-overlay"></div>
-
-    <div class="landing-content">
-      <div class="title-group">
-        <h1 class="name">TONGYANG</h1>
-
-        <div class="portfolio-title">
-          ENGINEERING PORTFOLIO
-        </div>
-
-        <div class="role">
-          MECHATRONICS ENGINEER
-        </div>
+  <div class="landing-content">
+    <div class="title-group">
+      <h1 class="name">TONGYANG</h1>
+      <div class="portfolio-title">
+        ENGINEERING PORTFOLIO
       </div>
-
-      <div class="enter-text">
-        PRESS ANYWHERE TO ACCESS DATABASE
+      <div class="role">
+        MECHATRONICS ENGINEER
       </div>
     </div>
 
-    <!-- ===========================
-         TAKEOFF SCENE
-    ============================ -->
+    <div class="enter-text">
+      PRESS ANYWHERE TO ACCESS DATABASE
+    </div>
+  </div>
 
-    <div
-      class="launch-scene"
-      id="launchScene"
-      aria-hidden="true"
-    >
-      <div class="launch-veil"></div>
-      <div class="launch-speed"></div>
+  <!-- Spaceship takeoff -->
 
-      <div class="launch-hud">
-        <div class="launch-hud-kicker">
-          TY-01 // FLIGHT CONTROL
-        </div>
+  <div
+    class="launch-scene"
+    id="launchScene"
+    aria-hidden="true"
+  >
+    <div class="launch-veil"></div>
+    <div class="launch-speed"></div>
 
-        <div class="launch-hud-title">
-          INITIATING TAKEOFF
-        </div>
-
-        <div class="launch-hud-destination">
-          DESTINATION:
-          <strong>ENGINEERING DATABASE</strong>
-        </div>
-
-        <div class="launch-progress">
-          <span class="launch-progress-fill"></span>
-        </div>
-
-        <div
-          class="launch-status"
-          id="launchStatus"
-        >
-          ENGAGING THRUSTERS...
-        </div>
+    <div class="launch-hud">
+      <div class="launch-hud-kicker">
+        TY-01 // FLIGHT CONTROL
       </div>
 
-      <div
-        class="launch-ship"
-        aria-hidden="true"
+      <div class="launch-hud-title">
+        INITIATING TAKEOFF
+      </div>
+
+      <div class="launch-hud-destination">
+        DESTINATION:
+        <strong>ENGINEERING DATABASE</strong>
+      </div>
+
+      <div class="launch-progress">
+        <span class="launch-progress-fill"></span>
+      </div>
+
+      <div class="launch-status" id="launchStatus">
+        ENGAGING THRUSTERS...
+      </div>
+    </div>
+
+    <div class="launch-ship">
+      <canvas
+        id="launchShipCanvas"
+        width="30"
+        height="41"
+      ></canvas>
+      <div class="launch-flame"></div>
+    </div>
+  </div>
+
+  <div class="transition-flash"></div>
+</section>
+
+<!-- =========================
+     DESTINATION SELECT
+========================= -->
+
+<section
+  id="database"
+  class="page"
+  aria-label="Choose a landing destination"
+>
+  <div class="nav-shell">
+
+    <header class="nav-topbar">
+      <div>
+        <strong>TY-01</strong> // FLIGHT NAVIGATION
+      </div>
+
+      <div class="status">
+        <i aria-hidden="true"></i>
+        ASTRONAUT MODE
+      </div>
+    </header>
+
+    <main class="nav-main">
+      <div class="nav-eyebrow">
+        NAVIGATION SYSTEM // FIVE LOCATIONS
+      </div>
+
+      <h2 class="nav-title">
+        DESTINATION SELECT
+      </h2>
+
+      <p class="nav-subtitle">
+        CHOOSE YOUR LANDING LOCATION
+      </p>
+
+      <nav
+        class="nav-console"
+        aria-label="Landing destinations"
       >
-        <canvas
-          id="launchShipCanvas"
-          width="30"
-          height="41"
-        ></canvas>
-
-        <div class="launch-flame"></div>
-      </div>
-    </div>
-
-    <div class="transition-flash"></div>
-  </section>
-
-  <!-- ===========================
-       DATABASE MENU
-  ============================ -->
-
-  <section
-    id="database"
-    class="page"
-    aria-label="Portfolio database"
-  >
-    <button
-      class="return-button"
-      id="returnLanding"
-    >
-      ← RETURN
-    </button>
-
-    <div class="database-container">
-      <div class="database-header">
-        <div class="small-label">
-          TY_01 // PORTFOLIO SYSTEM
+        <div class="nav-console-heading">
+          <span>AVAILABLE DESTINATIONS</span>
+          <span>TY-01 // ONLINE</span>
         </div>
 
-        <h2>ENGINEERING DATABASE</h2>
+        <div class="nav-list">
 
-        <p>
-          SELECT A CATEGORY TO EXPLORE
-        </p>
-      </div>
+          <button
+            class="nav-destination"
+            type="button"
+            data-target="projects"
+          >
+            <span class="nav-number">01</span>
+            <span class="nav-name">PROJECTS</span>
+            <span class="nav-zone">LANDING ZONE 01</span>
+            <span class="nav-arrow">↗</span>
+          </button>
 
-      <div class="menu-grid">
+          <button
+            class="nav-destination"
+            type="button"
+            data-target="experience"
+          >
+            <span class="nav-number">02</span>
+            <span class="nav-name">EXPERIENCE</span>
+            <span class="nav-zone">LANDING ZONE 02</span>
+            <span class="nav-arrow">↗</span>
+          </button>
 
-        <button
-          class="menu-card"
-          data-target="projects"
-        >
-          <span class="card-num">01</span>
-          <span class="card-name">PROJECTS</span>
+          <button
+            class="nav-destination"
+            type="button"
+            data-target="skills"
+          >
+            <span class="nav-number">03</span>
+            <span class="nav-name">SKILLS</span>
+            <span class="nav-zone">LANDING ZONE 03</span>
+            <span class="nav-arrow">↗</span>
+          </button>
 
-          <span class="card-bottom">
-            <span class="card-caption">
-              Engineering work
-            </span>
-            <span class="card-arrow">→</span>
-          </span>
+          <button
+            class="nav-destination"
+            type="button"
+            data-target="about"
+          >
+            <span class="nav-number">04</span>
+            <span class="nav-name">ABOUT</span>
+            <span class="nav-zone">LANDING ZONE 04</span>
+            <span class="nav-arrow">↗</span>
+          </button>
+
+          <button
+            class="nav-destination"
+            type="button"
+            data-target="contact"
+          >
+            <span class="nav-number">05</span>
+            <span class="nav-name">CONTACT</span>
+            <span class="nav-zone">LANDING ZONE 05</span>
+            <span class="nav-arrow">↗</span>
+          </button>
+
+        </div>
+      </nav>
+
+      <div class="nav-foot">
+        <button id="returnLanding" type="button">
+          ← RETURN TO SHIP
         </button>
 
-        <button
-          class="menu-card"
-          data-target="experience"
-        >
-          <span class="card-num">02</span>
-          <span class="card-name">EXPERIENCE</span>
-
-          <span class="card-bottom">
-            <span class="card-caption">
-              Industry work
-            </span>
-            <span class="card-arrow">→</span>
-          </span>
-        </button>
-
-        <button
-          class="menu-card"
-          data-target="skills"
-        >
-          <span class="card-num">03</span>
-          <span class="card-name">SKILLS</span>
-
-          <span class="card-bottom">
-            <span class="card-caption">
-              Tools &amp; systems
-            </span>
-            <span class="card-arrow">→</span>
-          </span>
-        </button>
-
-        <button
-          class="menu-card"
-          data-target="about"
-        >
-          <span class="card-num">04</span>
-          <span class="card-name">ABOUT</span>
-
-          <span class="card-bottom">
-            <span class="card-caption">
-              Engineer profile
-            </span>
-            <span class="card-arrow">→</span>
-          </span>
-        </button>
-
-        <button
-          class="menu-card"
-          data-target="contact"
-        >
-          <span class="card-num">05</span>
-          <span class="card-name">CONTACT</span>
-
-          <span class="card-bottom">
-            <span class="card-caption">
-              Connect with me
-            </span>
-            <span class="card-arrow">→</span>
-          </span>
-        </button>
-
+        <span>SELECT A DESTINATION TO LAND</span>
       </div>
-    </div>
-  </section>
+    </main>
+  </div>
 
-  <!-- ===========================
-       PROJECTS
-  ============================ -->
+  <!-- Brief transition when a destination is clicked -->
 
-  <section
-    id="projects"
-    class="page content-page"
+  <div
+    class="landing-transition"
+    id="landingTransition"
+    aria-hidden="true"
   >
-    <div class="content-container">
-      <div class="small-label">
-        DATABASE // 01
-      </div>
+    <span>LANDING ROUTE CONFIRMED</span>
+    <strong id="landingTargetName">PROJECTS</strong>
 
-      <h2>PROJECTS</h2>
-
-      <p>
-        My engineering projects will be featured here,
-        including robotics, CAD, mechanical design,
-        embedded systems, prototypes and simulations.
-      </p>
-
-      <button class="back-button">
-        ← RETURN TO DATABASE
-      </button>
+    <div class="landing-loading">
+      <i></i>
     </div>
-  </section>
 
-  <!-- ===========================
-       EXPERIENCE
-  ============================ -->
+    <small>APPROACHING DESTINATION...</small>
+  </div>
+</section>
 
-  <section
-    id="experience"
-    class="page content-page"
-  >
-    <div class="content-container">
-      <div class="small-label">
-        DATABASE // 02
-      </div>
+<!-- =========================
+     PROJECTS
+========================= -->
 
-      <h2>EXPERIENCE</h2>
+<section id="projects" class="page content-page">
+  <div class="content-container">
+    <div class="small-label">DATABASE // 01</div>
+    <h2>PROJECTS</h2>
 
-      <p>
-        My professional engineering experience,
-        internships and industry projects will be
-        displayed here.
-      </p>
+    <p>
+      My engineering projects will be featured here,
+      including robotics, CAD, mechanical design,
+      embedded systems, prototypes and simulations.
+    </p>
 
-      <button class="back-button">
-        ← RETURN TO DATABASE
-      </button>
-    </div>
-  </section>
+    <button class="back-button">
+      ← RETURN TO DATABASE
+    </button>
+  </div>
+</section>
 
-  <!-- ===========================
-       SKILLS
-  ============================ -->
+<!-- =========================
+     EXPERIENCE
+========================= -->
 
-  <section
-    id="skills"
-    class="page content-page"
-  >
-    <div class="content-container">
-      <div class="small-label">
-        DATABASE // 03
-      </div>
+<section id="experience" class="page content-page">
+  <div class="content-container">
+    <div class="small-label">DATABASE // 02</div>
+    <h2>EXPERIENCE</h2>
 
-      <h2>SKILLS</h2>
+    <p>
+      My professional engineering experience,
+      internships and industry projects will be
+      displayed here.
+    </p>
 
-      <p>
-        My skills in CAD, mechanical engineering,
-        electronics, software, robotics and
-        engineering simulation will be presented here.
-      </p>
+    <button class="back-button">
+      ← RETURN TO DATABASE
+    </button>
+  </div>
+</section>
 
-      <button class="back-button">
-        ← RETURN TO DATABASE
-      </button>
-    </div>
-  </section>
+<!-- =========================
+     SKILLS
+========================= -->
 
-  <!-- ===========================
-       ABOUT
-  ============================ -->
+<section id="skills" class="page content-page">
+  <div class="content-container">
+    <div class="small-label">DATABASE // 03</div>
+    <h2>SKILLS</h2>
 
-  <section
-    id="about"
-    class="page content-page"
-  >
-    <div class="content-container">
-      <div class="small-label">
-        DATABASE // 04
-      </div>
+    <p>
+      My skills in CAD, mechanical engineering,
+      electronics, software, robotics and
+      engineering simulation will be presented here.
+    </p>
 
-      <h2>ABOUT</h2>
+    <button class="back-button">
+      ← RETURN TO DATABASE
+    </button>
+  </div>
+</section>
 
-      <p>
-        My background, engineering education,
-        technical interests and career goals
-        will be introduced here.
-      </p>
+<!-- =========================
+     ABOUT
+========================= -->
 
-      <button class="back-button">
-        ← RETURN TO DATABASE
-      </button>
-    </div>
-  </section>
+<section id="about" class="page content-page">
+  <div class="content-container">
+    <div class="small-label">DATABASE // 04</div>
+    <h2>ABOUT</h2>
 
-  <!-- ===========================
-       CONTACT
-  ============================ -->
+    <p>
+      My background, engineering education,
+      technical interests and career goals
+      will be introduced here.
+    </p>
 
-  <section
-    id="contact"
-    class="page content-page"
-  >
-    <div class="content-container">
-      <div class="small-label">
-        DATABASE // 05
-      </div>
+    <button class="back-button">
+      ← RETURN TO DATABASE
+    </button>
+  </div>
+</section>
 
-      <h2>CONTACT</h2>
+<!-- =========================
+     CONTACT
+========================= -->
 
-      <p>
-        My email, LinkedIn, GitHub and CV
-        will be available here.
-      </p>
+<section id="contact" class="page content-page">
+  <div class="content-container">
+    <div class="small-label">DATABASE // 05</div>
+    <h2>CONTACT</h2>
 
-      <button class="back-button">
-        ← RETURN TO DATABASE
-      </button>
-    </div>
-  </section>
+    <p>
+      My email, LinkedIn, GitHub and CV
+      will be available here.
+    </p>
 
-  <script>
-    /* ===========================
-       PAGE NAVIGATION
-    ============================ */
+    <button class="back-button">
+      ← RETURN TO DATABASE
+    </button>
+  </div>
+</section>
 
-    const pages = document.querySelectorAll('.page');
+<script>
+/* =========================
+   PAGE NAVIGATION
+========================= */
 
-    const landing = document.getElementById('landing');
+const pages = document.querySelectorAll('.page');
+const landing = document.getElementById('landing');
 
-    const launchStatus =
-      document.getElementById('launchStatus');
+const launchStatus =
+  document.getElementById('launchStatus');
 
-    const launchScene =
-      document.getElementById('launchScene');
+const launchScene =
+  document.getElementById('launchScene');
 
-    let transitioning = false;
-    let launchTimers = [];
+let transitioning = false;
+let launchTimers = [];
 
-    function showPage(id) {
-      pages.forEach(page => {
-        page.classList.toggle(
-          'active',
-          page.id === id
-        );
-      });
+function showPage(id) {
+  pages.forEach(page => {
+    page.classList.toggle(
+      'active',
+      page.id === id
+    );
+  });
 
-      const target = document.getElementById(id);
+  const target = document.getElementById(id);
 
-      if (target) {
-        target.scrollTop = 0;
-      }
-    }
+  if (target) {
+    target.scrollTop = 0;
+  }
+}
 
-    function launchLater(callback, ms) {
-      launchTimers.push(
-        setTimeout(callback, ms)
-      );
-    }
+function launchLater(callback, ms) {
+  launchTimers.push(setTimeout(callback, ms));
+}
 
-    function finishLaunch() {
-      launchTimers.forEach(clearTimeout);
-      launchTimers = [];
+function finishLaunch() {
+  launchTimers.forEach(clearTimeout);
+  launchTimers = [];
 
-      showPage('database');
+  showPage('database');
 
-      landing.classList.remove('entering');
+  landing.classList.remove('entering');
 
-      launchScene.setAttribute(
-        'aria-hidden',
-        'true'
-      );
+  launchScene.setAttribute(
+    'aria-hidden',
+    'true'
+  );
 
+  launchStatus.textContent =
+    'ENGAGING THRUSTERS...';
+
+  transitioning = false;
+}
+
+function enterDatabase() {
+  if (
+    transitioning ||
+    !landing.classList.contains('active')
+  ) {
+    return;
+  }
+
+  transitioning = true;
+
+  launchScene.setAttribute(
+    'aria-hidden',
+    'false'
+  );
+
+  launchStatus.textContent =
+    'ENGAGING THRUSTERS...';
+
+  // Restart the takeoff animation on every visit
+  landing.classList.remove('entering');
+
+  void landing.offsetWidth;
+
+  landing.classList.add('entering');
+
+  const reducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+  if (reducedMotion) {
+    launchLater(finishLaunch, 350);
+  } else {
+    launchLater(() => {
       launchStatus.textContent =
-        'ENGAGING THRUSTERS...';
+        'LIFTOFF CONFIRMED // ASCENDING';
+    }, 1050);
 
-      transitioning = false;
-    }
+    launchLater(() => {
+      launchStatus.textContent =
+        'APPROACHING DESTINATION...';
+    }, 2300);
 
-    function enterDatabase() {
+    launchLater(finishLaunch, 3230);
+  }
+}
+
+landing.addEventListener('click', enterDatabase);
+
+landing.addEventListener('keydown', event => {
+  if (
+    event.key === 'Enter' ||
+    event.key === ' '
+  ) {
+    event.preventDefault();
+    enterDatabase();
+  }
+});
+
+document.getElementById('returnLanding')
+  .addEventListener('click', () => {
+    showPage('landing');
+  });
+
+/* =========================
+   DESTINATION BUTTONS
+========================= */
+
+const destinationNames = {
+  projects: 'PROJECTS',
+  experience: 'EXPERIENCE',
+  skills: 'SKILLS',
+  about: 'ABOUT',
+  contact: 'CONTACT'
+};
+
+const landingTransition =
+  document.getElementById('landingTransition');
+
+let landingTimer = null;
+let pendingDestination = null;
+
+function finishLanding() {
+  if (landingTimer !== null) {
+    clearTimeout(landingTimer);
+  }
+
+  landingTimer = null;
+
+  landingTransition.classList.remove('show');
+
+  landingTransition.setAttribute(
+    'aria-hidden',
+    'true'
+  );
+
+  if (pendingDestination) {
+    showPage(pendingDestination);
+    pendingDestination = null;
+  }
+}
+
+document.querySelectorAll('.nav-destination')
+  .forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.dataset.target;
+
       if (
-        transitioning ||
-        !landing.classList.contains('active')
+        !destinationNames[target] ||
+        landingTimer !== null
       ) {
         return;
       }
 
-      transitioning = true;
+      pendingDestination = target;
 
-      launchScene.setAttribute(
+      document.getElementById(
+        'landingTargetName'
+      ).textContent = destinationNames[target];
+
+      // Replay the animation
+      landingTransition.classList.remove('show');
+
+      void landingTransition.offsetWidth;
+
+      landingTransition.classList.add('show');
+
+      landingTransition.setAttribute(
         'aria-hidden',
         'false'
       );
 
-      launchStatus.textContent =
-        'ENGAGING THRUSTERS...';
-
-      // Restart the animation on each visit.
-      landing.classList.remove('entering');
-
-      void landing.offsetWidth;
-
-      landing.classList.add('entering');
-
-      const reducedMotion = window.matchMedia(
+      const shortMotion = window.matchMedia(
         '(prefers-reduced-motion: reduce)'
       ).matches;
 
-      if (reducedMotion) {
-        launchLater(finishLaunch, 350);
-      } else {
-        launchLater(() => {
-          launchStatus.textContent =
-            'LIFTOFF CONFIRMED // ASCENDING';
-        }, 1050);
-
-        launchLater(() => {
-          launchStatus.textContent =
-            'APPROACHING DESTINATION...';
-        }, 2300);
-
-        launchLater(finishLaunch, 3230);
-      }
-    }
-
-    landing.addEventListener(
-      'click',
-      enterDatabase
-    );
-
-    landing.addEventListener(
-      'keydown',
-      event => {
-        if (
-          event.key === 'Enter' ||
-          event.key === ' '
-        ) {
-          event.preventDefault();
-          enterDatabase();
-        }
-      }
-    );
-
-    document.getElementById('returnLanding')
-      .addEventListener('click', () => {
-        showPage('landing');
-      });
-
-    document.querySelectorAll('.menu-card')
-      .forEach(button => {
-        button.addEventListener('click', () => {
-          showPage(button.dataset.target);
-        });
-      });
-
-    document.querySelectorAll('.back-button')
-      .forEach(button => {
-        button.addEventListener('click', () => {
-          showPage('database');
-        });
-      });
-
-    // Escape skips takeoff or goes back.
-    document.addEventListener(
-      'keydown',
-      event => {
-        if (event.key !== 'Escape') return;
-
-        if (transitioning) {
-          finishLaunch();
-          return;
-        }
-
-        const current = document.querySelector(
-          '.page.active'
-        );
-
-        if (
-          !current ||
-          current.id === 'landing'
-        ) {
-          return;
-        }
-
-        showPage(
-          current.id === 'database'
-            ? 'landing'
-            : 'database'
-        );
-      }
-    );
-
-    /* ===========================
-       DRAW THE TAKEOFF SPACESHIP
-    ============================ */
-
-    function createLaunchSpaceship() {
-      const c = document.getElementById(
-        'launchShipCanvas'
+      landingTimer = setTimeout(
+        finishLanding,
+        shortMotion ? 120 : 780
       );
-
-      const p = c.getContext('2d');
-
-      p.clearRect(
-        0, 0,
-        c.width,
-        c.height
-      );
-
-      const rect = (x, y, w, h, color) => {
-        p.fillStyle = color;
-        p.fillRect(x, y, w, h);
-      };
-
-      // Main spaceship body
-      for (let y = 1; y < 36; y++) {
-        const half =
-          y < 7
-            ? Math.max(0,Math.floor(y * .40))
-            : y < 16
-              ? 3
-              : y < 28
-                ? 4
-                : 5;
-
-        for (
-          let x = 15 - half;
-          x <= 15 + half;
-          x++
-        ) {
-          let col =
-            x === 15 - half
-              ? '#6d8fca'
-              : x === 15 + half
-                ? '#334d81'
-                : x < 15
-                  ? '#d6e9fa'
-                  : '#98b8e3';
-
-          if (y > 24) {
-            col = x < 15
-              ? '#adc9e8'
-              : '#6f91c6';
-          }
-
-          rect(x, y, 1, 1, col);
-        }
-      }
-
-      // Left and right wings
-      for (let y = 17; y <= 32; y++) {
-        const wing = y < 24
-          ? Math.floor((y - 16) * 1.65)
-          : Math.max(
-              5,
-              12 - Math.floor((y - 24) * .85)
-            );
-
-        for (let dx = 5; dx <= wing; dx++) {
-          rect(
-            15 - dx,
-            y,
-            1,
-            1,
-            dx === wing
-              ? '#5478b9'
-              : y > 28
-                ? '#526da5'
-                : '#8aabdb'
-          );
-
-          rect(
-            15 + dx,
-            y,
-            1,
-            1,
-            dx === wing
-              ? '#3c5c9e'
-              : y > 28
-                ? '#4c6399'
-                : '#668cce'
-          );
-        }
-      }
-
-      // Nose and cockpit
-      rect(14, 2, 3, 3, '#dff6ff');
-
-      rect(14, 9, 3, 10, '#263f71');
-
-      rect(15, 10, 1, 7, '#65d0ef');
-
-      // Metallic body details
-      rect(13, 20, 5, 2, '#dcefff');
-
-      rect(14, 23, 3, 7, '#394e86');
-
-      rect(15, 23, 1, 4, '#77d5f3');
-
-      rect(8, 25, 3, 2, '#e3f1ff');
-
-      rect(20, 25, 3, 2, '#a4c4f1');
-
-      // Engines
-      rect(11, 34, 4, 4, '#1a3368');
-      rect(17, 34, 4, 4, '#1a3368');
-
-      rect(12, 36, 2, 3, '#8cdbff');
-      rect(18, 36, 2, 3, '#8cdbff');
-
-      // Navigation lights
-      rect(5, 28, 2, 2, '#a0ddff');
-      rect(24, 28, 2, 2, '#6dcbff');
-    }
-
-    createLaunchSpaceship();
-
-    /* ===========================
-       SPACE BACKGROUND
-       MOTION: LEFT TO RIGHT
-    ============================ */
-
-    const canvas = document.getElementById(
-      'spaceCanvas'
-    );
-
-    const ctx = canvas.getContext('2d', {
-      alpha: false
     });
+  });
 
-    const reduceMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
+document.querySelectorAll('.back-button')
+  .forEach(button => {
+    button.addEventListener('click', () => {
+      showPage('database');
+    });
+  });
+
+document.addEventListener('keydown', event => {
+  if (event.key !== 'Escape') return;
+
+  if (landingTransition.classList.contains('show')) {
+    finishLanding();
+    return;
+  }
+
+  if (transitioning) {
+    finishLaunch();
+    return;
+  }
+
+  const current = document.querySelector('.page.active');
+
+  if (!current || current.id === 'landing') {
+    return;
+  }
+
+  showPage(
+    current.id === 'database'
+      ? 'landing'
+      : 'database'
+  );
+});
+
+/* =========================
+   DRAW TAKEOFF SPACESHIP
+========================= */
+
+function createLaunchSpaceship() {
+  const canvas =
+    document.getElementById('launchShipCanvas');
+
+  const p = canvas.getContext('2d');
+
+  p.clearRect(
+    0, 0,
+    canvas.width,
+    canvas.height
+  );
+
+  function rect(x, y, w, h, color) {
+    p.fillStyle = color;
+    p.fillRect(x, y, w, h);
+  }
+
+  // Main spaceship body
+  for (let y = 1; y < 36; y++) {
+    const half =
+      y < 7
+        ? Math.max(0,Math.floor(y * .40))
+        : y < 16
+          ? 3
+          : y < 28
+            ? 4
+            : 5;
+
+    for (let x = 15 - half; x <= 15 + half; x++) {
+      let color =
+        x === 15 - half
+          ? '#6d8fca'
+          : x === 15 + half
+            ? '#334d81'
+            : x < 15
+              ? '#d6e9fa'
+              : '#98b8e3';
+
+      if (y > 24) {
+        color = x < 15
+          ? '#adc9e8'
+          : '#6f91c6';
+      }
+
+      rect(x, y, 1, 1, color);
+    }
+  }
+
+  // Wings
+  for (let y = 17; y <= 32; y++) {
+    const wing =
+      y < 24
+        ? Math.floor((y - 16) * 1.65)
+        : Math.max(
+            5,
+            12 - Math.floor((y - 24) * .85)
+          );
+
+    for (let dx = 5; dx <= wing; dx++) {
+      rect(
+        15 - dx, y, 1, 1,
+        dx === wing
+          ? '#5478b9'
+          : y > 28
+            ? '#526da5'
+            : '#8aabdb'
+      );
+
+      rect(
+        15 + dx, y, 1, 1,
+        dx === wing
+          ? '#3c5c9e'
+          : y > 28
+            ? '#4c6399'
+            : '#668cce'
+      );
+    }
+  }
+
+  // Cockpit and body details
+  rect(14,2,3,3,'#dff6ff');
+  rect(14,9,3,10,'#263f71');
+  rect(15,10,1,7,'#65d0ef');
+
+  rect(13,20,5,2,'#dcefff');
+  rect(14,23,3,7,'#394e86');
+  rect(15,23,1,4,'#77d5f3');
+
+  rect(8,25,3,2,'#e3f1ff');
+  rect(20,25,3,2,'#a4c4f1');
+
+  // Engines
+  rect(11,34,4,4,'#1a3368');
+  rect(17,34,4,4,'#1a3368');
+
+  rect(12,36,2,3,'#8cdbff');
+  rect(18,36,2,3,'#8cdbff');
+
+  // Navigation lights
+  rect(5,28,2,2,'#a0ddff');
+  rect(24,28,2,2,'#6dcbff');
+}
+
+createLaunchSpaceship();
+
+/* =========================
+   ANIMATED SPACE BACKGROUND
+   MOVING LEFT TO RIGHT
+========================= */
+
+const spaceCanvas =
+  document.getElementById('spaceCanvas');
+
+const ctx = spaceCanvas.getContext('2d', {
+  alpha: false
+});
+
+const reduceMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)'
+);
+
+const rnd = (a, b) =>
+  Math.random() * (b - a) + a;
+
+let W = 0;
+let H = 0;
+
+let stars = [];
+let trails = [];
+
+let shipX = -70;
+let lastTime = 0;
+
+function resizeCanvas() {
+  W = window.innerWidth;
+  H = window.innerHeight;
+
+  const dpr = Math.min(
+    window.devicePixelRatio || 1,
+    2
+  );
+
+  spaceCanvas.width = Math.round(W * dpr);
+  spaceCanvas.height = Math.round(H * dpr);
+
+  ctx.setTransform(
+    dpr, 0, 0,
+    dpr, 0, 0
+  );
+
+  makeStars();
+}
+
+function makeStars() {
+  stars = [];
+  trails = [];
+
+  const count = Math.min(
+    450,
+    Math.max(100,Math.round(W * H / 4700))
+  );
+
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: rnd(0,W),
+      y: rnd(0,H),
+      r: Math.random() < .9 ? .7 : 1.2,
+      speed: rnd(.06,.42),
+      alpha: rnd(.22,.78),
+      phase: rnd(0,7),
+      tone: Math.random()
+    });
+  }
+
+  for (let i = 0; i < 15; i++) {
+    trails.push({
+      x: rnd(0,W),
+      y: rnd(0,H),
+      len: rnd(18,80),
+      speed: rnd(.5,1.25),
+      alpha: rnd(.04,.16)
+    });
+  }
+
+  shipX = -55;
+}
+
+/* SPACE GRADIENT */
+
+function drawBackground() {
+  const base = ctx.createLinearGradient(
+    0,0,0,H
+  );
+
+  base.addColorStop(0,'#01040d');
+  base.addColorStop(.55,'#03091b');
+  base.addColorStop(1,'#01040d');
+
+  ctx.fillStyle = base;
+  ctx.fillRect(0,0,W,H);
+
+  const g1 = ctx.createRadialGradient(
+    W * .27,
+    H * .50,
+    0,
+    W * .27,
+    H * .50,
+    W * .58
+  );
+
+  g1.addColorStop(0,'rgba(17,45,103,.19)');
+  g1.addColorStop(.5,'rgba(8,22,59,.08)');
+  g1.addColorStop(1,'rgba(0,0,0,0)');
+
+  ctx.fillStyle = g1;
+  ctx.fillRect(0,0,W,H);
+
+  const g2 = ctx.createRadialGradient(
+    W * .82,
+    H * .3,
+    0,
+    W * .82,
+    H * .3,
+    W * .37
+  );
+
+  g2.addColorStop(0,'rgba(43,58,139,.10)');
+  g2.addColorStop(1,'rgba(0,0,0,0)');
+
+  ctx.fillStyle = g2;
+  ctx.fillRect(0,0,W,H);
+}
+
+/* SMALL MOVING STARS */
+
+function drawStars(time,dt) {
+  for (const s of stars) {
+    s.x += s.speed * dt;
+
+    if (s.x > W + 3) {
+      s.x = -3;
+      s.y = rnd(0,H);
+    }
+
+    const alpha =
+      s.alpha * (
+        .85 + .15 * Math.sin(time * .001 + s.phase)
+      );
+
+    ctx.fillStyle = s.tone > .88
+      ? `rgba(169,194,255,${alpha})`
+      : `rgba(221,235,255,${alpha})`;
+
+    ctx.beginPath();
+    ctx.arc(
+      s.x,s.y,s.r,
+      0,Math.PI * 2
+    );
+    ctx.fill();
+  }
+
+  // Subtle glowing streaks
+  for (const s of trails) {
+    s.x += s.speed * dt;
+
+    if (s.x > W + 5) {
+      s.x = -s.len;
+      s.y = rnd(0,H);
+    }
+
+    const grad = ctx.createLinearGradient(
+      s.x,s.y,
+      s.x + s.len,s.y
     );
 
-    const rnd = (a,b) =>
-      Math.random() * (b - a) + a;
+    grad.addColorStop(
+      0,
+      'rgba(90,156,255,0)'
+    );
 
-    let W = 0;
-    let H = 0;
+    grad.addColorStop(
+      1,
+      `rgba(160,202,255,${s.alpha})`
+    );
 
-    let stars = [];
-    let trails = [];
+    ctx.fillStyle = grad;
+    ctx.fillRect(
+      s.x,s.y,
+      s.len,1
+    );
+  }
+}
 
-    let shipX = -70;
-    let lastTime = 0;
+/* SUBTLE TWINKLES */
 
-    function resizeCanvas() {
-      W = window.innerWidth;
-      H = window.innerHeight;
+function glint(x,y,time,phase) {
+  const pulse =
+    .6 + .4 * (
+      .5 + .5 * Math.sin(time * .0015 + phase)
+    );
 
-      const dpr = Math.min(
-        window.devicePixelRatio || 1,
-        2
-      );
+  const halo = ctx.createRadialGradient(
+    x,y,0,
+    x,y,15
+  );
 
-      canvas.width = Math.round(W * dpr);
-      canvas.height = Math.round(H * dpr);
+  halo.addColorStop(
+    0,
+    `rgba(201,227,255,${.32 * pulse})`
+  );
 
-      ctx.setTransform(
-        dpr, 0, 0,
-        dpr, 0, 0
-      );
+  halo.addColorStop(
+    1,
+    'rgba(201,227,255,0)'
+  );
 
-      makeStars();
-    }
+  ctx.fillStyle = halo;
+  ctx.fillRect(x - 15,y - 15,30,30);
 
-    function makeStars() {
-      stars = [];
-      trails = [];
+  ctx.fillStyle =
+    `rgba(238,247,255,${.8 * pulse})`;
 
-      const n = Math.min(
-        450,
-        Math.max(
-          100,
-          Math.round(W * H / 4700)
-        )
-      );
+  ctx.fillRect(
+    Math.round(x),
+    Math.round(y),
+    2,2
+  );
+}
 
-      for (let i = 0; i < n; i++) {
-        stars.push({
-          x: rnd(0,W),
-          y: rnd(0,H),
-          r: Math.random() < .9 ? .7 : 1.2,
-          speed: rnd(.06,.42),
-          alpha: rnd(.22,.78),
-          phase: rnd(0,7),
-          tone: Math.random()
-        });
-      }
+/* =========================
+   PIXEL PLANETS
+========================= */
 
-      for (let i = 0; i < 15; i++) {
-        trails.push({
-          x: rnd(0,W),
-          y: rnd(0,H),
-          len: rnd(18,80),
-          speed: rnd(.5,1.25),
-          alpha: rnd(.04,.16)
-        });
-      }
+function makePlanet(type) {
+  const c = document.createElement('canvas');
 
-      shipX = -55;
-    }
+  c.width = 32;
+  c.height = 32;
 
-    /* ===========================
-       DARK BLUE SPACE GRADIENT
-    ============================ */
+  const p = c.getContext('2d');
 
-    function drawBackground(t) {
-      const base = ctx.createLinearGradient(
-        0, 0, 0, H
-      );
+  p.imageSmoothingEnabled = false;
 
-      base.addColorStop(0, '#01040d');
-      base.addColorStop(.55, '#03091b');
-      base.addColorStop(1, '#01040d');
+  for (let y = 0; y < 32; y++) {
+    for (let x = 0; x < 32; x++) {
+      const dx = x - 15.5;
+      const dy = y - 15.5;
+      const dist = Math.hypot(dx,dy);
 
-      ctx.fillStyle = base;
-      ctx.fillRect(0,0,W,H);
+      if (dist > 13.5) continue;
 
-      const g1 = ctx.createRadialGradient(
-        W * .27,
-        H * .50,
+      const lit = Math.max(
         0,
-        W * .27,
-        H * .50,
-        W * .58
+        1 - (dx + dy * .55) / 25
       );
 
-      g1.addColorStop(
-        0,
-        'rgba(17,45,103,.19)'
+      const stripe = Math.sin(
+        y * .62 + x * .18
       );
 
-      g1.addColorStop(
-        .5,
-        'rgba(8,22,59,.08)'
-      );
+      const blotch =
+        Math.sin(x * .7 + y * .31) *
+        Math.cos(y * .45 - x * .28);
 
-      g1.addColorStop(
-        1,
-        'rgba(0,0,0,0)'
-      );
+      let color;
 
-      ctx.fillStyle = g1;
-      ctx.fillRect(0,0,W,H);
-
-      const g2 = ctx.createRadialGradient(
-        W * .82,
-        H * .3,
-        0,
-        W * .82,
-        H * .3,
-        W * .37
-      );
-
-      g2.addColorStop(
-        0,
-        'rgba(43,58,139,.10)'
-      );
-
-      g2.addColorStop(
-        1,
-        'rgba(0,0,0,0)'
-      );
-
-      ctx.fillStyle = g2;
-      ctx.fillRect(0,0,W,H);
-    }
-
-    /* ===========================
-       MOVING STARS
-    ============================ */
-
-    function drawStars(t,dt) {
-      for (const s of stars) {
-        s.x += s.speed * dt;
-
-        if (s.x > W + 3) {
-          s.x = -3;
-          s.y = rnd(0,H);
+      if (type === 'blue') {
+        if (dist > 12.3) {
+          color = '#17355f';
+        } else if (lit > 1.13) {
+          color = blotch > .22
+            ? '#94bdde'
+            : '#6b9cc6';
+        } else if (lit > .82) {
+          color = stripe > .43
+            ? '#5787b8'
+            : '#3d6fa6';
+        } else {
+          color = stripe > .35
+            ? '#294e86'
+            : '#1a365f';
         }
-
-        const a = s.alpha * (
-          .85 +
-          .15 * Math.sin(t * .001 + s.phase)
-        );
-
-        ctx.fillStyle = s.tone > .88
-          ? `rgba(169,194,255,${a})`
-          : `rgba(221,235,255,${a})`;
-
-        ctx.beginPath();
-
-        ctx.arc(
-          s.x, s.y, s.r,
-          0, Math.PI * 2
-        );
-
-        ctx.fill();
+      } else {
+        if (dist > 12.3) {
+          color = '#333765';
+        } else if (lit > 1.13) {
+          color = stripe > .15
+            ? '#b3a9dc'
+            : '#8f9ed0';
+        } else if (lit > .78) {
+          color = stripe > .13
+            ? '#786aa9'
+            : '#656d9d';
+        } else {
+          color = stripe > .13
+            ? '#494c7d'
+            : '#323457';
+        }
       }
 
-      for (const s of trails) {
-        s.x += s.speed * dt;
+      p.fillStyle = color;
+      p.fillRect(x,y,1,1);
+    }
+  }
 
-        if (s.x > W + 5) {
-          s.x = -s.len;
-          s.y = rnd(0,H);
-        }
+  return c;
+}
 
-        const grad = ctx.createLinearGradient(
-          s.x,
-          s.y,
-          s.x + s.len,
-          s.y
-        );
+const bluePlanet = makePlanet('blue');
+const purplePlanet = makePlanet('purple');
 
-        grad.addColorStop(
-          0,
-          'rgba(90,156,255,0)'
-        );
+function planet(x,y,size,sprite,glowColor) {
+  ctx.save();
 
-        grad.addColorStop(
-          1,
-          `rgba(160,202,255,${s.alpha})`
-        );
+  const glow = ctx.createRadialGradient(
+    x,y,0,
+    x,y,size * .92
+  );
 
-        ctx.fillStyle = grad;
+  glow.addColorStop(0,glowColor);
+  glow.addColorStop(1,'rgba(0,0,0,0)');
+
+  ctx.fillStyle = glow;
+
+  ctx.fillRect(
+    x - size,
+    y - size,
+    size * 2,
+    size * 2
+  );
+
+  ctx.imageSmoothingEnabled = false;
+
+  ctx.drawImage(
+    sprite,
+    Math.round(x - size / 2),
+    Math.round(y - size / 2),
+    size,
+    size
+  );
+
+  ctx.restore();
+}
+
+function drawRingPlanet(x,y,size) {
+  ctx.strokeStyle = 'rgba(139,155,220,.32)';
+  ctx.lineWidth = 2;
+
+  ctx.beginPath();
+
+  ctx.ellipse(
+    x,y + 2,
+    size * .85,
+    size * .25,
+    -.19,
+    0,
+    Math.PI * 2
+  );
+
+  ctx.stroke();
+
+  planet(
+    x,y,size,
+    purplePlanet,
+    'rgba(124,133,218,.08)'
+  );
+
+  ctx.strokeStyle = 'rgba(170,181,229,.58)';
+  ctx.lineWidth = 1.7;
+
+  ctx.beginPath();
+
+  ctx.ellipse(
+    x,y + 2,
+    size * .85,
+    size * .25,
+    -.19,
+    .1,
+    Math.PI - .1
+  );
+
+  ctx.stroke();
+}
+
+/* =========================
+   TINY BACKGROUND SPACESHIP
+========================= */
+
+const shipPixels = [
+  '...........A......',
+  '.........AAB......',
+  '.....AAAAABBBA....',
+  '...AABBBCCBBBAAA.',
+  '.DDABBEECCBBBBAAA',
+  '...AABBBCCBBBAAA.',
+  '.....AAAAABBBA....',
+  '.........AAB......',
+  '...........A......'
+];
+
+const shipColors = {
+  A: '#8ea8d1',
+  B: '#dce8f5',
+  C: '#3f799e',
+  D: '#62b6ef',
+  E: '#263e6e'
+};
+
+function drawShip(x,y,time) {
+  const bob = Math.sin(time * .0017) * 2;
+
+  ctx.save();
+
+  ctx.translate(
+    Math.round(x),
+    Math.round(y + bob)
+  );
+
+  const engine = ctx.createRadialGradient(
+    -4,4,0,
+    -4,4,13
+  );
+
+  engine.addColorStop(
+    0,
+    'rgba(65,163,242,.20)'
+  );
+
+  engine.addColorStop(
+    1,
+    'rgba(65,163,242,0)'
+  );
+
+  ctx.fillStyle = engine;
+  ctx.fillRect(-17,-9,26,26);
+
+  shipPixels.forEach((row,ry) => {
+    [...row].forEach((cell,rx) => {
+      if (shipColors[cell]) {
+        ctx.fillStyle = shipColors[cell];
+
         ctx.fillRect(
-          s.x, s.y,
-          s.len, 1
+          rx * 1.4,
+          ry * 1.4,
+          1.4,1.4
         );
       }
-    }
+    });
+  });
 
-    /* ===========================
-       SOFT TWINKLING STARS
-    ============================ */
+  ctx.restore();
+}
 
-    function glint(x,y,t,phase) {
-      const pulse = .6 + .4 * (
-        .5 +
-        .5 * Math.sin(t * .0015 + phase)
-      );
+/* =========================
+   MAIN ANIMATION
+========================= */
 
-      const halo = ctx.createRadialGradient(
-        x,y,0,
-        x,y,15
-      );
+function animate(time) {
+  const dt = Math.min(
+    (time - lastTime) / 16.67 || 1,
+    2.2
+  );
 
-      halo.addColorStop(
-        0,
-        `rgba(201,227,255,${.32 * pulse})`
-      );
+  lastTime = time;
 
-      halo.addColorStop(
-        1,
-        'rgba(201,227,255,0)'
-      );
+  if (!document.hidden) {
+    drawBackground();
 
-      ctx.fillStyle = halo;
-      ctx.fillRect(
-        x - 15,
-        y - 15,
-        30,
-        30
-      );
-
-      ctx.fillStyle =
-        `rgba(238,247,255,${.8 * pulse})`;
-
-      ctx.fillRect(
-        Math.round(x),
-        Math.round(y),
-        2,2
-      );
-    }
-
-    /* ===========================
-       PIXEL PLANET GENERATION
-    ============================ */
-
-    function makePlanet(type) {
-      const c = document.createElement('canvas');
-
-      c.width = 32;
-      c.height = 32;
-
-      const p = c.getContext('2d');
-
-      p.imageSmoothingEnabled = false;
-
-      for (let y = 0; y < 32; y++) {
-        for (let x = 0; x < 32; x++) {
-          const dx = x - 15.5;
-          const dy = y - 15.5;
-
-          const dist = Math.hypot(dx,dy);
-
-          if (dist > 13.5) continue;
-
-          const lit = Math.max(
-            0,
-            1 - (dx + dy * .55) / 25
-          );
-
-          const stripe = Math.sin(
-            y * .62 + x * .18
-          );
-
-          const blotch =
-            Math.sin(x * .7 + y * .31) *
-            Math.cos(y * .45 - x * .28);
-
-          let color;
-
-          if (type === 'blue') {
-            if (dist > 12.3) {
-              color = '#17355f';
-            } else if (lit > 1.13) {
-              color = blotch > .22
-                ? '#94bdde'
-                : '#6b9cc6';
-            } else if (lit > .82) {
-              color = stripe > .43
-                ? '#5787b8'
-                : '#3d6fa6';
-            } else {
-              color = stripe > .35
-                ? '#294e86'
-                : '#1a365f';
-            }
-          } else {
-            if (dist > 12.3) {
-              color = '#333765';
-            } else if (lit > 1.13) {
-              color = stripe > .15
-                ? '#b3a9dc'
-                : '#8f9ed0';
-            } else if (lit > .78) {
-              color = stripe > .13
-                ? '#786aa9'
-                : '#656d9d';
-            } else {
-              color = stripe > .13
-                ? '#494c7d'
-                : '#323457';
-            }
-          }
-
-          p.fillStyle = color;
-          p.fillRect(x,y,1,1);
-        }
-      }
-
-      return c;
-    }
-
-    const bluePlanet = makePlanet('blue');
-
-    const purplePlanet = makePlanet('purple');
-
-    /* ===========================
-       DRAW PIXEL PLANETS
-    ============================ */
-
-    function planet(
-      x, y, size,
-      sprite,
-      glowColor
-    ) {
-      ctx.save();
-
-      const glow = ctx.createRadialGradient(
-        x,y,0,
-        x,y,size * .92
-      );
-
-      glow.addColorStop(0,glowColor);
-
-      glow.addColorStop(
-        1,
-        'rgba(0,0,0,0)'
-      );
-
-      ctx.fillStyle = glow;
-
-      ctx.fillRect(
-        x - size,
-        y - size,
-        size * 2,
-        size * 2
-      );
-
-      ctx.imageSmoothingEnabled = false;
-
-      ctx.drawImage(
-        sprite,
-        Math.round(x - size / 2),
-        Math.round(y - size / 2),
-        size,
-        size
-      );
-
-      ctx.restore();
-    }
-
-    function drawRingPlanet(x,y,size) {
-      ctx.strokeStyle =
-        'rgba(139,155,220,.32)';
-
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-
-      ctx.ellipse(
-        x,
-        y + 2,
-        size * .85,
-        size * .25,
-        -.19,
-        0,
-        Math.PI * 2
-      );
-
-      ctx.stroke();
-
-      planet(
-        x,y,size,
-        purplePlanet,
-        'rgba(124,133,218,.08)'
-      );
-
-      ctx.strokeStyle =
-        'rgba(170,181,229,.58)';
-
-      ctx.lineWidth = 1.7;
-      ctx.beginPath();
-
-      ctx.ellipse(
-        x,
-        y + 2,
-        size * .85,
-        size * .25,
-        -.19,
-        .1,
-        Math.PI - .1
-      );
-
-      ctx.stroke();
-    }
-
-    /* ===========================
-       SMALL BACKGROUND SPACESHIP
-    ============================ */
-
-    const shipPixels = [
-      '...........A......',
-      '.........AAB......',
-      '.....AAAAABBBA....',
-      '...AABBBCCBBBAAA.',
-      '.DDABBEECCBBBBAAA',
-      '...AABBBCCBBBAAA.',
-      '.....AAAAABBBA....',
-      '.........AAB......',
-      '...........A......'
-    ];
-
-    const shipColors = {
-      A: '#8ea8d1',
-      B: '#dce8f5',
-      C: '#3f799e',
-      D: '#62b6ef',
-      E: '#263e6e'
-    };
-
-    function drawShip(x,y,t) {
-      const bob =
-        Math.sin(t * .0017) * 2;
-
-      ctx.save();
-
-      ctx.translate(
-        Math.round(x),
-        Math.round(y + bob)
-      );
-
-      const engine = ctx.createRadialGradient(
-        -4,4,0,
-        -4,4,13
-      );
-
-      engine.addColorStop(
-        0,
-        'rgba(65,163,242,.20)'
-      );
-
-      engine.addColorStop(
-        1,
-        'rgba(65,163,242,0)'
-      );
-
-      ctx.fillStyle = engine;
-      ctx.fillRect(-17,-9,26,26);
-
-      shipPixels.forEach((row,ry) => {
-        [...row].forEach((cell,rx) => {
-          if (shipColors[cell]) {
-            ctx.fillStyle = shipColors[cell];
-
-            ctx.fillRect(
-              rx * 1.4,
-              ry * 1.4,
-              1.4,
-              1.4
-            );
-          }
-        });
-      });
-
-      ctx.restore();
-    }
-
-    /* ===========================
-       MAIN ANIMATION LOOP
-    ============================ */
-
-    function animate(t) {
-      const dt = Math.min(
-        (t - lastTime) / 16.67 || 1,
-        2.2
-      );
-
-      lastTime = t;
-
-      if (!document.hidden) {
-        drawBackground(t);
-
-        drawStars(
-          t,
-          reduceMotion.matches ? 0 : dt
-        );
-
-        glint(
-          W * .20,
-          H * .23,
-          t,
-          0
-        );
-
-        glint(
-          W * .78,
-          H * .28,
-          t,
-          1.8
-        );
-
-        const drift = reduceMotion.matches
-          ? 0
-          : Math.sin(t * .00016) * 10;
-
-        // Blue planet at bottom left
-        planet(
-          W * .10 + drift,
-          H * .76,
-          34,
-          bluePlanet,
-          'rgba(87,147,219,.085)'
-        );
-
-        // Purple ring planet at top right
-        drawRingPlanet(
-          W * .87 + drift * .6,
-          H * .18,
-          29
-        );
-
-        // Small ship drifting left to right
-        if (!reduceMotion.matches) {
-          shipX += .48 * dt;
-        }
-
-        if (shipX > W + 50) {
-          shipX = -65;
-        }
-
-        drawShip(
-          shipX,
-          H * .69,
-          t
-        );
-      }
-
-      requestAnimationFrame(animate);
-    }
-
-    window.addEventListener(
-      'resize',
-      resizeCanvas
+    drawStars(
+      time,
+      reduceMotion.matches ? 0 : dt
     );
 
-    resizeCanvas();
+    glint(
+      W * .20,
+      H * .23,
+      time,0
+    );
 
-    requestAnimationFrame(animate);
-  </script>
+    glint(
+      W * .78,
+      H * .28,
+      time,1.8
+    );
+
+    const drift = reduceMotion.matches
+      ? 0
+      : Math.sin(time * .00016) * 10;
+
+    // Blue planet
+    planet(
+      W * .10 + drift,
+      H * .76,
+      34,
+      bluePlanet,
+      'rgba(87,147,219,.085)'
+    );
+
+    // Purple ringed planet
+    drawRingPlanet(
+      W * .87 + drift * .6,
+      H * .18,
+      29
+    );
+
+    // Moving spaceship
+    if (!reduceMotion.matches) {
+      shipX += .48 * dt;
+    }
+
+    if (shipX > W + 50) {
+      shipX = -65;
+    }
+
+    drawShip(
+      shipX,
+      H * .69,
+      time
+    );
+  }
+
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener('resize',resizeCanvas);
+
+resizeCanvas();
+requestAnimationFrame(animate);
+</script>
 
 </body>
 </html>
