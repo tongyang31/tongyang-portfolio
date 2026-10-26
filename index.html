@@ -24,9 +24,9 @@
 }
 
 html, body {
-  margin: 0;
   width: 100%;
   height: 100%;
+  margin: 0;
   overflow: hidden;
   background: var(--bg);
   color: var(--white);
@@ -52,9 +52,9 @@ button {
   pointer-events: auto;
 }
 
-/* ==========================================
-   LANDING SCREEN
-========================================== */
+/* ========================================
+   LANDING PAGE
+======================================== */
 
 #landing {
   cursor: pointer;
@@ -165,20 +165,19 @@ button {
   opacity: 0;
 }
 
-/* ==========================================
-   SPACESHIP TAKEOFF ANIMATION
-========================================== */
+/* ========================================
+   SPACESHIP TAKEOFF
+======================================== */
 
 .launch-scene {
   position: absolute;
   inset: 0;
   z-index: 4;
-  display: block;
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity .30s ease, visibility .30s ease;
+  transition: opacity .3s ease, visibility .3s ease;
 }
 
 #landing.entering .launch-scene {
@@ -195,35 +194,31 @@ button {
 .launch-veil {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(
-      ellipse 60% 70% at center,
-      rgba(5,15,43,.55),
-      rgba(1,4,14,.76)
-    );
+  background: radial-gradient(
+    ellipse 60% 70% at center,
+    rgba(5,15,43,.55),
+    rgba(1,4,14,.76)
+  );
 }
 
 .launch-speed {
   position: absolute;
   inset: 0;
   opacity: 0;
-  background-image:
-    linear-gradient(
-      180deg,
-      transparent 0%,
-      rgba(104,171,255,.17) 55%,
-      transparent 100%
-    );
+  background-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(104,171,255,.17) 55%,
+    transparent 100%
+  );
   background-size: 1px 140px;
-  background-repeat: repeat;
-  mask-image:
-    repeating-linear-gradient(
-      90deg,
-      #000 0,
-      #000 2px,
-      transparent 2px,
-      transparent 52px
-    );
+  mask-image: repeating-linear-gradient(
+    90deg,
+    #000 0,
+    #000 2px,
+    transparent 2px,
+    transparent 52px
+  );
 }
 
 #landing.entering .launch-speed {
@@ -235,12 +230,8 @@ button {
     opacity: 0;
     transform: translateY(-22%);
   }
-  35% {
-    opacity: .25;
-  }
-  78% {
-    opacity: .45;
-  }
+  35% { opacity: .25; }
+  78% { opacity: .45; }
   100% {
     opacity: .15;
     transform: translateY(75%);
@@ -254,13 +245,11 @@ button {
   right: 16px;
   text-align: center;
   z-index: 6;
-  text-shadow: 0 0 22px rgba(7,17,39,.95);
 }
 
 .launch-hud-kicker {
   color: #7faadb;
   font: normal clamp(7px,.72vw,10px)/1.5 'Press Start 2P',monospace;
-  letter-spacing: .08em;
 }
 
 .launch-hud-title {
@@ -282,7 +271,6 @@ button {
 }
 
 .launch-progress {
-  position: relative;
   width: min(325px,70vw);
   height: 3px;
   overflow: hidden;
@@ -297,7 +285,6 @@ button {
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg,#4269b5,#c8ecff);
-  box-shadow: 0 0 14px #74bbff;
   transform: translateX(-100%);
 }
 
@@ -306,15 +293,12 @@ button {
 }
 
 @keyframes launchProgress {
-  to {
-    transform: translateX(0);
-  }
+  to { transform: translateX(0); }
 }
 
 .launch-status {
   color: #8baed2;
   font: normal 8px/1.6 'Press Start 2P',monospace;
-  letter-spacing: .05em;
 }
 
 .launch-ship {
@@ -326,14 +310,10 @@ button {
   height: 164px;
   transform: translateX(-50%) scale(.9);
   filter: drop-shadow(0 0 15px rgba(122,185,255,.35));
-  will-change: transform;
 }
 
 #landing.entering .launch-ship {
-  animation:
-    shipAscend 2.78s
-    cubic-bezier(.32,.05,.56,.95)
-    .12s both;
+  animation: shipAscend 2.78s cubic-bezier(.32,.05,.56,.95) .12s both;
 }
 
 @keyframes shipAscend {
@@ -358,7 +338,6 @@ button {
   width: 120px;
   height: 164px;
   image-rendering: pixelated;
-  filter: drop-shadow(0 0 6px rgba(181,213,255,.22));
 }
 
 .launch-flame {
@@ -369,38 +348,22 @@ button {
   z-index: 1;
   width: 24px;
   height: 190px;
-  background:
-    linear-gradient(
-      180deg,
-      #eefcff 0%,
-      #62b6ff 13%,
-      rgba(33,118,255,.55) 44%,
-      rgba(22,54,175,0) 100%
-    );
-  clip-path:
-    polygon(
-      22% 0,
-      78% 0,
-      95% 31%,
-      65% 100%,
-      36% 91%,
-      5% 31%
-    );
-  filter: drop-shadow(0 0 19px rgba(75,160,255,.75));
-  transform-origin: center top;
+  background: linear-gradient(
+    180deg,
+    #eefcff 0%,
+    #62b6ff 13%,
+    rgba(33,118,255,.55) 44%,
+    rgba(22,54,175,0) 100%
+  );
+  clip-path: polygon(
+    22% 0,
+    78% 0,
+    95% 31%,
+    65% 100%,
+    36% 91%,
+    5% 31%
+  );
   animation: flamePulse .16s ease-in-out infinite alternate;
-}
-
-.launch-flame::before {
-  content: '';
-  position: absolute;
-  inset: 0 6px 40%;
-  background:
-    linear-gradient(
-      #fff,
-      rgba(212,241,255,.6),
-      transparent
-    );
 }
 
 @keyframes flamePulse {
@@ -423,9 +386,9 @@ button {
   100% { opacity: .8; }
 }
 
-/* ==========================================
-   DESTINATION SELECTION SCREEN
-========================================== */
+/* ========================================
+   DESTINATION SELECTION
+======================================== */
 
 #database {
   isolation: isolate;
@@ -455,45 +418,17 @@ button {
       rgba(159,194,240,.8) 95%,
       transparent
     ),
-    radial-gradient(
-      1px 1px at 65% 14%,
-      rgba(148,202,255,.65) 95%,
-      transparent
-    ),
-    radial-gradient(
-      1px 1px at 34% 81%,
-      rgba(169,210,255,.8) 95%,
-      transparent
-    ),
     linear-gradient(
       180deg,
-      #020610 0%,
+      #020610,
       #071021 50%,
-      #030712 100%
+      #030712
     );
-
   background-size:
     auto,
     320px 260px,
     390px 350px,
-    430px 310px,
-    450px 400px,
     auto;
-}
-
-#database::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0,
-      transparent 5px,
-      rgba(151,194,242,.012) 6px
-    );
 }
 
 .nav-shell {
@@ -501,7 +436,7 @@ button {
   z-index: 1;
   min-height: 100%;
   width: min(1180px,94%);
-  margin: 0 auto;
+  margin: auto;
   display: flex;
   flex-direction: column;
   padding: 29px 0 27px;
@@ -509,14 +444,14 @@ button {
 
 .nav-topbar {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 12px;
+  padding: 0 2px 17px;
+  border-bottom: 1px solid rgba(135,183,233,.21);
   color: #8daacc;
   font: 500 10px/1.5 Orbitron,sans-serif;
   letter-spacing: .15em;
-  padding: 0 2px 17px;
-  border-bottom: 1px solid rgba(135,183,233,.21);
 }
 
 .nav-topbar strong {
@@ -526,34 +461,32 @@ button {
 
 .nav-topbar .status {
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 10px;
   font-size: 9px;
 }
 
 .nav-topbar .status i {
   width: 6px;
   height: 6px;
-  background: #91e1cb;
-  display: block;
   border-radius: 50%;
+  background: #91e1cb;
   box-shadow: 0 0 11px #91e1cb;
 }
 
 .nav-main {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   padding: 48px 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .nav-eyebrow {
   color: #87a5c8;
   font: 8px/1.8 'Press Start 2P',monospace;
-  letter-spacing: .06em;
   text-align: center;
 }
 
@@ -567,12 +500,11 @@ button {
 }
 
 .nav-subtitle {
+  margin: 8px 0 34px;
   color: #839ec0;
+  text-align: center;
   letter-spacing: .16em;
   font-size: 12px;
-  line-height: 1.7;
-  text-align: center;
-  margin: 8px 0 34px;
 }
 
 .nav-console {
@@ -580,12 +512,11 @@ button {
   width: min(800px,100%);
   padding: 15px;
   border: 1px solid rgba(145,190,238,.33);
-  background:
-    linear-gradient(
-      145deg,
-      rgba(16,32,57,.76),
-      rgba(4,11,25,.83)
-    );
+  background: linear-gradient(
+    145deg,
+    rgba(16,32,57,.76),
+    rgba(4,11,25,.83)
+  );
   box-shadow:
     inset 0 1px 0 rgba(201,229,255,.11),
     0 20px 50px rgba(0,0,0,.34);
@@ -595,16 +526,16 @@ button {
 .nav-console::after {
   content: '';
   position: absolute;
-  pointer-events: none;
   width: 20px;
   height: 20px;
+  pointer-events: none;
 }
 
 .nav-console::before {
   top: -1px;
   left: -1px;
-  border-left: 2px solid #9bcfff;
   border-top: 2px solid #9bcfff;
+  border-left: 2px solid #9bcfff;
 }
 
 .nav-console::after {
@@ -621,7 +552,6 @@ button {
   padding: 4px 9px 13px;
   color: #6e8ba9;
   font: 7px/1.7 'Press Start 2P',monospace;
-  letter-spacing: .06em;
 }
 
 .nav-list {
@@ -630,29 +560,23 @@ button {
 }
 
 .nav-destination {
-  position: relative;
   display: grid;
   grid-template-columns: 70px 1fr auto 25px;
   align-items: center;
   gap: 13px;
-  min-height: 69px;
   width: 100%;
+  min-height: 69px;
   padding: 15px 20px;
   text-align: left;
   cursor: pointer;
   color: #e0edfc;
-  background:
-    linear-gradient(
-      95deg,
-      rgba(14,29,50,.88),
-      rgba(8,17,31,.85)
-    );
+  background: linear-gradient(
+    95deg,
+    rgba(14,29,50,.88),
+    rgba(8,17,31,.85)
+  );
   border: 1px solid rgba(124,164,207,.24);
-  transition:
-    background .2s,
-    border-color .2s,
-    transform .2s,
-    box-shadow .2s;
+  transition: .2s ease;
 }
 
 .nav-destination:hover,
@@ -660,21 +584,17 @@ button {
   outline: none;
   transform: translateX(4px);
   border-color: rgba(156,214,255,.78);
-  background:
-    linear-gradient(
-      95deg,
-      rgba(37,78,120,.49),
-      rgba(13,34,60,.69)
-    );
-  box-shadow:
-    inset 3px 0 #9bd6ff,
-    0 0 20px rgba(84,160,239,.09);
+  background: linear-gradient(
+    95deg,
+    rgba(37,78,120,.49),
+    rgba(13,34,60,.69)
+  );
+  box-shadow: inset 3px 0 #9bd6ff;
 }
 
 .nav-number {
   color: #7896bc;
-  font: 8px/1.3 'Press Start 2P',monospace;
-  white-space: nowrap;
+  font: 8px 'Press Start 2P',monospace;
 }
 
 .nav-name {
@@ -684,72 +604,64 @@ button {
 
 .nav-zone {
   color: #6685a6;
-  font: 8px/1.5 'Press Start 2P',monospace;
+  font: 8px 'Press Start 2P',monospace;
   white-space: nowrap;
-}
-
-.nav-destination:hover .nav-zone,
-.nav-destination:focus-visible .nav-zone {
-  color: #a5d8ff;
 }
 
 .nav-arrow {
   color: #86b8ea;
-  font: 22px/1 Orbitron,sans-serif;
-  text-align: right;
+  font-size: 22px;
 }
 
 .nav-foot {
+  width: min(800px,100%);
+  padding: 18px 2px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
-  width: min(800px,100%);
-  padding: 18px 2px 0;
 }
 
 .nav-foot button {
+  padding: 8px 1px;
   border: 0;
   background: none;
-  padding: 8px 1px;
   cursor: pointer;
   color: #90aed2;
-  font: 8px/1.8 'Press Start 2P',monospace;
+  font: 8px 'Press Start 2P',monospace;
 }
 
-.nav-foot button:hover,
-.nav-foot button:focus-visible {
-  color: #e4f5ff;
+.nav-foot button:hover {
+  color: white;
 }
 
 .nav-foot span {
   color: #6b89ac;
-  font: 8px/1.8 'Press Start 2P',monospace;
+  font: 8px 'Press Start 2P',monospace;
 }
 
-/* ==========================================
-   DESTINATION ARRIVAL TRANSITION
-========================================== */
+/* ========================================
+   DESTINATION TRANSITION
+======================================== */
 
 .landing-transition {
   position: fixed;
   inset: 0;
   z-index: 30;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 17px;
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(20,55,100,.94),
-      #020510 74%
-    );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 17px;
   text-align: center;
+  background: radial-gradient(
+    circle at center,
+    rgba(20,55,100,.94),
+    #020510 74%
+  );
   transition: opacity .2s, visibility .2s;
 }
 
@@ -765,23 +677,23 @@ button {
 }
 
 .landing-transition strong {
+  color: #eef8ff;
   font: 500 clamp(22px,4vw,42px)/1.3 Orbitron,sans-serif;
   letter-spacing: .13em;
-  color: #eef8ff;
 }
 
 .landing-loading {
-  height: 2px;
   width: min(300px,75vw);
-  background: #294767;
+  height: 2px;
   overflow: hidden;
+  background: #294767;
 }
 
 .landing-loading i {
   display: block;
-  background: #b4dfff;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  background: #b4dfff;
   transform: translateX(-100%);
 }
 
@@ -790,14 +702,12 @@ button {
 }
 
 @keyframes loadLanding {
-  to {
-    transform: translateX(0);
-  }
+  to { transform: translateX(0); }
 }
 
-/* ==========================================
-   PORTFOLIO SECTION PAGES
-========================================== */
+/* ========================================
+   PORTFOLIO CONTENT SECTIONS
+======================================== */
 
 .content-page {
   overflow-y: auto;
@@ -819,9 +729,8 @@ button {
 }
 
 .small-label {
-  font: normal 8px/1.8 'Press Start 2P',monospace;
   color: #7494bb;
-  letter-spacing: .06em;
+  font: 8px/1.8 'Press Start 2P',monospace;
 }
 
 .content-container h2 {
@@ -830,11 +739,195 @@ button {
   letter-spacing: .1em;
 }
 
-.content-container p {
-  color: #a4b6cf;
-  font-size: 19px;
+.section-intro {
+  max-width: 790px;
+  margin: 0 0 30px;
+  color: #aabed7;
+  font-size: clamp(15px,1.35vw,17px);
+  line-height: 1.75;
+}
+
+.section-count {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 35px 0 18px;
+  color: #7d9fc5;
+  font: 8px/1.5 'Press Start 2P',monospace;
+}
+
+.section-count::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(144,198,253,.38),
+    transparent
+  );
+}
+
+.portfolio-grid,
+.skills-grid,
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 15px;
+}
+
+.portfolio-card,
+.skill-panel,
+.experience-item,
+.about-panel {
+  border: 1px solid rgba(146,190,255,.23);
+  background: linear-gradient(
+    130deg,
+    rgba(25,50,86,.34),
+    rgba(5,13,29,.68)
+  );
+}
+
+.portfolio-card {
+  min-width: 0;
+  padding: 25px 24px;
+  transition: border-color .2s, transform .2s;
+}
+
+.portfolio-card:hover {
+  border-color: rgba(162,211,255,.67);
+  transform: translateY(-2px);
+}
+
+.project-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  color: #8ba7c9;
+  font: 8px/1.6 'Press Start 2P',monospace;
+}
+
+.project-topline .index {
+  color: #acd4ff;
+}
+
+.portfolio-card h3,
+.skill-panel h3,
+.experience-item h3,
+.about-panel h3 {
+  margin: 20px 0 12px;
+  color: #edf6ff;
+  font: 500 clamp(15px,1.45vw,21px)/1.45 Orbitron,sans-serif;
+}
+
+.portfolio-card p,
+.experience-item p,
+.about-panel p {
+  margin: 0;
+  color: #aac0da;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 20px;
+}
+
+.tag {
+  padding: 7px 9px;
+  color: #a7c6e9;
+  font-size: 10px;
+  background: rgba(110,169,235,.06);
+  border: 1px solid rgba(136,188,241,.23);
+}
+
+.experience-list {
+  display: grid;
+  gap: 13px;
+}
+
+.experience-item {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 22px;
+  padding: 23px 25px;
+}
+
+.experience-date {
+  color: #94b4db;
+  font: 9px/1.8 'Press Start 2P',monospace;
+}
+
+.experience-item h3 {
+  margin: 0 0 5px;
+}
+
+.experience-company {
+  margin-bottom: 12px;
+  color: #bcd8f4;
+  font-size: 12px;
+}
+
+.resume-points {
+  padding-left: 17px;
+  margin: 10px 0 0;
+  color: #acc1da;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.resume-points li {
+  margin: 5px 0;
+}
+
+.skill-panel,
+.about-panel {
+  padding: 23px;
+}
+
+.skill-panel h3,
+.about-panel h3 {
+  margin: 0 0 17px;
+}
+
+.skill-items {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.skill-items span {
+  padding: 9px 11px;
+  color: #c4d7ef;
+  font-size: 12px;
+  background: rgba(117,168,229,.09);
+  border: 1px solid rgba(146,190,255,.16);
+}
+
+.skill-note {
+  margin-top: 12px;
+  color: #789ec7;
+  font-size: 12px;
+}
+
+.about-grid {
+  margin-top: 28px;
+}
+
+.about-kicker {
+  color: #87a9cf;
+  font: 8px/1.6 'Press Start 2P',monospace;
+  margin-bottom: 13px;
+}
+
+.small-list {
+  padding-left: 18px;
+  color: #aac0da;
+  font-size: 14px;
   line-height: 1.8;
-  max-width: 800px;
 }
 
 .back-button {
@@ -851,9 +944,9 @@ button {
   background: rgba(130,180,250,.2);
 }
 
-/* ==========================================
-   CONTACT PAGE
-========================================== */
+/* ========================================
+   CONTACT
+======================================== */
 
 .contact-links {
   display: grid;
@@ -870,58 +963,68 @@ button {
   min-height: 90px;
   padding: 20px 24px;
   border: 1px solid rgba(146,190,255,.28);
-  background:
-    linear-gradient(
-      100deg,
-      rgba(37,70,116,.16),
-      rgba(8,16,33,.22)
-    );
+  background: rgba(37,70,116,.16);
   color: #e3f1ff;
   text-decoration: none;
-  transition:
-    border-color .2s,
-    background .2s,
-    transform .2s;
+  transition: .2s;
 }
 
-.contact-link:hover,
-.contact-link:focus-visible {
+.contact-link:hover {
   border-color: #98ceff;
   background: rgba(45,91,148,.22);
   transform: translateX(4px);
-  outline: none;
 }
 
 .contact-channel {
-  font: 8px/1.9 'Press Start 2P',monospace;
   color: #85a8d0;
+  font: 8px/1.9 'Press Start 2P',monospace;
 }
 
 .contact-value {
   overflow-wrap: anywhere;
   font-size: clamp(14px,1.8vw,18px);
-  letter-spacing: .01em;
 }
 
 .contact-arrow {
   color: #a2d5ff;
-  text-align: right;
   font-size: 23px;
 }
 
-/* ==========================================
+/* ========================================
    RESPONSIVE DESIGN
-========================================== */
+======================================== */
 
 @media (max-width: 900px) {
   .name {
     font-size: clamp(35px,8vw,65px);
     letter-spacing: .1em;
-    margin-left: .1em;
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 720px) {
+  .portfolio-grid,
+  .skills-grid,
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-item {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .content-container {
+    width: 92%;
+    padding-top: 75px;
+  }
+
+  .portfolio-card,
+  .skill-panel,
+  .experience-item,
+  .about-panel {
+    padding: 19px;
+  }
+
   .nav-shell {
     width: 93%;
     padding: 17px 0;
@@ -932,14 +1035,8 @@ button {
   }
 
   .nav-title {
-    letter-spacing: .06em;
     font-size: clamp(25px,7vw,42px);
-  }
-
-  .nav-subtitle {
-    font-size: 11px;
     letter-spacing: .06em;
-    margin-bottom: 26px;
   }
 
   .nav-console {
@@ -957,49 +1054,25 @@ button {
     display: none;
   }
 
-  .nav-number {
-    font-size: 7px;
-  }
-
   .nav-name {
     font-size: clamp(11px,3.1vw,15px);
-    letter-spacing: .05em;
-  }
-
-  .nav-topbar {
-    font-size: 8px;
-    letter-spacing: 0;
-  }
-
-  .nav-topbar .status {
-    font-size: 7px;
   }
 
   .nav-foot span {
     display: none;
-  }
-
-  .nav-console-heading {
-    font-size: 6px;
   }
 }
 
 @media (max-width: 600px) {
   .contact-link {
     grid-template-columns: minmax(0,1fr) 22px;
-    column-gap: 12px;
+    gap: 12px;
     padding: 16px;
   }
 
-  .contact-channel {
-    grid-column: 1;
-    font-size: 7px;
-  }
-
+  .contact-channel,
   .contact-value {
     grid-column: 1;
-    grid-row: 2;
-    font-size: 14px;
   }
 
   .contact-arrow {
@@ -1016,7 +1089,7 @@ button {
   }
 
   .portfolio-title {
-    font-size: clamp(6px,2vw,8px);
+    font-size: 8px;
   }
 
   .role {
@@ -1025,47 +1098,40 @@ button {
   }
 
   .enter-text {
-    font-size: clamp(5px,1.5vw,7px);
+    font-size: 6px;
   }
 
   .launch-hud {
     top: 15vh;
   }
 
-  .launch-hud-title {
-    letter-spacing: .07em;
-  }
-
-  .launch-hud-destination {
-    line-height: 2.3;
-  }
-
   .launch-hud-destination strong {
     display: block;
+  }
+
+  .nav-topbar {
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+
+  .nav-topbar .status {
+    font-size: 7px;
+  }
+
+  .nav-console-heading {
+    font-size: 6px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .enter-text {
-    animation: none;
-  }
-
-  .page,
-  .nav-destination,
-  .contact-link {
-    transition: none;
-  }
-
-  #landing.entering .launch-ship,
-  #landing.entering .launch-speed,
-  #landing.entering .launch-progress-fill,
-  #landing.entering .transition-flash,
+  .enter-text,
   .launch-flame {
     animation: none;
   }
 
-  .landing-transition.show .landing-loading i {
-    animation: none;
+  .page,
+  .nav-destination {
+    transition: none;
   }
 }
 </style>
@@ -1073,20 +1139,17 @@ button {
 
 <body>
 
-<!-- ==========================================
-     LANDING SCREEN
-========================================== -->
+<!-- ========================================
+     LANDING PAGE
+======================================== -->
 
-<section
-  id="landing"
-  class="page active"
-  tabindex="0"
-  aria-label="Enter TongYang engineering portfolio"
->
-  <canvas id="spaceCanvas" aria-hidden="true"></canvas>
+<section id="landing" class="page active" tabindex="0">
+
+  <canvas id="spaceCanvas"></canvas>
   <div class="space-overlay"></div>
 
   <div class="landing-content">
+
     <div class="title-group">
       <h1 class="name">TONGYANG</h1>
 
@@ -1102,19 +1165,18 @@ button {
     <div class="enter-text">
       PRESS ANYWHERE TO ACCESS DATABASE
     </div>
+
   </div>
 
   <!-- SPACESHIP TAKEOFF -->
 
-  <div
-    class="launch-scene"
-    id="launchScene"
-    aria-hidden="true"
-  >
+  <div class="launch-scene" id="launchScene">
+
     <div class="launch-veil"></div>
     <div class="launch-speed"></div>
 
     <div class="launch-hud">
+
       <div class="launch-hud-kicker">
         TY-01 // FLIGHT CONTROL
       </div>
@@ -1135,42 +1197,43 @@ button {
       <div class="launch-status" id="launchStatus">
         ENGAGING THRUSTERS...
       </div>
+
     </div>
 
-    <div class="launch-ship" aria-hidden="true">
+    <div class="launch-ship">
       <canvas
         id="launchShipCanvas"
         width="30"
-        height="41"
-      ></canvas>
+        height="41">
+      </canvas>
       <div class="launch-flame"></div>
     </div>
+
   </div>
 
   <div class="transition-flash"></div>
+
 </section>
 
-<!-- ==========================================
-     DESTINATION SELECTION SCREEN
-========================================== -->
+<!-- ========================================
+     DESTINATION SELECT
+======================================== -->
 
-<section
-  id="database"
-  class="page"
-  aria-label="Choose a landing destination"
->
+<section id="database" class="page">
+
   <div class="nav-shell">
 
     <header class="nav-topbar">
+
       <div>
-        <strong>TY-01</strong>
-        // FLIGHT NAVIGATION
+        <strong>TY-01</strong> // FLIGHT NAVIGATION
       </div>
 
       <div class="status">
-        <i aria-hidden="true"></i>
+        <i></i>
         ASTRONAUT MODE
       </div>
+
     </header>
 
     <main class="nav-main">
@@ -1187,10 +1250,8 @@ button {
         CHOOSE YOUR LANDING LOCATION
       </p>
 
-      <nav
-        class="nav-console"
-        aria-label="Landing destinations"
-      >
+      <nav class="nav-console">
+
         <div class="nav-console-heading">
           <span>AVAILABLE DESTINATIONS</span>
           <span>TY-01 // ONLINE</span>
@@ -1198,55 +1259,35 @@ button {
 
         <div class="nav-list">
 
-          <button
-            class="nav-destination"
-            type="button"
-            data-target="projects"
-          >
+          <button class="nav-destination" data-target="projects">
             <span class="nav-number">01</span>
             <span class="nav-name">PROJECTS</span>
             <span class="nav-zone">LANDING ZONE 01</span>
             <span class="nav-arrow">↗</span>
           </button>
 
-          <button
-            class="nav-destination"
-            type="button"
-            data-target="experience"
-          >
+          <button class="nav-destination" data-target="experience">
             <span class="nav-number">02</span>
             <span class="nav-name">EXPERIENCE</span>
             <span class="nav-zone">LANDING ZONE 02</span>
             <span class="nav-arrow">↗</span>
           </button>
 
-          <button
-            class="nav-destination"
-            type="button"
-            data-target="skills"
-          >
+          <button class="nav-destination" data-target="skills">
             <span class="nav-number">03</span>
             <span class="nav-name">SKILLS</span>
             <span class="nav-zone">LANDING ZONE 03</span>
             <span class="nav-arrow">↗</span>
           </button>
 
-          <button
-            class="nav-destination"
-            type="button"
-            data-target="about"
-          >
+          <button class="nav-destination" data-target="about">
             <span class="nav-number">04</span>
             <span class="nav-name">ABOUT</span>
             <span class="nav-zone">LANDING ZONE 04</span>
             <span class="nav-arrow">↗</span>
           </button>
 
-          <button
-            class="nav-destination"
-            type="button"
-            data-target="contact"
-          >
+          <button class="nav-destination" data-target="contact">
             <span class="nav-number">05</span>
             <span class="nav-name">CONTACT</span>
             <span class="nav-zone">LANDING ZONE 05</span>
@@ -1254,26 +1295,25 @@ button {
           </button>
 
         </div>
+
       </nav>
 
       <div class="nav-foot">
-        <button id="returnLanding" type="button">
+
+        <button id="returnLanding">
           ← RETURN TO SHIP
         </button>
 
-        <span>
-          SELECT A DESTINATION TO LAND
-        </span>
+        <span>SELECT A DESTINATION TO LAND</span>
+
       </div>
 
     </main>
+
   </div>
 
-  <div
-    class="landing-transition"
-    id="landingTransition"
-    aria-hidden="true"
-  >
+  <div class="landing-transition" id="landingTransition">
+
     <span>LANDING ROUTE CONFIRMED</span>
 
     <strong id="landingTargetName">
@@ -1285,122 +1325,547 @@ button {
     </div>
 
     <small>APPROACHING DESTINATION...</small>
+
   </div>
+
 </section>
 
-<!-- ==========================================
+<!-- ========================================
      PROJECTS
-========================================== -->
+======================================== -->
 
 <section id="projects" class="page content-page">
+
   <div class="content-container">
 
     <div class="small-label">
-      DATABASE // 01
+      DATABASE // 01 // SELECTED WORK
     </div>
 
     <h2>PROJECTS</h2>
 
-    <p>
-      My engineering projects will be featured here,
-      including robotics, CAD, mechanical design,
-      embedded systems, prototypes and simulations.
+    <p class="section-intro">
+      Engineering projects across robotics research,
+      mechanical design, reverse engineering,
+      prototyping, embedded systems and digital hardware.
     </p>
+
+    <div class="section-count">
+      ENGINEERING PORTFOLIO // 06 PROJECTS
+    </div>
+
+    <div class="portfolio-grid">
+
+      <!-- PROJECT 01: FINAL YEAR PROJECT -->
+
+      <article class="portfolio-card">
+
+        <div class="project-topline">
+          <span>FINAL YEAR PROJECT · IN PROGRESS</span>
+          <span class="index">01</span>
+        </div>
+
+        <h3>
+          Robotic Arm Pouring Control &amp;
+          Multimodal Sensing
+        </h3>
+
+        <p>
+          Investigating pouring control using load-cell
+          measurements and an IMU to relate vessel motion
+          to liquid volume and flow rate. Preliminary
+          manual pouring trials are completed, with
+          automated-rig experiments and robotic-arm
+          validation planned for the next phase.
+        </p>
+
+        <div class="tag-row">
+          <span class="tag">Robotics</span>
+          <span class="tag">Load Cell / IMU</span>
+          <span class="tag">Control Research</span>
+        </div>
+
+      </article>
+
+      <!-- PROJECT 02 -->
+
+      <article class="portfolio-card">
+
+        <div class="project-topline">
+          <span>INDUSTRY PROJECT</span>
+          <span class="index">02</span>
+        </div>
+
+        <h3>
+          Yarra Trams Wheel Shunt Reverse Engineering
+        </h3>
+
+        <p>
+          Analysed an existing wheel shunt to investigate
+          local manufacturing alternatives. Compared
+          materials, suppliers, production methods, cost
+          and lead times, and designed a SolidWorks assembly
+          jig to improve manufacturing consistency.
+        </p>
+
+        <div class="tag-row">
+          <span class="tag">SolidWorks</span>
+          <span class="tag">Reverse Engineering</span>
+          <span class="tag">Manufacturability</span>
+        </div>
+
+      </article>
+
+      <!-- PROJECT 03 -->
+
+      <article class="portfolio-card">
+
+        <div class="project-topline">
+          <span>INDUSTRY PROJECT</span>
+          <span class="index">03</span>
+        </div>
+
+        <h3>
+          Yarra Trams Seating Refurbishment
+        </h3>
+
+        <p>
+          Measured existing tram seats, developed 3D CAD
+          models and technical drawings, and used
+          3D-printed parts to check fit and function.
+          Iterated designs with engineers and stakeholders.
+        </p>
+
+        <div class="tag-row">
+          <span class="tag">3D CAD</span>
+          <span class="tag">Technical Drawings</span>
+          <span class="tag">3D Printing</span>
+        </div>
+
+      </article>
+
+      <!-- PROJECT 04 -->
+
+      <article class="portfolio-card">
+
+        <div class="project-topline">
+          <span>UNIVERSITY TEAM PROJECT</span>
+          <span class="index">04</span>
+        </div>
+
+        <h3>Warman Engineering Competition</h3>
+
+        <p>
+          Led a cross-functional team through mechanical
+          design, fabrication and electronics integration.
+          Planned work, coordinated design reviews and
+          testing, and delivered a working mechanical
+          prototype to specification.
+        </p>
+
+        <div class="tag-row">
+          <span class="tag">Team Leadership</span>
+          <span class="tag">SolidWorks</span>
+          <span class="tag">Prototyping</span>
+        </div>
+
+      </article>
+
+      <!-- PROJECT 05 -->
+
+      <article class="portfolio-card">
+
+        <div class="project-topline">
+          <span>EMBEDDED SYSTEMS</span>
+          <span class="index">05</span>
+        </div>
+
+        <h3>Dual-STM32 Audio Processing System</h3>
+
+        <p>
+          Worked on a two-microcontroller audio-processing
+          system using C/C++, interrupt-driven I/O,
+          I²S/DMA data paths and modular drivers.
+          Collaborated using Git branches, pull requests
+          and code reviews.
+        </p>
+
+        <div class="tag-row">
+          <span class="tag">STM32</span>
+          <span class="tag">C / C++</span>
+          <span class="tag">I²S / DMA</span>
+        </div>
+
+      </article>
+
+      <!-- PROJECT 06 -->
+
+      <article class="portfolio-card">
+
+        <div class="project-topline">
+          <span>DIGITAL SYSTEMS</span>
+          <span class="index">06</span>
+        </div>
+
+        <h3>16-bit Processor in Verilog</h3>
+
+        <p>
+          Built a synthesizable 16-bit processor with an
+          ALU, register file, control state machine and
+          instruction decoder. Developed simulation
+          testbenches and checked timing in Xilinx ISE.
+        </p>
+
+        <div class="tag-row">
+          <span class="tag">Verilog HDL</span>
+          <span class="tag">FPGA</span>
+          <span class="tag">Testbenches</span>
+        </div>
+
+      </article>
+
+    </div>
 
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
 
   </div>
+
 </section>
 
-<!-- ==========================================
+<!-- ========================================
      EXPERIENCE
-========================================== -->
+======================================== -->
 
 <section id="experience" class="page content-page">
+
   <div class="content-container">
 
     <div class="small-label">
-      DATABASE // 02
+      DATABASE // 02 // CAREER LOG
     </div>
 
     <h2>EXPERIENCE</h2>
 
-    <p>
-      My professional engineering experience,
-      internships and industry projects will be
-      displayed here.
+    <p class="section-intro">
+      Engineering experience in mechanical design,
+      reverse engineering, prototyping and manufacturing
+      improvement.
     </p>
+
+    <div class="section-count">
+      PROFESSIONAL LOG // ENGINEERING
+    </div>
+
+    <div class="experience-list">
+
+      <article class="experience-item">
+
+        <div class="experience-date">
+          JUN 2026<br>– PRESENT
+        </div>
+
+        <div>
+
+          <h3>
+            Yarra Trams Reverse Engineering Project
+          </h3>
+
+          <div class="experience-company">
+            SisterWorks Inc.
+          </div>
+
+          <ul class="resume-points">
+            <li>
+              Reverse engineering of a wheel shunt component
+              to assess local manufacturing options.
+            </li>
+            <li>
+              Reviewed materials, suppliers, fabrication
+              processes, cost and lead times.
+            </li>
+            <li>
+              Designed a SolidWorks production jig to
+              standardise assembly.
+            </li>
+          </ul>
+
+        </div>
+
+      </article>
+
+      <article class="experience-item">
+
+        <div class="experience-date">
+          NOV 2025<br>– MAR 2026
+        </div>
+
+        <div>
+
+          <h3>Engineering Intern</h3>
+
+          <div class="experience-company">
+            SisterWorks Inc. · Yarra Trams Collaboration
+          </div>
+
+          <ul class="resume-points">
+            <li>
+              Supported tram seating refurbishment
+              and redesign.
+            </li>
+            <li>
+              Collected on-site measurements and prepared
+              3D CAD models and manufacturing drawings.
+            </li>
+            <li>
+              Produced 3D-printed prototypes to assess
+              fit, form and function.
+            </li>
+          </ul>
+
+        </div>
+
+      </article>
+
+    </div>
 
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
 
   </div>
+
 </section>
 
-<!-- ==========================================
+<!-- ========================================
      SKILLS
-========================================== -->
+======================================== -->
 
 <section id="skills" class="page content-page">
+
   <div class="content-container">
 
     <div class="small-label">
-      DATABASE // 03
+      DATABASE // 03 // TECHNICAL CAPABILITIES
     </div>
 
     <h2>SKILLS</h2>
 
-    <p>
-      My skills in CAD, mechanical engineering,
-      electronics, software, robotics and
-      engineering simulation will be presented here.
+    <p class="section-intro">
+      Hands-on capabilities across mechanical design,
+      electronics, programming and manufacturing,
+      supported by university projects and industry
+      experience.
     </p>
+
+    <div class="section-count">
+      SYSTEM CAPABILITIES // 06 AREAS
+    </div>
+
+    <div class="skills-grid">
+
+      <article class="skill-panel">
+
+        <h3>CAD &amp; Mechanical Design</h3>
+
+        <div class="skill-items">
+          <span>SolidWorks</span>
+          <span>AutoCAD</span>
+          <span>3D Modelling</span>
+          <span>Assemblies</span>
+          <span>Technical Drawings</span>
+          <span>Tolerancing</span>
+          <span>Basic FEA</span>
+        </div>
+
+        <div class="skill-note">
+          Certified SolidWorks Associate (CSWA)
+        </div>
+
+      </article>
+
+      <article class="skill-panel">
+
+        <h3>Programming</h3>
+
+        <div class="skill-items">
+          <span>C</span>
+          <span>C++</span>
+          <span>Python</span>
+          <span>Java</span>
+          <span>MATLAB</span>
+          <span>MIPS Assembly</span>
+        </div>
+
+      </article>
+
+      <article class="skill-panel">
+
+        <h3>Embedded &amp; Digital Systems</h3>
+
+        <div class="skill-items">
+          <span>STM32</span>
+          <span>STM32CubeIDE</span>
+          <span>Arduino</span>
+          <span>Arduino IDE</span>
+          <span>Sensor / Actuator Interfacing</span>
+          <span>I²S / DMA</span>
+          <span>Verilog HDL</span>
+          <span>FPGA</span>
+        </div>
+
+      </article>
+
+      <article class="skill-panel">
+
+        <h3>Manufacturing &amp; Prototyping</h3>
+
+        <div class="skill-items">
+          <span>FDM 3D Printing</span>
+          <span>Bambu Lab</span>
+          <span>Creality Ender</span>
+          <span>PLA / PETG / ABS</span>
+          <span>Laser &amp; Plasma Cutting</span>
+          <span>Machining</span>
+          <span>Casting</span>
+          <span>MIG Welding</span>
+        </div>
+
+      </article>
+
+      <article class="skill-panel">
+
+        <h3>Simulation &amp; Analysis</h3>
+
+        <div class="skill-items">
+          <span>LTspice</span>
+          <span>MATLAB Plots</span>
+          <span>Curve Fitting</span>
+          <span>FFT</span>
+          <span>Signal Filtering</span>
+          <span>Control Analysis</span>
+          <span>Step / Impulse Responses</span>
+        </div>
+
+      </article>
+
+      <article class="skill-panel">
+
+        <h3>Engineering Software &amp; Workflow</h3>
+
+        <div class="skill-items">
+          <span>Git / GitHub</span>
+          <span>Linux</span>
+          <span>Git Branching</span>
+          <span>Pull Requests</span>
+          <span>Code Reviews</span>
+          <span>Xilinx ISE</span>
+        </div>
+
+      </article>
+
+    </div>
 
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
 
   </div>
+
 </section>
 
-<!-- ==========================================
+<!-- ========================================
      ABOUT
-========================================== -->
+======================================== -->
 
 <section id="about" class="page content-page">
+
   <div class="content-container">
 
     <div class="small-label">
-      DATABASE // 04
+      DATABASE // 04 // ASTRONAUT PROFILE
     </div>
 
-    <h2>ABOUT</h2>
+    <h2>ABOUT ME</h2>
 
-    <p>
-      My background, engineering education,
-      technical interests and career goals
-      will be introduced here.
+    <p class="section-intro">
+      I'm a Robotics &amp; Mechatronics Engineering
+      (Honours) student at Monash University who enjoys
+      building things and solving practical engineering
+      problems. My experience covers mechanical CAD and
+      prototyping, embedded programming, and collaborative
+      engineering work.
     </p>
+
+    <p class="section-intro">
+      I'm interested in robotics, automation, embedded
+      systems and bioengineering, and I'm looking to
+      keep learning through hands-on engineering
+      opportunities.
+    </p>
+
+    <div class="section-count">
+      ENGINEERING PROFILE // EDUCATION &amp; CERTIFICATION
+    </div>
+
+    <div class="about-grid">
+
+      <article class="about-panel">
+
+        <div class="about-kicker">
+          EDUCATION // 01
+        </div>
+
+        <h3>Monash University</h3>
+
+        <p>
+          Bachelor of Engineering (Honours) —
+          Robotics &amp; Mechatronics
+        </p>
+
+        <ul class="small-list">
+          <li>Expected graduation: July 2027</li>
+          <li>Specialisation: Artificial Intelligence</li>
+          <li>
+            Minor: Power and Energy Systems Engineering
+          </li>
+        </ul>
+
+      </article>
+
+      <article class="about-panel">
+
+        <div class="about-kicker">
+          CERTIFICATION // 02
+        </div>
+
+        <h3>Certified SolidWorks Associate</h3>
+
+        <p>
+          CSWA certification, with practical experience
+          in parametric design, assemblies, technical
+          drawings and prototypes.
+        </p>
+
+      </article>
+
+    </div>
 
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
 
   </div>
+
 </section>
 
-<!-- ==========================================
-     CONTACT - EMAIL AND LINKEDIN
-========================================== -->
+<!-- ========================================
+     CONTACT
+======================================== -->
 
-<section
-  id="contact"
-  class="page content-page"
-  aria-label="Contact information"
->
+<section id="contact" class="page content-page">
+
   <div class="content-container">
 
     <div class="small-label">
@@ -1409,19 +1874,17 @@ button {
 
     <h2>CONTACT</h2>
 
-    <p>
+    <p class="section-intro">
       Feel free to reach out or connect with me.
     </p>
 
     <div class="contact-links">
 
-      <!-- EMAIL -->
-
       <a
         class="contact-link"
         href="mailto:tcha0124@student.monash.edu"
-        aria-label="Send me an email"
       >
+
         <span class="contact-channel">
           01 // EMAIL
         </span>
@@ -1430,23 +1893,17 @@ button {
           tcha0124@student.monash.edu
         </span>
 
-        <span
-          class="contact-arrow"
-          aria-hidden="true"
-        >
-          ↗
-        </span>
-      </a>
+        <span class="contact-arrow">↗</span>
 
-      <!-- LINKEDIN -->
+      </a>
 
       <a
         class="contact-link"
         href="https://www.linkedin.com/in/tonggyangg"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="View my LinkedIn profile"
       >
+
         <span class="contact-channel">
           02 // LINKEDIN
         </span>
@@ -1455,12 +1912,8 @@ button {
           linkedin.com/in/tonggyangg
         </span>
 
-        <span
-          class="contact-arrow"
-          aria-hidden="true"
-        >
-          ↗
-        </span>
+        <span class="contact-arrow">↗</span>
+
       </a>
 
     </div>
@@ -1470,32 +1923,25 @@ button {
     </button>
 
   </div>
+
 </section>
 
 <script>
-
-/* ==========================================
+/* ========================================
    PAGE NAVIGATION
-========================================== */
+======================================== */
 
-const pages = document.querySelectorAll('.page');
-const landing = document.getElementById('landing');
+const pages = document.querySelectorAll(".page");
+const landing = document.getElementById("landing");
+const launchScene = document.getElementById("launchScene");
+const launchStatus = document.getElementById("launchStatus");
 
 let transitioning = false;
 let launchTimers = [];
 
-const launchStatus =
-  document.getElementById('launchStatus');
-
-const launchScene =
-  document.getElementById('launchScene');
-
 function showPage(id) {
   pages.forEach(page => {
-    page.classList.toggle(
-      'active',
-      page.id === id
-    );
+    page.classList.toggle("active", page.id === id);
   });
 
   const target = document.getElementById(id);
@@ -1506,115 +1952,91 @@ function showPage(id) {
 }
 
 function launchLater(callback, ms) {
-  launchTimers.push(
-    setTimeout(callback, ms)
-  );
+  launchTimers.push(setTimeout(callback, ms));
 }
 
 function finishLaunch() {
   launchTimers.forEach(clearTimeout);
   launchTimers = [];
 
-  showPage('database');
+  showPage("database");
 
-  landing.classList.remove('entering');
+  landing.classList.remove("entering");
+  launchScene.setAttribute("aria-hidden", "true");
 
-  launchScene.setAttribute(
-    'aria-hidden',
-    'true'
-  );
-
-  launchStatus.textContent =
-    'ENGAGING THRUSTERS...';
-
+  launchStatus.textContent = "ENGAGING THRUSTERS...";
   transitioning = false;
 }
 
 function enterDatabase() {
   if (
     transitioning ||
-    !landing.classList.contains('active')
+    !landing.classList.contains("active")
   ) {
     return;
   }
 
   transitioning = true;
 
-  launchScene.setAttribute(
-    'aria-hidden',
-    'false'
-  );
+  launchStatus.textContent = "ENGAGING THRUSTERS...";
+  launchScene.setAttribute("aria-hidden", "false");
 
-  launchStatus.textContent =
-    'ENGAGING THRUSTERS...';
-
-  landing.classList.remove('entering');
-
+  landing.classList.remove("entering");
   void landing.offsetWidth;
+  landing.classList.add("entering");
 
-  landing.classList.add('entering');
-
-  const reducedMotion =
-    window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
 
   if (reducedMotion) {
     launchLater(finishLaunch, 350);
   } else {
-
     launchLater(() => {
       launchStatus.textContent =
-        'LIFTOFF CONFIRMED // ASCENDING';
+        "LIFTOFF CONFIRMED // ASCENDING";
     }, 1050);
 
     launchLater(() => {
       launchStatus.textContent =
-        'APPROACHING DESTINATION...';
+        "APPROACHING DESTINATION...";
     }, 2300);
 
     launchLater(finishLaunch, 3230);
   }
 }
 
-landing.addEventListener(
-  'click',
-  enterDatabase
-);
+landing.addEventListener("click", enterDatabase);
 
-landing.addEventListener(
-  'keydown',
-  event => {
-    if (
-      event.key === 'Enter' ||
-      event.key === ' '
-    ) {
-      event.preventDefault();
-      enterDatabase();
-    }
+landing.addEventListener("keydown", event => {
+  if (
+    event.key === "Enter" ||
+    event.key === " "
+  ) {
+    event.preventDefault();
+    enterDatabase();
   }
-);
+});
 
-document
-  .getElementById('returnLanding')
-  .addEventListener('click', () => {
-    showPage('landing');
+document.getElementById("returnLanding")
+  .addEventListener("click", () => {
+    showPage("landing");
   });
 
-/* ==========================================
+/* ========================================
    DESTINATION SELECTION
-========================================== */
+======================================== */
 
 const destinationNames = {
-  projects: 'PROJECTS',
-  experience: 'EXPERIENCE',
-  skills: 'SKILLS',
-  about: 'ABOUT',
-  contact: 'CONTACT'
+  projects: "PROJECTS",
+  experience: "EXPERIENCE",
+  skills: "SKILLS",
+  about: "ABOUT",
+  contact: "CONTACT"
 };
 
 const landingTransition =
-  document.getElementById('landingTransition');
+  document.getElementById("landingTransition");
 
 let landingTimer = null;
 let pendingDestination = null;
@@ -1626,12 +2048,7 @@ function finishLanding() {
 
   landingTimer = null;
 
-  landingTransition.classList.remove('show');
-
-  landingTransition.setAttribute(
-    'aria-hidden',
-    'true'
-  );
+  landingTransition.classList.remove("show");
 
   if (pendingDestination) {
     showPage(pendingDestination);
@@ -1639,11 +2056,10 @@ function finishLanding() {
   }
 }
 
-document
-  .querySelectorAll('.nav-destination')
+document.querySelectorAll(".nav-destination")
   .forEach(button => {
 
-    button.addEventListener('click', () => {
+    button.addEventListener("click", () => {
 
       const target = button.dataset.target;
 
@@ -1657,108 +2073,81 @@ document
       pendingDestination = target;
 
       document.getElementById(
-        'landingTargetName'
+        "landingTargetName"
       ).textContent = destinationNames[target];
 
-      landingTransition.classList.remove('show');
+      landingTransition.classList.remove("show");
 
       void landingTransition.offsetWidth;
 
-      landingTransition.classList.add('show');
+      landingTransition.classList.add("show");
 
-      landingTransition.setAttribute(
-        'aria-hidden',
-        'false'
-      );
-
-      const reducedMotion =
-        window.matchMedia(
-          '(prefers-reduced-motion: reduce)'
-        ).matches;
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
 
       landingTimer = setTimeout(
         finishLanding,
         reducedMotion ? 120 : 780
       );
-
     });
 
   });
 
-/* ==========================================
-   BACK BUTTONS
-========================================== */
-
-document
-  .querySelectorAll('.back-button')
+document.querySelectorAll(".back-button")
   .forEach(button => {
-
-    button.addEventListener('click', () => {
-      showPage('database');
+    button.addEventListener("click", () => {
+      showPage("database");
     });
-
   });
 
-document.addEventListener(
-  'keydown',
-  event => {
+document.addEventListener("keydown", event => {
+  if (event.key !== "Escape") return;
 
-    if (event.key !== 'Escape') return;
-
-    if (
-      landingTransition.classList.contains('show')
-    ) {
-      finishLanding();
-      return;
-    }
-
-    if (transitioning) {
-      finishLaunch();
-      return;
-    }
-
-    const current =
-      document.querySelector('.page.active');
-
-    if (
-      !current ||
-      current.id === 'landing'
-    ) {
-      return;
-    }
-
-    showPage(
-      current.id === 'database'
-        ? 'landing'
-        : 'database'
-    );
+  if (landingTransition.classList.contains("show")) {
+    finishLanding();
+    return;
   }
-);
 
-/* ==========================================
-   PIXEL SPACESHIP FOR TAKEOFF
-========================================== */
+  if (transitioning) {
+    finishLaunch();
+    return;
+  }
+
+  const current = document.querySelector(".page.active");
+
+  if (!current || current.id === "landing") return;
+
+  showPage(
+    current.id === "database"
+      ? "landing"
+      : "database"
+  );
+});
+
+/* ========================================
+   DRAW TAKEOFF SPACESHIP
+======================================== */
 
 function createLaunchSpaceship() {
 
-  const c =
-    document.getElementById('launchShipCanvas');
+  const canvas =
+    document.getElementById("launchShipCanvas");
 
-  const p = c.getContext('2d');
-
-  p.clearRect(0, 0, c.width, c.height);
+  const p = canvas.getContext("2d");
 
   function rect(x, y, w, h, color) {
     p.fillStyle = color;
     p.fillRect(x, y, w, h);
   }
 
-  // Main hull
+  p.clearRect(0, 0, canvas.width, canvas.height);
+
   for (let y = 1; y < 36; y++) {
 
     const half =
       y < 7
-        ? Math.max(0,Math.floor(y * .40))
+        ? Math.max(0, Math.floor(y * .4))
         : y < 16
           ? 3
           : y < 28
@@ -1770,28 +2159,27 @@ function createLaunchSpaceship() {
       x <= 15 + half;
       x++
     ) {
-
-      let col =
+      let color =
         x === 15 - half
-          ? '#6d8fca'
+          ? "#6d8fca"
           : x === 15 + half
-            ? '#334d81'
+            ? "#334d81"
             : x < 15
-              ? '#d6e9fa'
-              : '#98b8e3';
+              ? "#d6e9fa"
+              : "#98b8e3";
 
       if (y > 24) {
-        col =
+        color =
           x < 15
-            ? '#adc9e8'
-            : '#6f91c6';
+            ? "#adc9e8"
+            : "#6f91c6";
       }
 
-      rect(x, y, 1, 1, col);
+      rect(x, y, 1, 1, color);
     }
   }
 
-  // Spaceship wings
+  // Wings
   for (let y = 17; y <= 32; y++) {
 
     const wing =
@@ -1805,78 +2193,59 @@ function createLaunchSpaceship() {
     for (let dx = 5; dx <= wing; dx++) {
 
       rect(
-        15 - dx,
-        y,
-        1,
-        1,
+        15 - dx, y, 1, 1,
         dx === wing
-          ? '#5478b9'
-          : y > 28
-            ? '#526da5'
-            : '#8aabdb'
+          ? "#5478b9"
+          : "#8aabdb"
       );
 
       rect(
-        15 + dx,
-        y,
-        1,
-        1,
+        15 + dx, y, 1, 1,
         dx === wing
-          ? '#3c5c9e'
-          : y > 28
-            ? '#4c6399'
-            : '#668cce'
+          ? "#3c5c9e"
+          : "#668cce"
       );
-
     }
   }
 
   // Cockpit
-  rect(14,2,3,3,'#dff6ff');
-  rect(14,9,3,10,'#263f71');
-  rect(15,10,1,7,'#65d0ef');
+  rect(14,2,3,3,"#dff6ff");
+  rect(14,9,3,10,"#263f71");
+  rect(15,10,1,7,"#65d0ef");
 
-  // Body details
-  rect(13,20,5,2,'#dcefff');
-  rect(14,23,3,7,'#394e86');
-  rect(15,23,1,4,'#77d5f3');
-
-  rect(8,25,3,2,'#e3f1ff');
-  rect(20,25,3,2,'#a4c4f1');
+  // Hull details
+  rect(13,20,5,2,"#dcefff");
+  rect(14,23,3,7,"#394e86");
+  rect(15,23,1,4,"#77d5f3");
 
   // Engines
-  rect(11,34,4,4,'#1a3368');
-  rect(17,34,4,4,'#1a3368');
+  rect(11,34,4,4,"#1a3368");
+  rect(17,34,4,4,"#1a3368");
 
-  rect(12,36,2,3,'#8cdbff');
-  rect(18,36,2,3,'#8cdbff');
+  rect(12,36,2,3,"#8cdbff");
+  rect(18,36,2,3,"#8cdbff");
 
-  // Lights
-  rect(5,28,2,2,'#a0ddff');
-  rect(24,28,2,2,'#6dcbff');
 }
 
 createLaunchSpaceship();
 
-/* ==========================================
-   MOVING SPACE BACKGROUND
+/* ========================================
+   ANIMATED SPACE BACKGROUND
    DIRECTION: LEFT TO RIGHT
-========================================== */
+======================================== */
 
-const canvas =
-  document.getElementById('spaceCanvas');
+const canvas = document.getElementById("spaceCanvas");
 
-const ctx = canvas.getContext('2d', {
+const ctx = canvas.getContext("2d", {
   alpha: false
 });
 
-const reduceMotion =
-  window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  );
+const reduceMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+);
 
-const rnd = (a, b) =>
-  Math.random() * (b - a) + a;
+const rnd = (min, max) =>
+  Math.random() * (max - min) + min;
 
 let W = 0;
 let H = 0;
@@ -1900,32 +2269,22 @@ function resizeCanvas() {
   canvas.width = Math.round(W * dpr);
   canvas.height = Math.round(H * dpr);
 
-  ctx.setTransform(
-    dpr,0,0,
-    dpr,0,0
-  );
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-  makeStars();
+  createSpace();
 }
 
-/* ==========================================
-   GENERATE STARFIELD
-========================================== */
-
-function makeStars() {
+function createSpace() {
 
   stars = [];
   trails = [];
 
-  const count = Math.min(
+  const starCount = Math.min(
     450,
-    Math.max(
-      100,
-      Math.round(W * H / 4700)
-    )
+    Math.max(100, Math.round(W * H / 4700))
   );
 
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < starCount; i++) {
 
     stars.push({
       x: rnd(0,W),
@@ -1944,7 +2303,7 @@ function makeStars() {
     trails.push({
       x: rnd(0,W),
       y: rnd(0,H),
-      len: rnd(18,80),
+      length: rnd(18,80),
       speed: rnd(.5,1.25),
       alpha: rnd(.04,.16)
     });
@@ -1954,24 +2313,22 @@ function makeStars() {
   shipX = -55;
 }
 
-/* ==========================================
-   DRAW SPACE
-========================================== */
+/* BACKGROUND GRADIENT */
 
 function drawBackground() {
 
   const base = ctx.createLinearGradient(
-    0,0,0,H
+    0, 0, 0, H
   );
 
-  base.addColorStop(0,'#01040d');
-  base.addColorStop(.55,'#03091b');
-  base.addColorStop(1,'#01040d');
+  base.addColorStop(0, "#01040d");
+  base.addColorStop(.55, "#03091b");
+  base.addColorStop(1, "#01040d");
 
   ctx.fillStyle = base;
-  ctx.fillRect(0,0,W,H);
+  ctx.fillRect(0, 0, W, H);
 
-  const g1 = ctx.createRadialGradient(
+  const nebula = ctx.createRadialGradient(
     W * .27,
     H * .50,
     0,
@@ -1980,81 +2337,55 @@ function drawBackground() {
     W * .58
   );
 
-  g1.addColorStop(
+  nebula.addColorStop(
     0,
-    'rgba(17,45,103,.19)'
+    "rgba(17,45,103,.19)"
   );
 
-  g1.addColorStop(
+  nebula.addColorStop(
     .5,
-    'rgba(8,22,59,.08)'
+    "rgba(8,22,59,.08)"
   );
 
-  g1.addColorStop(
+  nebula.addColorStop(
     1,
-    'rgba(0,0,0,0)'
+    "rgba(0,0,0,0)"
   );
 
-  ctx.fillStyle = g1;
-  ctx.fillRect(0,0,W,H);
-
-  const g2 = ctx.createRadialGradient(
-    W * .82,
-    H * .3,
-    0,
-    W * .82,
-    H * .3,
-    W * .37
-  );
-
-  g2.addColorStop(
-    0,
-    'rgba(43,58,139,.10)'
-  );
-
-  g2.addColorStop(
-    1,
-    'rgba(0,0,0,0)'
-  );
-
-  ctx.fillStyle = g2;
-  ctx.fillRect(0,0,W,H);
+  ctx.fillStyle = nebula;
+  ctx.fillRect(0, 0, W, H);
 }
 
-/* ==========================================
-   ANIMATE STARS
-========================================== */
+/* MOVING STARS */
 
 function drawStars(time, dt) {
 
-  for (const s of stars) {
+  for (const star of stars) {
 
-    s.x += s.speed * dt;
+    star.x += star.speed * dt;
 
-    if (s.x > W + 3) {
-      s.x = -3;
-      s.y = rnd(0,H);
+    if (star.x > W + 3) {
+      star.x = -3;
+      star.y = rnd(0,H);
     }
 
     const alpha =
-      s.alpha * (
-        .85 +
-        .15 * Math.sin(
-          time * .001 + s.phase
-        )
-      );
+      star.alpha *
+      (.85 + .15 * Math.sin(
+        time * .001 + star.phase
+      ));
 
     ctx.fillStyle =
-      s.tone > .88
+      star.tone > .88
         ? `rgba(169,194,255,${alpha})`
         : `rgba(221,235,255,${alpha})`;
 
     ctx.beginPath();
 
     ctx.arc(
-      s.x,
-      s.y,
-      s.r,
+      star.x,
+      star.y,
+      star.r,
       0,
       Math.PI * 2
     );
@@ -2062,59 +2393,56 @@ function drawStars(time, dt) {
     ctx.fill();
   }
 
-  for (const s of trails) {
+  for (const trail of trails) {
 
-    s.x += s.speed * dt;
+    trail.x += trail.speed * dt;
 
-    if (s.x > W + 5) {
-      s.x = -s.len;
-      s.y = rnd(0,H);
+    if (trail.x > W + 5) {
+      trail.x = -trail.length;
+      trail.y = rnd(0,H);
     }
 
-    const grad = ctx.createLinearGradient(
-      s.x,
-      s.y,
-      s.x + s.len,
-      s.y
+    const gradient = ctx.createLinearGradient(
+      trail.x,
+      trail.y,
+      trail.x + trail.length,
+      trail.y
     );
 
-    grad.addColorStop(
+    gradient.addColorStop(
       0,
-      'rgba(90,156,255,0)'
+      "rgba(90,156,255,0)"
     );
 
-    grad.addColorStop(
+    gradient.addColorStop(
       1,
-      `rgba(160,202,255,${s.alpha})`
+      `rgba(160,202,255,${trail.alpha})`
     );
 
-    ctx.fillStyle = grad;
+    ctx.fillStyle = gradient;
 
     ctx.fillRect(
-      s.x,
-      s.y,
-      s.len,
+      trail.x,
+      trail.y,
+      trail.length,
       1
     );
   }
 }
 
-/* ==========================================
-   SMALL TWINKLING STARS
-========================================== */
+/* SOFT TWINKLES */
 
-function glint(x, y, time, phase) {
+function drawGlint(x, y, time, phase) {
 
   const pulse =
-    .6 + .4 * (
-      .5 + .5 * Math.sin(
-        time * .0015 + phase
-      )
-    );
+    .6 + .4 *
+    (.5 + .5 * Math.sin(
+      time * .0015 + phase
+    ));
 
   const halo = ctx.createRadialGradient(
-    x,y,0,
-    x,y,15
+    x, y, 0,
+    x, y, 15
   );
 
   halo.addColorStop(
@@ -2124,17 +2452,11 @@ function glint(x, y, time, phase) {
 
   halo.addColorStop(
     1,
-    'rgba(201,227,255,0)'
+    "rgba(201,227,255,0)"
   );
 
   ctx.fillStyle = halo;
-
-  ctx.fillRect(
-    x - 15,
-    y - 15,
-    30,
-    30
-  );
+  ctx.fillRect(x - 15, y - 15, 30, 30);
 
   ctx.fillStyle =
     `rgba(238,247,255,${.8 * pulse})`;
@@ -2147,32 +2469,28 @@ function glint(x, y, time, phase) {
   );
 }
 
-/* ==========================================
-   PIXEL PLANETS
-========================================== */
+/* PIXEL PLANETS */
 
 function makePlanet(type) {
 
-  const c = document.createElement('canvas');
-
+  const c = document.createElement("canvas");
   c.width = 32;
   c.height = 32;
 
-  const p = c.getContext('2d');
-
-  p.imageSmoothingEnabled = false;
+  const p = c.getContext("2d");
 
   for (let y = 0; y < 32; y++) {
+
     for (let x = 0; x < 32; x++) {
 
       const dx = x - 15.5;
       const dy = y - 15.5;
 
-      const dist = Math.hypot(dx,dy);
+      const distance = Math.hypot(dx,dy);
 
-      if (dist > 13.5) continue;
+      if (distance > 13.5) continue;
 
-      const lit = Math.max(
+      const lighting = Math.max(
         0,
         1 - (dx + dy * .55) / 25
       );
@@ -2181,108 +2499,50 @@ function makePlanet(type) {
         y * .62 + x * .18
       );
 
-      const blotch =
-        Math.sin(x * .7 + y * .31) *
-        Math.cos(y * .45 - x * .28);
-
       let color;
 
-      if (type === 'blue') {
+      if (type === "blue") {
 
-        if (dist > 12.3) {
-          color = '#17355f';
-
-        } else if (lit > 1.13) {
-          color =
-            blotch > .22
-              ? '#94bdde'
-              : '#6b9cc6';
-
-        } else if (lit > .82) {
-          color =
-            stripe > .43
-              ? '#5787b8'
-              : '#3d6fa6';
-
+        if (distance > 12.3) {
+          color = "#17355f";
+        } else if (lighting > 1.13) {
+          color = "#94bdde";
+        } else if (lighting > .82) {
+          color = stripe > .43
+            ? "#5787b8"
+            : "#3d6fa6";
         } else {
-          color =
-            stripe > .35
-              ? '#294e86'
-              : '#1a365f';
+          color = "#294e86";
         }
 
       } else {
 
-        if (dist > 12.3) {
-          color = '#333765';
-
-        } else if (lit > 1.13) {
-          color =
-            stripe > .15
-              ? '#b3a9dc'
-              : '#8f9ed0';
-
-        } else if (lit > .78) {
-          color =
-            stripe > .13
-              ? '#786aa9'
-              : '#656d9d';
-
+        if (distance > 12.3) {
+          color = "#333765";
+        } else if (lighting > 1.13) {
+          color = "#b3a9dc";
+        } else if (lighting > .78) {
+          color = "#786aa9";
         } else {
-          color =
-            stripe > .13
-              ? '#494c7d'
-              : '#323457';
+          color = "#494c7d";
         }
       }
 
       p.fillStyle = color;
       p.fillRect(x,y,1,1);
+
     }
   }
 
   return c;
 }
 
-const bluePlanet = makePlanet('blue');
+const bluePlanet = makePlanet("blue");
+const purplePlanet = makePlanet("purple");
 
-const purplePlanet = makePlanet('purple');
-
-/* ==========================================
-   DRAW PLANETS
-========================================== */
-
-function planet(
-  x, y, size,
-  sprite,
-  glowColor
-) {
+function drawPlanet(x,y,size,sprite) {
 
   ctx.save();
-
-  const glow = ctx.createRadialGradient(
-    x,y,0,
-    x,y,size * .92
-  );
-
-  glow.addColorStop(
-    0,
-    glowColor
-  );
-
-  glow.addColorStop(
-    1,
-    'rgba(0,0,0,0)'
-  );
-
-  ctx.fillStyle = glow;
-
-  ctx.fillRect(
-    x - size,
-    y - size,
-    size * 2,
-    size * 2
-  );
 
   ctx.imageSmoothingEnabled = false;
 
@@ -2297,13 +2557,10 @@ function planet(
   ctx.restore();
 }
 
-function drawRingPlanet(x, y, size) {
+function drawRingPlanet(x,y,size) {
 
-  ctx.strokeStyle =
-    'rgba(139,155,220,.32)';
-
+  ctx.strokeStyle = "rgba(139,155,220,.32)";
   ctx.lineWidth = 2;
-
   ctx.beginPath();
 
   ctx.ellipse(
@@ -2318,19 +2575,10 @@ function drawRingPlanet(x, y, size) {
 
   ctx.stroke();
 
-  planet(
-    x,
-    y,
-    size,
-    purplePlanet,
-    'rgba(124,133,218,.08)'
-  );
+  drawPlanet(x,y,size,purplePlanet);
 
-  ctx.strokeStyle =
-    'rgba(170,181,229,.58)';
-
+  ctx.strokeStyle = "rgba(170,181,229,.58)";
   ctx.lineWidth = 1.7;
-
   ctx.beginPath();
 
   ctx.ellipse(
@@ -2346,34 +2594,31 @@ function drawRingPlanet(x, y, size) {
   ctx.stroke();
 }
 
-/* ==========================================
-   SMALL BACKGROUND SPACESHIP
-========================================== */
+/* SMALL BACKGROUND SPACESHIP */
 
 const shipPixels = [
-  '...........A......',
-  '.........AAB......',
-  '.....AAAAABBBA....',
-  '...AABBBCCBBBAAA.',
-  '.DDABBEECCBBBBAAA',
-  '...AABBBCCBBBAAA.',
-  '.....AAAAABBBA....',
-  '.........AAB......',
-  '...........A......'
+  "...........A......",
+  ".........AAB......",
+  ".....AAAAABBBA....",
+  "...AABBBCCBBBAAA.",
+  ".DDABBEECCBBBBAAA",
+  "...AABBBCCBBBAAA.",
+  ".....AAAAABBBA....",
+  ".........AAB......",
+  "...........A......"
 ];
 
 const shipColors = {
-  A: '#8ea8d1',
-  B: '#dce8f5',
-  C: '#3f799e',
-  D: '#62b6ef',
-  E: '#263e6e'
+  A: "#8ea8d1",
+  B: "#dce8f5",
+  C: "#3f799e",
+  D: "#62b6ef",
+  E: "#263e6e"
 };
 
-function drawShip(x, y, time) {
+function drawShip(x,y,time) {
 
-  const bob =
-    Math.sin(time * .0017) * 2;
+  const bob = Math.sin(time * .0017) * 2;
 
   ctx.save();
 
@@ -2382,38 +2627,13 @@ function drawShip(x, y, time) {
     Math.round(y + bob)
   );
 
-  const engine = ctx.createRadialGradient(
-    -4,4,0,
-    -4,4,13
-  );
+  shipPixels.forEach((row,ry) => {
 
-  engine.addColorStop(
-    0,
-    'rgba(65,163,242,.20)'
-  );
-
-  engine.addColorStop(
-    1,
-    'rgba(65,163,242,0)'
-  );
-
-  ctx.fillStyle = engine;
-
-  ctx.fillRect(
-    -17,
-    -9,
-    26,
-    26
-  );
-
-  shipPixels.forEach((row, ry) => {
-
-    [...row].forEach((cell, rx) => {
+    [...row].forEach((cell,rx) => {
 
       if (shipColors[cell]) {
 
-        ctx.fillStyle =
-          shipColors[cell];
+        ctx.fillStyle = shipColors[cell];
 
         ctx.fillRect(
           rx * 1.4,
@@ -2422,17 +2642,13 @@ function drawShip(x, y, time) {
           1.4
         );
       }
-
     });
-
   });
 
   ctx.restore();
 }
 
-/* ==========================================
-   MAIN SPACE ANIMATION LOOP
-========================================== */
+/* MAIN ANIMATION */
 
 function animate(time) {
 
@@ -2452,42 +2668,26 @@ function animate(time) {
       reduceMotion.matches ? 0 : dt
     );
 
-    glint(
-      W * .20,
-      H * .23,
-      time,
-      0
-    );
+    drawGlint(W * .20, H * .23, time, 0);
+    drawGlint(W * .78, H * .28, time, 1.8);
 
-    glint(
-      W * .78,
-      H * .28,
-      time,
-      1.8
-    );
+    const drift = reduceMotion.matches
+      ? 0
+      : Math.sin(time * .00016) * 10;
 
-    const drift =
-      reduceMotion.matches
-        ? 0
-        : Math.sin(time * .00016) * 10;
-
-    // Small blue planet
-    planet(
+    drawPlanet(
       W * .10 + drift,
       H * .76,
       34,
-      bluePlanet,
-      'rgba(87,147,219,.085)'
+      bluePlanet
     );
 
-    // Small purple ringed planet
     drawRingPlanet(
       W * .87 + drift * .6,
       H * .18,
       29
     );
 
-    // Spaceship moves left to right
     if (!reduceMotion.matches) {
       shipX += .48 * dt;
     }
@@ -2496,23 +2696,18 @@ function animate(time) {
       shipX = -65;
     }
 
-    drawShip(
-      shipX,
-      H * .69,
-      time
-    );
+    drawShip(shipX, H * .69, time);
   }
 
   requestAnimationFrame(animate);
 }
 
 window.addEventListener(
-  'resize',
+  "resize",
   resizeCanvas
 );
 
 resizeCanvas();
-
 requestAnimationFrame(animate);
 
 </script>
