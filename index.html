@@ -2,24 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
-  <title>TongYang's Engineering Database</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TongYang | Engineering Portfolio</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&family=Press+Start+2P&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg: #0a0d12;
+      --panel: #11161d;
+      --panel-2: #171e27;
+      --line: rgba(214, 228, 255, 0.72);
+      --line-soft: rgba(214, 228, 255, 0.20);
+      --text: #ecf3ff;
+      --muted: #9aa8ba;
+      --accent: #cfe1ff;
+      --accent-soft: rgba(207, 225, 255, 0.18);
+    }
+
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     html,
@@ -27,1221 +33,899 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #071007;
-      color: #c8d6a1;
-      font-family: 'VT323', monospace;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
     }
 
-    button {
+    button,
+    a {
       font: inherit;
-      border: none;
-      background: none;
-      color: inherit;
     }
 
-    .screen {
+    .view {
       position: absolute;
       inset: 0;
       opacity: 0;
+      visibility: hidden;
       pointer-events: none;
-      transition: opacity 0.2s steps(3, end);
+      transition: opacity .55s ease, visibility .55s ease;
     }
 
-    .screen.active {
+    .view.active {
       opacity: 1;
+      visibility: visible;
       pointer-events: auto;
     }
 
-    /* =====================================================
-       RADAR LANDING SCREEN
-    ====================================================== */
+    /* =========================================================
+       LANDING
+    ========================================================= */
 
-    #radarScreen {
-      background:
-        repeating-linear-gradient(
-          0deg,
-          #071007 0px,
-          #071007 3px,
-          #091309 3px,
-          #091309 6px
-        );
-    }
-
-    .radar-shell {
-      position: absolute;
-      inset: 18px;
-      overflow: hidden;
-      background: #0a120a;
-      border: 4px solid #56664a;
-      box-shadow:
-        0 0 0 6px #101710,
-        0 0 0 10px #49593f,
-        10px 10px 0 #020402;
-    }
-
-    .radar-shell::before {
-      content: "";
-      position: absolute;
-      inset: 12px;
-      border: 3px solid rgba(131, 151, 106, 0.35);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .radar-shell::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 99;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          transparent 0px,
-          transparent 2px,
-          rgba(160, 184, 126, 0.035) 2px,
-          rgba(160, 184, 126, 0.035) 3px
-        );
-    }
-
-    .top-panel {
-      position: absolute;
-      top: 38px;
-      left: 42px;
-      right: 42px;
-      z-index: 30;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 20px;
-    }
-
-    .system-code {
-      margin-bottom: 14px;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 7px;
-      line-height: 1.6;
-      color: #748564;
-    }
-
-    .main-title {
-      font-family: 'Press Start 2P', cursive;
-      font-size: clamp(18px, 2.3vw, 34px);
-      line-height: 1.45;
-      color: #d7e3ae;
-      text-shadow: 4px 4px 0 #020402;
-    }
-
-    .status-block {
-      text-align: right;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 7px;
-      line-height: 1.8;
-      color: #87986f;
-    }
-
-    .status-live {
-      color: #d1dfad;
-    }
-
-    .blink-dot {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      margin-right: 7px;
-      background: #a1b875;
-      animation: statusBlink 0.8s steps(1) infinite;
-    }
-
-    @keyframes statusBlink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0.25; }
-    }
-
-    /* =====================================================
-       FULL RADAR FIELD
-    ====================================================== */
-
-    .radar-field {
-      position: absolute;
-      left: 42px;
-      right: 42px;
-      top: 140px;
-      bottom: 140px;
-      overflow: hidden;
-      z-index: 3;
-      background:
-        radial-gradient(
-          circle at center,
-          rgba(141, 165, 106, 0.07),
-          rgba(0, 0, 0, 0) 65%
-        ),
-        repeating-linear-gradient(
-          0deg,
-          transparent 0px,
-          transparent 84px,
-          rgba(129, 149, 103, 0.14) 84px,
-          rgba(129, 149, 103, 0.14) 86px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent 0px,
-          transparent 84px,
-          rgba(129, 149, 103, 0.14) 84px,
-          rgba(129, 149, 103, 0.14) 86px
-        );
-    }
-
-    .cross-x,
-    .cross-y {
-      position: absolute;
-      z-index: 4;
-      background: rgba(150, 175, 118, 0.22);
-      pointer-events: none;
-    }
-
-    .cross-x {
-      left: 0;
-      right: 0;
-      top: 50%;
-      height: 3px;
-      transform: translateY(-50%);
-    }
-
-    .cross-y {
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: 3px;
-      transform: translateX(-50%);
-    }
-
-    .core-box {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 88px;
-      height: 88px;
-      transform: translate(-50%, -50%);
-      z-index: 12;
-      background: #101810;
-      border: 4px solid #93a877;
-      box-shadow: 5px 5px 0 #020402;
-    }
-
-    .core-box::before,
-    .core-box::after {
-      content: "";
-      position: absolute;
-      background: #c2d29a;
-    }
-
-    .core-box::before {
-      left: 14px;
-      right: 14px;
-      top: 41px;
-      height: 5px;
-    }
-
-    .core-box::after {
-      top: 14px;
-      bottom: 14px;
-      left: 41px;
-      width: 5px;
-    }
-
-    .core-label {
-      position: absolute;
-      left: 50%;
-      top: calc(50% + 62px);
-      transform: translateX(-50%);
-      z-index: 12;
-      white-space: nowrap;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 7px;
-      color: #86986d;
-    }
-
-    /* =====================================================
-       VERTICAL RADAR SCAN
-    ====================================================== */
-
-    .scan-band {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 180px;
-      top: -180px;
-      z-index: 8;
-      pointer-events: none;
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(190, 220, 136, 0),
-          rgba(190, 220, 136, 0.08),
-          rgba(190, 220, 136, 0.16),
-          rgba(190, 220, 136, 0.08),
-          rgba(190, 220, 136, 0)
-        );
-      animation: scanDown 4.8s linear infinite;
-    }
-
-    .scan-line {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 4px;
-      top: -4px;
-      z-index: 9;
-      pointer-events: none;
-      background: #d6ef9f;
-      box-shadow:
-        0 0 14px rgba(214, 239, 159, 0.45),
-        0 0 28px rgba(214, 239, 159, 0.22);
-      animation: scanDownLine 4.8s linear infinite;
-    }
-
-    @keyframes scanDown {
-      0% {
-        top: -180px;
-      }
-      100% {
-        top: calc(100% + 180px);
-      }
-    }
-
-    @keyframes scanDownLine {
-      0% {
-        top: -4px;
-      }
-      100% {
-        top: calc(100% + 4px);
-      }
-    }
-
-    /* =====================================================
-       SMALL FAKE BLIPS
-    ====================================================== */
-
-    .bg-blip {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      background: #70815d;
-      z-index: 6;
-      pointer-events: none;
-      animation: blipFlash 2.4s steps(1) infinite;
-    }
-
-    @keyframes blipFlash {
-      0%, 40% { opacity: 0.14; }
-      41%, 55% { opacity: 0.85; }
-      56%, 100% { opacity: 0.22; }
-    }
-
-    .b1 { left: 16%; top: 20%; animation-delay: -0.2s; }
-    .b2 { left: 34%; top: 66%; animation-delay: -1.2s; }
-    .b3 { left: 61%; top: 26%; animation-delay: -0.7s; }
-    .b4 { left: 75%; top: 63%; animation-delay: -1.7s; }
-    .b5 { left: 82%; top: 34%; animation-delay: -0.9s; }
-    .b6 { left: 23%; top: 48%; animation-delay: -2.0s; }
-
-    /* =====================================================
-       TARGETS
-    ====================================================== */
-
-    .target {
-      position: absolute;
-      z-index: 20;
-      transform: translate(-50%, -50%);
-      display: flex;
-      align-items: center;
-      gap: 18px;
+    #landing {
       cursor: pointer;
-      text-align: left;
-      color: inherit;
+      background:
+        radial-gradient(circle at 50% 48%, rgba(175, 199, 235, 0.10), transparent 28%),
+        linear-gradient(180deg, #11161d 0%, #0a0d12 62%, #080b0f 100%);
+      isolation: isolate;
     }
 
-    .target-dot-wrap {
-      position: relative;
-      width: 52px;
-      height: 52px;
-      flex: 0 0 52px;
-    }
-
-    .target-pulse {
+    .corridor {
       position: absolute;
       inset: 0;
-      border: 3px solid rgba(205, 88, 84, 0.52);
-      animation: pulseTarget 1.5s steps(6) infinite;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg,
+          rgba(255,255,255,.025) 0%,
+          transparent 22%,
+          transparent 78%,
+          rgba(255,255,255,.025) 100%),
+        radial-gradient(ellipse at 50% 58%, rgba(170,195,230,.10), transparent 36%);
     }
 
-    .target-dot {
+    .corridor::before,
+    .corridor::after {
+      content: "";
+      position: absolute;
+      top: -6%;
+      bottom: 26%;
+      width: 39%;
+      opacity: .95;
+      filter: drop-shadow(0 0 10px rgba(210,230,255,.18));
+    }
+
+    .corridor::before {
+      left: -2%;
+      clip-path: polygon(0 0, 100% 0, 70% 34%, 86% 50%, 61% 63%, 100% 78%, 0 100%);
+      background:
+        linear-gradient(145deg,
+          #181e26 0 24%,
+          #0d1117 24% 28%,
+          #e7f1ff 28% 28.7%,
+          #171d25 28.7% 50%,
+          #0d1117 50% 54%,
+          #e7f1ff 54% 54.7%,
+          #161c24 54.7% 74%,
+          #0d1117 74% 78%,
+          #e7f1ff 78% 78.7%,
+          #12171e 78.7% 100%);
+    }
+
+    .corridor::after {
+      right: -2%;
+      transform: scaleX(-1);
+      clip-path: polygon(0 0, 100% 0, 70% 34%, 86% 50%, 61% 63%, 100% 78%, 0 100%);
+      background:
+        linear-gradient(145deg,
+          #181e26 0 24%,
+          #0d1117 24% 28%,
+          #e7f1ff 28% 28.7%,
+          #171d25 28.7% 50%,
+          #0d1117 50% 54%,
+          #e7f1ff 54% 54.7%,
+          #161c24 54.7% 74%,
+          #0d1117 74% 78%,
+          #e7f1ff 78% 78.7%,
+          #12171e 78.7% 100%);
+    }
+
+    .ceiling-line {
       position: absolute;
       left: 50%;
-      top: 50%;
-      width: 28px;
-      height: 28px;
-      transform: translate(-50%, -50%);
-      background: #c9605d;
-      border: 4px solid #4e1f1d;
-      box-shadow: 4px 4px 0 #050505;
-      transition:
-        transform 0.15s steps(2, end),
-        background 0.15s steps(2, end);
+      top: 0;
+      width: 1px;
+      height: 36%;
+      transform: translateX(-50%);
+      background: linear-gradient(to bottom, rgba(235,244,255,.72), rgba(235,244,255,.04));
+      box-shadow: 0 0 10px rgba(220,235,255,.38);
     }
 
-    @keyframes pulseTarget {
-      0% {
-        transform: scale(0.45);
-        opacity: 0.9;
-      }
-      100% {
-        transform: scale(1.3);
-        opacity: 0;
-      }
-    }
-
-    .target-text {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .target-label {
-      font-family: 'Press Start 2P', cursive;
-      font-size: clamp(9px, 1vw, 16px);
-      line-height: 1.4;
-      color: #d4e0b0;
-      text-shadow: 3px 3px 0 #020302;
-    }
-
-    .target-number {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 6px;
-      color: #7f8f6a;
-    }
-
-    .target:hover .target-dot,
-    .target:focus-visible .target-dot {
-      transform: translate(-50%, -50%) scale(1.25);
-      background: #f08377;
-    }
-
-    .target:hover .target-label,
-    .target:focus-visible .target-label {
-      color: #f4f8e0;
-    }
-
-    .target:focus-visible {
-      outline: 3px solid #b8ca95;
-      outline-offset: 6px;
-    }
-
-    .target.locked .target-dot {
-      background: #ff9185;
-      animation: lockBlink 0.16s steps(1) infinite;
-    }
-
-    @keyframes lockBlink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0.35; }
-    }
-
-    .target.projects {
-      left: 63%;
-      top: 22%;
-    }
-
-    .target.experience {
-      left: 31%;
-      top: 38%;
-    }
-
-    .target.skills {
-      left: 72%;
-      top: 45%;
-    }
-
-    .target.about {
-      left: 39%;
-      top: 73%;
-    }
-
-    .target.contact {
-      left: 67%;
-      top: 76%;
-    }
-
-    /* =====================================================
-       BOTTOM PANELS
-    ====================================================== */
-
-    .bottom-panel {
+    .ceiling-line::after {
+      content: "";
       position: absolute;
-      left: 42px;
-      right: 42px;
-      bottom: 38px;
-      z-index: 30;
-      display: grid;
-      grid-template-columns: 1.25fr 0.9fr;
-      gap: 24px;
+      left: 50%;
+      bottom: -3px;
+      width: 7px;
+      height: 7px;
+      transform: translateX(-50%) rotate(45deg);
+      background: #f2f7ff;
+      box-shadow: 0 0 14px #d9e8ff;
     }
 
-    .readout,
-    .help-panel {
-      min-height: 105px;
-      padding: 16px 20px;
-      background: rgba(8, 14, 8, 0.92);
-      border: 3px solid #536448;
-      box-shadow: 4px 4px 0 #020402;
+    .floor {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 46%;
+      background:
+        linear-gradient(to bottom, rgba(32,40,51,.45), rgba(7,10,14,.96)),
+        repeating-linear-gradient(90deg,
+          transparent 0 16.5%,
+          rgba(190,210,235,.055) 16.5% 16.65%);
+      transform-origin: top center;
     }
 
-    .panel-label {
-      margin-bottom: 12px;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 7px;
-      color: #778966;
+    .floor::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 2px;
+      background: rgba(225,236,252,.55);
+      box-shadow: 0 0 13px rgba(218,232,255,.32);
     }
 
-    #readoutText {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 7px;
-      line-height: 1.8;
-      color: #c7d99f;
+    .floor::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 34%;
+      height: 100%;
+      transform: translateX(-50%);
+      background: linear-gradient(to bottom,
+        rgba(230,241,255,.12),
+        rgba(230,241,255,.025) 48%,
+        transparent 100%);
+      filter: blur(10px);
     }
 
-    .cursor-block {
-      display: inline-block;
-      width: 8px;
-      height: 10px;
-      margin-left: 5px;
-      background: #b6ca8b;
-      animation: cursorBlink 0.8s steps(1) infinite;
-    }
-
-    @keyframes cursorBlink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
-
-    .help-panel {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-    }
-
-    .help-text,
-    .targets-count {
-      font-family: 'Press Start 2P', cursive;
-      font-size: 7px;
-      line-height: 1.8;
-    }
-
-    .help-text {
-      color: #95a77a;
-    }
-
-    .targets-count {
-      text-align: right;
-      color: #d2dfac;
-    }
-
-    /* =====================================================
-       LOADING
-    ====================================================== */
-
-    #loading {
-      z-index: 100;
+    .landing-ui {
+      position: relative;
+      z-index: 8;
+      width: 100%;
+      height: 100%;
       display: grid;
       place-items: center;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          #070b07 0px,
-          #070b07 3px,
-          #0a1009 3px,
-          #0a1009 6px
-        );
-    }
-
-    .loading-box {
-      width: min(580px, 88vw);
       text-align: center;
+      padding: 5vh 6vw;
     }
 
-    .loading-terminal {
-      padding: 30px;
-      background: #0e140d;
-      border: 5px solid #697857;
-      box-shadow: 8px 8px 0 #020402;
+    .landing-center {
+      transform: translateY(-3vh);
     }
 
-    #loadingText {
-      margin-bottom: 18px;
-      font-family: 'Press Start 2P', cursive;
-      font-size: clamp(17px, 3vw, 30px);
-      color: #c6d79d;
+    .name {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(46px, 6vw, 92px);
+      font-weight: 500;
+      letter-spacing: .22em;
+      margin-left: .22em;
+      color: #f3f7fd;
+      text-shadow:
+        0 0 14px rgba(220,235,255,.34),
+        0 0 34px rgba(220,235,255,.10);
     }
 
-    #loadingDestination {
-      margin-bottom: 20px;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 8px;
-      line-height: 1.7;
-      color: #839264;
+    .portfolio-title {
+      margin-top: 22px;
+      font-family: "Press Start 2P", monospace;
+      font-size: clamp(10px, 1.25vw, 17px);
+      letter-spacing: .22em;
+      line-height: 1.8;
+      color: #dde8f7;
     }
 
-    .progress-shell {
-      height: 30px;
-      padding: 4px;
-      border: 4px solid #76825c;
-      background: #0a0d08;
+    .role {
+      margin-top: 20px;
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(10px, 1vw, 14px);
+      font-weight: 400;
+      letter-spacing: .36em;
+      margin-left: .36em;
+      color: var(--muted);
     }
 
-    #progressBar {
-      width: 0%;
-      height: 100%;
+    .corner-label {
+      position: absolute;
+      left: 4.2vw;
+      top: 5.2vh;
+      text-align: left;
+      font-family: "Press Start 2P", monospace;
+      font-size: 7px;
+      letter-spacing: .08em;
+      line-height: 1.8;
+      color: rgba(199,214,235,.70);
+    }
+
+    .corner-label::before {
+      content: "";
+      position: absolute;
+      left: -18px;
+      top: -8px;
+      width: 1px;
+      height: 54px;
+      background: rgba(218,231,248,.45);
+    }
+
+    .corner-label::after {
+      content: "";
+      display: block;
+      width: 18px;
+      height: 1px;
+      margin-top: 9px;
+      background: rgba(218,231,248,.52);
+    }
+
+    .access-prompt {
+      position: absolute;
+      left: 50%;
+      bottom: 13vh;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-family: "Press Start 2P", monospace;
+      font-size: clamp(7px, .8vw, 10px);
+      letter-spacing: .09em;
+      color: rgba(227,237,251,.92);
+      text-shadow: 0 0 12px rgba(218,232,255,.30);
+      animation: accessBlink 1.15s steps(1, end) infinite;
+    }
+
+    .access-prompt::after {
+      content: "";
+      display: block;
+      width: 26px;
+      height: 1px;
+      margin: 18px auto 0;
+      background: rgba(225,236,252,.66);
+      box-shadow: 0 0 8px rgba(225,236,252,.22);
+    }
+
+    @keyframes accessBlink {
+      0%, 54% { opacity: 1; }
+      55%, 100% { opacity: .24; }
+    }
+
+    #landing:hover .access-prompt {
+      animation-duration: .7s;
+      color: #fff;
+    }
+
+    .landing-flash {
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      background: white;
+    }
+
+    #landing.entering .landing-flash {
+      animation: flashOut .8s ease forwards;
+    }
+
+    #landing.entering .landing-center {
+      animation: centerExit .8s ease forwards;
+    }
+
+    @keyframes flashOut {
+      0% { opacity: 0; }
+      34% { opacity: .13; }
+      50% { opacity: .70; }
+      100% { opacity: 0; }
+    }
+
+    @keyframes centerExit {
+      0% { opacity: 1; transform: translateY(-3vh) scale(1); }
+      100% { opacity: 0; transform: translateY(-3vh) scale(1.025); }
+    }
+
+    /* =========================================================
+       DATABASE MENU
+    ========================================================= */
+
+    #database {
+      overflow: hidden;
       background:
-        repeating-linear-gradient(
-          90deg,
-          #b0c27e 0px,
-          #b0c27e 14px,
-          transparent 14px,
-          transparent 18px
-        );
+        radial-gradient(circle at 50% 35%, rgba(166,190,224,.07), transparent 35%),
+        linear-gradient(180deg, #0d1117 0%, #090c11 100%);
     }
 
-    /* =====================================================
-       CONTENT PAGES
-    ====================================================== */
-
-    .content-screen {
+    .db-grid {
+      position: absolute;
+      inset: 0;
+      opacity: .35;
       background:
-        repeating-linear-gradient(
-          0deg,
-          #101015 0px,
-          #101015 3px,
-          #14141a 3px,
-          #14141a 6px
-        );
-      color: #d9d7ce;
+        linear-gradient(rgba(211,227,248,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(211,227,248,.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, transparent, #000 18%, #000 84%, transparent);
     }
 
-    .page-wrap {
-      width: min(1180px, 94vw);
+    .database-wrap {
+      position: relative;
+      z-index: 2;
+      width: min(1180px, 91vw);
       height: 100%;
       margin: 0 auto;
-      padding: 28px 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .page-title {
-      height: 60px;
-      flex: 0 0 60px;
-      display: grid;
-      place-items: center;
-      font-family: 'Press Start 2P', cursive;
-      font-size: clamp(14px, 2vw, 21px);
-      color: #9dad79;
-    }
-
-    .page-card {
-      flex: 1;
-      min-height: 0;
-      padding: 38px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      background: #17191a;
-      border: 5px solid #384032;
-      box-shadow: 8px 8px 0 #050507;
+      gap: 56px;
+      padding: 7vh 0;
     }
 
-    .page-code {
-      margin-bottom: 15px;
-      color: #657159;
-      font-family: 'Press Start 2P', cursive;
+    .db-heading {
+      text-align: center;
+    }
+
+    .db-eyebrow {
+      font-family: "Press Start 2P", monospace;
       font-size: 7px;
+      letter-spacing: .12em;
+      color: #718096;
+      margin-bottom: 15px;
     }
 
-    .page-card h2 {
-      margin-bottom: 23px;
-      font-family: 'Press Start 2P', cursive;
-      font-size: clamp(20px, 3vw, 37px);
-      line-height: 1.5;
-      color: #d5dfad;
+    .db-heading h2 {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(26px, 3.2vw, 46px);
+      letter-spacing: .13em;
+      margin-left: .13em;
+      font-weight: 500;
+      color: #eef5ff;
     }
 
-    .page-card p {
-      max-width: 800px;
-      margin-bottom: 28px;
-      color: #aab399;
-      font-size: 25px;
-      line-height: 1.35;
+    .db-heading p {
+      margin-top: 14px;
+      color: #7f8da1;
+      font-size: 13px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
     }
 
-    .back-button {
-      align-self: flex-start;
-      padding: 12px 14px;
-      background: #829560;
-      border: 4px solid #10140e;
-      box-shadow: 5px 5px 0 #050705;
-      color: #10140e;
-      font-family: 'Press Start 2P', cursive;
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    .category {
+      position: relative;
+      min-height: 210px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #e7eef8;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px solid rgba(198,214,237,.28);
+      background:
+        linear-gradient(145deg,
+          rgba(255,255,255,.035),
+          rgba(255,255,255,.012) 50%,
+          rgba(159,187,225,.035));
+      backdrop-filter: blur(8px);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.015);
+      transition:
+        transform .26s ease,
+        border-color .26s ease,
+        background .26s ease,
+        box-shadow .26s ease;
+    }
+
+    .category::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 28px;
+      height: 1px;
+      background: #d7e7ff;
+      opacity: .7;
+    }
+
+    .category:hover {
+      transform: translateY(-7px);
+      border-color: rgba(217,231,251,.78);
+      background:
+        linear-gradient(145deg,
+          rgba(203,222,248,.10),
+          rgba(255,255,255,.025) 52%,
+          rgba(154,184,227,.07));
+      box-shadow:
+        0 0 24px rgba(173,202,242,.08),
+        inset 0 0 28px rgba(209,228,255,.025);
+    }
+
+    .category-number {
+      font-family: "Press Start 2P", monospace;
+      font-size: 7px;
+      color: #748297;
+    }
+
+    .category-name {
+      font-family: "Press Start 2P", monospace;
+      font-size: clamp(9px, .9vw, 12px);
+      line-height: 1.7;
+    }
+
+    .category-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+    }
+
+    .category-hint {
+      color: #6e7b8c;
+      font-size: 11px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+    }
+
+    .category-arrow {
+      font-size: 22px;
+      color: #bcd2f0;
+      transform: translateX(0);
+      transition: transform .25s ease;
+    }
+
+    .category:hover .category-arrow {
+      transform: translateX(6px);
+    }
+
+    .db-back {
+      position: absolute;
+      top: 28px;
+      left: 32px;
+      z-index: 8;
+      border: 0;
+      background: transparent;
+      color: #7d8a9c;
+      font-family: "Press Start 2P", monospace;
       font-size: 7px;
       cursor: pointer;
+      letter-spacing: .06em;
     }
 
-    .back-button:hover {
-      transform: translate(-2px, -2px);
-      box-shadow: 7px 7px 0 #050705;
+    .db-back:hover {
+      color: #eef5ff;
     }
 
-    /* =====================================================
-       MOBILE
-    ====================================================== */
+    /* =========================================================
+       CONTENT VIEWS
+    ========================================================= */
 
-    @media (max-width: 980px) {
-      html,
-      body {
-        overflow-y: auto;
+    .content-view {
+      overflow-y: auto;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(165,189,222,.07), transparent 34%),
+        #0a0d12;
+    }
+
+    .content-inner {
+      width: min(1000px, 90vw);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 90px 0 70px;
+    }
+
+    .content-kicker {
+      font-family: "Press Start 2P", monospace;
+      font-size: 7px;
+      color: #6f7d91;
+      letter-spacing: .08em;
+      margin-bottom: 18px;
+    }
+
+    .content-inner h2 {
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(34px, 5vw, 62px);
+      font-weight: 500;
+      letter-spacing: .10em;
+      color: #eef5ff;
+      margin-bottom: 20px;
+    }
+
+    .content-inner p {
+      max-width: 760px;
+      color: #95a2b4;
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .content-back {
+      margin-top: 34px;
+      border: 1px solid rgba(207,224,246,.28);
+      background: rgba(255,255,255,.025);
+      padding: 14px 18px;
+      color: #dce8f8;
+      cursor: pointer;
+      font-family: "Press Start 2P", monospace;
+      font-size: 7px;
+      transition: .2s ease;
+    }
+
+    .content-back:hover {
+      border-color: rgba(224,235,250,.75);
+      background: rgba(214,229,249,.07);
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 900px) {
+      .name {
+        font-size: clamp(38px, 9vw, 64px);
+        letter-spacing: .14em;
+        margin-left: .14em;
       }
 
-      #radarScreen {
-        overflow-y: auto;
-        min-height: 100vh;
-      }
-
-      .radar-shell {
-        position: relative;
-        inset: unset;
-        width: 96vw;
-        min-height: 980px;
-        margin: 14px auto;
-      }
-
-      .top-panel {
-        left: 24px;
-        right: 24px;
-        top: 24px;
-        flex-direction: column;
-      }
-
-      .status-block {
-        text-align: left;
-      }
-
-      .radar-field {
-        left: 24px;
-        right: 24px;
-        top: 180px;
-        bottom: 190px;
-      }
-
-      .bottom-panel {
-        left: 24px;
-        right: 24px;
-        bottom: 24px;
-        grid-template-columns: 1fr;
-      }
-
-      .target {
-        gap: 12px;
-      }
-
-      .target-label {
+      .portfolio-title {
         font-size: 9px;
       }
 
-      .page-card {
-        padding: 24px;
+      .role {
+        font-size: 9px;
       }
 
-      .page-card p {
-        font-size: 21px;
+      .category-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      #database,
+      .content-view {
+        overflow-y: auto;
+      }
+
+      .database-wrap {
+        height: auto;
+        min-height: 100vh;
+        padding: 100px 0 60px;
+      }
+
+      .category {
+        min-height: 160px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .corner-label {
+        display: none;
+      }
+
+      .landing-center {
+        transform: translateY(-5vh);
+      }
+
+      .name {
+        font-size: 34px;
+        letter-spacing: .10em;
+        margin-left: .10em;
+      }
+
+      .portfolio-title {
+        font-size: 8px;
+        letter-spacing: .10em;
+      }
+
+      .role {
+        font-size: 8px;
+        letter-spacing: .18em;
+        margin-left: .18em;
+      }
+
+      .access-prompt {
+        bottom: 11vh;
+        font-size: 6px;
+      }
+
+      .category-grid {
+        grid-template-columns: 1fr;
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .blink-dot,
-      .cursor-block,
-      .target-pulse,
-      .bg-blip,
-      .scan-band,
-      .scan-line {
-        animation: none !important;
+      .access-prompt {
+        animation: none;
+      }
+
+      .view {
+        transition: none;
+      }
+
+      .category {
+        transition: none;
       }
     }
   </style>
 </head>
+
 <body>
 
-  <!-- =====================================================
-       RADAR LANDING
-  ====================================================== -->
+  <!-- ======================================================
+       PAGE 1 — LANDING
+  ======================================================= -->
 
-  <section
-    id="radarScreen"
-    class="screen active"
-  >
-    <div class="radar-shell">
+  <section id="landing" class="view active" aria-label="Portfolio landing page">
+    <div class="corridor" aria-hidden="true"></div>
+    <div class="ceiling-line" aria-hidden="true"></div>
+    <div class="floor" aria-hidden="true"></div>
 
-      <div class="top-panel">
-        <div class="title-block">
-          <div class="system-code">
-            TY-01 // RADAR NAVIGATION SYSTEM
-          </div>
-
-          <div class="main-title">
-            TONGYANG'S<br>
-            ENGINEERING DATABASE
-          </div>
-        </div>
-
-        <div class="status-block">
-          <div>
-            <span class="blink-dot"></span>
-            <span class="status-live">RADAR ONLINE</span>
-          </div>
-          <div>RANGE // PORTFOLIO</div>
-          <div>TARGETS // 005</div>
-        </div>
-      </div>
-
-      <div class="radar-field">
-
-        <div class="cross-x"></div>
-        <div class="cross-y"></div>
-
-        <div class="scan-band"></div>
-        <div class="scan-line"></div>
-
-        <div class="core-box"></div>
-        <div class="core-label">TY // ENGINEER</div>
-
-        <div class="bg-blip b1"></div>
-        <div class="bg-blip b2"></div>
-        <div class="bg-blip b3"></div>
-        <div class="bg-blip b4"></div>
-        <div class="bg-blip b5"></div>
-        <div class="bg-blip b6"></div>
-
-        <button
-          class="target projects"
-          data-index="0"
-          type="button"
-        >
-          <div class="target-dot-wrap">
-            <div class="target-pulse"></div>
-            <div class="target-dot"></div>
-          </div>
-
-          <div class="target-text">
-            <div class="target-label">PROJECTS</div>
-            <div class="target-number">TARGET 001</div>
-          </div>
-        </button>
-
-        <button
-          class="target experience"
-          data-index="1"
-          type="button"
-        >
-          <div class="target-dot-wrap">
-            <div class="target-pulse"></div>
-            <div class="target-dot"></div>
-          </div>
-
-          <div class="target-text">
-            <div class="target-label">EXPERIENCE</div>
-            <div class="target-number">TARGET 002</div>
-          </div>
-        </button>
-
-        <button
-          class="target skills"
-          data-index="2"
-          type="button"
-        >
-          <div class="target-dot-wrap">
-            <div class="target-pulse"></div>
-            <div class="target-dot"></div>
-          </div>
-
-          <div class="target-text">
-            <div class="target-label">SKILLS</div>
-            <div class="target-number">TARGET 003</div>
-          </div>
-        </button>
-
-        <button
-          class="target about"
-          data-index="3"
-          type="button"
-        >
-          <div class="target-dot-wrap">
-            <div class="target-pulse"></div>
-            <div class="target-dot"></div>
-          </div>
-
-          <div class="target-text">
-            <div class="target-label">ABOUT</div>
-            <div class="target-number">TARGET 004</div>
-          </div>
-        </button>
-
-        <button
-          class="target contact"
-          data-index="4"
-          type="button"
-        >
-          <div class="target-dot-wrap">
-            <div class="target-pulse"></div>
-            <div class="target-dot"></div>
-          </div>
-
-          <div class="target-text">
-            <div class="target-label">CONTACT</div>
-            <div class="target-number">TARGET 005</div>
-          </div>
-        </button>
-
-      </div>
-
-      <div class="bottom-panel">
-
-        <div class="readout">
-          <div class="panel-label">
-            TARGET READOUT
-          </div>
-
-          <div id="readoutText">
-            SCANNING FOR DATABASE TARGETS...
-            <span class="cursor-block"></span>
-          </div>
-        </div>
-
-        <div class="help-panel">
-          <div class="help-text">
-            SELECT TARGET<br>
-            CLICK TO ACCESS
-          </div>
-
-          <div class="targets-count">
-            005 SIGNALS<br>
-            DETECTED
-          </div>
-        </div>
-
-      </div>
-
+    <div class="corner-label">
+      ENGINEERING PORTFOLIO
     </div>
+
+    <div class="landing-ui">
+      <div class="landing-center">
+        <h1 class="name">TONGYANG</h1>
+        <div class="portfolio-title">ENGINEERING PORTFOLIO</div>
+        <div class="role">MECHATRONICS ENGINEER</div>
+      </div>
+
+      <div class="access-prompt">
+        PRESS ANYWHERE TO ACCESS DATABASE
+      </div>
+    </div>
+
+    <div class="landing-flash" aria-hidden="true"></div>
   </section>
 
-  <!-- =====================================================
-       LOADING
-  ====================================================== -->
 
-  <section
-    id="loading"
-    class="screen"
-  >
-    <div class="loading-box">
-      <div class="loading-terminal">
-        <div id="loadingText">LOCKING TARGET.</div>
-        <div id="loadingDestination">OPENING DATABASE</div>
+  <!-- ======================================================
+       PAGE 2 — CATEGORY DATABASE
+  ======================================================= -->
 
-        <div class="progress-shell">
-          <div id="progressBar"></div>
-        </div>
+  <section id="database" class="view" aria-label="Engineering portfolio database">
+    <div class="db-grid" aria-hidden="true"></div>
+
+    <button class="db-back" id="backToLanding" type="button">
+      ← RETURN
+    </button>
+
+    <div class="database-wrap">
+      <div class="db-heading">
+        <div class="db-eyebrow">TY_01 // ENGINEERING DATABASE</div>
+        <h2>SELECT DATABASE</h2>
+        <p>Choose a section to explore</p>
+      </div>
+
+      <div class="category-grid">
+
+        <button class="category" data-page="projects" type="button">
+          <span class="category-number">01</span>
+          <span class="category-name">PROJECTS</span>
+          <span class="category-bottom">
+            <span class="category-hint">Engineering work</span>
+            <span class="category-arrow">→</span>
+          </span>
+        </button>
+
+        <button class="category" data-page="experience" type="button">
+          <span class="category-number">02</span>
+          <span class="category-name">EXPERIENCE</span>
+          <span class="category-bottom">
+            <span class="category-hint">Industry</span>
+            <span class="category-arrow">→</span>
+          </span>
+        </button>
+
+        <button class="category" data-page="skills" type="button">
+          <span class="category-number">03</span>
+          <span class="category-name">SKILLS</span>
+          <span class="category-bottom">
+            <span class="category-hint">Tools & systems</span>
+            <span class="category-arrow">→</span>
+          </span>
+        </button>
+
+        <button class="category" data-page="about" type="button">
+          <span class="category-number">04</span>
+          <span class="category-name">ABOUT</span>
+          <span class="category-bottom">
+            <span class="category-hint">Profile</span>
+            <span class="category-arrow">→</span>
+          </span>
+        </button>
+
+        <button class="category" data-page="contact" type="button">
+          <span class="category-number">05</span>
+          <span class="category-name">CONTACT</span>
+          <span class="category-bottom">
+            <span class="category-hint">Connect</span>
+            <span class="category-arrow">→</span>
+          </span>
+        </button>
+
       </div>
     </div>
   </section>
 
-  <!-- =====================================================
-       PROJECTS PAGE
-  ====================================================== -->
 
-  <section
-    id="projectsPage"
-    class="screen content-screen"
-  >
-    <div class="page-wrap">
-      <div class="page-title">PROJECTS</div>
+  <!-- ======================================================
+       PROJECTS
+  ======================================================= -->
 
-      <div class="page-card">
-        <div class="page-code">TARGET // PRJ-001</div>
-        <h2>PROJECT DATABASE</h2>
-        <p>
-          Your engineering projects will go here later.
-          CAD models, robotics, prototypes,
-          technical drawings, simulations,
-          videos and interactive models can be added here.
-        </p>
-        <button class="back-button" type="button">
-          ◀ RETURN TO RADAR
-        </button>
-      </div>
+  <section id="projects" class="view content-view">
+    <div class="content-inner">
+      <div class="content-kicker">DATABASE // 01</div>
+      <h2>PROJECTS</h2>
+      <p>
+        Your engineering projects will go here later — CAD models, robotics,
+        prototypes, embedded systems, technical drawings, simulations and
+        interactive project showcases.
+      </p>
+
+      <button class="content-back" type="button">
+        ← RETURN TO DATABASE
+      </button>
     </div>
   </section>
 
-  <!-- =====================================================
-       EXPERIENCE PAGE
-  ====================================================== -->
 
-  <section
-    id="experiencePage"
-    class="screen content-screen"
-  >
-    <div class="page-wrap">
-      <div class="page-title">EXPERIENCE</div>
+  <!-- ======================================================
+       EXPERIENCE
+  ======================================================= -->
 
-      <div class="page-card">
-        <div class="page-code">TARGET // EXP-002</div>
-        <h2>EXPERIENCE LOG</h2>
-        <p>
-          Your internships, engineering employment,
-          industry work and professional engineering
-          experience will be displayed here.
-        </p>
-        <button class="back-button" type="button">
-          ◀ RETURN TO RADAR
-        </button>
-      </div>
+  <section id="experience" class="view content-view">
+    <div class="content-inner">
+      <div class="content-kicker">DATABASE // 02</div>
+      <h2>EXPERIENCE</h2>
+      <p>
+        Your internship, engineering employment, industry experience and
+        practical engineering work can be presented here.
+      </p>
+
+      <button class="content-back" type="button">
+        ← RETURN TO DATABASE
+      </button>
     </div>
   </section>
 
-  <!-- =====================================================
-       SKILLS PAGE
-  ====================================================== -->
 
-  <section
-    id="skillsPage"
-    class="screen content-screen"
-  >
-    <div class="page-wrap">
-      <div class="page-title">SKILLS</div>
+  <!-- ======================================================
+       SKILLS
+  ======================================================= -->
 
-      <div class="page-card">
-        <div class="page-code">TARGET // SKL-003</div>
-        <h2>SKILL DATABASE</h2>
-        <p>
-          Your engineering skills will go here:
-          CAD, programming, electronics,
-          embedded systems, robotics,
-          controls, simulation and manufacturing tools.
-        </p>
-        <button class="back-button" type="button">
-          ◀ RETURN TO RADAR
-        </button>
-      </div>
+  <section id="skills" class="view content-view">
+    <div class="content-inner">
+      <div class="content-kicker">DATABASE // 03</div>
+      <h2>SKILLS</h2>
+      <p>
+        Add your CAD, programming, robotics, embedded systems, electronics,
+        simulation, manufacturing and engineering software skills here.
+      </p>
+
+      <button class="content-back" type="button">
+        ← RETURN TO DATABASE
+      </button>
     </div>
   </section>
 
-  <!-- =====================================================
-       ABOUT PAGE
-  ====================================================== -->
 
-  <section
-    id="aboutPage"
-    class="screen content-screen"
-  >
-    <div class="page-wrap">
-      <div class="page-title">ABOUT</div>
+  <!-- ======================================================
+       ABOUT
+  ======================================================= -->
 
-      <div class="page-card">
-        <div class="page-code">TARGET // USR-004</div>
-        <h2>ENGINEER PROFILE</h2>
-        <p>
-          Your introduction, degree,
-          engineering background, interests
-          and career goals will be displayed here.
-        </p>
-        <button class="back-button" type="button">
-          ◀ RETURN TO RADAR
-        </button>
-      </div>
+  <section id="about" class="view content-view">
+    <div class="content-inner">
+      <div class="content-kicker">DATABASE // 04</div>
+      <h2>ABOUT</h2>
+      <p>
+        Introduce your engineering background, degree, interests, design
+        approach and career direction here.
+      </p>
+
+      <button class="content-back" type="button">
+        ← RETURN TO DATABASE
+      </button>
     </div>
   </section>
 
-  <!-- =====================================================
-       CONTACT PAGE
-  ====================================================== -->
 
-  <section
-    id="contactPage"
-    class="screen content-screen"
-  >
-    <div class="page-wrap">
-      <div class="page-title">CONTACT</div>
+  <!-- ======================================================
+       CONTACT
+  ======================================================= -->
 
-      <div class="page-card">
-        <div class="page-code">TARGET // COM-005</div>
-        <h2>COMMUNICATION SYSTEM</h2>
-        <p>
-          Your email, LinkedIn,
-          CV download, GitHub and
-          other contact information will go here later.
-        </p>
-        <button class="back-button" type="button">
-          ◀ RETURN TO RADAR
-        </button>
-      </div>
+  <section id="contact" class="view content-view">
+    <div class="content-inner">
+      <div class="content-kicker">DATABASE // 05</div>
+      <h2>CONTACT</h2>
+      <p>
+        Add your email, LinkedIn, GitHub, CV link and other professional contact
+        information here.
+      </p>
+
+      <button class="content-back" type="button">
+        ← RETURN TO DATABASE
+      </button>
     </div>
   </section>
+
 
   <script>
-    const screens = {
-      radar: document.getElementById('radarScreen'),
-      loading: document.getElementById('loading'),
-      projects: document.getElementById('projectsPage'),
-      experience: document.getElementById('experiencePage'),
-      skills: document.getElementById('skillsPage'),
-      about: document.getElementById('aboutPage'),
-      contact: document.getElementById('contactPage')
-    };
+    const views = [...document.querySelectorAll(".view")];
+    const landing = document.getElementById("landing");
+    const database = document.getElementById("database");
+    const backToLanding = document.getElementById("backToLanding");
+    let transitioning = false;
 
-    function showScreen(name) {
-      Object.values(screens).forEach(screen => {
-        screen.classList.remove('active');
+    function showView(id) {
+      views.forEach(view => {
+        view.classList.toggle("active", view.id === id);
       });
-
-      screens[name].classList.add('active');
     }
 
-    const entries = [
-      {
-        page: 'projects',
-        code: 'TARGET 001',
-        title: 'PROJECT DATABASE',
-        description: 'Engineering builds, CAD work, prototypes and technical projects.',
-        loading: 'ACCESSING PROJECT DATABASE'
-      },
-      {
-        page: 'experience',
-        code: 'TARGET 002',
-        title: 'EXPERIENCE LOG',
-        description: 'Internships, industry work and professional engineering experience.',
-        loading: 'ACCESSING EXPERIENCE LOG'
-      },
-      {
-        page: 'skills',
-        code: 'TARGET 003',
-        title: 'SKILL DATABASE',
-        description: 'CAD, programming, electronics, robotics, controls and simulation.',
-        loading: 'ACCESSING SKILL DATABASE'
-      },
-      {
-        page: 'about',
-        code: 'TARGET 004',
-        title: 'ENGINEER PROFILE',
-        description: 'Education, engineering interests, profile and career direction.',
-        loading: 'ACCESSING ENGINEER PROFILE'
-      },
-      {
-        page: 'contact',
-        code: 'TARGET 005',
-        title: 'COMMUNICATION SYSTEM',
-        description: 'Email, LinkedIn, GitHub, CV and communication channels.',
-        loading: 'OPENING COMMUNICATION LINK'
+    function enterDatabase() {
+      if (transitioning || !landing.classList.contains("active")) return;
+
+      transitioning = true;
+      landing.classList.add("entering");
+
+      setTimeout(() => {
+        showView("database");
+        landing.classList.remove("entering");
+        transitioning = false;
+      }, 760);
+    }
+
+    landing.addEventListener("click", enterDatabase);
+
+    landing.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        enterDatabase();
       }
-    ];
+    });
 
-    const targets = [...document.querySelectorAll('.target')];
-    const readoutText = document.getElementById('readoutText');
-    const loadingText = document.getElementById('loadingText');
-    const loadingDestination = document.getElementById('loadingDestination');
-    const progressBar = document.getElementById('progressBar');
+    landing.tabIndex = 0;
 
-    let transitionLocked = false;
+    backToLanding.addEventListener("click", () => {
+      showView("landing");
+    });
 
-    function updateReadout(index) {
-      const entry = entries[index];
-
-      readoutText.innerHTML =
-        entry.code + ' // ' + entry.title + '<br>' +
-        entry.description +
-        '<span class="cursor-block"></span>';
-    }
-
-    function loadingSequence(entry) {
-      return new Promise(resolve => {
-        showScreen('loading');
-
-        loadingText.textContent = 'LOCKING TARGET.';
-        loadingDestination.textContent = entry.loading;
-        progressBar.style.width = '0%';
-
-        let dots = 1;
-        let progress = 0;
-
-        const dotTimer = setInterval(() => {
-          dots++;
-          if (dots > 3) dots = 1;
-          loadingText.textContent = 'LOCKING TARGET' + '.'.repeat(dots);
-        }, 300);
-
-        const progressTimer = setInterval(() => {
-          progress += Math.random() * 8 + 4;
-
-          if (progress > 96) {
-            progress = 96;
-          }
-
-          progressBar.style.width = progress + '%';
-        }, 100);
-
-        setTimeout(() => {
-          clearInterval(dotTimer);
-          clearInterval(progressTimer);
-
-          progressBar.style.width = '100%';
-          loadingText.textContent = 'TARGET LOCKED';
-
-          setTimeout(resolve, 180);
-        }, 2600);
-      });
-    }
-
-    targets.forEach((target, index) => {
-      target.addEventListener('mouseenter', () => {
-        updateReadout(index);
-      });
-
-      target.addEventListener('focus', () => {
-        updateReadout(index);
-      });
-
-      target.addEventListener('click', async () => {
-        if (transitionLocked) return;
-
-        transitionLocked = true;
-
-        targets.forEach(item => item.classList.remove('locked'));
-        target.classList.add('locked');
-
-        updateReadout(index);
-
-        await new Promise(resolve => setTimeout(resolve, 250));
-        await loadingSequence(entries[index]);
-
-        target.classList.remove('locked');
-        showScreen(entries[index].page);
-
-        transitionLocked = false;
+    document.querySelectorAll(".category").forEach(button => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.page;
+        showView(target);
       });
     });
 
-    document.querySelectorAll('.back-button').forEach(button => {
-      button.addEventListener('click', () => {
-        showScreen('radar');
-        readoutText.innerHTML =
-          'SCANNING FOR DATABASE TARGETS...' +
-          '<span class="cursor-block"></span>';
+    document.querySelectorAll(".content-back").forEach(button => {
+      button.addEventListener("click", () => {
+        showView("database");
       });
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        const active = document.querySelector(".view.active");
+
+        if (!active) return;
+
+        if (active.id === "landing") return;
+
+        if (active.id === "database") {
+          showView("landing");
+        } else {
+          showView("database");
+        }
+      }
     });
   </script>
 </body>
