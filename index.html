@@ -1,879 +1,902 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TongYang | Engineering Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TongYang | Engineering Portfolio</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&family=Press+Start+2P&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600&family=Press+Start+2P&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
-<style>
-:root {
-  --bg: #02050d;
-  --white: #eff6ff;
-  --blue: #7fbaff;
-  --muted: #93a9c8;
-}
+  <style>
+    :root {
+      --bg: #02050d;
+      --white: #eff6ff;
+      --blue: #7fbaff;
+      --muted: #93a9c8;
+    }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: var(--bg);
-  color: var(--white);
-  font-family: "Inter", sans-serif;
-}
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--white);
+      font-family: "Inter", sans-serif;
+    }
 
-button {
-  font: inherit;
-}
+    button {
+      font: inherit;
+    }
 
-.page {
-  position: fixed;
-  inset: 0;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity .55s ease, visibility .55s ease;
-}
+    .page {
+      position: fixed;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .55s ease, visibility .55s ease;
+    }
 
-.page.active {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
+    .page.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
 
-/* LANDING PAGE */
+    /* LANDING PAGE */
 
-#landing {
-  cursor: pointer;
-  background: #02050d;
-  isolation: isolate;
-}
+    #landing {
+      cursor: pointer;
+      background: #02050d;
+      isolation: isolate;
+    }
 
-#spaceCanvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-}
+    #spaceCanvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+    }
 
-.space-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse at center,
-      rgba(1, 5, 14, .58) 0%,
-      rgba(1, 5, 14, .23) 45%,
-      rgba(1, 5, 14, .06) 100%
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0px,
-      transparent 3px,
-      rgba(3, 8, 18, .13) 4px
-    );
-}
+    .space-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at center, rgba(1, 5, 14, .30) 0%, rgba(1, 5, 14, .12) 50%, rgba(1, 5, 14, .02) 100%),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0px,
+          transparent 3px,
+          rgba(3, 8, 18, .10) 4px
+        );
+    }
 
-.landing-content {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: 24px;
-}
+    .landing-content {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+    }
 
-.title-group {
-  transform: translateY(-3vh);
-}
+    .title-group {
+      transform: translateY(-3vh);
+    }
 
-.name {
-  font-family: "Orbitron", sans-serif;
-  font-weight: 500;
-  font-size: clamp(42px, 6.5vw, 104px);
-  letter-spacing: .20em;
-  margin-left: .20em;
-  line-height: 1.25;
-  color: #f0f6ff;
-  text-shadow:
-    0 0 8px rgba(172, 209, 255, .7),
-    0 0 32px rgba(43, 127, 255, .35);
-}
+    .name {
+      font-family: "Orbitron", sans-serif;
+      font-weight: 500;
+      font-size: clamp(42px, 6.5vw, 104px);
+      letter-spacing: .20em;
+      margin-left: .20em;
+      line-height: 1.25;
+      color: #f0f6ff;
+      text-shadow:
+        0 0 8px rgba(172, 209, 255, .7),
+        0 0 32px rgba(43, 127, 255, .35);
+    }
 
-.portfolio-title {
-  margin-top: 22px;
-  font-family: "Press Start 2P", monospace;
-  font-size: clamp(10px, 1.4vw, 17px);
-  line-height: 2;
-  letter-spacing: .08em;
-  text-shadow: 0 0 12px rgba(115, 166, 255, .4);
-}
+    .portfolio-title {
+      margin-top: 22px;
+      font-family: "Press Start 2P", monospace;
+      font-size: clamp(10px, 1.4vw, 17px);
+      line-height: 2;
+      letter-spacing: .08em;
+      text-shadow: 0 0 12px rgba(115, 166, 255, .4);
+    }
 
-.role {
-  margin-top: 25px;
-  font-family: "Orbitron", sans-serif;
-  font-size: clamp(10px, 1.1vw, 15px);
-  letter-spacing: .30em;
-  margin-left: .30em;
-  color: #a8c2e3;
-}
+    .role {
+      margin-top: 25px;
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(10px, 1.1vw, 15px);
+      letter-spacing: .30em;
+      margin-left: .30em;
+      color: #a8c2e3;
+    }
 
-.enter-text {
-  position: absolute;
-  left: 50%;
-  bottom: 13%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  font-family: "Press Start 2P", monospace;
-  font-size: clamp(7px, .8vw, 11px);
-  color: #dceeff;
-  text-shadow: 0 0 12px rgba(91, 167, 255, .6);
-  animation: blink 1.3s steps(1, end) infinite;
-}
+    .enter-text {
+      position: absolute;
+      left: 50%;
+      bottom: 13%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-family: "Press Start 2P", monospace;
+      font-size: clamp(7px, .8vw, 11px);
+      color: #dceeff;
+      text-shadow: 0 0 12px rgba(91, 167, 255, .55);
+      animation: blink 1.3s steps(1, end) infinite;
+    }
 
-.enter-text::after {
-  content: "";
-  display: block;
-  height: 2px;
-  width: 35px;
-  background: #9ad2ff;
-  margin: 20px auto 0;
-  box-shadow: 0 0 12px #60aaff;
-}
+    .enter-text::after {
+      content: "";
+      display: block;
+      height: 2px;
+      width: 35px;
+      background: #9ad2ff;
+      margin: 20px auto 0;
+      box-shadow: 0 0 12px #60aaff;
+      opacity: .8;
+    }
 
-@keyframes blink {
-  0%, 55% { opacity: 1; }
-  56%, 100% { opacity: .17; }
-}
+    @keyframes blink {
+      0%, 55% { opacity: 1; }
+      56%, 100% { opacity: .18; }
+    }
 
-.transition-flash {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: #cde5ff;
-  opacity: 0;
-}
+    .transition-flash {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: #cde5ff;
+      opacity: 0;
+    }
 
-#landing.entering .transition-flash {
-  animation: flash .8s ease forwards;
-}
+    #landing.entering .transition-flash {
+      animation: flash .8s ease forwards;
+    }
 
-@keyframes flash {
-  0% { opacity: 0; }
-  45% { opacity: .55; }
-  100% { opacity: 0; }
-}
+    @keyframes flash {
+      0% { opacity: 0; }
+      45% { opacity: .50; }
+      100% { opacity: 0; }
+    }
 
-/* DATABASE MENU */
+    /* DATABASE MENU */
 
-#database {
-  overflow-y: auto;
-  background:
-    radial-gradient(ellipse at 50% 20%, #101e39, transparent 65%),
-    #040810;
-}
+    #database {
+      overflow-y: auto;
+      background:
+        radial-gradient(ellipse at 50% 20%, #101e39, transparent 65%),
+        #040810;
+    }
 
-.database-container {
-  width: min(1220px, 92%);
-  min-height: 100%;
-  margin: auto;
-  padding: 95px 0 80px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 50px;
-}
+    .database-container {
+      width: min(1220px, 92%);
+      min-height: 100%;
+      margin: auto;
+      padding: 95px 0 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 50px;
+    }
 
-.database-header {
-  text-align: center;
-}
+    .database-header {
+      text-align: center;
+    }
 
-.small-label {
-  font-family: "Press Start 2P", monospace;
-  font-size: 8px;
-  color: #7494bb;
-  letter-spacing: .06em;
-}
+    .small-label {
+      font-family: "Press Start 2P", monospace;
+      font-size: 8px;
+      color: #7494bb;
+      letter-spacing: .06em;
+    }
 
-.database-header h2 {
-  font-family: "Orbitron", sans-serif;
-  font-weight: 500;
-  font-size: clamp(27px, 4vw, 48px);
-  letter-spacing: .14em;
-  margin: 24px 0 15px;
-}
+    .database-header h2 {
+      font-family: "Orbitron", sans-serif;
+      font-weight: 500;
+      font-size: clamp(27px, 4vw, 48px);
+      letter-spacing: .14em;
+      margin: 24px 0 15px;
+    }
 
-.database-header p {
-  color: #92a9c7;
-  font-size: 13px;
-  letter-spacing: .18em;
-}
+    .database-header p {
+      color: #92a9c7;
+      font-size: 13px;
+      letter-spacing: .18em;
+    }
 
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 16px;
-}
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+    }
 
-.menu-card {
-  position: relative;
-  min-height: 200px;
-  padding: 22px 17px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(158, 198, 255, .085),
-      rgba(158, 198, 255, .012)
-    );
-  border: 1px solid rgba(149, 190, 255, .28);
-  color: var(--white);
-  text-align: left;
-  cursor: pointer;
-  transition:
-    transform .25s ease,
-    background .25s ease,
-    border-color .25s ease,
-    box-shadow .25s ease;
-}
+    .menu-card {
+      position: relative;
+      min-height: 200px;
+      padding: 22px 17px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, rgba(158, 198, 255, .085), rgba(158, 198, 255, .012));
+      border: 1px solid rgba(149, 190, 255, .28);
+      color: var(--white);
+      text-align: left;
+      cursor: pointer;
+      transition:
+        transform .25s ease,
+        background .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+    }
 
-.menu-card:hover {
-  transform: translateY(-7px);
-  border-color: #95c6ff;
-  background: rgba(123, 183, 255, .14);
-  box-shadow: 0 0 30px rgba(67, 138, 255, .16);
-}
+    .menu-card:hover {
+      transform: translateY(-7px);
+      border-color: #95c6ff;
+      background: rgba(123, 183, 255, .14);
+      box-shadow: 0 0 30px rgba(67, 138, 255, .16);
+    }
 
-.card-num {
-  font-family: "Press Start 2P", monospace;
-  font-size: 8px;
-  color: #799bc6;
-}
+    .card-num {
+      font-family: "Press Start 2P", monospace;
+      font-size: 8px;
+      color: #799bc6;
+    }
 
-.card-name {
-  font-family: "Press Start 2P", monospace;
-  font-size: clamp(9px, .92vw, 12px);
-  line-height: 1.8;
-}
+    .card-name {
+      font-family: "Press Start 2P", monospace;
+      font-size: clamp(9px, .92vw, 12px);
+      line-height: 1.8;
+    }
 
-.card-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.card-caption {
-  font-size: 11px;
-  color: #839ab9;
-  letter-spacing: .05em;
-}
+    .card-caption {
+      font-size: 11px;
+      color: #839ab9;
+      letter-spacing: .05em;
+    }
 
-.card-arrow {
-  font-size: 24px;
-  color: #a7ceff;
-}
+    .card-arrow {
+      font-size: 24px;
+      color: #a7ceff;
+    }
 
-.return-button {
-  position: absolute;
-  top: 30px;
-  left: 35px;
-  border: 0;
-  background: none;
-  color: #a9bdd7;
-  cursor: pointer;
-  font-family: "Press Start 2P", monospace;
-  font-size: 8px;
-}
+    .return-button {
+      position: absolute;
+      top: 30px;
+      left: 35px;
+      border: 0;
+      background: none;
+      color: #a9bdd7;
+      cursor: pointer;
+      font-family: "Press Start 2P", monospace;
+      font-size: 8px;
+    }
 
-.return-button:hover {
-  color: white;
-}
+    .return-button:hover {
+      color: white;
+    }
 
-/* CONTENT SECTIONS */
+    /* CONTENT SECTIONS */
 
-.content-page {
-  background:
-    radial-gradient(ellipse at top, #14233c, transparent 55%),
-    #060a12;
-  overflow-y: auto;
-}
+    .content-page {
+      background:
+        radial-gradient(ellipse at top, #14233c, transparent 55%),
+        #060a12;
+      overflow-y: auto;
+    }
 
-.content-container {
-  max-width: 1000px;
-  width: 90%;
-  min-height: 100%;
-  margin: auto;
-  padding: 110px 0 70px;
-}
+    .content-container {
+      max-width: 1000px;
+      width: 90%;
+      min-height: 100%;
+      margin: auto;
+      padding: 110px 0 70px;
+    }
 
-.content-container h2 {
-  margin: 25px 0;
-  font-family: "Orbitron", sans-serif;
-  font-weight: 500;
-  font-size: clamp(34px, 5vw, 65px);
-  letter-spacing: .1em;
-}
+    .content-container h2 {
+      margin: 25px 0;
+      font-family: "Orbitron", sans-serif;
+      font-weight: 500;
+      font-size: clamp(34px, 5vw, 65px);
+      letter-spacing: .1em;
+    }
 
-.content-container p {
-  color: #a4b6cf;
-  font-size: 19px;
-  line-height: 1.8;
-  max-width: 800px;
-}
+    .content-container p {
+      color: #a4b6cf;
+      font-size: 19px;
+      line-height: 1.8;
+      max-width: 800px;
+    }
 
-.back-button {
-  margin-top: 40px;
-  padding: 16px 22px;
-  border: 1px solid #7797c1;
-  background: rgba(130, 180, 250, .07);
-  color: #d5e6ff;
-  font-family: "Press Start 2P", monospace;
-  font-size: 8px;
-  cursor: pointer;
-}
+    .back-button {
+      margin-top: 40px;
+      padding: 16px 22px;
+      border: 1px solid #7797c1;
+      background: rgba(130, 180, 250, .07);
+      color: #d5e6ff;
+      font-family: "Press Start 2P", monospace;
+      font-size: 8px;
+      cursor: pointer;
+    }
 
-.back-button:hover {
-  background: rgba(130, 180, 250, .2);
-}
+    .back-button:hover {
+      background: rgba(130, 180, 250, .2);
+    }
 
-/* MOBILE */
+    /* MOBILE */
 
-@media (max-width: 900px) {
-  .menu-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+    @media (max-width: 900px) {
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
-  .menu-card {
-    min-height: 160px;
-  }
+      .menu-card {
+        min-height: 160px;
+      }
 
-  .name {
-    font-size: clamp(35px, 8vw, 65px);
-    letter-spacing: .10em;
-    margin-left: .10em;
-  }
-}
+      .name {
+        font-size: clamp(35px, 8vw, 65px);
+        letter-spacing: .10em;
+        margin-left: .10em;
+      }
+    }
 
-@media (max-width: 530px) {
-  .name {
-    font-size: 36px;
-    letter-spacing: .04em;
-    margin-left: .04em;
-  }
+    @media (max-width: 530px) {
+      .name {
+        font-size: 36px;
+        letter-spacing: .04em;
+        margin-left: .04em;
+      }
 
-  .portfolio-title {
-    font-size: 8px;
-  }
+      .portfolio-title {
+        font-size: 8px;
+      }
 
-  .role {
-    font-size: 8px;
-    letter-spacing: .12em;
-  }
+      .role {
+        font-size: 8px;
+        letter-spacing: .12em;
+      }
 
-  .enter-text {
-    font-size: 6px;
-  }
+      .enter-text {
+        font-size: 6px;
+      }
 
-  .menu-grid {
-    grid-template-columns: 1fr;
-  }
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
 
-  .database-container {
-    padding-top: 110px;
-  }
-}
+      .database-container {
+        padding-top: 110px;
+      }
+    }
 
-@media (prefers-reduced-motion: reduce) {
-  .enter-text {
-    animation: none;
-  }
+    @media (prefers-reduced-motion: reduce) {
+      .enter-text {
+        animation: none;
+      }
 
-  .page, .menu-card {
-    transition: none;
-  }
-}
-</style>
+      .page, .menu-card {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- LANDING PAGE -->
+  <!-- LANDING PAGE -->
+  <section id="landing" class="page active" tabindex="0">
+    <canvas id="spaceCanvas"></canvas>
+    <div class="space-overlay"></div>
 
-<section id="landing" class="page active" tabindex="0">
-  <canvas id="spaceCanvas"></canvas>
-  <div class="space-overlay"></div>
+    <div class="landing-content">
+      <div class="title-group">
+        <h1 class="name">TONGYANG</h1>
+        <div class="portfolio-title">ENGINEERING PORTFOLIO</div>
+        <div class="role">MECHATRONICS ENGINEER</div>
+      </div>
 
-  <div class="landing-content">
-    <div class="title-group">
-      <h1 class="name">TONGYANG</h1>
-      <div class="portfolio-title">ENGINEERING PORTFOLIO</div>
-      <div class="role">MECHATRONICS ENGINEER</div>
+      <div class="enter-text">
+        PRESS ANYWHERE TO ACCESS DATABASE
+      </div>
     </div>
 
-    <div class="enter-text">
-      PRESS ANYWHERE TO ACCESS DATABASE
+    <div class="transition-flash"></div>
+  </section>
+
+  <!-- DATABASE MENU -->
+  <section id="database" class="page">
+    <button class="return-button" id="returnLanding">← RETURN</button>
+
+    <div class="database-container">
+      <div class="database-header">
+        <div class="small-label">TY_01 // PORTFOLIO SYSTEM</div>
+        <h2>ENGINEERING DATABASE</h2>
+        <p>SELECT A CATEGORY TO EXPLORE</p>
+      </div>
+
+      <div class="menu-grid">
+        <button class="menu-card" data-target="projects">
+          <span class="card-num">01</span>
+          <span class="card-name">PROJECTS</span>
+          <span class="card-bottom">
+            <span class="card-caption">Engineering work</span>
+            <span class="card-arrow">→</span>
+          </span>
+        </button>
+
+        <button class="menu-card" data-target="experience">
+          <span class="card-num">02</span>
+          <span class="card-name">EXPERIENCE</span>
+          <span class="card-bottom">
+            <span class="card-caption">Industry work</span>
+            <span class="card-arrow">→</span>
+          </span>
+        </button>
+
+        <button class="menu-card" data-target="skills">
+          <span class="card-num">03</span>
+          <span class="card-name">SKILLS</span>
+          <span class="card-bottom">
+            <span class="card-caption">Tools & systems</span>
+            <span class="card-arrow">→</span>
+          </span>
+        </button>
+
+        <button class="menu-card" data-target="about">
+          <span class="card-num">04</span>
+          <span class="card-name">ABOUT</span>
+          <span class="card-bottom">
+            <span class="card-caption">Engineer profile</span>
+            <span class="card-arrow">→</span>
+          </span>
+        </button>
+
+        <button class="menu-card" data-target="contact">
+          <span class="card-num">05</span>
+          <span class="card-name">CONTACT</span>
+          <span class="card-bottom">
+            <span class="card-caption">Connect with me</span>
+            <span class="card-arrow">→</span>
+          </span>
+        </button>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="transition-flash"></div>
-</section>
-
-<!-- DATABASE MENU -->
-
-<section id="database" class="page">
-  <button class="return-button" id="returnLanding">
-    ← RETURN
-  </button>
-
-  <div class="database-container">
-
-    <div class="database-header">
-      <div class="small-label">TY_01 // PORTFOLIO SYSTEM</div>
-      <h2>ENGINEERING DATABASE</h2>
-      <p>SELECT A CATEGORY TO EXPLORE</p>
+  <!-- PROJECTS -->
+  <section id="projects" class="page content-page">
+    <div class="content-container">
+      <div class="small-label">DATABASE // 01</div>
+      <h2>PROJECTS</h2>
+      <p>
+        My engineering projects will be featured here,
+        including robotics, CAD, mechanical design,
+        embedded systems, prototypes and simulations.
+      </p>
+      <button class="back-button">← RETURN TO DATABASE</button>
     </div>
+  </section>
 
-    <div class="menu-grid">
-
-      <button class="menu-card" data-target="projects">
-        <span class="card-num">01</span>
-        <span class="card-name">PROJECTS</span>
-        <span class="card-bottom">
-          <span class="card-caption">Engineering work</span>
-          <span class="card-arrow">→</span>
-        </span>
-      </button>
-
-      <button class="menu-card" data-target="experience">
-        <span class="card-num">02</span>
-        <span class="card-name">EXPERIENCE</span>
-        <span class="card-bottom">
-          <span class="card-caption">Industry work</span>
-          <span class="card-arrow">→</span>
-        </span>
-      </button>
-
-      <button class="menu-card" data-target="skills">
-        <span class="card-num">03</span>
-        <span class="card-name">SKILLS</span>
-        <span class="card-bottom">
-          <span class="card-caption">Tools & systems</span>
-          <span class="card-arrow">→</span>
-        </span>
-      </button>
-
-      <button class="menu-card" data-target="about">
-        <span class="card-num">04</span>
-        <span class="card-name">ABOUT</span>
-        <span class="card-bottom">
-          <span class="card-caption">Engineer profile</span>
-          <span class="card-arrow">→</span>
-        </span>
-      </button>
-
-      <button class="menu-card" data-target="contact">
-        <span class="card-num">05</span>
-        <span class="card-name">CONTACT</span>
-        <span class="card-bottom">
-          <span class="card-caption">Connect with me</span>
-          <span class="card-arrow">→</span>
-        </span>
-      </button>
-
+  <!-- EXPERIENCE -->
+  <section id="experience" class="page content-page">
+    <div class="content-container">
+      <div class="small-label">DATABASE // 02</div>
+      <h2>EXPERIENCE</h2>
+      <p>
+        My professional engineering experience,
+        internships and industry projects will be
+        displayed here.
+      </p>
+      <button class="back-button">← RETURN TO DATABASE</button>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PROJECTS -->
+  <!-- SKILLS -->
+  <section id="skills" class="page content-page">
+    <div class="content-container">
+      <div class="small-label">DATABASE // 03</div>
+      <h2>SKILLS</h2>
+      <p>
+        My skills in CAD, mechanical engineering,
+        electronics, software, robotics and
+        engineering simulation will be presented here.
+      </p>
+      <button class="back-button">← RETURN TO DATABASE</button>
+    </div>
+  </section>
 
-<section id="projects" class="page content-page">
-  <div class="content-container">
-    <div class="small-label">DATABASE // 01</div>
-    <h2>PROJECTS</h2>
-    <p>
-      My engineering projects will be featured here,
-      including robotics, CAD, mechanical design,
-      embedded systems, prototypes and simulations.
-    </p>
-    <button class="back-button">← RETURN TO DATABASE</button>
-  </div>
-</section>
+  <!-- ABOUT -->
+  <section id="about" class="page content-page">
+    <div class="content-container">
+      <div class="small-label">DATABASE // 04</div>
+      <h2>ABOUT</h2>
+      <p>
+        My background, engineering education,
+        technical interests and career goals
+        will be introduced here.
+      </p>
+      <button class="back-button">← RETURN TO DATABASE</button>
+    </div>
+  </section>
 
-<!-- EXPERIENCE -->
+  <!-- CONTACT -->
+  <section id="contact" class="page content-page">
+    <div class="content-container">
+      <div class="small-label">DATABASE // 05</div>
+      <h2>CONTACT</h2>
+      <p>
+        My email, LinkedIn, GitHub and CV
+        will be available here.
+      </p>
+      <button class="back-button">← RETURN TO DATABASE</button>
+    </div>
+  </section>
 
-<section id="experience" class="page content-page">
-  <div class="content-container">
-    <div class="small-label">DATABASE // 02</div>
-    <h2>EXPERIENCE</h2>
-    <p>
-      My professional engineering experience,
-      internships and industry projects will be
-      displayed here.
-    </p>
-    <button class="back-button">← RETURN TO DATABASE</button>
-  </div>
-</section>
+  <script>
+    /* ======================================================
+       PAGE NAVIGATION
+    ====================================================== */
 
-<!-- SKILLS -->
+    const pages = document.querySelectorAll(".page");
+    const landing = document.getElementById("landing");
 
-<section id="skills" class="page content-page">
-  <div class="content-container">
-    <div class="small-label">DATABASE // 03</div>
-    <h2>SKILLS</h2>
-    <p>
-      My skills in CAD, mechanical engineering,
-      electronics, software, robotics and
-      engineering simulation will be presented here.
-    </p>
-    <button class="back-button">← RETURN TO DATABASE</button>
-  </div>
-</section>
+    let transitioning = false;
 
-<!-- ABOUT -->
-
-<section id="about" class="page content-page">
-  <div class="content-container">
-    <div class="small-label">DATABASE // 04</div>
-    <h2>ABOUT</h2>
-    <p>
-      My background, engineering education,
-      technical interests and career goals
-      will be introduced here.
-    </p>
-    <button class="back-button">← RETURN TO DATABASE</button>
-  </div>
-</section>
-
-<!-- CONTACT -->
-
-<section id="contact" class="page content-page">
-  <div class="content-container">
-    <div class="small-label">DATABASE // 05</div>
-    <h2>CONTACT</h2>
-    <p>
-      My email, LinkedIn, GitHub and CV
-      will be available here.
-    </p>
-    <button class="back-button">← RETURN TO DATABASE</button>
-  </div>
-</section>
-
-<script>
-/* ======================================================
-   PAGE NAVIGATION
-====================================================== */
-
-const pages = document.querySelectorAll(".page");
-const landing = document.getElementById("landing");
-
-let transitioning = false;
-
-function showPage(pageId) {
-  pages.forEach(page => {
-    page.classList.toggle("active", page.id === pageId);
-  });
-}
-
-function enterDatabase() {
-  if (transitioning || !landing.classList.contains("active")) {
-    return;
-  }
-
-  transitioning = true;
-  landing.classList.add("entering");
-
-  setTimeout(() => {
-    showPage("database");
-    landing.classList.remove("entering");
-    transitioning = false;
-  }, 800);
-}
-
-landing.addEventListener("click", enterDatabase);
-
-landing.addEventListener("keydown", event => {
-  if (event.key === "Enter" || event.key === " ") {
-    event.preventDefault();
-    enterDatabase();
-  }
-});
-
-document.getElementById("returnLanding")
-  .addEventListener("click", () => showPage("landing"));
-
-document.querySelectorAll(".menu-card").forEach(card => {
-  card.addEventListener("click", () => {
-    showPage(card.dataset.target);
-  });
-});
-
-document.querySelectorAll(".back-button").forEach(button => {
-  button.addEventListener("click", () => {
-    showPage("database");
-  });
-});
-
-document.addEventListener("keydown", event => {
-  if (event.key !== "Escape") return;
-
-  const active = document.querySelector(".page.active");
-
-  if (!active || active.id === "landing") return;
-
-  showPage(active.id === "database" ? "landing" : "database");
-});
-
-/* ======================================================
-   ANIMATED PIXEL SPACE BACKGROUND
-   Stars continuously move LEFT TO RIGHT
-====================================================== */
-
-const canvas = document.getElementById("spaceCanvas");
-const ctx = canvas.getContext("2d", { alpha: false });
-
-let W = 0;
-let H = 0;
-let stars = [];
-let streaks = [];
-let particles = [];
-
-const random = (min, max) =>
-  Math.random() * (max - min) + min;
-
-function resizeCanvas() {
-  W = window.innerWidth;
-  H = window.innerHeight;
-
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-  canvas.width = Math.round(W * dpr);
-  canvas.height = Math.round(H * dpr);
-
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  ctx.imageSmoothingEnabled = false;
-
-  createSpace();
-}
-
-function createSpace() {
-  stars = [];
-  streaks = [];
-  particles = [];
-
-  const starCount = Math.min(
-    650,
-    Math.max(180, Math.floor(W * H / 2200))
-  );
-
-  for (let i = 0; i < starCount; i++) {
-    stars.push({
-      x: random(0, W),
-      y: random(0, H),
-      size: random(0.6, 2.2),
-      speed: random(0.12, 0.85),
-      brightness: random(0.25, 1),
-      twinkle: random(0, Math.PI * 2)
-    });
-  }
-
-  for (let i = 0; i < 35; i++) {
-    streaks.push({
-      x: random(0, W),
-      y: random(0, H),
-      length: random(18, 125),
-      speed: random(1.0, 3.8),
-      alpha: random(0.12, 0.5)
-    });
-  }
-
-  for (let i = 0; i < 220; i++) {
-    particles.push({
-      x: random(0, W),
-      y: random(0, H),
-      size: random(1, 3),
-      speed: random(0.15, 0.5),
-      alpha: random(0.04, 0.25)
-    });
-  }
-}
-
-function drawBackground() {
-  ctx.fillStyle = "#02050d";
-  ctx.fillRect(0, 0, W, H);
-
-  // Faint blue nebula glow
-  const nebula = ctx.createRadialGradient(
-    W * 0.32, H * 0.48, 0,
-    W * 0.32, H * 0.48, W * 0.65
-  );
-
-  nebula.addColorStop(0, "rgba(12,60,125,0.20)");
-  nebula.addColorStop(0.45, "rgba(7,30,75,0.13)");
-  nebula.addColorStop(1, "rgba(0,0,0,0)");
-
-  ctx.fillStyle = nebula;
-  ctx.fillRect(0, 0, W, H);
-
-  const nebula2 = ctx.createRadialGradient(
-    W * 0.80, H * 0.75, 0,
-    W * 0.80, H * 0.75, W * 0.45
-  );
-
-  nebula2.addColorStop(0, "rgba(32,75,165,0.18)");
-  nebula2.addColorStop(1, "rgba(0,0,0,0)");
-
-  ctx.fillStyle = nebula2;
-  ctx.fillRect(0, 0, W, H);
-}
-
-function drawStars(dt, time) {
-  for (const s of stars) {
-    // Move LEFT TO RIGHT
-    s.x += s.speed * dt;
-
-    if (s.x > W + 5) {
-      s.x = -5;
-      s.y = random(0, H);
+    function showPage(pageId) {
+      pages.forEach(page => {
+        page.classList.toggle("active", page.id === pageId);
+      });
     }
 
-    const twinkle =
-      0.75 + Math.sin(time * 0.0016 + s.twinkle) * 0.25;
+    function enterDatabase() {
+      if (transitioning || !landing.classList.contains("active")) return;
 
-    ctx.fillStyle =
-      `rgba(177,211,255,${s.brightness * twinkle})`;
+      transitioning = true;
+      landing.classList.add("entering");
 
-    ctx.fillRect(
-      Math.round(s.x),
-      Math.round(s.y),
-      Math.max(1, Math.round(s.size)),
-      Math.max(1, Math.round(s.size))
-    );
-  }
-}
-
-function drawStreaks(dt) {
-  for (const s of streaks) {
-    // Move LEFT TO RIGHT
-    s.x += s.speed * dt;
-
-    if (s.x > W + 5) {
-      s.x = -s.length - random(10, 300);
-      s.y = random(0, H);
+      setTimeout(() => {
+        showPage("database");
+        landing.classList.remove("entering");
+        transitioning = false;
+      }, 800);
     }
 
-    const gradient = ctx.createLinearGradient(
-      s.x, s.y, s.x + s.length, s.y
-    );
+    landing.addEventListener("click", enterDatabase);
 
-    gradient.addColorStop(0, "rgba(45,120,255,0)");
-    gradient.addColorStop(
-      0.75, `rgba(65,150,255,${s.alpha * 0.5})`
-    );
-    gradient.addColorStop(
-      1, `rgba(190,220,255,${s.alpha})`
-    );
+    landing.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        enterDatabase();
+      }
+    });
 
-    ctx.fillStyle = gradient;
+    document.getElementById("returnLanding")
+      .addEventListener("click", () => showPage("landing"));
 
-    ctx.fillRect(
-      s.x,
-      s.y,
-      s.length,
-      1 + s.alpha * 3
-    );
-  }
-}
+    document.querySelectorAll(".menu-card").forEach(card => {
+      card.addEventListener("click", () => {
+        showPage(card.dataset.target);
+      });
+    });
 
-function drawParticles(dt) {
-  for (const p of particles) {
-    // Move LEFT TO RIGHT
-    p.x += p.speed * dt;
+    document.querySelectorAll(".back-button").forEach(button => {
+      button.addEventListener("click", () => {
+        showPage("database");
+      });
+    });
 
-    if (p.x > W + 5) {
-      p.x = -5;
-      p.y = random(0, H);
+    document.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+
+      const active = document.querySelector(".page.active");
+      if (!active || active.id === "landing") return;
+
+      showPage(active.id === "database" ? "landing" : "database");
+    });
+
+    /* ======================================================
+       PIXEL SPACE BACKGROUND
+       Clean stars + small planets + tiny spaceship
+       Motion LEFT TO RIGHT
+    ====================================================== */
+
+    const canvas = document.getElementById("spaceCanvas");
+    const ctx = canvas.getContext("2d", { alpha: false });
+
+    let W = 0;
+    let H = 0;
+    let stars = [];
+    let streaks = [];
+    let particles = [];
+    let ship = { x: 0, y: 0, speed: 0.24 };
+
+    const random = (min, max) => Math.random() * (max - min) + min;
+
+    function resizeCanvas() {
+      W = window.innerWidth;
+      H = window.innerHeight;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.imageSmoothingEnabled = false;
+
+      createSpace();
     }
 
-    ctx.fillStyle = `rgba(45,125,255,${p.alpha})`;
+    function createSpace() {
+      stars = [];
+      streaks = [];
+      particles = [];
 
-    ctx.fillRect(
-      Math.round(p.x),
-      Math.round(p.y),
-      p.size,
-      p.size
-    );
-  }
-}
+      const starCount = Math.min(520, Math.max(160, Math.floor(W * H / 3300)));
 
-function drawBrightStar(x, y, size) {
-  const glow = ctx.createRadialGradient(
-    x, y, 0, x, y, size * 8
-  );
+      for (let i = 0; i < starCount; i++) {
+        stars.push({
+          x: random(0, W),
+          y: random(0, H),
+          size: Math.random() < 0.82 ? 1 : 2,
+          speed: random(0.08, 0.55),
+          brightness: random(0.22, 0.95),
+          twinkle: random(0, Math.PI * 2)
+        });
+      }
 
-  glow.addColorStop(0, "rgba(235,247,255,0.8)");
-  glow.addColorStop(0.2, "rgba(115,185,255,0.28)");
-  glow.addColorStop(1, "rgba(20,80,180,0)");
+      for (let i = 0; i < 24; i++) {
+        streaks.push({
+          x: random(0, W),
+          y: random(0, H),
+          length: random(25, 110),
+          speed: random(0.9, 2.2),
+          alpha: random(0.08, 0.24)
+        });
+      }
 
-  ctx.fillStyle = glow;
-  ctx.fillRect(
-    x - size * 8,
-    y - size * 8,
-    size * 16,
-    size * 16
-  );
+      for (let i = 0; i < 150; i++) {
+        particles.push({
+          x: random(0, W),
+          y: random(0, H),
+          size: Math.random() < 0.88 ? 1 : 2,
+          speed: random(0.12, 0.40),
+          alpha: random(0.03, 0.12)
+        });
+      }
 
-  ctx.fillStyle = "#e7f4ff";
-  ctx.fillRect(x - size * 4, y, size * 8, 1);
-  ctx.fillRect(x, y - size * 4, 1, size * 8);
-  ctx.fillRect(x - 2, y - 2, 4, 4);
-}
+      ship.x = -40;
+      ship.y = H * 0.70;
+      ship.speed = Math.max(0.22, W / 5200);
+    }
 
-let previousTime = 0;
+    function drawBackground() {
+      ctx.fillStyle = "#02050d";
+      ctx.fillRect(0, 0, W, H);
 
-function animate(time) {
-  const dt = Math.min(
-    (time - previousTime) / 16.67 || 1,
-    2.5
-  );
+      const nebula = ctx.createRadialGradient(W * 0.30, H * 0.45, 0, W * 0.30, H * 0.45, W * 0.65);
+      nebula.addColorStop(0, "rgba(16,58,138,0.18)");
+      nebula.addColorStop(0.45, "rgba(9,28,78,0.10)");
+      nebula.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = nebula;
+      ctx.fillRect(0, 0, W, H);
 
-  previousTime = time;
+      const nebula2 = ctx.createRadialGradient(W * 0.82, H * 0.74, 0, W * 0.82, H * 0.74, W * 0.36);
+      nebula2.addColorStop(0, "rgba(28,76,180,0.10)");
+      nebula2.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = nebula2;
+      ctx.fillRect(0, 0, W, H);
+    }
 
-  if (!document.hidden) {
-    drawBackground();
-    drawParticles(dt);
-    drawStars(dt, time);
-    drawStreaks(dt);
+    function drawStars(dt, time) {
+      for (const s of stars) {
+        s.x += s.speed * dt;
 
-    drawBrightStar(W * 0.20, H * 0.23, 2);
-    drawBrightStar(W * 0.78, H * 0.28, 2.5);
-    drawBrightStar(W * 0.68, H * 0.83, 2);
-  }
+        if (s.x > W + 5) {
+          s.x = -5;
+          s.y = random(0, H);
+        }
 
-  requestAnimationFrame(animate);
-}
+        const twinkle = 0.78 + Math.sin(time * 0.0012 + s.twinkle) * 0.22;
+        ctx.fillStyle = `rgba(210,230,255,${s.brightness * twinkle})`;
+        ctx.fillRect(Math.round(s.x), Math.round(s.y), s.size, s.size);
+      }
+    }
 
-window.addEventListener("resize", resizeCanvas);
+    function drawStreaks(dt) {
+      for (const s of streaks) {
+        s.x += s.speed * dt;
 
-resizeCanvas();
-requestAnimationFrame(animate);
-</script>
+        if (s.x > W + 8) {
+          s.x = -s.length - random(20, 240);
+          s.y = random(0, H);
+        }
 
+        const gradient = ctx.createLinearGradient(s.x, s.y, s.x + s.length, s.y);
+        gradient.addColorStop(0, "rgba(60,120,255,0)");
+        gradient.addColorStop(0.8, `rgba(120,180,255,${s.alpha * 0.5})`);
+        gradient.addColorStop(1, `rgba(210,230,255,${s.alpha})`);
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(s.x, s.y, s.length, 1);
+      }
+    }
+
+    function drawParticles(dt) {
+      for (const p of particles) {
+        p.x += p.speed * dt;
+
+        if (p.x > W + 5) {
+          p.x = -5;
+          p.y = random(0, H);
+        }
+
+        ctx.fillStyle = `rgba(70,135,255,${p.alpha})`;
+        ctx.fillRect(Math.round(p.x), Math.round(p.y), p.size, p.size);
+      }
+    }
+
+    function fillPixelRect(x, y, w, h, color) {
+      ctx.fillStyle = color;
+      ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
+    }
+
+    function drawPixelPlanet(x, y, r, colors) {
+      const px = Math.round(x);
+      const py = Math.round(y);
+
+      // Glow
+      const glow = ctx.createRadialGradient(px, py, 0, px, py, r * 2.2);
+      glow.addColorStop(0, colors.glowInner);
+      glow.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(px, py, r * 2.2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Pixel body
+      const step = Math.max(2, Math.round(r / 7));
+      for (let yy = -r; yy <= r; yy += step) {
+        for (let xx = -r; xx <= r; xx += step) {
+          const dist = Math.sqrt(xx * xx + yy * yy);
+          if (dist <= r) {
+            let c = colors.base;
+            if (xx < -r * 0.18 && yy < 0) c = colors.highlight;
+            if (xx > r * 0.2 || yy > r * 0.28) c = colors.shadow;
+            fillPixelRect(px + xx, py + yy, step, step, c);
+          }
+        }
+      }
+    }
+
+    function drawPixelRingPlanet(x, y, r) {
+      // ring behind
+      fillPixelRect(x - r * 1.6, y + r * 0.1, r * 3.0, 2, "rgba(165,190,255,0.55)");
+      fillPixelRect(x - r * 1.3, y + r * 0.35, r * 2.5, 2, "rgba(90,120,190,0.40)");
+
+      drawPixelPlanet(x, y, r, {
+        base: "#6b75d9",
+        highlight: "#9fb3ff",
+        shadow: "#3c459e",
+        glowInner: "rgba(105,130,255,0.16)"
+      });
+
+      // ring front
+      fillPixelRect(x - r * 1.35, y + r * 0.55, r * 0.95, 2, "rgba(165,190,255,0.70)");
+      fillPixelRect(x + r * 0.42, y + r * 0.55, r * 0.95, 2, "rgba(165,190,255,0.70)");
+    }
+
+    function drawBluePlanet(x, y, r) {
+      drawPixelPlanet(x, y, r, {
+        base: "#4e86e8",
+        highlight: "#9bc3ff",
+        shadow: "#2851a8",
+        glowInner: "rgba(115,180,255,0.18)"
+      });
+
+      fillPixelRect(x - r * 0.55, y - r * 0.1, r * 0.45, 2, "rgba(214,235,255,0.60)");
+      fillPixelRect(x - r * 0.35, y + r * 0.1, r * 0.30, 2, "rgba(214,235,255,0.40)");
+    }
+
+    function drawTinyShip(x, y) {
+      x = Math.round(x);
+      y = Math.round(y);
+
+      // engine glow
+      fillPixelRect(x - 6, y + 3, 2, 2, "rgba(130,200,255,0.8)");
+      fillPixelRect(x - 8, y + 3, 2, 2, "rgba(70,140,255,0.45)");
+
+      // body
+      fillPixelRect(x, y, 8, 2, "#dfeaff");
+      fillPixelRect(x + 2, y - 2, 8, 2, "#edf5ff");
+      fillPixelRect(x + 4, y - 4, 6, 2, "#a5c8ff");
+      fillPixelRect(x + 8, y, 4, 2, "#92b8ff");
+
+      // wing
+      fillPixelRect(x + 2, y + 2, 5, 2, "#91a9df");
+      fillPixelRect(x + 3, y + 4, 3, 2, "#657cb4");
+
+      // cockpit
+      fillPixelRect(x + 6, y - 2, 2, 2, "#20365b");
+    }
+
+    function drawSpecialStar(x, y, pulse) {
+      const size = 10 + pulse * 2;
+      const glow = ctx.createRadialGradient(x, y, 0, x, y, size * 2.8);
+      glow.addColorStop(0, "rgba(235,247,255,0.9)");
+      glow.addColorStop(0.15, "rgba(170,210,255,0.35)");
+      glow.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = glow;
+      ctx.fillRect(x - size * 3, y - size * 3, size * 6, size * 6);
+
+      ctx.fillStyle = `rgba(235,247,255,${0.8 + pulse * 0.2})`;
+      ctx.fillRect(x - 7, y, 14, 1);
+      ctx.fillRect(x, y - 7, 1, 14);
+      ctx.fillRect(x - 1, y - 1, 3, 3);
+    }
+
+    function drawPlanetsAndShip(dt, time) {
+      // Small planets
+      drawPixelRingPlanet(W * 0.87, H * 0.18, Math.max(10, Math.min(16, W * 0.010)));
+      drawBluePlanet(W * 0.10, H * 0.76, Math.max(12, Math.min(18, W * 0.011)));
+
+      // Special stars (only a few)
+      const pulse1 = (Math.sin(time * 0.002) + 1) / 2;
+      const pulse2 = (Math.sin(time * 0.0016 + 1.7) + 1) / 2;
+      drawSpecialStar(W * 0.20, H * 0.23, pulse1);
+      drawSpecialStar(W * 0.78, H * 0.28, pulse2);
+
+      // Tiny spaceship
+      ship.x += ship.speed * dt * 2.2;
+      ship.y += Math.sin(time * 0.0018) * 0.08;
+
+      if (ship.x > W + 40) {
+        ship.x = -40;
+        ship.y = H * random(0.64, 0.76);
+      }
+
+      drawTinyShip(ship.x, ship.y);
+    }
+
+    let previousTime = 0;
+
+    function animate(time) {
+      const dt = Math.min((time - previousTime) / 16.67 || 1, 2.5);
+      previousTime = time;
+
+      if (!document.hidden) {
+        drawBackground();
+        drawParticles(dt);
+        drawStars(dt, time);
+        drawStreaks(dt);
+        drawPlanetsAndShip(dt, time);
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+    requestAnimationFrame(animate);
+  </script>
 </body>
 </html>
