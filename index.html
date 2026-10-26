@@ -59,277 +59,128 @@
     }
 
     /* =========================================================
-       LANDING
+       LANDING — RENDERED CORRIDOR BACKDROP
     ========================================================= */
-
     #landing {
       cursor: pointer;
-      background:
-        radial-gradient(circle at 50% 48%, rgba(175, 199, 235, 0.10), transparent 28%),
-        linear-gradient(180deg, #11161d 0%, #0a0d12 62%, #080b0f 100%);
       isolation: isolate;
+      background: #0b1018 url("./corridor-background.jpg") center center / cover no-repeat;
     }
-
-    .corridor {
+    #landing::before {
+      content: "";
       position: absolute;
       inset: 0;
-      overflow: hidden;
-      background:
-        linear-gradient(90deg,
-          rgba(255,255,255,.025) 0%,
-          transparent 22%,
-          transparent 78%,
-          rgba(255,255,255,.025) 100%),
-        radial-gradient(ellipse at 50% 58%, rgba(170,195,230,.10), transparent 36%);
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(4,8,13,.08), transparent 25%, transparent 75%, rgba(4,8,13,.08)),
+        linear-gradient(to bottom, rgba(5,8,13,.04), rgba(5,8,13,.12) 48%, rgba(4,7,12,.07));
     }
-
-    .corridor::before,
-    .corridor::after {
-      content: "";
-      position: absolute;
-      top: -6%;
-      bottom: 26%;
-      width: 39%;
-      opacity: .95;
-      filter: drop-shadow(0 0 10px rgba(210,230,255,.18));
-    }
-
-    .corridor::before {
-      left: -2%;
-      clip-path: polygon(0 0, 100% 0, 70% 34%, 86% 50%, 61% 63%, 100% 78%, 0 100%);
-      background:
-        linear-gradient(145deg,
-          #181e26 0 24%,
-          #0d1117 24% 28%,
-          #e7f1ff 28% 28.7%,
-          #171d25 28.7% 50%,
-          #0d1117 50% 54%,
-          #e7f1ff 54% 54.7%,
-          #161c24 54.7% 74%,
-          #0d1117 74% 78%,
-          #e7f1ff 78% 78.7%,
-          #12171e 78.7% 100%);
-    }
-
-    .corridor::after {
-      right: -2%;
-      transform: scaleX(-1);
-      clip-path: polygon(0 0, 100% 0, 70% 34%, 86% 50%, 61% 63%, 100% 78%, 0 100%);
-      background:
-        linear-gradient(145deg,
-          #181e26 0 24%,
-          #0d1117 24% 28%,
-          #e7f1ff 28% 28.7%,
-          #171d25 28.7% 50%,
-          #0d1117 50% 54%,
-          #e7f1ff 54% 54.7%,
-          #161c24 54.7% 74%,
-          #0d1117 74% 78%,
-          #e7f1ff 78% 78.7%,
-          #12171e 78.7% 100%);
-    }
-
-    .ceiling-line {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      width: 1px;
-      height: 36%;
-      transform: translateX(-50%);
-      background: linear-gradient(to bottom, rgba(235,244,255,.72), rgba(235,244,255,.04));
-      box-shadow: 0 0 10px rgba(220,235,255,.38);
-    }
-
-    .ceiling-line::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: -3px;
-      width: 7px;
-      height: 7px;
-      transform: translateX(-50%) rotate(45deg);
-      background: #f2f7ff;
-      box-shadow: 0 0 14px #d9e8ff;
-    }
-
-    .floor {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 46%;
-      background:
-        linear-gradient(to bottom, rgba(32,40,51,.45), rgba(7,10,14,.96)),
-        repeating-linear-gradient(90deg,
-          transparent 0 16.5%,
-          rgba(190,210,235,.055) 16.5% 16.65%);
-      transform-origin: top center;
-    }
-
-    .floor::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      height: 2px;
-      background: rgba(225,236,252,.55);
-      box-shadow: 0 0 13px rgba(218,232,255,.32);
-    }
-
-    .floor::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 0;
-      width: 34%;
-      height: 100%;
-      transform: translateX(-50%);
-      background: linear-gradient(to bottom,
-        rgba(230,241,255,.12),
-        rgba(230,241,255,.025) 48%,
-        transparent 100%);
-      filter: blur(10px);
-    }
-
     .landing-ui {
       position: relative;
-      z-index: 8;
+      z-index: 2;
       width: 100%;
       height: 100%;
       display: grid;
       place-items: center;
       text-align: center;
-      padding: 5vh 6vw;
+      padding: 4vh 5vw;
     }
-
     .landing-center {
-      transform: translateY(-3vh);
+      transform: translateY(-2vh);
     }
-
     .name {
       font-family: "Orbitron", sans-serif;
-      font-size: clamp(46px, 6vw, 92px);
-      font-weight: 500;
-      letter-spacing: .22em;
-      margin-left: .22em;
-      color: #f3f7fd;
-      text-shadow:
-        0 0 14px rgba(220,235,255,.34),
-        0 0 34px rgba(220,235,255,.10);
-    }
-
-    .portfolio-title {
-      margin-top: 22px;
-      font-family: "Press Start 2P", monospace;
-      font-size: clamp(10px, 1.25vw, 17px);
-      letter-spacing: .22em;
-      line-height: 1.8;
-      color: #dde8f7;
-    }
-
-    .role {
-      margin-top: 20px;
-      font-family: "Orbitron", sans-serif;
-      font-size: clamp(10px, 1vw, 14px);
+      font-size: clamp(38px, 4.1vw, 68px);
       font-weight: 400;
-      letter-spacing: .36em;
-      margin-left: .36em;
-      color: var(--muted);
+      letter-spacing: .24em;
+      margin-left: .24em;
+      color: #eef5ff;
+      text-shadow: 0 0 12px rgba(230,240,255,.30), 0 0 25px rgba(212,231,255,.12);
     }
-
+    .portfolio-title {
+      margin-top: 17px;
+      font-family: "Press Start 2P", monospace;
+      font-size: clamp(8px, .9vw, 12px);
+      letter-spacing: .20em;
+      line-height: 1.8;
+      color: #dce6f6;
+    }
+    .role {
+      margin-top: 17px;
+      font-family: "Orbitron", sans-serif;
+      font-size: clamp(8px, .78vw, 12px);
+      font-weight: 400;
+      letter-spacing: .28em;
+      margin-left: .28em;
+      color: #aab7ca;
+    }
     .corner-label {
       position: absolute;
-      left: 4.2vw;
-      top: 5.2vh;
-      text-align: left;
+      left: 4vw;
+      top: 5.3vh;
       font-family: "Press Start 2P", monospace;
       font-size: 7px;
       letter-spacing: .08em;
-      line-height: 1.8;
-      color: rgba(199,214,235,.70);
+      line-height: 1.7;
+      color: #b9c9df;
+      text-align: left;
     }
-
     .corner-label::before {
       content: "";
       position: absolute;
-      left: -18px;
+      left: -19px;
       top: -8px;
       width: 1px;
-      height: 54px;
-      background: rgba(218,231,248,.45);
+      height: 50px;
+      background: rgba(218,231,248,.58);
     }
-
-    .corner-label::after {
-      content: "";
-      display: block;
-      width: 18px;
-      height: 1px;
-      margin-top: 9px;
-      background: rgba(218,231,248,.52);
-    }
-
     .access-prompt {
       position: absolute;
       left: 50%;
-      bottom: 13vh;
+      bottom: 16vh;
       transform: translateX(-50%);
       white-space: nowrap;
       font-family: "Press Start 2P", monospace;
-      font-size: clamp(7px, .8vw, 10px);
-      letter-spacing: .09em;
-      color: rgba(227,237,251,.92);
-      text-shadow: 0 0 12px rgba(218,232,255,.30);
-      animation: accessBlink 1.15s steps(1, end) infinite;
+      font-size: clamp(6px, .73vw, 9px);
+      letter-spacing: .12em;
+      color: #dce8f9;
+      text-shadow: 0 0 9px rgba(217,230,250,.35);
+      animation: accessBlink 1.2s steps(1,end) infinite;
     }
-
     .access-prompt::after {
       content: "";
       display: block;
-      width: 26px;
+      width: 27px;
       height: 1px;
       margin: 18px auto 0;
-      background: rgba(225,236,252,.66);
-      box-shadow: 0 0 8px rgba(225,236,252,.22);
+      background: rgba(225,235,249,.64);
     }
-
     @keyframes accessBlink {
-      0%, 54% { opacity: 1; }
-      55%, 100% { opacity: .24; }
+      0%, 55% { opacity: 1; }
+      56%, 100% { opacity: .18; }
     }
-
-    #landing:hover .access-prompt {
-      animation-duration: .7s;
-      color: #fff;
-    }
-
     .landing-flash {
       position: absolute;
       inset: 0;
       z-index: 50;
       opacity: 0;
       pointer-events: none;
-      background: white;
+      background: #eef6ff;
     }
-
     #landing.entering .landing-flash {
-      animation: flashOut .8s ease forwards;
+      animation: flashOut .75s ease forwards;
     }
-
     #landing.entering .landing-center {
-      animation: centerExit .8s ease forwards;
+      animation: centerExit .75s ease forwards;
     }
-
     @keyframes flashOut {
       0% { opacity: 0; }
-      34% { opacity: .13; }
-      50% { opacity: .70; }
+      45% { opacity: .30; }
+      70% { opacity: .02; }
       100% { opacity: 0; }
     }
-
     @keyframes centerExit {
-      0% { opacity: 1; transform: translateY(-3vh) scale(1); }
-      100% { opacity: 0; transform: translateY(-3vh) scale(1.025); }
+      from { opacity: 1; transform: translateY(-2vh) scale(1); }
+      to { opacity: 0; transform: translateY(-2vh) scale(1.035); }
     }
 
     /* =========================================================
@@ -663,9 +514,6 @@
   ======================================================= -->
 
   <section id="landing" class="view active" aria-label="Portfolio landing page">
-    <div class="corridor" aria-hidden="true"></div>
-    <div class="ceiling-line" aria-hidden="true"></div>
-    <div class="floor" aria-hidden="true"></div>
 
     <div class="corner-label">
       ENGINEERING PORTFOLIO
