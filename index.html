@@ -19,7 +19,9 @@
   --border: rgba(146,190,255,.28);
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 html, body {
   margin: 0;
@@ -31,7 +33,9 @@ html, body {
   font-family: Inter, Arial, sans-serif;
 }
 
-button { font: inherit; }
+button {
+  font: inherit;
+}
 
 .page {
   position: fixed;
@@ -48,9 +52,9 @@ button { font: inherit; }
   pointer-events: auto;
 }
 
-/* =========================
+/* ==========================================
    LANDING SCREEN
-========================= */
+========================================== */
 
 #landing {
   cursor: pointer;
@@ -161,19 +165,20 @@ button { font: inherit; }
   opacity: 0;
 }
 
-/* =========================
-   SPACESHIP TAKEOFF
-========================= */
+/* ==========================================
+   SPACESHIP TAKEOFF ANIMATION
+========================================== */
 
 .launch-scene {
   position: absolute;
   inset: 0;
   z-index: 4;
+  display: block;
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity .3s ease, visibility .3s ease;
+  transition: opacity .30s ease, visibility .30s ease;
 }
 
 #landing.entering .launch-scene {
@@ -230,8 +235,12 @@ button { font: inherit; }
     opacity: 0;
     transform: translateY(-22%);
   }
-  35% { opacity: .25; }
-  78% { opacity: .45; }
+  35% {
+    opacity: .25;
+  }
+  78% {
+    opacity: .45;
+  }
   100% {
     opacity: .15;
     transform: translateY(75%);
@@ -297,7 +306,9 @@ button { font: inherit; }
 }
 
 @keyframes launchProgress {
-  to { transform: translateX(0); }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .launch-status {
@@ -412,9 +423,9 @@ button { font: inherit; }
   100% { opacity: .8; }
 }
 
-/* =========================
-   DESTINATION SELECTION
-========================= */
+/* ==========================================
+   DESTINATION SELECTION SCREEN
+========================================== */
 
 #database {
   isolation: isolate;
@@ -460,6 +471,7 @@ button { font: inherit; }
       #071021 50%,
       #030712 100%
     );
+
   background-size:
     auto,
     320px 260px,
@@ -715,9 +727,9 @@ button { font: inherit; }
   font: 8px/1.8 'Press Start 2P',monospace;
 }
 
-/* =========================
-   LANDING TRANSITION
-========================= */
+/* ==========================================
+   DESTINATION ARRIVAL TRANSITION
+========================================== */
 
 .landing-transition {
   position: fixed;
@@ -778,12 +790,14 @@ button { font: inherit; }
 }
 
 @keyframes loadLanding {
-  to { transform: translateX(0); }
+  to {
+    transform: translateX(0);
+  }
 }
 
-/* =========================
-   CONTENT PAGES
-========================= */
+/* ==========================================
+   PORTFOLIO SECTION PAGES
+========================================== */
 
 .content-page {
   overflow-y: auto;
@@ -837,9 +851,75 @@ button { font: inherit; }
   background: rgba(130,180,250,.2);
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* ==========================================
+   CONTACT PAGE
+========================================== */
+
+.contact-links {
+  display: grid;
+  gap: 12px;
+  max-width: 760px;
+  margin-top: 34px;
+}
+
+.contact-link {
+  display: grid;
+  grid-template-columns: 152px minmax(0,1fr) 24px;
+  align-items: center;
+  gap: 20px;
+  min-height: 90px;
+  padding: 20px 24px;
+  border: 1px solid rgba(146,190,255,.28);
+  background:
+    linear-gradient(
+      100deg,
+      rgba(37,70,116,.16),
+      rgba(8,16,33,.22)
+    );
+  color: #e3f1ff;
+  text-decoration: none;
+  transition:
+    border-color .2s,
+    background .2s,
+    transform .2s;
+}
+
+.contact-link:hover,
+.contact-link:focus-visible {
+  border-color: #98ceff;
+  background: rgba(45,91,148,.22);
+  transform: translateX(4px);
+  outline: none;
+}
+
+.contact-channel {
+  font: 8px/1.9 'Press Start 2P',monospace;
+  color: #85a8d0;
+}
+
+.contact-value {
+  overflow-wrap: anywhere;
+  font-size: clamp(14px,1.8vw,18px);
+  letter-spacing: .01em;
+}
+
+.contact-arrow {
+  color: #a2d5ff;
+  text-align: right;
+  font-size: 23px;
+}
+
+/* ==========================================
+   RESPONSIVE DESIGN
+========================================== */
+
+@media (max-width: 900px) {
+  .name {
+    font-size: clamp(35px,8vw,65px);
+    letter-spacing: .1em;
+    margin-left: .1em;
+  }
+}
 
 @media (max-width: 700px) {
   .nav-shell {
@@ -904,6 +984,30 @@ button { font: inherit; }
   }
 }
 
+@media (max-width: 600px) {
+  .contact-link {
+    grid-template-columns: minmax(0,1fr) 22px;
+    column-gap: 12px;
+    padding: 16px;
+  }
+
+  .contact-channel {
+    grid-column: 1;
+    font-size: 7px;
+  }
+
+  .contact-value {
+    grid-column: 1;
+    grid-row: 2;
+    font-size: 14px;
+  }
+
+  .contact-arrow {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
 @media (max-width: 530px) {
   .name {
     font-size: clamp(28px,9vw,36px);
@@ -947,7 +1051,8 @@ button { font: inherit; }
   }
 
   .page,
-  .nav-destination {
+  .nav-destination,
+  .contact-link {
     transition: none;
   }
 
@@ -968,9 +1073,9 @@ button { font: inherit; }
 
 <body>
 
-<!-- =========================
+<!-- ==========================================
      LANDING SCREEN
-========================= -->
+========================================== -->
 
 <section
   id="landing"
@@ -984,9 +1089,11 @@ button { font: inherit; }
   <div class="landing-content">
     <div class="title-group">
       <h1 class="name">TONGYANG</h1>
+
       <div class="portfolio-title">
         ENGINEERING PORTFOLIO
       </div>
+
       <div class="role">
         MECHATRONICS ENGINEER
       </div>
@@ -997,7 +1104,7 @@ button { font: inherit; }
     </div>
   </div>
 
-  <!-- Spaceship takeoff -->
+  <!-- SPACESHIP TAKEOFF -->
 
   <div
     class="launch-scene"
@@ -1030,7 +1137,7 @@ button { font: inherit; }
       </div>
     </div>
 
-    <div class="launch-ship">
+    <div class="launch-ship" aria-hidden="true">
       <canvas
         id="launchShipCanvas"
         width="30"
@@ -1043,9 +1150,9 @@ button { font: inherit; }
   <div class="transition-flash"></div>
 </section>
 
-<!-- =========================
-     DESTINATION SELECT
-========================= -->
+<!-- ==========================================
+     DESTINATION SELECTION SCREEN
+========================================== -->
 
 <section
   id="database"
@@ -1056,7 +1163,8 @@ button { font: inherit; }
 
     <header class="nav-topbar">
       <div>
-        <strong>TY-01</strong> // FLIGHT NAVIGATION
+        <strong>TY-01</strong>
+        // FLIGHT NAVIGATION
       </div>
 
       <div class="status">
@@ -1066,6 +1174,7 @@ button { font: inherit; }
     </header>
 
     <main class="nav-main">
+
       <div class="nav-eyebrow">
         NAVIGATION SYSTEM // FIVE LOCATIONS
       </div>
@@ -1152,12 +1261,13 @@ button { font: inherit; }
           ← RETURN TO SHIP
         </button>
 
-        <span>SELECT A DESTINATION TO LAND</span>
+        <span>
+          SELECT A DESTINATION TO LAND
+        </span>
       </div>
+
     </main>
   </div>
-
-  <!-- Brief transition when a destination is clicked -->
 
   <div
     class="landing-transition"
@@ -1165,7 +1275,10 @@ button { font: inherit; }
     aria-hidden="true"
   >
     <span>LANDING ROUTE CONFIRMED</span>
-    <strong id="landingTargetName">PROJECTS</strong>
+
+    <strong id="landingTargetName">
+      PROJECTS
+    </strong>
 
     <div class="landing-loading">
       <i></i>
@@ -1175,13 +1288,17 @@ button { font: inherit; }
   </div>
 </section>
 
-<!-- =========================
+<!-- ==========================================
      PROJECTS
-========================= -->
+========================================== -->
 
 <section id="projects" class="page content-page">
   <div class="content-container">
-    <div class="small-label">DATABASE // 01</div>
+
+    <div class="small-label">
+      DATABASE // 01
+    </div>
+
     <h2>PROJECTS</h2>
 
     <p>
@@ -1193,16 +1310,21 @@ button { font: inherit; }
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
+
   </div>
 </section>
 
-<!-- =========================
+<!-- ==========================================
      EXPERIENCE
-========================= -->
+========================================== -->
 
 <section id="experience" class="page content-page">
   <div class="content-container">
-    <div class="small-label">DATABASE // 02</div>
+
+    <div class="small-label">
+      DATABASE // 02
+    </div>
+
     <h2>EXPERIENCE</h2>
 
     <p>
@@ -1214,16 +1336,21 @@ button { font: inherit; }
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
+
   </div>
 </section>
 
-<!-- =========================
+<!-- ==========================================
      SKILLS
-========================= -->
+========================================== -->
 
 <section id="skills" class="page content-page">
   <div class="content-container">
-    <div class="small-label">DATABASE // 03</div>
+
+    <div class="small-label">
+      DATABASE // 03
+    </div>
+
     <h2>SKILLS</h2>
 
     <p>
@@ -1235,16 +1362,21 @@ button { font: inherit; }
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
+
   </div>
 </section>
 
-<!-- =========================
+<!-- ==========================================
      ABOUT
-========================= -->
+========================================== -->
 
 <section id="about" class="page content-page">
   <div class="content-container">
-    <div class="small-label">DATABASE // 04</div>
+
+    <div class="small-label">
+      DATABASE // 04
+    </div>
+
     <h2>ABOUT</h2>
 
     <p>
@@ -1256,45 +1388,107 @@ button { font: inherit; }
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
+
   </div>
 </section>
 
-<!-- =========================
-     CONTACT
-========================= -->
+<!-- ==========================================
+     CONTACT - EMAIL AND LINKEDIN
+========================================== -->
 
-<section id="contact" class="page content-page">
+<section
+  id="contact"
+  class="page content-page"
+  aria-label="Contact information"
+>
   <div class="content-container">
-    <div class="small-label">DATABASE // 05</div>
+
+    <div class="small-label">
+      DATABASE // 05
+    </div>
+
     <h2>CONTACT</h2>
 
     <p>
-      My email, LinkedIn, GitHub and CV
-      will be available here.
+      Feel free to reach out or connect with me.
     </p>
+
+    <div class="contact-links">
+
+      <!-- EMAIL -->
+
+      <a
+        class="contact-link"
+        href="mailto:tcha0124@student.monash.edu"
+        aria-label="Send me an email"
+      >
+        <span class="contact-channel">
+          01 // EMAIL
+        </span>
+
+        <span class="contact-value">
+          tcha0124@student.monash.edu
+        </span>
+
+        <span
+          class="contact-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+      </a>
+
+      <!-- LINKEDIN -->
+
+      <a
+        class="contact-link"
+        href="https://www.linkedin.com/in/tonggyangg"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="View my LinkedIn profile"
+      >
+        <span class="contact-channel">
+          02 // LINKEDIN
+        </span>
+
+        <span class="contact-value">
+          linkedin.com/in/tonggyangg
+        </span>
+
+        <span
+          class="contact-arrow"
+          aria-hidden="true"
+        >
+          ↗
+        </span>
+      </a>
+
+    </div>
 
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
+
   </div>
 </section>
 
 <script>
-/* =========================
+
+/* ==========================================
    PAGE NAVIGATION
-========================= */
+========================================== */
 
 const pages = document.querySelectorAll('.page');
 const landing = document.getElementById('landing');
+
+let transitioning = false;
+let launchTimers = [];
 
 const launchStatus =
   document.getElementById('launchStatus');
 
 const launchScene =
   document.getElementById('launchScene');
-
-let transitioning = false;
-let launchTimers = [];
 
 function showPage(id) {
   pages.forEach(page => {
@@ -1312,7 +1506,9 @@ function showPage(id) {
 }
 
 function launchLater(callback, ms) {
-  launchTimers.push(setTimeout(callback, ms));
+  launchTimers.push(
+    setTimeout(callback, ms)
+  );
 }
 
 function finishLaunch() {
@@ -1352,20 +1548,21 @@ function enterDatabase() {
   launchStatus.textContent =
     'ENGAGING THRUSTERS...';
 
-  // Restart the takeoff animation on every visit
   landing.classList.remove('entering');
 
   void landing.offsetWidth;
 
   landing.classList.add('entering');
 
-  const reducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
+  const reducedMotion =
+    window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
 
   if (reducedMotion) {
     launchLater(finishLaunch, 350);
   } else {
+
     launchLater(() => {
       launchStatus.textContent =
         'LIFTOFF CONFIRMED // ASCENDING';
@@ -1380,26 +1577,33 @@ function enterDatabase() {
   }
 }
 
-landing.addEventListener('click', enterDatabase);
+landing.addEventListener(
+  'click',
+  enterDatabase
+);
 
-landing.addEventListener('keydown', event => {
-  if (
-    event.key === 'Enter' ||
-    event.key === ' '
-  ) {
-    event.preventDefault();
-    enterDatabase();
+landing.addEventListener(
+  'keydown',
+  event => {
+    if (
+      event.key === 'Enter' ||
+      event.key === ' '
+    ) {
+      event.preventDefault();
+      enterDatabase();
+    }
   }
-});
+);
 
-document.getElementById('returnLanding')
+document
+  .getElementById('returnLanding')
   .addEventListener('click', () => {
     showPage('landing');
   });
 
-/* =========================
-   DESTINATION BUTTONS
-========================= */
+/* ==========================================
+   DESTINATION SELECTION
+========================================== */
 
 const destinationNames = {
   projects: 'PROJECTS',
@@ -1435,9 +1639,12 @@ function finishLanding() {
   }
 }
 
-document.querySelectorAll('.nav-destination')
+document
+  .querySelectorAll('.nav-destination')
   .forEach(button => {
+
     button.addEventListener('click', () => {
+
       const target = button.dataset.target;
 
       if (
@@ -1453,7 +1660,6 @@ document.querySelectorAll('.nav-destination')
         'landingTargetName'
       ).textContent = destinationNames[target];
 
-      // Replay the animation
       landingTransition.classList.remove('show');
 
       void landingTransition.offsetWidth;
@@ -1465,73 +1671,91 @@ document.querySelectorAll('.nav-destination')
         'false'
       );
 
-      const shortMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-      ).matches;
+      const reducedMotion =
+        window.matchMedia(
+          '(prefers-reduced-motion: reduce)'
+        ).matches;
 
       landingTimer = setTimeout(
         finishLanding,
-        shortMotion ? 120 : 780
+        reducedMotion ? 120 : 780
       );
+
     });
+
   });
 
-document.querySelectorAll('.back-button')
+/* ==========================================
+   BACK BUTTONS
+========================================== */
+
+document
+  .querySelectorAll('.back-button')
   .forEach(button => {
+
     button.addEventListener('click', () => {
       showPage('database');
     });
+
   });
 
-document.addEventListener('keydown', event => {
-  if (event.key !== 'Escape') return;
+document.addEventListener(
+  'keydown',
+  event => {
 
-  if (landingTransition.classList.contains('show')) {
-    finishLanding();
-    return;
+    if (event.key !== 'Escape') return;
+
+    if (
+      landingTransition.classList.contains('show')
+    ) {
+      finishLanding();
+      return;
+    }
+
+    if (transitioning) {
+      finishLaunch();
+      return;
+    }
+
+    const current =
+      document.querySelector('.page.active');
+
+    if (
+      !current ||
+      current.id === 'landing'
+    ) {
+      return;
+    }
+
+    showPage(
+      current.id === 'database'
+        ? 'landing'
+        : 'database'
+    );
   }
+);
 
-  if (transitioning) {
-    finishLaunch();
-    return;
-  }
-
-  const current = document.querySelector('.page.active');
-
-  if (!current || current.id === 'landing') {
-    return;
-  }
-
-  showPage(
-    current.id === 'database'
-      ? 'landing'
-      : 'database'
-  );
-});
-
-/* =========================
-   DRAW TAKEOFF SPACESHIP
-========================= */
+/* ==========================================
+   PIXEL SPACESHIP FOR TAKEOFF
+========================================== */
 
 function createLaunchSpaceship() {
-  const canvas =
+
+  const c =
     document.getElementById('launchShipCanvas');
 
-  const p = canvas.getContext('2d');
+  const p = c.getContext('2d');
 
-  p.clearRect(
-    0, 0,
-    canvas.width,
-    canvas.height
-  );
+  p.clearRect(0, 0, c.width, c.height);
 
   function rect(x, y, w, h, color) {
     p.fillStyle = color;
     p.fillRect(x, y, w, h);
   }
 
-  // Main spaceship body
+  // Main hull
   for (let y = 1; y < 36; y++) {
+
     const half =
       y < 7
         ? Math.max(0,Math.floor(y * .40))
@@ -1541,8 +1765,13 @@ function createLaunchSpaceship() {
             ? 4
             : 5;
 
-    for (let x = 15 - half; x <= 15 + half; x++) {
-      let color =
+    for (
+      let x = 15 - half;
+      x <= 15 + half;
+      x++
+    ) {
+
+      let col =
         x === 15 - half
           ? '#6d8fca'
           : x === 15 + half
@@ -1552,17 +1781,19 @@ function createLaunchSpaceship() {
               : '#98b8e3';
 
       if (y > 24) {
-        color = x < 15
-          ? '#adc9e8'
-          : '#6f91c6';
+        col =
+          x < 15
+            ? '#adc9e8'
+            : '#6f91c6';
       }
 
-      rect(x, y, 1, 1, color);
+      rect(x, y, 1, 1, col);
     }
   }
 
-  // Wings
+  // Spaceship wings
   for (let y = 17; y <= 32; y++) {
+
     const wing =
       y < 24
         ? Math.floor((y - 16) * 1.65)
@@ -1572,8 +1803,12 @@ function createLaunchSpaceship() {
           );
 
     for (let dx = 5; dx <= wing; dx++) {
+
       rect(
-        15 - dx, y, 1, 1,
+        15 - dx,
+        y,
+        1,
+        1,
         dx === wing
           ? '#5478b9'
           : y > 28
@@ -1582,21 +1817,26 @@ function createLaunchSpaceship() {
       );
 
       rect(
-        15 + dx, y, 1, 1,
+        15 + dx,
+        y,
+        1,
+        1,
         dx === wing
           ? '#3c5c9e'
           : y > 28
             ? '#4c6399'
             : '#668cce'
       );
+
     }
   }
 
-  // Cockpit and body details
+  // Cockpit
   rect(14,2,3,3,'#dff6ff');
   rect(14,9,3,10,'#263f71');
   rect(15,10,1,7,'#65d0ef');
 
+  // Body details
   rect(13,20,5,2,'#dcefff');
   rect(14,23,3,7,'#394e86');
   rect(15,23,1,4,'#77d5f3');
@@ -1611,28 +1851,29 @@ function createLaunchSpaceship() {
   rect(12,36,2,3,'#8cdbff');
   rect(18,36,2,3,'#8cdbff');
 
-  // Navigation lights
+  // Lights
   rect(5,28,2,2,'#a0ddff');
   rect(24,28,2,2,'#6dcbff');
 }
 
 createLaunchSpaceship();
 
-/* =========================
-   ANIMATED SPACE BACKGROUND
-   MOVING LEFT TO RIGHT
-========================= */
+/* ==========================================
+   MOVING SPACE BACKGROUND
+   DIRECTION: LEFT TO RIGHT
+========================================== */
 
-const spaceCanvas =
+const canvas =
   document.getElementById('spaceCanvas');
 
-const ctx = spaceCanvas.getContext('2d', {
+const ctx = canvas.getContext('2d', {
   alpha: false
 });
 
-const reduceMotion = window.matchMedia(
-  '(prefers-reduced-motion: reduce)'
-);
+const reduceMotion =
+  window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  );
 
 const rnd = (a, b) =>
   Math.random() * (b - a) + a;
@@ -1647,6 +1888,7 @@ let shipX = -70;
 let lastTime = 0;
 
 function resizeCanvas() {
+
   W = window.innerWidth;
   H = window.innerHeight;
 
@@ -1655,27 +1897,36 @@ function resizeCanvas() {
     2
   );
 
-  spaceCanvas.width = Math.round(W * dpr);
-  spaceCanvas.height = Math.round(H * dpr);
+  canvas.width = Math.round(W * dpr);
+  canvas.height = Math.round(H * dpr);
 
   ctx.setTransform(
-    dpr, 0, 0,
-    dpr, 0, 0
+    dpr,0,0,
+    dpr,0,0
   );
 
   makeStars();
 }
 
+/* ==========================================
+   GENERATE STARFIELD
+========================================== */
+
 function makeStars() {
+
   stars = [];
   trails = [];
 
   const count = Math.min(
     450,
-    Math.max(100,Math.round(W * H / 4700))
+    Math.max(
+      100,
+      Math.round(W * H / 4700)
+    )
   );
 
   for (let i = 0; i < count; i++) {
+
     stars.push({
       x: rnd(0,W),
       y: rnd(0,H),
@@ -1685,9 +1936,11 @@ function makeStars() {
       phase: rnd(0,7),
       tone: Math.random()
     });
+
   }
 
   for (let i = 0; i < 15; i++) {
+
     trails.push({
       x: rnd(0,W),
       y: rnd(0,H),
@@ -1695,14 +1948,18 @@ function makeStars() {
       speed: rnd(.5,1.25),
       alpha: rnd(.04,.16)
     });
+
   }
 
   shipX = -55;
 }
 
-/* SPACE GRADIENT */
+/* ==========================================
+   DRAW SPACE
+========================================== */
 
 function drawBackground() {
+
   const base = ctx.createLinearGradient(
     0,0,0,H
   );
@@ -1723,9 +1980,20 @@ function drawBackground() {
     W * .58
   );
 
-  g1.addColorStop(0,'rgba(17,45,103,.19)');
-  g1.addColorStop(.5,'rgba(8,22,59,.08)');
-  g1.addColorStop(1,'rgba(0,0,0,0)');
+  g1.addColorStop(
+    0,
+    'rgba(17,45,103,.19)'
+  );
+
+  g1.addColorStop(
+    .5,
+    'rgba(8,22,59,.08)'
+  );
+
+  g1.addColorStop(
+    1,
+    'rgba(0,0,0,0)'
+  );
 
   ctx.fillStyle = g1;
   ctx.fillRect(0,0,W,H);
@@ -1739,17 +2007,28 @@ function drawBackground() {
     W * .37
   );
 
-  g2.addColorStop(0,'rgba(43,58,139,.10)');
-  g2.addColorStop(1,'rgba(0,0,0,0)');
+  g2.addColorStop(
+    0,
+    'rgba(43,58,139,.10)'
+  );
+
+  g2.addColorStop(
+    1,
+    'rgba(0,0,0,0)'
+  );
 
   ctx.fillStyle = g2;
   ctx.fillRect(0,0,W,H);
 }
 
-/* SMALL MOVING STARS */
+/* ==========================================
+   ANIMATE STARS
+========================================== */
 
-function drawStars(time,dt) {
+function drawStars(time, dt) {
+
   for (const s of stars) {
+
     s.x += s.speed * dt;
 
     if (s.x > W + 3) {
@@ -1759,23 +2038,32 @@ function drawStars(time,dt) {
 
     const alpha =
       s.alpha * (
-        .85 + .15 * Math.sin(time * .001 + s.phase)
+        .85 +
+        .15 * Math.sin(
+          time * .001 + s.phase
+        )
       );
 
-    ctx.fillStyle = s.tone > .88
-      ? `rgba(169,194,255,${alpha})`
-      : `rgba(221,235,255,${alpha})`;
+    ctx.fillStyle =
+      s.tone > .88
+        ? `rgba(169,194,255,${alpha})`
+        : `rgba(221,235,255,${alpha})`;
 
     ctx.beginPath();
+
     ctx.arc(
-      s.x,s.y,s.r,
-      0,Math.PI * 2
+      s.x,
+      s.y,
+      s.r,
+      0,
+      Math.PI * 2
     );
+
     ctx.fill();
   }
 
-  // Subtle glowing streaks
   for (const s of trails) {
+
     s.x += s.speed * dt;
 
     if (s.x > W + 5) {
@@ -1784,8 +2072,10 @@ function drawStars(time,dt) {
     }
 
     const grad = ctx.createLinearGradient(
-      s.x,s.y,
-      s.x + s.len,s.y
+      s.x,
+      s.y,
+      s.x + s.len,
+      s.y
     );
 
     grad.addColorStop(
@@ -1799,19 +2089,27 @@ function drawStars(time,dt) {
     );
 
     ctx.fillStyle = grad;
+
     ctx.fillRect(
-      s.x,s.y,
-      s.len,1
+      s.x,
+      s.y,
+      s.len,
+      1
     );
   }
 }
 
-/* SUBTLE TWINKLES */
+/* ==========================================
+   SMALL TWINKLING STARS
+========================================== */
 
-function glint(x,y,time,phase) {
+function glint(x, y, time, phase) {
+
   const pulse =
     .6 + .4 * (
-      .5 + .5 * Math.sin(time * .0015 + phase)
+      .5 + .5 * Math.sin(
+        time * .0015 + phase
+      )
     );
 
   const halo = ctx.createRadialGradient(
@@ -1830,7 +2128,13 @@ function glint(x,y,time,phase) {
   );
 
   ctx.fillStyle = halo;
-  ctx.fillRect(x - 15,y - 15,30,30);
+
+  ctx.fillRect(
+    x - 15,
+    y - 15,
+    30,
+    30
+  );
 
   ctx.fillStyle =
     `rgba(238,247,255,${.8 * pulse})`;
@@ -1838,15 +2142,17 @@ function glint(x,y,time,phase) {
   ctx.fillRect(
     Math.round(x),
     Math.round(y),
-    2,2
+    2,
+    2
   );
 }
 
-/* =========================
+/* ==========================================
    PIXEL PLANETS
-========================= */
+========================================== */
 
 function makePlanet(type) {
+
   const c = document.createElement('canvas');
 
   c.width = 32;
@@ -1858,8 +2164,10 @@ function makePlanet(type) {
 
   for (let y = 0; y < 32; y++) {
     for (let x = 0; x < 32; x++) {
+
       const dx = x - 15.5;
       const dy = y - 15.5;
+
       const dist = Math.hypot(dx,dy);
 
       if (dist > 13.5) continue;
@@ -1880,36 +2188,51 @@ function makePlanet(type) {
       let color;
 
       if (type === 'blue') {
+
         if (dist > 12.3) {
           color = '#17355f';
+
         } else if (lit > 1.13) {
-          color = blotch > .22
-            ? '#94bdde'
-            : '#6b9cc6';
+          color =
+            blotch > .22
+              ? '#94bdde'
+              : '#6b9cc6';
+
         } else if (lit > .82) {
-          color = stripe > .43
-            ? '#5787b8'
-            : '#3d6fa6';
+          color =
+            stripe > .43
+              ? '#5787b8'
+              : '#3d6fa6';
+
         } else {
-          color = stripe > .35
-            ? '#294e86'
-            : '#1a365f';
+          color =
+            stripe > .35
+              ? '#294e86'
+              : '#1a365f';
         }
+
       } else {
+
         if (dist > 12.3) {
           color = '#333765';
+
         } else if (lit > 1.13) {
-          color = stripe > .15
-            ? '#b3a9dc'
-            : '#8f9ed0';
+          color =
+            stripe > .15
+              ? '#b3a9dc'
+              : '#8f9ed0';
+
         } else if (lit > .78) {
-          color = stripe > .13
-            ? '#786aa9'
-            : '#656d9d';
+          color =
+            stripe > .13
+              ? '#786aa9'
+              : '#656d9d';
+
         } else {
-          color = stripe > .13
-            ? '#494c7d'
-            : '#323457';
+          color =
+            stripe > .13
+              ? '#494c7d'
+              : '#323457';
         }
       }
 
@@ -1922,9 +2245,19 @@ function makePlanet(type) {
 }
 
 const bluePlanet = makePlanet('blue');
+
 const purplePlanet = makePlanet('purple');
 
-function planet(x,y,size,sprite,glowColor) {
+/* ==========================================
+   DRAW PLANETS
+========================================== */
+
+function planet(
+  x, y, size,
+  sprite,
+  glowColor
+) {
+
   ctx.save();
 
   const glow = ctx.createRadialGradient(
@@ -1932,8 +2265,15 @@ function planet(x,y,size,sprite,glowColor) {
     x,y,size * .92
   );
 
-  glow.addColorStop(0,glowColor);
-  glow.addColorStop(1,'rgba(0,0,0,0)');
+  glow.addColorStop(
+    0,
+    glowColor
+  );
+
+  glow.addColorStop(
+    1,
+    'rgba(0,0,0,0)'
+  );
 
   ctx.fillStyle = glow;
 
@@ -1957,14 +2297,18 @@ function planet(x,y,size,sprite,glowColor) {
   ctx.restore();
 }
 
-function drawRingPlanet(x,y,size) {
-  ctx.strokeStyle = 'rgba(139,155,220,.32)';
+function drawRingPlanet(x, y, size) {
+
+  ctx.strokeStyle =
+    'rgba(139,155,220,.32)';
+
   ctx.lineWidth = 2;
 
   ctx.beginPath();
 
   ctx.ellipse(
-    x,y + 2,
+    x,
+    y + 2,
     size * .85,
     size * .25,
     -.19,
@@ -1975,18 +2319,23 @@ function drawRingPlanet(x,y,size) {
   ctx.stroke();
 
   planet(
-    x,y,size,
+    x,
+    y,
+    size,
     purplePlanet,
     'rgba(124,133,218,.08)'
   );
 
-  ctx.strokeStyle = 'rgba(170,181,229,.58)';
+  ctx.strokeStyle =
+    'rgba(170,181,229,.58)';
+
   ctx.lineWidth = 1.7;
 
   ctx.beginPath();
 
   ctx.ellipse(
-    x,y + 2,
+    x,
+    y + 2,
     size * .85,
     size * .25,
     -.19,
@@ -1997,9 +2346,9 @@ function drawRingPlanet(x,y,size) {
   ctx.stroke();
 }
 
-/* =========================
-   TINY BACKGROUND SPACESHIP
-========================= */
+/* ==========================================
+   SMALL BACKGROUND SPACESHIP
+========================================== */
 
 const shipPixels = [
   '...........A......',
@@ -2021,8 +2370,10 @@ const shipColors = {
   E: '#263e6e'
 };
 
-function drawShip(x,y,time) {
-  const bob = Math.sin(time * .0017) * 2;
+function drawShip(x, y, time) {
+
+  const bob =
+    Math.sin(time * .0017) * 2;
 
   ctx.save();
 
@@ -2047,30 +2398,44 @@ function drawShip(x,y,time) {
   );
 
   ctx.fillStyle = engine;
-  ctx.fillRect(-17,-9,26,26);
 
-  shipPixels.forEach((row,ry) => {
-    [...row].forEach((cell,rx) => {
+  ctx.fillRect(
+    -17,
+    -9,
+    26,
+    26
+  );
+
+  shipPixels.forEach((row, ry) => {
+
+    [...row].forEach((cell, rx) => {
+
       if (shipColors[cell]) {
-        ctx.fillStyle = shipColors[cell];
+
+        ctx.fillStyle =
+          shipColors[cell];
 
         ctx.fillRect(
           rx * 1.4,
           ry * 1.4,
-          1.4,1.4
+          1.4,
+          1.4
         );
       }
+
     });
+
   });
 
   ctx.restore();
 }
 
-/* =========================
-   MAIN ANIMATION
-========================= */
+/* ==========================================
+   MAIN SPACE ANIMATION LOOP
+========================================== */
 
 function animate(time) {
+
   const dt = Math.min(
     (time - lastTime) / 16.67 || 1,
     2.2
@@ -2079,6 +2444,7 @@ function animate(time) {
   lastTime = time;
 
   if (!document.hidden) {
+
     drawBackground();
 
     drawStars(
@@ -2089,20 +2455,23 @@ function animate(time) {
     glint(
       W * .20,
       H * .23,
-      time,0
+      time,
+      0
     );
 
     glint(
       W * .78,
       H * .28,
-      time,1.8
+      time,
+      1.8
     );
 
-    const drift = reduceMotion.matches
-      ? 0
-      : Math.sin(time * .00016) * 10;
+    const drift =
+      reduceMotion.matches
+        ? 0
+        : Math.sin(time * .00016) * 10;
 
-    // Blue planet
+    // Small blue planet
     planet(
       W * .10 + drift,
       H * .76,
@@ -2111,14 +2480,14 @@ function animate(time) {
       'rgba(87,147,219,.085)'
     );
 
-    // Purple ringed planet
+    // Small purple ringed planet
     drawRingPlanet(
       W * .87 + drift * .6,
       H * .18,
       29
     );
 
-    // Moving spaceship
+    // Spaceship moves left to right
     if (!reduceMotion.matches) {
       shipX += .48 * dt;
     }
@@ -2137,10 +2506,15 @@ function animate(time) {
   requestAnimationFrame(animate);
 }
 
-window.addEventListener('resize',resizeCanvas);
+window.addEventListener(
+  'resize',
+  resizeCanvas
+);
 
 resizeCanvas();
+
 requestAnimationFrame(animate);
+
 </script>
 
 </body>
