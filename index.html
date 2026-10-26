@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TongYang | Engineering Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#02050d">
+  <title>TONGYANG | Engineering Portfolio</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,23 +15,22 @@
     :root {
       --bg: #02050d;
       --white: #eff6ff;
-      --blue: #7fbaff;
-      --muted: #93a9c8;
+      --muted: #94abc8;
+      --border: rgba(146,190,255,.28);
     }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     html, body {
+      margin: 0;
       width: 100%;
       height: 100%;
       overflow: hidden;
       background: var(--bg);
       color: var(--white);
-      font-family: "Inter", sans-serif;
+      font-family: Inter, Arial, sans-serif;
     }
 
     button {
@@ -51,12 +52,14 @@
       pointer-events: auto;
     }
 
-    /* LANDING PAGE */
+    /* ================================
+       LANDING PAGE
+    ================================= */
 
     #landing {
       cursor: pointer;
-      background: #02050d;
       isolation: isolate;
+      background: #02050d;
     }
 
     #spaceCanvas {
@@ -64,32 +67,38 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      z-index: -2;
+      z-index: 0;
+      display: block;
     }
 
     .space-overlay {
       position: absolute;
       inset: 0;
-      z-index: -1;
+      z-index: 1;
       pointer-events: none;
       background:
-        radial-gradient(ellipse at center, rgba(1, 5, 14, .30) 0%, rgba(1, 5, 14, .12) 50%, rgba(1, 5, 14, .02) 100%),
+        radial-gradient(
+          ellipse 70% 50% at center,
+          rgba(1,5,14,.37),
+          rgba(1,5,14,.13) 65%,
+          transparent
+        ),
         repeating-linear-gradient(
           to bottom,
-          transparent 0px,
-          transparent 3px,
-          rgba(3, 8, 18, .10) 4px
+          transparent 0,
+          transparent 4px,
+          rgba(255,255,255,.012) 5px
         );
     }
 
     .landing-content {
       position: relative;
-      height: 100%;
-      width: 100%;
+      z-index: 2;
+      min-height: 100%;
       display: grid;
       place-items: center;
-      text-align: center;
       padding: 24px;
+      text-align: center;
     }
 
     .title-group {
@@ -97,68 +106,68 @@
     }
 
     .name {
-      font-family: "Orbitron", sans-serif;
-      font-weight: 500;
-      font-size: clamp(42px, 6.5vw, 104px);
-      letter-spacing: .20em;
-      margin-left: .20em;
-      line-height: 1.25;
-      color: #f0f6ff;
+      margin: 0 0 0 .18em;
+      font: 500 clamp(42px,6.5vw,104px)/1.25 Orbitron,Arial,sans-serif;
+      letter-spacing: .18em;
+      color: #f1f6ff;
       text-shadow:
-        0 0 8px rgba(172, 209, 255, .7),
-        0 0 32px rgba(43, 127, 255, .35);
+        0 0 8px rgba(172,209,255,.7),
+        0 0 32px rgba(43,127,255,.35);
     }
 
     .portfolio-title {
       margin-top: 22px;
-      font-family: "Press Start 2P", monospace;
-      font-size: clamp(10px, 1.4vw, 17px);
-      line-height: 2;
+      font: normal clamp(10px,1.4vw,17px)/2
+        'Press Start 2P',monospace;
       letter-spacing: .08em;
-      text-shadow: 0 0 12px rgba(115, 166, 255, .4);
+      text-shadow: 0 0 12px rgba(115,166,255,.4);
     }
 
     .role {
-      margin-top: 25px;
-      font-family: "Orbitron", sans-serif;
-      font-size: clamp(10px, 1.1vw, 15px);
-      letter-spacing: .30em;
-      margin-left: .30em;
-      color: #a8c2e3;
+      margin: 25px 0 0 .3em;
+      font: 400 clamp(10px,1.1vw,15px)/1.5
+        Orbitron,Arial,sans-serif;
+      letter-spacing: .3em;
+      color: #abc5e6;
     }
 
     .enter-text {
       position: absolute;
       left: 50%;
-      bottom: 13%;
+      bottom: 12.5%;
       transform: translateX(-50%);
       white-space: nowrap;
-      font-family: "Press Start 2P", monospace;
-      font-size: clamp(7px, .8vw, 11px);
-      color: #dceeff;
-      text-shadow: 0 0 12px rgba(91, 167, 255, .55);
-      animation: blink 1.3s steps(1, end) infinite;
+      color: #e2efff;
+      font: normal clamp(7px,.8vw,11px)/1.8
+        'Press Start 2P',monospace;
+      text-shadow: 0 0 12px rgba(91,167,255,.55);
+      animation: blink 1.3s steps(1,end) infinite;
     }
 
     .enter-text::after {
-      content: "";
+      content: '';
       display: block;
-      height: 2px;
       width: 35px;
-      background: #9ad2ff;
+      height: 2px;
       margin: 20px auto 0;
+      background: #9ad2ff;
       box-shadow: 0 0 12px #60aaff;
-      opacity: .8;
     }
 
     @keyframes blink {
-      0%, 55% { opacity: 1; }
-      56%, 100% { opacity: .18; }
+      0%, 55% {
+        opacity: 1;
+      }
+
+      56%, 100% {
+        opacity: .18;
+      }
     }
 
     .transition-flash {
       position: absolute;
       inset: 0;
+      z-index: 3;
       pointer-events: none;
       background: #cde5ff;
       opacity: 0;
@@ -169,22 +178,36 @@
     }
 
     @keyframes flash {
-      0% { opacity: 0; }
-      45% { opacity: .50; }
-      100% { opacity: 0; }
+      0% {
+        opacity: 0;
+      }
+
+      45% {
+        opacity: .5;
+      }
+
+      100% {
+        opacity: 0;
+      }
     }
 
-    /* DATABASE MENU */
+    /* ================================
+       DATABASE MENU
+    ================================= */
 
     #database {
       overflow-y: auto;
       background:
-        radial-gradient(ellipse at 50% 20%, #101e39, transparent 65%),
+        radial-gradient(
+          ellipse at 50% 20%,
+          #101e39,
+          transparent 65%
+        ),
         #040810;
     }
 
     .database-container {
-      width: min(1220px, 92%);
+      width: min(1220px,92%);
       min-height: 100%;
       margin: auto;
       padding: 95px 0 80px;
@@ -199,16 +222,14 @@
     }
 
     .small-label {
-      font-family: "Press Start 2P", monospace;
-      font-size: 8px;
+      font: normal 8px/1.8 'Press Start 2P',monospace;
       color: #7494bb;
       letter-spacing: .06em;
     }
 
     .database-header h2 {
-      font-family: "Orbitron", sans-serif;
-      font-weight: 500;
-      font-size: clamp(27px, 4vw, 48px);
+      font: 500 clamp(27px,4vw,48px)/1.3
+        Orbitron,Arial,sans-serif;
       letter-spacing: .14em;
       margin: 24px 0 15px;
     }
@@ -221,52 +242,56 @@
 
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(5,minmax(0,1fr));
       gap: 16px;
     }
 
     .menu-card {
-      position: relative;
+      min-width: 0;
       min-height: 200px;
       padding: 22px 17px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      background: linear-gradient(135deg, rgba(158, 198, 255, .085), rgba(158, 198, 255, .012));
-      border: 1px solid rgba(149, 190, 255, .28);
+      background: linear-gradient(
+        135deg,
+        rgba(158,198,255,.085),
+        rgba(158,198,255,.012)
+      );
+      border: 1px solid var(--border);
       color: var(--white);
       text-align: left;
       cursor: pointer;
       transition:
-        transform .25s ease,
-        background .25s ease,
-        border-color .25s ease,
-        box-shadow .25s ease;
+        transform .25s,
+        background .25s,
+        border-color .25s,
+        box-shadow .25s;
     }
 
-    .menu-card:hover {
+    .menu-card:hover,
+    .menu-card:focus-visible {
       transform: translateY(-7px);
       border-color: #95c6ff;
-      background: rgba(123, 183, 255, .14);
-      box-shadow: 0 0 30px rgba(67, 138, 255, .16);
+      background: rgba(123,183,255,.14);
+      box-shadow: 0 0 30px rgba(67,138,255,.16);
     }
 
     .card-num {
-      font-family: "Press Start 2P", monospace;
-      font-size: 8px;
+      font: 8px 'Press Start 2P',monospace;
       color: #799bc6;
     }
 
     .card-name {
-      font-family: "Press Start 2P", monospace;
-      font-size: clamp(9px, .92vw, 12px);
-      line-height: 1.8;
+      font: clamp(9px,.92vw,12px)/1.8
+        'Press Start 2P',monospace;
     }
 
     .card-bottom {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 8px;
     }
 
     .card-caption {
@@ -288,21 +313,26 @@
       background: none;
       color: #a9bdd7;
       cursor: pointer;
-      font-family: "Press Start 2P", monospace;
-      font-size: 8px;
+      font: 8px 'Press Start 2P',monospace;
     }
 
     .return-button:hover {
       color: white;
     }
 
-    /* CONTENT SECTIONS */
+    /* ================================
+       CONTENT PAGES
+    ================================= */
 
     .content-page {
-      background:
-        radial-gradient(ellipse at top, #14233c, transparent 55%),
-        #060a12;
       overflow-y: auto;
+      background:
+        radial-gradient(
+          ellipse at top,
+          #14233c,
+          transparent 55%
+        ),
+        #060a12;
     }
 
     .content-container {
@@ -315,9 +345,8 @@
 
     .content-container h2 {
       margin: 25px 0;
-      font-family: "Orbitron", sans-serif;
-      font-weight: 500;
-      font-size: clamp(34px, 5vw, 65px);
+      font: 500 clamp(34px,5vw,65px)/1.3
+        Orbitron,Arial,sans-serif;
       letter-spacing: .1em;
     }
 
@@ -332,22 +361,23 @@
       margin-top: 40px;
       padding: 16px 22px;
       border: 1px solid #7797c1;
-      background: rgba(130, 180, 250, .07);
+      background: rgba(130,180,250,.07);
       color: #d5e6ff;
-      font-family: "Press Start 2P", monospace;
-      font-size: 8px;
+      font: 8px 'Press Start 2P',monospace;
       cursor: pointer;
     }
 
     .back-button:hover {
-      background: rgba(130, 180, 250, .2);
+      background: rgba(130,180,250,.2);
     }
 
-    /* MOBILE */
+    /* ================================
+       RESPONSIVE DESIGN
+    ================================= */
 
     @media (max-width: 900px) {
       .menu-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2,minmax(0,1fr));
       }
 
       .menu-card {
@@ -355,21 +385,21 @@
       }
 
       .name {
-        font-size: clamp(35px, 8vw, 65px);
-        letter-spacing: .10em;
-        margin-left: .10em;
+        font-size: clamp(35px,8vw,65px);
+        letter-spacing: .1em;
+        margin-left: .1em;
       }
     }
 
     @media (max-width: 530px) {
       .name {
-        font-size: 36px;
+        font-size: clamp(28px,9vw,36px);
         letter-spacing: .04em;
         margin-left: .04em;
       }
 
       .portfolio-title {
-        font-size: 8px;
+        font-size: clamp(6px,2vw,8px);
       }
 
       .role {
@@ -378,7 +408,7 @@
       }
 
       .enter-text {
-        font-size: 6px;
+        font-size: clamp(5px,1.5vw,7px);
       }
 
       .menu-grid {
@@ -388,6 +418,10 @@
       .database-container {
         padding-top: 110px;
       }
+
+      .return-button {
+        left: 5%;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -395,7 +429,8 @@
         animation: none;
       }
 
-      .page, .menu-card {
+      .page,
+      .menu-card {
         transition: none;
       }
     }
@@ -404,16 +439,28 @@
 
 <body>
 
-  <!-- LANDING PAGE -->
-  <section id="landing" class="page active" tabindex="0">
-    <canvas id="spaceCanvas"></canvas>
+  <!-- ================================
+       LANDING PAGE
+  ================================= -->
+
+  <section
+    id="landing"
+    class="page active"
+    tabindex="0"
+    aria-label="Enter TongYang engineering portfolio"
+  >
+    <canvas id="spaceCanvas" aria-hidden="true"></canvas>
     <div class="space-overlay"></div>
 
     <div class="landing-content">
       <div class="title-group">
         <h1 class="name">TONGYANG</h1>
-        <div class="portfolio-title">ENGINEERING PORTFOLIO</div>
-        <div class="role">MECHATRONICS ENGINEER</div>
+        <div class="portfolio-title">
+          ENGINEERING PORTFOLIO
+        </div>
+        <div class="role">
+          MECHATRONICS ENGINEER
+        </div>
       </div>
 
       <div class="enter-text">
@@ -424,23 +471,39 @@
     <div class="transition-flash"></div>
   </section>
 
-  <!-- DATABASE MENU -->
-  <section id="database" class="page">
-    <button class="return-button" id="returnLanding">← RETURN</button>
+  <!-- ================================
+       DATABASE PAGE
+  ================================= -->
+
+  <section
+    id="database"
+    class="page"
+    aria-label="Portfolio database"
+  >
+    <button class="return-button" id="returnLanding">
+      ← RETURN
+    </button>
 
     <div class="database-container">
       <div class="database-header">
-        <div class="small-label">TY_01 // PORTFOLIO SYSTEM</div>
+        <div class="small-label">
+          TY_01 // PORTFOLIO SYSTEM
+        </div>
+
         <h2>ENGINEERING DATABASE</h2>
+
         <p>SELECT A CATEGORY TO EXPLORE</p>
       </div>
 
       <div class="menu-grid">
+
         <button class="menu-card" data-target="projects">
           <span class="card-num">01</span>
           <span class="card-name">PROJECTS</span>
           <span class="card-bottom">
-            <span class="card-caption">Engineering work</span>
+            <span class="card-caption">
+              Engineering work
+            </span>
             <span class="card-arrow">→</span>
           </span>
         </button>
@@ -449,7 +512,9 @@
           <span class="card-num">02</span>
           <span class="card-name">EXPERIENCE</span>
           <span class="card-bottom">
-            <span class="card-caption">Industry work</span>
+            <span class="card-caption">
+              Industry work
+            </span>
             <span class="card-arrow">→</span>
           </span>
         </button>
@@ -458,7 +523,9 @@
           <span class="card-num">03</span>
           <span class="card-name">SKILLS</span>
           <span class="card-bottom">
-            <span class="card-caption">Tools & systems</span>
+            <span class="card-caption">
+              Tools &amp; systems
+            </span>
             <span class="card-arrow">→</span>
           </span>
         </button>
@@ -467,7 +534,9 @@
           <span class="card-num">04</span>
           <span class="card-name">ABOUT</span>
           <span class="card-bottom">
-            <span class="card-caption">Engineer profile</span>
+            <span class="card-caption">
+              Engineer profile
+            </span>
             <span class="card-arrow">→</span>
           </span>
         </button>
@@ -476,427 +545,751 @@
           <span class="card-num">05</span>
           <span class="card-name">CONTACT</span>
           <span class="card-bottom">
-            <span class="card-caption">Connect with me</span>
+            <span class="card-caption">
+              Connect with me
+            </span>
             <span class="card-arrow">→</span>
           </span>
         </button>
+
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- ================================
+       PROJECTS
+  ================================= -->
+
   <section id="projects" class="page content-page">
     <div class="content-container">
       <div class="small-label">DATABASE // 01</div>
+
       <h2>PROJECTS</h2>
+
       <p>
         My engineering projects will be featured here,
         including robotics, CAD, mechanical design,
         embedded systems, prototypes and simulations.
       </p>
-      <button class="back-button">← RETURN TO DATABASE</button>
+
+      <button class="back-button">
+        ← RETURN TO DATABASE
+      </button>
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
+  <!-- ================================
+       EXPERIENCE
+  ================================= -->
+
   <section id="experience" class="page content-page">
     <div class="content-container">
       <div class="small-label">DATABASE // 02</div>
+
       <h2>EXPERIENCE</h2>
+
       <p>
         My professional engineering experience,
         internships and industry projects will be
         displayed here.
       </p>
-      <button class="back-button">← RETURN TO DATABASE</button>
+
+      <button class="back-button">
+        ← RETURN TO DATABASE
+      </button>
     </div>
   </section>
 
-  <!-- SKILLS -->
+  <!-- ================================
+       SKILLS
+  ================================= -->
+
   <section id="skills" class="page content-page">
     <div class="content-container">
       <div class="small-label">DATABASE // 03</div>
+
       <h2>SKILLS</h2>
+
       <p>
         My skills in CAD, mechanical engineering,
         electronics, software, robotics and
         engineering simulation will be presented here.
       </p>
-      <button class="back-button">← RETURN TO DATABASE</button>
+
+      <button class="back-button">
+        ← RETURN TO DATABASE
+      </button>
     </div>
   </section>
 
-  <!-- ABOUT -->
+  <!-- ================================
+       ABOUT
+  ================================= -->
+
   <section id="about" class="page content-page">
     <div class="content-container">
       <div class="small-label">DATABASE // 04</div>
+
       <h2>ABOUT</h2>
+
       <p>
         My background, engineering education,
         technical interests and career goals
         will be introduced here.
       </p>
-      <button class="back-button">← RETURN TO DATABASE</button>
+
+      <button class="back-button">
+        ← RETURN TO DATABASE
+      </button>
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- ================================
+       CONTACT
+  ================================= -->
+
   <section id="contact" class="page content-page">
     <div class="content-container">
       <div class="small-label">DATABASE // 05</div>
+
       <h2>CONTACT</h2>
+
       <p>
         My email, LinkedIn, GitHub and CV
         will be available here.
       </p>
-      <button class="back-button">← RETURN TO DATABASE</button>
+
+      <button class="back-button">
+        ← RETURN TO DATABASE
+      </button>
     </div>
   </section>
 
   <script>
-    /* ======================================================
-       PAGE NAVIGATION
-    ====================================================== */
 
-    const pages = document.querySelectorAll(".page");
-    const landing = document.getElementById("landing");
+    /* ================================
+       PAGE NAVIGATION
+    ================================= */
+
+    const pages = document.querySelectorAll('.page');
+    const landing = document.getElementById('landing');
 
     let transitioning = false;
 
-    function showPage(pageId) {
+    function showPage(id) {
       pages.forEach(page => {
-        page.classList.toggle("active", page.id === pageId);
+        page.classList.toggle('active', page.id === id);
       });
+
+      const target = document.getElementById(id);
+
+      if (target) {
+        target.scrollTop = 0;
+      }
     }
 
     function enterDatabase() {
-      if (transitioning || !landing.classList.contains("active")) return;
+      if (
+        transitioning ||
+        !landing.classList.contains('active')
+      ) {
+        return;
+      }
 
       transitioning = true;
-      landing.classList.add("entering");
+      landing.classList.add('entering');
 
       setTimeout(() => {
-        showPage("database");
-        landing.classList.remove("entering");
+        showPage('database');
+        landing.classList.remove('entering');
         transitioning = false;
       }, 800);
     }
 
-    landing.addEventListener("click", enterDatabase);
+    landing.addEventListener('click', enterDatabase);
 
-    landing.addEventListener("keydown", event => {
-      if (event.key === "Enter" || event.key === " ") {
+    landing.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
         enterDatabase();
       }
     });
 
-    document.getElementById("returnLanding")
-      .addEventListener("click", () => showPage("landing"));
-
-    document.querySelectorAll(".menu-card").forEach(card => {
-      card.addEventListener("click", () => {
-        showPage(card.dataset.target);
+    document.getElementById('returnLanding')
+      .addEventListener('click', () => {
+        showPage('landing');
       });
-    });
 
-    document.querySelectorAll(".back-button").forEach(button => {
-      button.addEventListener("click", () => {
-        showPage("database");
+    document.querySelectorAll('.menu-card')
+      .forEach(button => {
+        button.addEventListener('click', () => {
+          showPage(button.dataset.target);
+        });
       });
+
+    document.querySelectorAll('.back-button')
+      .forEach(button => {
+        button.addEventListener('click', () => {
+          showPage('database');
+        });
+      });
+
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape') return;
+
+      const current = document.querySelector('.page.active');
+
+      if (!current || current.id === 'landing') return;
+
+      showPage(
+        current.id === 'database' ? 'landing' : 'database'
+      );
     });
 
-    document.addEventListener("keydown", event => {
-      if (event.key !== "Escape") return;
+    /* ================================
+       ANIMATED SPACE BACKGROUND
+       LEFT TO RIGHT MOVEMENT
+    ================================= */
 
-      const active = document.querySelector(".page.active");
-      if (!active || active.id === "landing") return;
+    const canvas = document.getElementById('spaceCanvas');
 
-      showPage(active.id === "database" ? "landing" : "database");
+    const ctx = canvas.getContext('2d', {
+      alpha: false
     });
 
-    /* ======================================================
-       PIXEL SPACE BACKGROUND
-       Clean stars + small planets + tiny spaceship
-       Motion LEFT TO RIGHT
-    ====================================================== */
+    const reduceMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    );
 
-    const canvas = document.getElementById("spaceCanvas");
-    const ctx = canvas.getContext("2d", { alpha: false });
+    const rnd = (a, b) => Math.random() * (b - a) + a;
 
     let W = 0;
     let H = 0;
     let stars = [];
-    let streaks = [];
-    let particles = [];
-    let ship = { x: 0, y: 0, speed: 0.24 };
-
-    const random = (min, max) => Math.random() * (max - min) + min;
+    let trails = [];
+    let shipX = -70;
+    let lastTime = 0;
 
     function resizeCanvas() {
       W = window.innerWidth;
       H = window.innerHeight;
 
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(
+        window.devicePixelRatio || 1,
+        2
+      );
+
       canvas.width = Math.round(W * dpr);
       canvas.height = Math.round(H * dpr);
+
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.imageSmoothingEnabled = false;
 
-      createSpace();
+      makeStars();
     }
 
-    function createSpace() {
+    /* ================================
+       SMALL CLEAN STARS
+    ================================= */
+
+    function makeStars() {
       stars = [];
-      streaks = [];
-      particles = [];
+      trails = [];
 
-      const starCount = Math.min(520, Math.max(160, Math.floor(W * H / 3300)));
+      const n = Math.min(
+        450,
+        Math.max(100, Math.round(W * H / 4700))
+      );
 
-      for (let i = 0; i < starCount; i++) {
+      for (let i = 0; i < n; i++) {
         stars.push({
-          x: random(0, W),
-          y: random(0, H),
-          size: Math.random() < 0.82 ? 1 : 2,
-          speed: random(0.08, 0.55),
-          brightness: random(0.22, 0.95),
-          twinkle: random(0, Math.PI * 2)
+          x: rnd(0, W),
+          y: rnd(0, H),
+          r: Math.random() < .9 ? .7 : 1.2,
+          speed: rnd(.06, .42),
+          alpha: rnd(.22, .78),
+          phase: rnd(0, 7),
+          tone: Math.random()
         });
       }
 
-      for (let i = 0; i < 24; i++) {
-        streaks.push({
-          x: random(0, W),
-          y: random(0, H),
-          length: random(25, 110),
-          speed: random(0.9, 2.2),
-          alpha: random(0.08, 0.24)
+      for (let i = 0; i < 15; i++) {
+        trails.push({
+          x: rnd(0, W),
+          y: rnd(0, H),
+          len: rnd(18, 80),
+          speed: rnd(.5, 1.25),
+          alpha: rnd(.04, .16)
         });
       }
 
-      for (let i = 0; i < 150; i++) {
-        particles.push({
-          x: random(0, W),
-          y: random(0, H),
-          size: Math.random() < 0.88 ? 1 : 2,
-          speed: random(0.12, 0.40),
-          alpha: random(0.03, 0.12)
-        });
-      }
-
-      ship.x = -40;
-      ship.y = H * 0.70;
-      ship.speed = Math.max(0.22, W / 5200);
+      shipX = -55;
     }
 
-    function drawBackground() {
-      ctx.fillStyle = "#02050d";
+    /* ================================
+       DARK BLUE SPACE GRADIENT
+    ================================= */
+
+    function drawBackground(t) {
+      const base = ctx.createLinearGradient(
+        0, 0, 0, H
+      );
+
+      base.addColorStop(0, '#01040d');
+      base.addColorStop(.55, '#03091b');
+      base.addColorStop(1, '#01040d');
+
+      ctx.fillStyle = base;
       ctx.fillRect(0, 0, W, H);
 
-      const nebula = ctx.createRadialGradient(W * 0.30, H * 0.45, 0, W * 0.30, H * 0.45, W * 0.65);
-      nebula.addColorStop(0, "rgba(16,58,138,0.18)");
-      nebula.addColorStop(0.45, "rgba(9,28,78,0.10)");
-      nebula.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = nebula;
+      const g1 = ctx.createRadialGradient(
+        W * .27, H * .50, 0,
+        W * .27, H * .50, W * .58
+      );
+
+      g1.addColorStop(
+        0,
+        'rgba(17,45,103,.19)'
+      );
+
+      g1.addColorStop(
+        .5,
+        'rgba(8,22,59,.08)'
+      );
+
+      g1.addColorStop(
+        1,
+        'rgba(0,0,0,0)'
+      );
+
+      ctx.fillStyle = g1;
       ctx.fillRect(0, 0, W, H);
 
-      const nebula2 = ctx.createRadialGradient(W * 0.82, H * 0.74, 0, W * 0.82, H * 0.74, W * 0.36);
-      nebula2.addColorStop(0, "rgba(28,76,180,0.10)");
-      nebula2.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = nebula2;
+      const g2 = ctx.createRadialGradient(
+        W * .82, H * .3, 0,
+        W * .82, H * .3, W * .37
+      );
+
+      g2.addColorStop(
+        0,
+        'rgba(43,58,139,.10)'
+      );
+
+      g2.addColorStop(
+        1,
+        'rgba(0,0,0,0)'
+      );
+
+      ctx.fillStyle = g2;
       ctx.fillRect(0, 0, W, H);
     }
 
-    function drawStars(dt, time) {
+    function drawStars(t, dt) {
       for (const s of stars) {
+
+        // Move left to right
+        s.x += s.speed * dt;
+
+        if (s.x > W + 3) {
+          s.x = -3;
+          s.y = rnd(0, H);
+        }
+
+        const a = s.alpha * (
+          .85 + .15 * Math.sin(t * .001 + s.phase)
+        );
+
+        ctx.fillStyle = s.tone > .88
+          ? `rgba(169,194,255,${a})`
+          : `rgba(221,235,255,${a})`;
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      for (const s of trails) {
+
         s.x += s.speed * dt;
 
         if (s.x > W + 5) {
-          s.x = -5;
-          s.y = random(0, H);
+          s.x = -s.len;
+          s.y = rnd(0, H);
         }
 
-        const twinkle = 0.78 + Math.sin(time * 0.0012 + s.twinkle) * 0.22;
-        ctx.fillStyle = `rgba(210,230,255,${s.brightness * twinkle})`;
-        ctx.fillRect(Math.round(s.x), Math.round(s.y), s.size, s.size);
+        const grad = ctx.createLinearGradient(
+          s.x, s.y,
+          s.x + s.len, s.y
+        );
+
+        grad.addColorStop(
+          0,
+          'rgba(90,156,255,0)'
+        );
+
+        grad.addColorStop(
+          1,
+          `rgba(160,202,255,${s.alpha})`
+        );
+
+        ctx.fillStyle = grad;
+        ctx.fillRect(s.x, s.y, s.len, 1);
       }
     }
 
-    function drawStreaks(dt) {
-      for (const s of streaks) {
-        s.x += s.speed * dt;
+    /* ================================
+       SUBTLE TWINKLING STARS
+    ================================= */
 
-        if (s.x > W + 8) {
-          s.x = -s.length - random(20, 240);
-          s.y = random(0, H);
-        }
+    function glint(x, y, t, phase) {
+      const pulse = .6 + .4 * (
+        .5 + .5 * Math.sin(t * .0015 + phase)
+      );
 
-        const gradient = ctx.createLinearGradient(s.x, s.y, s.x + s.length, s.y);
-        gradient.addColorStop(0, "rgba(60,120,255,0)");
-        gradient.addColorStop(0.8, `rgba(120,180,255,${s.alpha * 0.5})`);
-        gradient.addColorStop(1, `rgba(210,230,255,${s.alpha})`);
+      const halo = ctx.createRadialGradient(
+        x, y, 0,
+        x, y, 15
+      );
 
-        ctx.fillStyle = gradient;
-        ctx.fillRect(s.x, s.y, s.length, 1);
-      }
+      halo.addColorStop(
+        0,
+        `rgba(201,227,255,${.32 * pulse})`
+      );
+
+      halo.addColorStop(
+        1,
+        'rgba(201,227,255,0)'
+      );
+
+      ctx.fillStyle = halo;
+      ctx.fillRect(x - 15, y - 15, 30, 30);
+
+      ctx.fillStyle =
+        `rgba(238,247,255,${.8 * pulse})`;
+
+      ctx.fillRect(
+        Math.round(x),
+        Math.round(y),
+        2, 2
+      );
     }
 
-    function drawParticles(dt) {
-      for (const p of particles) {
-        p.x += p.speed * dt;
+    /* ================================
+       DETAILED PIXEL PLANET SPRITES
+    ================================= */
 
-        if (p.x > W + 5) {
-          p.x = -5;
-          p.y = random(0, H);
-        }
+    function makePlanet(type) {
+      const c = document.createElement('canvas');
 
-        ctx.fillStyle = `rgba(70,135,255,${p.alpha})`;
-        ctx.fillRect(Math.round(p.x), Math.round(p.y), p.size, p.size);
-      }
-    }
+      c.width = 32;
+      c.height = 32;
 
-    function fillPixelRect(x, y, w, h, color) {
-      ctx.fillStyle = color;
-      ctx.fillRect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
-    }
+      const p = c.getContext('2d');
 
-    function drawPixelPlanet(x, y, r, colors) {
-      const px = Math.round(x);
-      const py = Math.round(y);
+      p.imageSmoothingEnabled = false;
 
-      // Glow
-      const glow = ctx.createRadialGradient(px, py, 0, px, py, r * 2.2);
-      glow.addColorStop(0, colors.glowInner);
-      glow.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = glow;
-      ctx.beginPath();
-      ctx.arc(px, py, r * 2.2, 0, Math.PI * 2);
-      ctx.fill();
+      for (let y = 0; y < 32; y++) {
+        for (let x = 0; x < 32; x++) {
 
-      // Pixel body
-      const step = Math.max(2, Math.round(r / 7));
-      for (let yy = -r; yy <= r; yy += step) {
-        for (let xx = -r; xx <= r; xx += step) {
-          const dist = Math.sqrt(xx * xx + yy * yy);
-          if (dist <= r) {
-            let c = colors.base;
-            if (xx < -r * 0.18 && yy < 0) c = colors.highlight;
-            if (xx > r * 0.2 || yy > r * 0.28) c = colors.shadow;
-            fillPixelRect(px + xx, py + yy, step, step, c);
+          const dx = x - 15.5;
+          const dy = y - 15.5;
+
+          const dist = Math.hypot(dx, dy);
+
+          if (dist > 13.5) continue;
+
+          const lit = Math.max(
+            0,
+            1 - (dx + dy * .55) / 25
+          );
+
+          const stripe = Math.sin(
+            y * .62 + x * .18
+          );
+
+          const blotch =
+            Math.sin(x * .7 + y * .31) *
+            Math.cos(y * .45 - x * .28);
+
+          let color;
+
+          if (type === 'blue') {
+
+            if (dist > 12.3) {
+              color = '#17355f';
+            } else if (lit > 1.13) {
+              color = blotch > .22
+                ? '#94bdde'
+                : '#6b9cc6';
+            } else if (lit > .82) {
+              color = stripe > .43
+                ? '#5787b8'
+                : '#3d6fa6';
+            } else {
+              color = stripe > .35
+                ? '#294e86'
+                : '#1a365f';
+            }
+
+          } else {
+
+            if (dist > 12.3) {
+              color = '#333765';
+            } else if (lit > 1.13) {
+              color = stripe > .15
+                ? '#b3a9dc'
+                : '#8f9ed0';
+            } else if (lit > .78) {
+              color = stripe > .13
+                ? '#786aa9'
+                : '#656d9d';
+            } else {
+              color = stripe > .13
+                ? '#494c7d'
+                : '#323457';
+            }
+
           }
+
+          p.fillStyle = color;
+          p.fillRect(x, y, 1, 1);
         }
       }
+
+      return c;
     }
 
-    function drawPixelRingPlanet(x, y, r) {
-      // ring behind
-      fillPixelRect(x - r * 1.6, y + r * 0.1, r * 3.0, 2, "rgba(165,190,255,0.55)");
-      fillPixelRect(x - r * 1.3, y + r * 0.35, r * 2.5, 2, "rgba(90,120,190,0.40)");
+    const bluePlanet = makePlanet('blue');
+    const purplePlanet = makePlanet('purple');
 
-      drawPixelPlanet(x, y, r, {
-        base: "#6b75d9",
-        highlight: "#9fb3ff",
-        shadow: "#3c459e",
-        glowInner: "rgba(105,130,255,0.16)"
-      });
+    /* ================================
+       PLANET RENDERING
+    ================================= */
 
-      // ring front
-      fillPixelRect(x - r * 1.35, y + r * 0.55, r * 0.95, 2, "rgba(165,190,255,0.70)");
-      fillPixelRect(x + r * 0.42, y + r * 0.55, r * 0.95, 2, "rgba(165,190,255,0.70)");
-    }
+    function planet(x, y, size, sprite, glowColor) {
+      ctx.save();
 
-    function drawBluePlanet(x, y, r) {
-      drawPixelPlanet(x, y, r, {
-        base: "#4e86e8",
-        highlight: "#9bc3ff",
-        shadow: "#2851a8",
-        glowInner: "rgba(115,180,255,0.18)"
-      });
+      const glow = ctx.createRadialGradient(
+        x, y, 0,
+        x, y, size * .92
+      );
 
-      fillPixelRect(x - r * 0.55, y - r * 0.1, r * 0.45, 2, "rgba(214,235,255,0.60)");
-      fillPixelRect(x - r * 0.35, y + r * 0.1, r * 0.30, 2, "rgba(214,235,255,0.40)");
-    }
+      glow.addColorStop(0, glowColor);
+      glow.addColorStop(1, 'rgba(0,0,0,0)');
 
-    function drawTinyShip(x, y) {
-      x = Math.round(x);
-      y = Math.round(y);
-
-      // engine glow
-      fillPixelRect(x - 6, y + 3, 2, 2, "rgba(130,200,255,0.8)");
-      fillPixelRect(x - 8, y + 3, 2, 2, "rgba(70,140,255,0.45)");
-
-      // body
-      fillPixelRect(x, y, 8, 2, "#dfeaff");
-      fillPixelRect(x + 2, y - 2, 8, 2, "#edf5ff");
-      fillPixelRect(x + 4, y - 4, 6, 2, "#a5c8ff");
-      fillPixelRect(x + 8, y, 4, 2, "#92b8ff");
-
-      // wing
-      fillPixelRect(x + 2, y + 2, 5, 2, "#91a9df");
-      fillPixelRect(x + 3, y + 4, 3, 2, "#657cb4");
-
-      // cockpit
-      fillPixelRect(x + 6, y - 2, 2, 2, "#20365b");
-    }
-
-    function drawSpecialStar(x, y, pulse) {
-      const size = 10 + pulse * 2;
-      const glow = ctx.createRadialGradient(x, y, 0, x, y, size * 2.8);
-      glow.addColorStop(0, "rgba(235,247,255,0.9)");
-      glow.addColorStop(0.15, "rgba(170,210,255,0.35)");
-      glow.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = glow;
-      ctx.fillRect(x - size * 3, y - size * 3, size * 6, size * 6);
 
-      ctx.fillStyle = `rgba(235,247,255,${0.8 + pulse * 0.2})`;
-      ctx.fillRect(x - 7, y, 14, 1);
-      ctx.fillRect(x, y - 7, 1, 14);
-      ctx.fillRect(x - 1, y - 1, 3, 3);
+      ctx.fillRect(
+        x - size,
+        y - size,
+        size * 2,
+        size * 2
+      );
+
+      ctx.imageSmoothingEnabled = false;
+
+      ctx.drawImage(
+        sprite,
+        Math.round(x - size / 2),
+        Math.round(y - size / 2),
+        size,
+        size
+      );
+
+      ctx.restore();
     }
 
-    function drawPlanetsAndShip(dt, time) {
-      // Small planets
-      drawPixelRingPlanet(W * 0.87, H * 0.18, Math.max(10, Math.min(16, W * 0.010)));
-      drawBluePlanet(W * 0.10, H * 0.76, Math.max(12, Math.min(18, W * 0.011)));
+    function drawRingPlanet(x, y, size) {
 
-      // Special stars (only a few)
-      const pulse1 = (Math.sin(time * 0.002) + 1) / 2;
-      const pulse2 = (Math.sin(time * 0.0016 + 1.7) + 1) / 2;
-      drawSpecialStar(W * 0.20, H * 0.23, pulse1);
-      drawSpecialStar(W * 0.78, H * 0.28, pulse2);
+      // Ring behind planet
+      ctx.strokeStyle = 'rgba(139,155,220,.32)';
+      ctx.lineWidth = 2;
 
-      // Tiny spaceship
-      ship.x += ship.speed * dt * 2.2;
-      ship.y += Math.sin(time * 0.0018) * 0.08;
+      ctx.beginPath();
 
-      if (ship.x > W + 40) {
-        ship.x = -40;
-        ship.y = H * random(0.64, 0.76);
-      }
+      ctx.ellipse(
+        x, y + 2,
+        size * .85,
+        size * .25,
+        -.19,
+        0,
+        Math.PI * 2
+      );
 
-      drawTinyShip(ship.x, ship.y);
+      ctx.stroke();
+
+      // Planet body
+      planet(
+        x, y, size,
+        purplePlanet,
+        'rgba(124,133,218,.08)'
+      );
+
+      // Ring in front
+      ctx.strokeStyle = 'rgba(170,181,229,.58)';
+      ctx.lineWidth = 1.7;
+
+      ctx.beginPath();
+
+      ctx.ellipse(
+        x, y + 2,
+        size * .85,
+        size * .25,
+        -.19,
+        .1,
+        Math.PI - .1
+      );
+
+      ctx.stroke();
     }
 
-    let previousTime = 0;
+    /* ================================
+       SMALL PIXEL SPACESHIP
+    ================================= */
 
-    function animate(time) {
-      const dt = Math.min((time - previousTime) / 16.67 || 1, 2.5);
-      previousTime = time;
+    const shipPixels = [
+      '...........A......',
+      '.........AAB......',
+      '.....AAAAABBBA....',
+      '...AABBBCCBBBAAA.',
+      '.DDABBEECCBBBBAAA',
+      '...AABBBCCBBBAAA.',
+      '.....AAAAABBBA....',
+      '.........AAB......',
+      '...........A......'
+    ];
+
+    const shipColors = {
+      A: '#8ea8d1',
+      B: '#dce8f5',
+      C: '#3f799e',
+      D: '#62b6ef',
+      E: '#263e6e'
+    };
+
+    function drawShip(x, y, t) {
+      const bob = Math.sin(t * .0017) * 2;
+
+      ctx.save();
+
+      ctx.translate(
+        Math.round(x),
+        Math.round(y + bob)
+      );
+
+      // Soft blue exhaust
+      const engine = ctx.createRadialGradient(
+        -4, 4, 0,
+        -4, 4, 13
+      );
+
+      engine.addColorStop(
+        0,
+        'rgba(65,163,242,.20)'
+      );
+
+      engine.addColorStop(
+        1,
+        'rgba(65,163,242,0)'
+      );
+
+      ctx.fillStyle = engine;
+      ctx.fillRect(-17, -9, 26, 26);
+
+      shipPixels.forEach((row, ry) => {
+
+        [...row].forEach((cell, rx) => {
+
+          if (shipColors[cell]) {
+            ctx.fillStyle = shipColors[cell];
+
+            ctx.fillRect(
+              rx * 1.4,
+              ry * 1.4,
+              1.4,
+              1.4
+            );
+          }
+
+        });
+
+      });
+
+      ctx.restore();
+    }
+
+    /* ================================
+       MAIN ANIMATION LOOP
+    ================================= */
+
+    function animate(t) {
+      const dt = Math.min(
+        (t - lastTime) / 16.67 || 1,
+        2.2
+      );
+
+      lastTime = t;
 
       if (!document.hidden) {
-        drawBackground();
-        drawParticles(dt);
-        drawStars(dt, time);
-        drawStreaks(dt);
-        drawPlanetsAndShip(dt, time);
+
+        // Background
+        drawBackground(t);
+
+        // Moving small stars
+        drawStars(
+          t,
+          reduceMotion.matches ? 0 : dt
+        );
+
+        // Two soft twinkling points
+        glint(W * .20, H * .23, t, 0);
+        glint(W * .78, H * .28, t, 1.8);
+
+        // Very gentle planet movement
+        const drift = reduceMotion.matches
+          ? 0
+          : Math.sin(t * .00016) * 10;
+
+        // Blue planet at bottom-left
+        planet(
+          W * .10 + drift,
+          H * .76,
+          34,
+          bluePlanet,
+          'rgba(87,147,219,.085)'
+        );
+
+        // Purple ringed planet at top-right
+        drawRingPlanet(
+          W * .87 + drift * .6,
+          H * .18,
+          29
+        );
+
+        // Tiny spaceship moving left to right
+        if (!reduceMotion.matches) {
+          shipX += .48 * dt;
+        }
+
+        if (shipX > W + 50) {
+          shipX = -65;
+        }
+
+        drawShip(shipX, H * .69, t);
       }
 
       requestAnimationFrame(animate);
     }
 
-    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener(
+      'resize',
+      resizeCanvas
+    );
+
     resizeCanvas();
+
     requestAnimationFrame(animate);
+
   </script>
+
 </body>
 </html>
