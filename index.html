@@ -24,9 +24,9 @@
 }
 
 html, body {
+  margin: 0;
   width: 100%;
   height: 100%;
-  margin: 0;
   overflow: hidden;
   background: var(--bg);
   color: var(--white);
@@ -52,9 +52,9 @@ button {
   pointer-events: auto;
 }
 
-/* ========================================
-   LANDING PAGE
-======================================== */
+/* ====================================
+   LANDING SCREEN
+==================================== */
 
 #landing {
   cursor: pointer;
@@ -165,9 +165,9 @@ button {
   opacity: 0;
 }
 
-/* ========================================
+/* ====================================
    SPACESHIP TAKEOFF
-======================================== */
+==================================== */
 
 .launch-scene {
   position: absolute;
@@ -177,7 +177,7 @@ button {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity .3s ease, visibility .3s ease;
+  transition: opacity .3s, visibility .3s;
 }
 
 #landing.entering .launch-scene {
@@ -188,7 +188,7 @@ button {
 #landing.entering .landing-content {
   opacity: 0;
   transform: translateY(-16px);
-  transition: opacity .26s ease, transform .26s ease;
+  transition: opacity .26s, transform .26s;
 }
 
 .launch-veil {
@@ -207,9 +207,9 @@ button {
   opacity: 0;
   background-image: linear-gradient(
     180deg,
-    transparent 0%,
+    transparent,
     rgba(104,171,255,.17) 55%,
-    transparent 100%
+    transparent
   );
   background-size: 1px 140px;
   mask-image: repeating-linear-gradient(
@@ -245,6 +245,7 @@ button {
   right: 16px;
   text-align: center;
   z-index: 6;
+  text-shadow: 0 0 22px rgba(7,17,39,.95);
 }
 
 .launch-hud-kicker {
@@ -254,9 +255,9 @@ button {
 
 .launch-hud-title {
   margin: 18px 0 16px;
-  font: 500 clamp(19px,2.2vw,34px)/1.5 Orbitron,Arial,sans-serif;
-  letter-spacing: .15em;
   color: #f1f7ff;
+  font: 500 clamp(19px,2.2vw,34px)/1.5 Orbitron,sans-serif;
+  letter-spacing: .15em;
   text-shadow: 0 0 18px rgba(120,184,255,.5);
 }
 
@@ -310,6 +311,7 @@ button {
   height: 164px;
   transform: translateX(-50%) scale(.9);
   filter: drop-shadow(0 0 15px rgba(122,185,255,.35));
+  will-change: transform;
 }
 
 #landing.entering .launch-ship {
@@ -344,16 +346,16 @@ button {
   position: absolute;
   top: 148px;
   left: 50%;
-  transform: translateX(-50%);
   z-index: 1;
   width: 24px;
   height: 190px;
+  transform: translateX(-50%);
   background: linear-gradient(
     180deg,
-    #eefcff 0%,
+    #eefcff,
     #62b6ff 13%,
     rgba(33,118,255,.55) 44%,
-    rgba(22,54,175,0) 100%
+    rgba(22,54,175,0)
   );
   clip-path: polygon(
     22% 0,
@@ -363,6 +365,7 @@ button {
     36% 91%,
     5% 31%
   );
+  transform-origin: center top;
   animation: flamePulse .16s ease-in-out infinite alternate;
 }
 
@@ -386,9 +389,9 @@ button {
   100% { opacity: .8; }
 }
 
-/* ========================================
-   DESTINATION SELECTION
-======================================== */
+/* ====================================
+   DESTINATION SELECT
+==================================== */
 
 #database {
   isolation: isolate;
@@ -431,15 +434,29 @@ button {
     auto;
 }
 
+#database::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 5px,
+    rgba(151,194,242,.012) 6px
+  );
+}
+
 .nav-shell {
   position: relative;
   z-index: 1;
   min-height: 100%;
   width: min(1180px,94%);
   margin: auto;
+  padding: 29px 0 27px;
   display: flex;
   flex-direction: column;
-  padding: 29px 0 27px;
 }
 
 .nav-topbar {
@@ -467,6 +484,7 @@ button {
 }
 
 .nav-topbar .status i {
+  display: block;
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -480,8 +498,8 @@ button {
   padding: 48px 0 30px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 
 .nav-eyebrow {
@@ -503,8 +521,8 @@ button {
   margin: 8px 0 34px;
   color: #839ec0;
   text-align: center;
-  letter-spacing: .16em;
   font-size: 12px;
+  letter-spacing: .16em;
 }
 
 .nav-console {
@@ -541,8 +559,8 @@ button {
 .nav-console::after {
   bottom: -1px;
   right: -1px;
-  border-right: 2px solid #9bcfff;
   border-bottom: 2px solid #9bcfff;
+  border-right: 2px solid #9bcfff;
 }
 
 .nav-console-heading {
@@ -567,16 +585,20 @@ button {
   width: 100%;
   min-height: 69px;
   padding: 15px 20px;
+  color: #e0edfc;
   text-align: left;
   cursor: pointer;
-  color: #e0edfc;
   background: linear-gradient(
     95deg,
     rgba(14,29,50,.88),
     rgba(8,17,31,.85)
   );
   border: 1px solid rgba(124,164,207,.24);
-  transition: .2s ease;
+  transition:
+    background .2s,
+    border-color .2s,
+    transform .2s,
+    box-shadow .2s;
 }
 
 .nav-destination:hover,
@@ -611,6 +633,7 @@ button {
 .nav-arrow {
   color: #86b8ea;
   font-size: 22px;
+  text-align: right;
 }
 
 .nav-foot {
@@ -624,10 +647,10 @@ button {
 
 .nav-foot button {
   padding: 8px 1px;
-  border: 0;
-  background: none;
-  cursor: pointer;
   color: #90aed2;
+  background: none;
+  border: 0;
+  cursor: pointer;
   font: 8px 'Press Start 2P',monospace;
 }
 
@@ -640,9 +663,9 @@ button {
   font: 8px 'Press Start 2P',monospace;
 }
 
-/* ========================================
+/* ====================================
    DESTINATION TRANSITION
-======================================== */
+==================================== */
 
 .landing-transition {
   position: fixed;
@@ -653,8 +676,8 @@ button {
   pointer-events: none;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   gap: 17px;
   text-align: center;
   background: radial-gradient(
@@ -705,19 +728,17 @@ button {
   to { transform: translateX(0); }
 }
 
-/* ========================================
-   PORTFOLIO CONTENT SECTIONS
-======================================== */
+/* ====================================
+   PORTFOLIO SECTION STYLES
+==================================== */
 
 .content-page {
   overflow-y: auto;
-  background:
-    radial-gradient(
-      ellipse at top,
-      #14233c,
-      transparent 55%
-    ),
-    #060a12;
+  background: radial-gradient(
+    ellipse at top,
+    #14233c,
+    transparent 55%
+  ),#060a12;
 }
 
 .content-container {
@@ -883,6 +904,10 @@ button {
   margin: 5px 0;
 }
 
+.resume-points li::marker {
+  color: #6ba8e8;
+}
+
 .skill-panel,
 .about-panel {
   padding: 23px;
@@ -895,8 +920,8 @@ button {
 
 .skill-items {
   display: flex;
-  gap: 8px;
   flex-wrap: wrap;
+  gap: 8px;
 }
 
 .skill-items span {
@@ -918,9 +943,9 @@ button {
 }
 
 .about-kicker {
+  margin-bottom: 13px;
   color: #87a9cf;
   font: 8px/1.6 'Press Start 2P',monospace;
-  margin-bottom: 13px;
 }
 
 .small-list {
@@ -944,9 +969,9 @@ button {
   background: rgba(130,180,250,.2);
 }
 
-/* ========================================
+/* ====================================
    CONTACT
-======================================== */
+==================================== */
 
 .contact-links {
   display: grid;
@@ -962,14 +987,15 @@ button {
   gap: 20px;
   min-height: 90px;
   padding: 20px 24px;
-  border: 1px solid rgba(146,190,255,.28);
-  background: rgba(37,70,116,.16);
   color: #e3f1ff;
   text-decoration: none;
+  border: 1px solid rgba(146,190,255,.28);
+  background: rgba(37,70,116,.16);
   transition: .2s;
 }
 
-.contact-link:hover {
+.contact-link:hover,
+.contact-link:focus-visible {
   border-color: #98ceff;
   background: rgba(45,91,148,.22);
   transform: translateX(4px);
@@ -990,9 +1016,9 @@ button {
   font-size: 23px;
 }
 
-/* ========================================
+/* ====================================
    RESPONSIVE DESIGN
-======================================== */
+==================================== */
 
 @media (max-width: 900px) {
   .name {
@@ -1039,6 +1065,11 @@ button {
     letter-spacing: .06em;
   }
 
+  .nav-subtitle {
+    font-size: 11px;
+    letter-spacing: .06em;
+  }
+
   .nav-console {
     padding: 10px;
   }
@@ -1056,6 +1087,15 @@ button {
 
   .nav-name {
     font-size: clamp(11px,3.1vw,15px);
+  }
+
+  .nav-topbar {
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+
+  .nav-topbar .status {
+    font-size: 7px;
   }
 
   .nav-foot span {
@@ -1109,15 +1149,6 @@ button {
     display: block;
   }
 
-  .nav-topbar {
-    font-size: 8px;
-    letter-spacing: 0;
-  }
-
-  .nav-topbar .status {
-    font-size: 7px;
-  }
-
   .nav-console-heading {
     font-size: 6px;
   }
@@ -1139,24 +1170,21 @@ button {
 
 <body>
 
-<!-- ========================================
-     LANDING PAGE
-======================================== -->
+<!-- ====================================
+     LANDING SCREEN
+==================================== -->
 
 <section id="landing" class="page active" tabindex="0">
 
-  <canvas id="spaceCanvas"></canvas>
+  <canvas id="spaceCanvas" aria-hidden="true"></canvas>
   <div class="space-overlay"></div>
 
   <div class="landing-content">
-
     <div class="title-group">
       <h1 class="name">TONGYANG</h1>
-
       <div class="portfolio-title">
         ENGINEERING PORTFOLIO
       </div>
-
       <div class="role">
         MECHATRONICS ENGINEER
       </div>
@@ -1165,75 +1193,60 @@ button {
     <div class="enter-text">
       PRESS ANYWHERE TO ACCESS DATABASE
     </div>
-
   </div>
 
-  <!-- SPACESHIP TAKEOFF -->
-
   <div class="launch-scene" id="launchScene">
-
     <div class="launch-veil"></div>
     <div class="launch-speed"></div>
 
     <div class="launch-hud">
-
       <div class="launch-hud-kicker">
         TY-01 // FLIGHT CONTROL
       </div>
-
       <div class="launch-hud-title">
         INITIATING TAKEOFF
       </div>
-
       <div class="launch-hud-destination">
         DESTINATION:
         <strong>ENGINEERING DATABASE</strong>
       </div>
-
       <div class="launch-progress">
         <span class="launch-progress-fill"></span>
       </div>
-
       <div class="launch-status" id="launchStatus">
         ENGAGING THRUSTERS...
       </div>
-
     </div>
 
     <div class="launch-ship">
       <canvas
         id="launchShipCanvas"
         width="30"
-        height="41">
-      </canvas>
+        height="41"
+      ></canvas>
       <div class="launch-flame"></div>
     </div>
-
   </div>
 
   <div class="transition-flash"></div>
-
 </section>
 
-<!-- ========================================
+<!-- ====================================
      DESTINATION SELECT
-======================================== -->
+==================================== -->
 
 <section id="database" class="page">
 
   <div class="nav-shell">
 
     <header class="nav-topbar">
-
       <div>
         <strong>TY-01</strong> // FLIGHT NAVIGATION
       </div>
-
       <div class="status">
         <i></i>
         ASTRONAUT MODE
       </div>
-
     </header>
 
     <main class="nav-main">
@@ -1295,47 +1308,32 @@ button {
           </button>
 
         </div>
-
       </nav>
 
       <div class="nav-foot">
-
         <button id="returnLanding">
           ← RETURN TO SHIP
         </button>
-
         <span>SELECT A DESTINATION TO LAND</span>
-
       </div>
 
     </main>
-
   </div>
 
   <div class="landing-transition" id="landingTransition">
-
     <span>LANDING ROUTE CONFIRMED</span>
-
-    <strong id="landingTargetName">
-      PROJECTS
-    </strong>
-
-    <div class="landing-loading">
-      <i></i>
-    </div>
-
+    <strong id="landingTargetName">PROJECTS</strong>
+    <div class="landing-loading"><i></i></div>
     <small>APPROACHING DESTINATION...</small>
-
   </div>
 
 </section>
 
-<!-- ========================================
+<!-- ====================================
      PROJECTS
-======================================== -->
+==================================== -->
 
 <section id="projects" class="page content-page">
-
   <div class="content-container">
 
     <div class="small-label">
@@ -1356,10 +1354,7 @@ button {
 
     <div class="portfolio-grid">
 
-      <!-- PROJECT 01: FINAL YEAR PROJECT -->
-
       <article class="portfolio-card">
-
         <div class="project-topline">
           <span>FINAL YEAR PROJECT · IN PROGRESS</span>
           <span class="index">01</span>
@@ -1372,11 +1367,12 @@ button {
 
         <p>
           Investigating pouring control using load-cell
-          measurements and an IMU to relate vessel motion
-          to liquid volume and flow rate. Preliminary
-          manual pouring trials are completed, with
-          automated-rig experiments and robotic-arm
-          validation planned for the next phase.
+          measurements and an IMU to relate vessel
+          motion to liquid volume and flow rate.
+          Preliminary manual pouring trials are
+          completed, with automated-rig experiments
+          and robotic-arm validation planned for
+          the next phase.
         </p>
 
         <div class="tag-row">
@@ -1384,13 +1380,9 @@ button {
           <span class="tag">Load Cell / IMU</span>
           <span class="tag">Control Research</span>
         </div>
-
       </article>
 
-      <!-- PROJECT 02 -->
-
       <article class="portfolio-card">
-
         <div class="project-topline">
           <span>INDUSTRY PROJECT</span>
           <span class="index">02</span>
@@ -1404,30 +1396,26 @@ button {
           Analysed an existing wheel shunt to investigate
           local manufacturing alternatives. Compared
           materials, suppliers, production methods, cost
-          and lead times, and designed a SolidWorks assembly
-          jig to improve manufacturing consistency.
+          and lead times. Created 3D CAD designs and
+          drawings for jigs, then 3D-printed trial jigs
+          to test fit and assembly before moving to
+          final production jigs.
         </p>
 
         <div class="tag-row">
-          <span class="tag">SolidWorks</span>
+          <span class="tag">3D CAD</span>
           <span class="tag">Reverse Engineering</span>
           <span class="tag">Manufacturability</span>
         </div>
-
       </article>
 
-      <!-- PROJECT 03 -->
-
       <article class="portfolio-card">
-
         <div class="project-topline">
           <span>INDUSTRY PROJECT</span>
           <span class="index">03</span>
         </div>
 
-        <h3>
-          Yarra Trams Seating Refurbishment
-        </h3>
+        <h3>Yarra Trams Seating Refurbishment</h3>
 
         <p>
           Measured existing tram seats, developed 3D CAD
@@ -1441,13 +1429,9 @@ button {
           <span class="tag">Technical Drawings</span>
           <span class="tag">3D Printing</span>
         </div>
-
       </article>
 
-      <!-- PROJECT 04 -->
-
       <article class="portfolio-card">
-
         <div class="project-topline">
           <span>UNIVERSITY TEAM PROJECT</span>
           <span class="index">04</span>
@@ -1468,13 +1452,9 @@ button {
           <span class="tag">SolidWorks</span>
           <span class="tag">Prototyping</span>
         </div>
-
       </article>
 
-      <!-- PROJECT 05 -->
-
       <article class="portfolio-card">
-
         <div class="project-topline">
           <span>EMBEDDED SYSTEMS</span>
           <span class="index">05</span>
@@ -1495,13 +1475,9 @@ button {
           <span class="tag">C / C++</span>
           <span class="tag">I²S / DMA</span>
         </div>
-
       </article>
 
-      <!-- PROJECT 06 -->
-
       <article class="portfolio-card">
-
         <div class="project-topline">
           <span>DIGITAL SYSTEMS</span>
           <span class="index">06</span>
@@ -1510,9 +1486,9 @@ button {
         <h3>16-bit Processor in Verilog</h3>
 
         <p>
-          Built a synthesizable 16-bit processor with an
-          ALU, register file, control state machine and
-          instruction decoder. Developed simulation
+          Built a synthesizable 16-bit processor with
+          an ALU, register file, control state machine
+          and instruction decoder. Developed simulation
           testbenches and checked timing in Xilinx ISE.
         </p>
 
@@ -1521,7 +1497,6 @@ button {
           <span class="tag">FPGA</span>
           <span class="tag">Testbenches</span>
         </div>
-
       </article>
 
     </div>
@@ -1529,17 +1504,14 @@ button {
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
-
   </div>
-
 </section>
 
-<!-- ========================================
+<!-- ====================================
      EXPERIENCE
-======================================== -->
+==================================== -->
 
 <section id="experience" class="page content-page">
-
   <div class="content-container">
 
     <div class="small-label">
@@ -1550,8 +1522,8 @@ button {
 
     <p class="section-intro">
       Engineering experience in mechanical design,
-      reverse engineering, prototyping and manufacturing
-      improvement.
+      reverse engineering, prototyping and
+      manufacturing improvement.
     </p>
 
     <div class="section-count">
@@ -1561,13 +1533,13 @@ button {
     <div class="experience-list">
 
       <article class="experience-item">
-
         <div class="experience-date">
-          JUN 2026<br>– PRESENT
+          JUN 2026
+          <br>
+          – SEP 2026
         </div>
 
         <div>
-
           <h3>
             Yarra Trams Reverse Engineering Project
           </h3>
@@ -1578,7 +1550,7 @@ button {
 
           <ul class="resume-points">
             <li>
-              Reverse engineering of a wheel shunt component
+              Reverse engineered a wheel shunt component
               to assess local manufacturing options.
             </li>
             <li>
@@ -1586,23 +1558,23 @@ button {
               processes, cost and lead times.
             </li>
             <li>
-              Designed a SolidWorks production jig to
-              standardise assembly.
+              Created 3D CAD drawings and models for jigs,
+              then 3D-printed trial jigs to test fit and
+              assembly before moving to the final
+              production jigs.
             </li>
           </ul>
-
         </div>
-
       </article>
 
       <article class="experience-item">
-
         <div class="experience-date">
-          NOV 2025<br>– MAR 2026
+          NOV 2025
+          <br>
+          – MAR 2026
         </div>
 
         <div>
-
           <h3>Engineering Intern</h3>
 
           <div class="experience-company">
@@ -1623,9 +1595,7 @@ button {
               fit, form and function.
             </li>
           </ul>
-
         </div>
-
       </article>
 
     </div>
@@ -1633,17 +1603,14 @@ button {
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
-
   </div>
-
 </section>
 
-<!-- ========================================
+<!-- ====================================
      SKILLS
-======================================== -->
+==================================== -->
 
 <section id="skills" class="page content-page">
-
   <div class="content-container">
 
     <div class="small-label">
@@ -1655,8 +1622,8 @@ button {
     <p class="section-intro">
       Hands-on capabilities across mechanical design,
       electronics, programming and manufacturing,
-      supported by university projects and industry
-      experience.
+      supported by university projects and
+      industry experience.
     </p>
 
     <div class="section-count">
@@ -1666,11 +1633,11 @@ button {
     <div class="skills-grid">
 
       <article class="skill-panel">
-
         <h3>CAD &amp; Mechanical Design</h3>
 
         <div class="skill-items">
           <span>SolidWorks</span>
+          <span>Autodesk Fusion</span>
           <span>AutoCAD</span>
           <span>3D Modelling</span>
           <span>Assemblies</span>
@@ -1682,11 +1649,9 @@ button {
         <div class="skill-note">
           Certified SolidWorks Associate (CSWA)
         </div>
-
       </article>
 
       <article class="skill-panel">
-
         <h3>Programming</h3>
 
         <div class="skill-items">
@@ -1697,11 +1662,9 @@ button {
           <span>MATLAB</span>
           <span>MIPS Assembly</span>
         </div>
-
       </article>
 
       <article class="skill-panel">
-
         <h3>Embedded &amp; Digital Systems</h3>
 
         <div class="skill-items">
@@ -1714,11 +1677,9 @@ button {
           <span>Verilog HDL</span>
           <span>FPGA</span>
         </div>
-
       </article>
 
       <article class="skill-panel">
-
         <h3>Manufacturing &amp; Prototyping</h3>
 
         <div class="skill-items">
@@ -1731,11 +1692,9 @@ button {
           <span>Casting</span>
           <span>MIG Welding</span>
         </div>
-
       </article>
 
       <article class="skill-panel">
-
         <h3>Simulation &amp; Analysis</h3>
 
         <div class="skill-items">
@@ -1747,22 +1706,18 @@ button {
           <span>Control Analysis</span>
           <span>Step / Impulse Responses</span>
         </div>
-
       </article>
 
       <article class="skill-panel">
-
         <h3>Engineering Software &amp; Workflow</h3>
 
         <div class="skill-items">
           <span>Git / GitHub</span>
           <span>Linux</span>
           <span>Git Branching</span>
-          <span>Pull Requests</span>
-          <span>Code Reviews</span>
+          <span>Pull Requests &amp; Code Reviews</span>
           <span>Xilinx ISE</span>
         </div>
-
       </article>
 
     </div>
@@ -1770,17 +1725,14 @@ button {
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
-
   </div>
-
 </section>
 
-<!-- ========================================
+<!-- ====================================
      ABOUT
-======================================== -->
+==================================== -->
 
 <section id="about" class="page content-page">
-
   <div class="content-container">
 
     <div class="small-label">
@@ -1791,11 +1743,11 @@ button {
 
     <p class="section-intro">
       I'm a Robotics &amp; Mechatronics Engineering
-      (Honours) student at Monash University who enjoys
-      building things and solving practical engineering
-      problems. My experience covers mechanical CAD and
-      prototyping, embedded programming, and collaborative
-      engineering work.
+      (Honours) student at Monash University who
+      enjoys building things and solving practical
+      engineering problems. My experience covers
+      mechanical CAD and prototyping, embedded
+      programming and collaborative engineering work.
     </p>
 
     <p class="section-intro">
@@ -1812,7 +1764,6 @@ button {
     <div class="about-grid">
 
       <article class="about-panel">
-
         <div class="about-kicker">
           EDUCATION // 01
         </div>
@@ -1827,15 +1778,11 @@ button {
         <ul class="small-list">
           <li>Expected graduation: July 2027</li>
           <li>Specialisation: Artificial Intelligence</li>
-          <li>
-            Minor: Power and Energy Systems Engineering
-          </li>
+          <li>Minor: Power and Energy Systems Engineering</li>
         </ul>
-
       </article>
 
       <article class="about-panel">
-
         <div class="about-kicker">
           CERTIFICATION // 02
         </div>
@@ -1847,7 +1794,6 @@ button {
           in parametric design, assemblies, technical
           drawings and prototypes.
         </p>
-
       </article>
 
     </div>
@@ -1855,17 +1801,14 @@ button {
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
-
   </div>
-
 </section>
 
-<!-- ========================================
+<!-- ====================================
      CONTACT
-======================================== -->
+==================================== -->
 
 <section id="contact" class="page content-page">
-
   <div class="content-container">
 
     <div class="small-label">
@@ -1884,7 +1827,6 @@ button {
         class="contact-link"
         href="mailto:tcha0124@student.monash.edu"
       >
-
         <span class="contact-channel">
           01 // EMAIL
         </span>
@@ -1894,7 +1836,6 @@ button {
         </span>
 
         <span class="contact-arrow">↗</span>
-
       </a>
 
       <a
@@ -1903,7 +1844,6 @@ button {
         target="_blank"
         rel="noopener noreferrer"
       >
-
         <span class="contact-channel">
           02 // LINKEDIN
         </span>
@@ -1913,7 +1853,6 @@ button {
         </span>
 
         <span class="contact-arrow">↗</span>
-
       </a>
 
     </div>
@@ -1921,15 +1860,14 @@ button {
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
-
   </div>
-
 </section>
 
 <script>
-/* ========================================
+
+/* ====================================
    PAGE NAVIGATION
-======================================== */
+==================================== */
 
 const pages = document.querySelectorAll(".page");
 const landing = document.getElementById("landing");
@@ -1960,11 +1898,10 @@ function finishLaunch() {
   launchTimers = [];
 
   showPage("database");
-
   landing.classList.remove("entering");
   launchScene.setAttribute("aria-hidden", "true");
-
   launchStatus.textContent = "ENGAGING THRUSTERS...";
+
   transitioning = false;
 }
 
@@ -1977,9 +1914,8 @@ function enterDatabase() {
   }
 
   transitioning = true;
-
-  launchStatus.textContent = "ENGAGING THRUSTERS...";
   launchScene.setAttribute("aria-hidden", "false");
+  launchStatus.textContent = "ENGAGING THRUSTERS...";
 
   landing.classList.remove("entering");
   void landing.offsetWidth;
@@ -2009,10 +1945,7 @@ function enterDatabase() {
 landing.addEventListener("click", enterDatabase);
 
 landing.addEventListener("keydown", event => {
-  if (
-    event.key === "Enter" ||
-    event.key === " "
-  ) {
+  if (event.key === "Enter" || event.key === " ") {
     event.preventDefault();
     enterDatabase();
   }
@@ -2023,9 +1956,9 @@ document.getElementById("returnLanding")
     showPage("landing");
   });
 
-/* ========================================
+/* ====================================
    DESTINATION SELECTION
-======================================== */
+==================================== */
 
 const destinationNames = {
   projects: "PROJECTS",
@@ -2047,7 +1980,6 @@ function finishLanding() {
   }
 
   landingTimer = null;
-
   landingTransition.classList.remove("show");
 
   if (pendingDestination) {
@@ -2058,9 +1990,7 @@ function finishLanding() {
 
 document.querySelectorAll(".nav-destination")
   .forEach(button => {
-
     button.addEventListener("click", () => {
-
       const target = button.dataset.target;
 
       if (
@@ -2077,9 +2007,7 @@ document.querySelectorAll(".nav-destination")
       ).textContent = destinationNames[target];
 
       landingTransition.classList.remove("show");
-
       void landingTransition.offsetWidth;
-
       landingTransition.classList.add("show");
 
       const reducedMotion = window.matchMedia(
@@ -2091,7 +2019,6 @@ document.querySelectorAll(".nav-destination")
         reducedMotion ? 120 : 780
       );
     });
-
   });
 
 document.querySelectorAll(".back-button")
@@ -2125,40 +2052,32 @@ document.addEventListener("keydown", event => {
   );
 });
 
-/* ========================================
-   DRAW TAKEOFF SPACESHIP
-======================================== */
+/* ====================================
+   DRAW SPACESHIP
+==================================== */
 
 function createLaunchSpaceship() {
-
-  const canvas =
-    document.getElementById("launchShipCanvas");
-
-  const p = canvas.getContext("2d");
+  const c = document.getElementById("launchShipCanvas");
+  const p = c.getContext("2d");
 
   function rect(x, y, w, h, color) {
     p.fillStyle = color;
     p.fillRect(x, y, w, h);
   }
 
-  p.clearRect(0, 0, canvas.width, canvas.height);
+  p.clearRect(0, 0, c.width, c.height);
 
   for (let y = 1; y < 36; y++) {
-
     const half =
       y < 7
-        ? Math.max(0, Math.floor(y * .4))
+        ? Math.max(0, Math.floor(y * .40))
         : y < 16
           ? 3
           : y < 28
             ? 4
             : 5;
 
-    for (
-      let x = 15 - half;
-      x <= 15 + half;
-      x++
-    ) {
+    for (let x = 15 - half; x <= 15 + half; x++) {
       let color =
         x === 15 - half
           ? "#6d8fca"
@@ -2169,73 +2088,53 @@ function createLaunchSpaceship() {
               : "#98b8e3";
 
       if (y > 24) {
-        color =
-          x < 15
-            ? "#adc9e8"
-            : "#6f91c6";
+        color = x < 15 ? "#adc9e8" : "#6f91c6";
       }
 
       rect(x, y, 1, 1, color);
     }
   }
 
-  // Wings
   for (let y = 17; y <= 32; y++) {
-
     const wing =
       y < 24
         ? Math.floor((y - 16) * 1.65)
-        : Math.max(
-            5,
-            12 - Math.floor((y - 24) * .85)
-          );
+        : Math.max(5, 12 - Math.floor((y - 24) * .85));
 
     for (let dx = 5; dx <= wing; dx++) {
-
       rect(
         15 - dx, y, 1, 1,
-        dx === wing
-          ? "#5478b9"
-          : "#8aabdb"
+        dx === wing ? "#5478b9" : "#8aabdb"
       );
 
       rect(
         15 + dx, y, 1, 1,
-        dx === wing
-          ? "#3c5c9e"
-          : "#668cce"
+        dx === wing ? "#3c5c9e" : "#668cce"
       );
     }
   }
 
-  // Cockpit
   rect(14,2,3,3,"#dff6ff");
   rect(14,9,3,10,"#263f71");
   rect(15,10,1,7,"#65d0ef");
-
-  // Hull details
   rect(13,20,5,2,"#dcefff");
   rect(14,23,3,7,"#394e86");
   rect(15,23,1,4,"#77d5f3");
 
-  // Engines
   rect(11,34,4,4,"#1a3368");
   rect(17,34,4,4,"#1a3368");
-
   rect(12,36,2,3,"#8cdbff");
   rect(18,36,2,3,"#8cdbff");
-
 }
 
 createLaunchSpaceship();
 
-/* ========================================
-   ANIMATED SPACE BACKGROUND
-   DIRECTION: LEFT TO RIGHT
-======================================== */
+/* ====================================
+   SPACE BACKGROUND
+   STARS MOVE LEFT TO RIGHT
+==================================== */
 
 const canvas = document.getElementById("spaceCanvas");
-
 const ctx = canvas.getContext("2d", {
   alpha: false
 });
@@ -2244,48 +2143,39 @@ const reduceMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 );
 
-const rnd = (min, max) =>
-  Math.random() * (max - min) + min;
+const rnd = (a, b) => Math.random() * (b - a) + a;
 
 let W = 0;
 let H = 0;
-
 let stars = [];
 let trails = [];
-
 let shipX = -70;
 let lastTime = 0;
 
 function resizeCanvas() {
-
   W = window.innerWidth;
   H = window.innerHeight;
 
-  const dpr = Math.min(
-    window.devicePixelRatio || 1,
-    2
-  );
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
   canvas.width = Math.round(W * dpr);
   canvas.height = Math.round(H * dpr);
 
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-  createSpace();
+  makeStars();
 }
 
-function createSpace() {
-
+function makeStars() {
   stars = [];
   trails = [];
 
-  const starCount = Math.min(
+  const count = Math.min(
     450,
     Math.max(100, Math.round(W * H / 4700))
   );
 
-  for (let i = 0; i < starCount; i++) {
-
+  for (let i = 0; i < count; i++) {
     stars.push({
       x: rnd(0,W),
       y: rnd(0,H),
@@ -2295,31 +2185,23 @@ function createSpace() {
       phase: rnd(0,7),
       tone: Math.random()
     });
-
   }
 
   for (let i = 0; i < 15; i++) {
-
     trails.push({
       x: rnd(0,W),
       y: rnd(0,H),
-      length: rnd(18,80),
+      len: rnd(18,80),
       speed: rnd(.5,1.25),
       alpha: rnd(.04,.16)
     });
-
   }
 
   shipX = -55;
 }
 
-/* BACKGROUND GRADIENT */
-
 function drawBackground() {
-
-  const base = ctx.createLinearGradient(
-    0, 0, 0, H
-  );
+  const base = ctx.createLinearGradient(0, 0, 0, H);
 
   base.addColorStop(0, "#01040d");
   base.addColorStop(.55, "#03091b");
@@ -2328,117 +2210,85 @@ function drawBackground() {
   ctx.fillStyle = base;
   ctx.fillRect(0, 0, W, H);
 
-  const nebula = ctx.createRadialGradient(
-    W * .27,
-    H * .50,
-    0,
-    W * .27,
-    H * .50,
-    W * .58
+  const g1 = ctx.createRadialGradient(
+    W * .27, H * .50, 0,
+    W * .27, H * .50, W * .58
   );
 
-  nebula.addColorStop(
-    0,
-    "rgba(17,45,103,.19)"
+  g1.addColorStop(0, "rgba(17,45,103,.19)");
+  g1.addColorStop(.5, "rgba(8,22,59,.08)");
+  g1.addColorStop(1, "rgba(0,0,0,0)");
+
+  ctx.fillStyle = g1;
+  ctx.fillRect(0, 0, W, H);
+
+  const g2 = ctx.createRadialGradient(
+    W * .82, H * .30, 0,
+    W * .82, H * .30, W * .37
   );
 
-  nebula.addColorStop(
-    .5,
-    "rgba(8,22,59,.08)"
-  );
+  g2.addColorStop(0, "rgba(43,58,139,.10)");
+  g2.addColorStop(1, "rgba(0,0,0,0)");
 
-  nebula.addColorStop(
-    1,
-    "rgba(0,0,0,0)"
-  );
-
-  ctx.fillStyle = nebula;
+  ctx.fillStyle = g2;
   ctx.fillRect(0, 0, W, H);
 }
 
-/* MOVING STARS */
-
 function drawStars(time, dt) {
+  for (const s of stars) {
+    s.x += s.speed * dt;
 
-  for (const star of stars) {
-
-    star.x += star.speed * dt;
-
-    if (star.x > W + 3) {
-      star.x = -3;
-      star.y = rnd(0,H);
+    if (s.x > W + 3) {
+      s.x = -3;
+      s.y = rnd(0,H);
     }
 
     const alpha =
-      star.alpha *
-      (.85 + .15 * Math.sin(
-        time * .001 + star.phase
-      ));
+      s.alpha *
+      (.85 + .15 * Math.sin(time * .001 + s.phase));
 
     ctx.fillStyle =
-      star.tone > .88
+      s.tone > .88
         ? `rgba(169,194,255,${alpha})`
         : `rgba(221,235,255,${alpha})`;
 
     ctx.beginPath();
-
-    ctx.arc(
-      star.x,
-      star.y,
-      star.r,
-      0,
-      Math.PI * 2
-    );
-
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
     ctx.fill();
   }
 
-  for (const trail of trails) {
+  for (const s of trails) {
+    s.x += s.speed * dt;
 
-    trail.x += trail.speed * dt;
-
-    if (trail.x > W + 5) {
-      trail.x = -trail.length;
-      trail.y = rnd(0,H);
+    if (s.x > W + 5) {
+      s.x = -s.len;
+      s.y = rnd(0,H);
     }
 
     const gradient = ctx.createLinearGradient(
-      trail.x,
-      trail.y,
-      trail.x + trail.length,
-      trail.y
+      s.x, s.y,
+      s.x + s.len, s.y
     );
 
-    gradient.addColorStop(
-      0,
-      "rgba(90,156,255,0)"
-    );
-
+    gradient.addColorStop(0, "rgba(90,156,255,0)");
     gradient.addColorStop(
       1,
-      `rgba(160,202,255,${trail.alpha})`
+      `rgba(160,202,255,${s.alpha})`
     );
 
     ctx.fillStyle = gradient;
-
-    ctx.fillRect(
-      trail.x,
-      trail.y,
-      trail.length,
-      1
-    );
+    ctx.fillRect(s.x, s.y, s.len, 1);
   }
 }
 
-/* SOFT TWINKLES */
+/* ====================================
+   SUBTLE TWINKLING STARS
+==================================== */
 
-function drawGlint(x, y, time, phase) {
-
+function glint(x, y, time, phase) {
   const pulse =
     .6 + .4 *
-    (.5 + .5 * Math.sin(
-      time * .0015 + phase
-    ));
+    (.5 + .5 * Math.sin(time * .0015 + phase));
 
   const halo = ctx.createRadialGradient(
     x, y, 0,
@@ -2449,11 +2299,7 @@ function drawGlint(x, y, time, phase) {
     0,
     `rgba(201,227,255,${.32 * pulse})`
   );
-
-  halo.addColorStop(
-    1,
-    "rgba(201,227,255,0)"
-  );
+  halo.addColorStop(1, "rgba(201,227,255,0)");
 
   ctx.fillStyle = halo;
   ctx.fillRect(x - 15, y - 15, 30, 30);
@@ -2461,32 +2307,26 @@ function drawGlint(x, y, time, phase) {
   ctx.fillStyle =
     `rgba(238,247,255,${.8 * pulse})`;
 
-  ctx.fillRect(
-    Math.round(x),
-    Math.round(y),
-    2,
-    2
-  );
+  ctx.fillRect(Math.round(x), Math.round(y), 2, 2);
 }
 
-/* PIXEL PLANETS */
+/* ====================================
+   SMALL PIXEL PLANETS
+==================================== */
 
 function makePlanet(type) {
-
   const c = document.createElement("canvas");
   c.width = 32;
   c.height = 32;
 
   const p = c.getContext("2d");
+  p.imageSmoothingEnabled = false;
 
   for (let y = 0; y < 32; y++) {
-
     for (let x = 0; x < 32; x++) {
-
       const dx = x - 15.5;
       const dy = y - 15.5;
-
-      const distance = Math.hypot(dx,dy);
+      const distance = Math.hypot(dx, dy);
 
       if (distance > 13.5) continue;
 
@@ -2495,42 +2335,37 @@ function makePlanet(type) {
         1 - (dx + dy * .55) / 25
       );
 
-      const stripe = Math.sin(
-        y * .62 + x * .18
-      );
+      const stripe = Math.sin(y * .62 + x * .18);
+      const blotch =
+        Math.sin(x * .7 + y * .31) *
+        Math.cos(y * .45 - x * .28);
 
       let color;
 
       if (type === "blue") {
-
         if (distance > 12.3) {
           color = "#17355f";
         } else if (lighting > 1.13) {
-          color = "#94bdde";
+          color = blotch > .22 ? "#94bdde" : "#6b9cc6";
         } else if (lighting > .82) {
-          color = stripe > .43
-            ? "#5787b8"
-            : "#3d6fa6";
+          color = stripe > .43 ? "#5787b8" : "#3d6fa6";
         } else {
           color = "#294e86";
         }
-
       } else {
-
         if (distance > 12.3) {
           color = "#333765";
         } else if (lighting > 1.13) {
           color = "#b3a9dc";
         } else if (lighting > .78) {
-          color = "#786aa9";
+          color = stripe > .13 ? "#786aa9" : "#656d9d";
         } else {
           color = "#494c7d";
         }
       }
 
       p.fillStyle = color;
-      p.fillRect(x,y,1,1);
-
+      p.fillRect(x, y, 1, 1);
     }
   }
 
@@ -2540,10 +2375,8 @@ function makePlanet(type) {
 const bluePlanet = makePlanet("blue");
 const purplePlanet = makePlanet("purple");
 
-function drawPlanet(x,y,size,sprite) {
-
+function drawPlanet(x, y, size, sprite) {
   ctx.save();
-
   ctx.imageSmoothingEnabled = false;
 
   ctx.drawImage(
@@ -2557,15 +2390,13 @@ function drawPlanet(x,y,size,sprite) {
   ctx.restore();
 }
 
-function drawRingPlanet(x,y,size) {
-
+function drawRingPlanet(x, y, size) {
   ctx.strokeStyle = "rgba(139,155,220,.32)";
   ctx.lineWidth = 2;
   ctx.beginPath();
 
   ctx.ellipse(
-    x,
-    y + 2,
+    x, y + 2,
     size * .85,
     size * .25,
     -.19,
@@ -2575,15 +2406,14 @@ function drawRingPlanet(x,y,size) {
 
   ctx.stroke();
 
-  drawPlanet(x,y,size,purplePlanet);
+  drawPlanet(x, y, size, purplePlanet);
 
   ctx.strokeStyle = "rgba(170,181,229,.58)";
   ctx.lineWidth = 1.7;
   ctx.beginPath();
 
   ctx.ellipse(
-    x,
-    y + 2,
+    x, y + 2,
     size * .85,
     size * .25,
     -.19,
@@ -2594,7 +2424,9 @@ function drawRingPlanet(x,y,size) {
   ctx.stroke();
 }
 
-/* SMALL BACKGROUND SPACESHIP */
+/* ====================================
+   SMALL BACKGROUND SPACESHIP
+==================================== */
 
 const shipPixels = [
   "...........A......",
@@ -2616,8 +2448,7 @@ const shipColors = {
   E: "#263e6e"
 };
 
-function drawShip(x,y,time) {
-
+function drawShip(x, y, time) {
   const bob = Math.sin(time * .0017) * 2;
 
   ctx.save();
@@ -2627,20 +2458,22 @@ function drawShip(x,y,time) {
     Math.round(y + bob)
   );
 
-  shipPixels.forEach((row,ry) => {
+  const engine = ctx.createRadialGradient(
+    -4, 4, 0,
+    -4, 4, 13
+  );
 
-    [...row].forEach((cell,rx) => {
+  engine.addColorStop(0, "rgba(65,163,242,.20)");
+  engine.addColorStop(1, "rgba(65,163,242,0)");
 
+  ctx.fillStyle = engine;
+  ctx.fillRect(-17, -9, 26, 26);
+
+  shipPixels.forEach((row, ry) => {
+    [...row].forEach((cell, rx) => {
       if (shipColors[cell]) {
-
         ctx.fillStyle = shipColors[cell];
-
-        ctx.fillRect(
-          rx * 1.4,
-          ry * 1.4,
-          1.4,
-          1.4
-        );
+        ctx.fillRect(rx * 1.4, ry * 1.4, 1.4, 1.4);
       }
     });
   });
@@ -2648,10 +2481,11 @@ function drawShip(x,y,time) {
   ctx.restore();
 }
 
-/* MAIN ANIMATION */
+/* ====================================
+   MAIN ANIMATION
+==================================== */
 
 function animate(time) {
-
   const dt = Math.min(
     (time - lastTime) / 16.67 || 1,
     2.2
@@ -2660,7 +2494,6 @@ function animate(time) {
   lastTime = time;
 
   if (!document.hidden) {
-
     drawBackground();
 
     drawStars(
@@ -2668,8 +2501,8 @@ function animate(time) {
       reduceMotion.matches ? 0 : dt
     );
 
-    drawGlint(W * .20, H * .23, time, 0);
-    drawGlint(W * .78, H * .28, time, 1.8);
+    glint(W * .20, H * .23, time, 0);
+    glint(W * .78, H * .28, time, 1.8);
 
     const drift = reduceMotion.matches
       ? 0
@@ -2702,15 +2535,11 @@ function animate(time) {
   requestAnimationFrame(animate);
 }
 
-window.addEventListener(
-  "resize",
-  resizeCanvas
-);
+window.addEventListener("resize", resizeCanvas);
 
 resizeCanvas();
 requestAnimationFrame(animate);
 
 </script>
-
 </body>
 </html>
