@@ -52,9 +52,9 @@ button {
   pointer-events: auto;
 }
 
-/* ====================================
-   LANDING SCREEN
-==================================== */
+/* ==========================================
+   LANDING PAGE
+========================================== */
 
 #landing {
   cursor: pointer;
@@ -107,7 +107,8 @@ button {
 
 .name {
   margin: 0 0 0 .18em;
-  font: 500 clamp(42px,6.5vw,104px)/1.25 Orbitron,Arial,sans-serif;
+  font: 500 clamp(42px,6.5vw,104px)/1.25
+    Orbitron,Arial,sans-serif;
   letter-spacing: .18em;
   color: #f1f6ff;
   text-shadow:
@@ -117,14 +118,16 @@ button {
 
 .portfolio-title {
   margin-top: 22px;
-  font: normal clamp(10px,1.4vw,17px)/2 'Press Start 2P',monospace;
+  font: normal clamp(10px,1.4vw,17px)/2
+    'Press Start 2P',monospace;
   letter-spacing: .08em;
   text-shadow: 0 0 12px rgba(115,166,255,.4);
 }
 
 .role {
   margin: 25px 0 0 .3em;
-  font: 400 clamp(10px,1.1vw,15px)/1.5 Orbitron,Arial,sans-serif;
+  font: 400 clamp(10px,1.1vw,15px)/1.5
+    Orbitron,Arial,sans-serif;
   letter-spacing: .3em;
   color: #abc5e6;
 }
@@ -136,7 +139,8 @@ button {
   transform: translateX(-50%);
   white-space: nowrap;
   color: #e2efff;
-  font: normal clamp(7px,.8vw,11px)/1.8 'Press Start 2P',monospace;
+  font: normal clamp(7px,.8vw,11px)/1.8
+    'Press Start 2P',monospace;
   text-shadow: 0 0 12px rgba(91,167,255,.55);
   animation: blink 1.3s steps(1,end) infinite;
 }
@@ -165,9 +169,9 @@ button {
   opacity: 0;
 }
 
-/* ====================================
+/* ==========================================
    SPACESHIP TAKEOFF
-==================================== */
+========================================== */
 
 .launch-scene {
   position: absolute;
@@ -230,8 +234,10 @@ button {
     opacity: 0;
     transform: translateY(-22%);
   }
+
   35% { opacity: .25; }
   78% { opacity: .45; }
+
   100% {
     opacity: .15;
     transform: translateY(75%);
@@ -250,20 +256,23 @@ button {
 
 .launch-hud-kicker {
   color: #7faadb;
-  font: normal clamp(7px,.72vw,10px)/1.5 'Press Start 2P',monospace;
+  font: normal clamp(7px,.72vw,10px)/1.5
+    'Press Start 2P',monospace;
 }
 
 .launch-hud-title {
   margin: 18px 0 16px;
   color: #f1f7ff;
-  font: 500 clamp(19px,2.2vw,34px)/1.5 Orbitron,sans-serif;
+  font: 500 clamp(19px,2.2vw,34px)/1.5
+    Orbitron,sans-serif;
   letter-spacing: .15em;
   text-shadow: 0 0 18px rgba(120,184,255,.5);
 }
 
 .launch-hud-destination {
   color: #90accb;
-  font: normal clamp(8px,.77vw,11px)/1.9 'Press Start 2P',monospace;
+  font: normal clamp(8px,.77vw,11px)/1.9
+    'Press Start 2P',monospace;
 }
 
 .launch-hud-destination strong {
@@ -294,7 +303,9 @@ button {
 }
 
 @keyframes launchProgress {
-  to { transform: translateX(0); }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .launch-status {
@@ -311,23 +322,28 @@ button {
   height: 164px;
   transform: translateX(-50%) scale(.9);
   filter: drop-shadow(0 0 15px rgba(122,185,255,.35));
-  will-change: transform;
 }
 
 #landing.entering .launch-ship {
-  animation: shipAscend 2.78s cubic-bezier(.32,.05,.56,.95) .12s both;
+  animation:
+    shipAscend 2.78s
+    cubic-bezier(.32,.05,.56,.95)
+    .12s both;
 }
 
 @keyframes shipAscend {
   0% {
     transform: translate(-50%,0) scale(.82);
   }
+
   18% {
     transform: translate(-50%,-22vh) scale(.91);
   }
+
   52% {
     transform: translate(-50%,-71vh) scale(1);
   }
+
   100% {
     transform: translate(-50%,-145vh) scale(.88);
   }
@@ -373,6 +389,7 @@ button {
   from {
     transform: translateX(-50%) scaleY(.85);
   }
+
   to {
     transform: translateX(-50%) scaleY(1.13);
   }
@@ -389,9 +406,9 @@ button {
   100% { opacity: .8; }
 }
 
-/* ====================================
+/* ==========================================
    DESTINATION SELECT
-==================================== */
+========================================== */
 
 #database {
   isolation: isolate;
@@ -402,8 +419,8 @@ button {
 #database::before {
   content: '';
   position: absolute;
-  z-index: 0;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
   background:
     radial-gradient(
@@ -411,41 +428,12 @@ button {
       rgba(24,48,91,.31),
       transparent 74%
     ),
-    radial-gradient(
-      1px 1px at 15% 23%,
-      rgba(189,222,255,.8) 95%,
-      transparent
-    ),
-    radial-gradient(
-      1px 1px at 83% 65%,
-      rgba(159,194,240,.8) 95%,
-      transparent
-    ),
     linear-gradient(
       180deg,
       #020610,
       #071021 50%,
       #030712
     );
-  background-size:
-    auto,
-    320px 260px,
-    390px 350px,
-    auto;
-}
-
-#database::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent 0,
-    transparent 5px,
-    rgba(151,194,242,.012) 6px
-  );
 }
 
 .nav-shell {
@@ -512,7 +500,8 @@ button {
   margin: 23px 0 10px;
   color: #eef6ff;
   text-align: center;
-  font: 500 clamp(28px,4.3vw,60px)/1.2 Orbitron,sans-serif;
+  font: 500 clamp(28px,4.3vw,60px)/1.2
+    Orbitron,sans-serif;
   letter-spacing: .14em;
   text-shadow: 0 0 28px rgba(133,190,255,.2);
 }
@@ -585,20 +574,16 @@ button {
   width: 100%;
   min-height: 69px;
   padding: 15px 20px;
-  color: #e0edfc;
   text-align: left;
   cursor: pointer;
+  color: #e0edfc;
   background: linear-gradient(
     95deg,
     rgba(14,29,50,.88),
     rgba(8,17,31,.85)
   );
   border: 1px solid rgba(124,164,207,.24);
-  transition:
-    background .2s,
-    border-color .2s,
-    transform .2s,
-    box-shadow .2s;
+  transition: .2s ease;
 }
 
 .nav-destination:hover,
@@ -620,7 +605,8 @@ button {
 }
 
 .nav-name {
-  font: 500 clamp(12px,1.5vw,17px)/1.4 Orbitron,sans-serif;
+  font: 500 clamp(12px,1.5vw,17px)/1.4
+    Orbitron,sans-serif;
   letter-spacing: .11em;
 }
 
@@ -633,7 +619,6 @@ button {
 .nav-arrow {
   color: #86b8ea;
   font-size: 22px;
-  text-align: right;
 }
 
 .nav-foot {
@@ -663,9 +648,9 @@ button {
   font: 8px 'Press Start 2P',monospace;
 }
 
-/* ====================================
-   DESTINATION TRANSITION
-==================================== */
+/* ==========================================
+   LANDING DESTINATION TRANSITION
+========================================== */
 
 .landing-transition {
   position: fixed;
@@ -701,7 +686,8 @@ button {
 
 .landing-transition strong {
   color: #eef8ff;
-  font: 500 clamp(22px,4vw,42px)/1.3 Orbitron,sans-serif;
+  font: 500 clamp(22px,4vw,42px)/1.3
+    Orbitron,sans-serif;
   letter-spacing: .13em;
 }
 
@@ -725,28 +711,32 @@ button {
 }
 
 @keyframes loadLanding {
-  to { transform: translateX(0); }
+  to {
+    transform: translateX(0);
+  }
 }
 
-/* ====================================
-   PORTFOLIO SECTION STYLES
-==================================== */
+/* ==========================================
+   CONTENT PAGES
+========================================== */
 
 .content-page {
   overflow-y: auto;
-  background: radial-gradient(
-    ellipse at top,
-    #14233c,
-    transparent 55%
-  ),#060a12;
+  background:
+    radial-gradient(
+      ellipse at top,
+      #14233c,
+      transparent 55%
+    ),
+    #060a12;
 }
 
 .content-container {
-  max-width: 1000px;
+  max-width: 1060px;
   width: 90%;
   min-height: 100%;
   margin: auto;
-  padding: 110px 0 70px;
+  padding: 90px 0 70px;
 }
 
 .small-label {
@@ -756,16 +746,17 @@ button {
 
 .content-container h2 {
   margin: 25px 0;
-  font: 500 clamp(34px,5vw,65px)/1.3 Orbitron,sans-serif;
+  font: 500 clamp(34px,5vw,65px)/1.3
+    Orbitron,sans-serif;
   letter-spacing: .1em;
 }
 
 .section-intro {
-  max-width: 790px;
+  max-width: 850px;
   margin: 0 0 30px;
   color: #aabed7;
   font-size: clamp(15px,1.35vw,17px);
-  line-height: 1.75;
+  line-height: 1.8;
 }
 
 .section-count {
@@ -788,14 +779,6 @@ button {
   );
 }
 
-.portfolio-grid,
-.skills-grid,
-.about-grid {
-  display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
-  gap: 15px;
-}
-
 .portfolio-card,
 .skill-panel,
 .experience-item,
@@ -808,46 +791,101 @@ button {
   );
 }
 
-.portfolio-card {
-  min-width: 0;
-  padding: 25px 24px;
-  transition: border-color .2s, transform .2s;
+.back-button {
+  margin-top: 40px;
+  padding: 16px 22px;
+  border: 1px solid #7797c1;
+  background: rgba(130,180,250,.07);
+  color: #d5e6ff;
+  font: 8px 'Press Start 2P',monospace;
+  cursor: pointer;
 }
 
-.portfolio-card:hover {
-  border-color: rgba(162,211,255,.67);
-  transform: translateY(-2px);
+.back-button:hover {
+  background: rgba(130,180,250,.2);
 }
 
-.project-topline {
+/* ==========================================
+   PROJECT SELECTION — TITLES ONLY
+========================================== */
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 15px;
+}
+
+#projects .portfolio-card {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  color: #8ba7c9;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  min-height: 125px;
+  padding: 26px 27px;
+  color: #eff6ff;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    border-color .2s,
+    background .2s,
+    transform .2s;
+}
+
+#projects .portfolio-card:hover,
+#projects .portfolio-card:focus-visible {
+  outline: none;
+  transform: translateY(-3px);
+  border-color: #b2d9ff;
+  background: rgba(40,83,130,.3);
+}
+
+#projects .portfolio-card h3 {
+  margin: 0;
+  color: #edf6ff;
+  font: 500 clamp(15px,1.55vw,20px)/1.5
+    Orbitron,sans-serif;
+}
+
+.project-card-cta {
+  flex: none;
+  color: #a9d7ff;
+  font: 24px Orbitron,sans-serif;
+}
+
+#projects .portfolio-card:hover .project-card-cta {
+  color: white;
+}
+
+/* ==========================================
+   INDIVIDUAL PROJECT DETAIL PAGE
+========================================== */
+
+.project-detail-content {
+  max-width: 1060px;
+  padding-top: 64px;
+}
+
+.project-return {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 42px;
+  padding: 8px 0;
+  background: transparent;
+  border: 0;
+  color: #9cc8f0;
+  cursor: pointer;
   font: 8px/1.6 'Press Start 2P',monospace;
 }
 
-.project-topline .index {
-  color: #acd4ff;
+.project-return:hover {
+  color: #eff8ff;
 }
 
-.portfolio-card h3,
-.skill-panel h3,
-.experience-item h3,
-.about-panel h3 {
-  margin: 20px 0 12px;
-  color: #edf6ff;
-  font: 500 clamp(15px,1.45vw,21px)/1.45 Orbitron,sans-serif;
-}
-
-.portfolio-card p,
-.experience-item p,
-.about-panel p {
-  margin: 0;
-  color: #aac0da;
-  font-size: 14px;
-  line-height: 1.75;
+#projectDetailTitle {
+  font-size: clamp(25px,4vw,50px);
+  line-height: 1.35;
+  letter-spacing: .04em;
 }
 
 .tag-row {
@@ -857,13 +895,147 @@ button {
   margin-top: 20px;
 }
 
+#projectDetailTags {
+  margin-bottom: 34px;
+}
+
 .tag {
+  display: inline-block;
   padding: 7px 9px;
+  border: 1px solid rgba(136,188,241,.23);
+  background: rgba(110,169,235,.06);
   color: #a7c6e9;
   font-size: 10px;
-  background: rgba(110,169,235,.06);
-  border: 1px solid rgba(136,188,241,.23);
 }
+
+/* ==========================================
+   IMAGE AND VIDEO GALLERY
+========================================== */
+
+.project-media-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.project-media-item {
+  display: grid;
+  grid-template-columns: minmax(0,1.25fr) minmax(0,.75fr);
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(146,190,255,.25);
+  background: rgba(9,20,39,.86);
+}
+
+.project-media-item img,
+.project-media-item video {
+  display: block;
+  width: 100%;
+  height: 340px;
+  object-fit: contain;
+  background: #020611;
+}
+
+.project-media-item img {
+  cursor: zoom-in;
+}
+
+.project-media-item figcaption {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 22px 25px;
+  border-left: 1px solid rgba(146,190,255,.17);
+}
+
+.project-media-item figcaption strong {
+  display: block;
+  margin-bottom: 12px;
+  color: #eaf5ff;
+  font: 500 17px/1.5 Orbitron,sans-serif;
+}
+
+.project-media-item figcaption p {
+  margin: 0;
+  color: #aac4dc;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.project-media-empty {
+  min-height: 245px;
+  padding: 30px;
+  border: 1px dashed rgba(148,195,241,.42);
+  background: linear-gradient(
+    135deg,
+    rgba(22,48,82,.22),
+    rgba(4,12,27,.64)
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.project-media-empty .empty-glyph {
+  color: #79afd9;
+  font: 35px Orbitron,sans-serif;
+}
+
+.project-media-empty strong {
+  color: #e2f2ff;
+  font: 10px/1.7 'Press Start 2P',monospace;
+}
+
+.project-media-empty p {
+  max-width: 460px;
+  margin: 0;
+  color: #92aecb;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.media-lightbox {
+  max-width: min(1100px,94vw);
+  max-height: 92vh;
+  padding: 20px;
+  border: 1px solid rgba(175,219,255,.55);
+  background: #020611;
+  color: white;
+}
+
+.media-lightbox::backdrop {
+  background: rgba(0,4,13,.91);
+}
+
+.media-lightbox img {
+  display: block;
+  max-width: 100%;
+  max-height: 76vh;
+  object-fit: contain;
+  margin: auto;
+}
+
+.media-lightbox button {
+  display: block;
+  margin: 0 0 13px auto;
+  color: #d8eeff;
+  border: 0;
+  background: transparent;
+  font: 8px 'Press Start 2P',monospace;
+  cursor: pointer;
+}
+
+.media-lightbox p {
+  color: #adbfda;
+  font-size: 13px;
+}
+
+/* ==========================================
+   EXPERIENCE / SKILLS / ABOUT
+========================================== */
 
 .experience-list {
   display: grid;
@@ -882,8 +1054,13 @@ button {
   font: 9px/1.8 'Press Start 2P',monospace;
 }
 
-.experience-item h3 {
-  margin: 0 0 5px;
+.experience-item h3,
+.skill-panel h3,
+.about-panel h3 {
+  margin: 0 0 12px;
+  color: #edf6ff;
+  font: 500 clamp(15px,1.45vw,21px)/1.45
+    Orbitron,sans-serif;
 }
 
 .experience-company {
@@ -904,18 +1081,16 @@ button {
   margin: 5px 0;
 }
 
-.resume-points li::marker {
-  color: #6ba8e8;
+.skills-grid,
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 14px;
 }
 
 .skill-panel,
 .about-panel {
   padding: 23px;
-}
-
-.skill-panel h3,
-.about-panel h3 {
-  margin: 0 0 17px;
 }
 
 .skill-items {
@@ -942,36 +1117,22 @@ button {
   margin-top: 28px;
 }
 
-.about-kicker {
-  margin-bottom: 13px;
-  color: #87a9cf;
-  font: 8px/1.6 'Press Start 2P',monospace;
-}
-
+.about-panel p,
 .small-list {
-  padding-left: 18px;
   color: #aac0da;
   font-size: 14px;
   line-height: 1.8;
 }
 
-.back-button {
-  margin-top: 40px;
-  padding: 16px 22px;
-  border: 1px solid #7797c1;
-  background: rgba(130,180,250,.07);
-  color: #d5e6ff;
-  font: 8px 'Press Start 2P',monospace;
-  cursor: pointer;
+.about-kicker {
+  color: #87a9cf;
+  font: 8px/1.6 'Press Start 2P',monospace;
+  margin-bottom: 13px;
 }
 
-.back-button:hover {
-  background: rgba(130,180,250,.2);
-}
-
-/* ====================================
+/* ==========================================
    CONTACT
-==================================== */
+========================================== */
 
 .contact-links {
   display: grid;
@@ -987,15 +1148,14 @@ button {
   gap: 20px;
   min-height: 90px;
   padding: 20px 24px;
-  color: #e3f1ff;
-  text-decoration: none;
   border: 1px solid rgba(146,190,255,.28);
   background: rgba(37,70,116,.16);
-  transition: .2s;
+  color: #e3f1ff;
+  text-decoration: none;
+  transition: .2s ease;
 }
 
-.contact-link:hover,
-.contact-link:focus-visible {
+.contact-link:hover {
   border-color: #98ceff;
   background: rgba(45,91,148,.22);
   transform: translateX(4px);
@@ -1016,9 +1176,9 @@ button {
   font-size: 23px;
 }
 
-/* ====================================
+/* ==========================================
    RESPONSIVE DESIGN
-==================================== */
+========================================== */
 
 @media (max-width: 900px) {
   .name {
@@ -1039,16 +1199,29 @@ button {
     gap: 9px;
   }
 
+  .project-media-item {
+    grid-template-columns: 1fr;
+  }
+
+  .project-media-item figcaption {
+    border-left: 0;
+    border-top: 1px solid rgba(146,190,255,.17);
+  }
+
+  .project-media-item img,
+  .project-media-item video {
+    height: auto;
+    max-height: 380px;
+  }
+
   .content-container {
     width: 92%;
     padding-top: 75px;
   }
 
-  .portfolio-card,
-  .skill-panel,
-  .experience-item,
-  .about-panel {
-    padding: 19px;
+  #projects .portfolio-card {
+    min-height: 90px;
+    padding: 20px;
   }
 
   .nav-shell {
@@ -1062,11 +1235,6 @@ button {
 
   .nav-title {
     font-size: clamp(25px,7vw,42px);
-    letter-spacing: .06em;
-  }
-
-  .nav-subtitle {
-    font-size: 11px;
     letter-spacing: .06em;
   }
 
@@ -1087,15 +1255,6 @@ button {
 
   .nav-name {
     font-size: clamp(11px,3.1vw,15px);
-  }
-
-  .nav-topbar {
-    font-size: 8px;
-    letter-spacing: 0;
-  }
-
-  .nav-topbar .status {
-    font-size: 7px;
   }
 
   .nav-foot span {
@@ -1149,6 +1308,15 @@ button {
     display: block;
   }
 
+  .nav-topbar {
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+
+  .nav-topbar .status {
+    font-size: 7px;
+  }
+
   .nav-console-heading {
     font-size: 6px;
   }
@@ -1161,7 +1329,8 @@ button {
   }
 
   .page,
-  .nav-destination {
+  .nav-destination,
+  .portfolio-card {
     transition: none;
   }
 }
@@ -1170,9 +1339,9 @@ button {
 
 <body>
 
-<!-- ====================================
+<!-- ==========================================
      LANDING SCREEN
-==================================== -->
+========================================== -->
 
 <section id="landing" class="page active" tabindex="0">
 
@@ -1182,9 +1351,11 @@ button {
   <div class="landing-content">
     <div class="title-group">
       <h1 class="name">TONGYANG</h1>
+
       <div class="portfolio-title">
         ENGINEERING PORTFOLIO
       </div>
+
       <div class="role">
         MECHATRONICS ENGINEER
       </div>
@@ -1195,45 +1366,56 @@ button {
     </div>
   </div>
 
+  <!-- SPACESHIP TAKEOFF -->
+
   <div class="launch-scene" id="launchScene">
+
     <div class="launch-veil"></div>
     <div class="launch-speed"></div>
 
     <div class="launch-hud">
+
       <div class="launch-hud-kicker">
         TY-01 // FLIGHT CONTROL
       </div>
+
       <div class="launch-hud-title">
         INITIATING TAKEOFF
       </div>
+
       <div class="launch-hud-destination">
         DESTINATION:
         <strong>ENGINEERING DATABASE</strong>
       </div>
+
       <div class="launch-progress">
         <span class="launch-progress-fill"></span>
       </div>
+
       <div class="launch-status" id="launchStatus">
         ENGAGING THRUSTERS...
       </div>
+
     </div>
 
     <div class="launch-ship">
       <canvas
         id="launchShipCanvas"
         width="30"
-        height="41"
-      ></canvas>
+        height="41">
+      </canvas>
       <div class="launch-flame"></div>
     </div>
+
   </div>
 
   <div class="transition-flash"></div>
+
 </section>
 
-<!-- ====================================
-     DESTINATION SELECT
-==================================== -->
+<!-- ==========================================
+     DESTINATION SELECTION SCREEN
+========================================== -->
 
 <section id="database" class="page">
 
@@ -1243,6 +1425,7 @@ button {
       <div>
         <strong>TY-01</strong> // FLIGHT NAVIGATION
       </div>
+
       <div class="status">
         <i></i>
         ASTRONAUT MODE
@@ -1314,6 +1497,7 @@ button {
         <button id="returnLanding">
           ← RETURN TO SHIP
         </button>
+
         <span>SELECT A DESTINATION TO LAND</span>
       </div>
 
@@ -1329,11 +1513,12 @@ button {
 
 </section>
 
-<!-- ====================================
-     PROJECTS
-==================================== -->
+<!-- ==========================================
+     PROJECTS — TITLE ONLY
+========================================== -->
 
 <section id="projects" class="page content-page">
+
   <div class="content-container">
 
     <div class="small-label">
@@ -1342,176 +1527,125 @@ button {
 
     <h2>PROJECTS</h2>
 
-    <p class="section-intro">
-      Engineering projects across robotics research,
-      mechanical design, reverse engineering,
-      prototyping, embedded systems and digital hardware.
-    </p>
-
     <div class="section-count">
-      ENGINEERING PORTFOLIO // 06 PROJECTS
+      SELECT A PROJECT // 06 FILES
     </div>
 
     <div class="portfolio-grid">
 
-      <article class="portfolio-card">
-        <div class="project-topline">
-          <span>FINAL YEAR PROJECT · IN PROGRESS</span>
-          <span class="index">01</span>
-        </div>
-
+      <button
+        class="portfolio-card"
+        data-project-id="robotic-arm"
+      >
         <h3>
-          Robotic Arm Pouring Control &amp;
-          Multimodal Sensing
+          Robotic Arm Pouring Control &amp; Multimodal Sensing
         </h3>
+        <span class="project-card-cta">↗</span>
+      </button>
 
-        <p>
-          Investigating pouring control using load-cell
-          measurements and an IMU to relate vessel
-          motion to liquid volume and flow rate.
-          Preliminary manual pouring trials are
-          completed, with automated-rig experiments
-          and robotic-arm validation planned for
-          the next phase.
-        </p>
-
-        <div class="tag-row">
-          <span class="tag">Robotics</span>
-          <span class="tag">Load Cell / IMU</span>
-          <span class="tag">Control Research</span>
-        </div>
-      </article>
-
-      <article class="portfolio-card">
-        <div class="project-topline">
-          <span>INDUSTRY PROJECT</span>
-          <span class="index">02</span>
-        </div>
-
+      <button
+        class="portfolio-card"
+        data-project-id="wheel-shunt"
+      >
         <h3>
           Yarra Trams Wheel Shunt Reverse Engineering
         </h3>
+        <span class="project-card-cta">↗</span>
+      </button>
 
-        <p>
-          Analysed an existing wheel shunt to investigate
-          local manufacturing alternatives. Compared
-          materials, suppliers, production methods, cost
-          and lead times. Created 3D CAD designs and
-          drawings for jigs, then 3D-printed trial jigs
-          to test fit and assembly before moving to
-          final production jigs.
-        </p>
+      <button
+        class="portfolio-card"
+        data-project-id="tram-seating"
+      >
+        <h3>
+          Yarra Trams Seating Refurbishment
+        </h3>
+        <span class="project-card-cta">↗</span>
+      </button>
 
-        <div class="tag-row">
-          <span class="tag">3D CAD</span>
-          <span class="tag">Reverse Engineering</span>
-          <span class="tag">Manufacturability</span>
-        </div>
-      </article>
+      <button
+        class="portfolio-card"
+        data-project-id="warman"
+      >
+        <h3>
+          Warman Engineering Competition
+        </h3>
+        <span class="project-card-cta">↗</span>
+      </button>
 
-      <article class="portfolio-card">
-        <div class="project-topline">
-          <span>INDUSTRY PROJECT</span>
-          <span class="index">03</span>
-        </div>
+      <button
+        class="portfolio-card"
+        data-project-id="stm32-audio"
+      >
+        <h3>
+          Dual-STM32 Audio Processing System
+        </h3>
+        <span class="project-card-cta">↗</span>
+      </button>
 
-        <h3>Yarra Trams Seating Refurbishment</h3>
-
-        <p>
-          Measured existing tram seats, developed 3D CAD
-          models and technical drawings, and used
-          3D-printed parts to check fit and function.
-          Iterated designs with engineers and stakeholders.
-        </p>
-
-        <div class="tag-row">
-          <span class="tag">3D CAD</span>
-          <span class="tag">Technical Drawings</span>
-          <span class="tag">3D Printing</span>
-        </div>
-      </article>
-
-      <article class="portfolio-card">
-        <div class="project-topline">
-          <span>UNIVERSITY TEAM PROJECT</span>
-          <span class="index">04</span>
-        </div>
-
-        <h3>Warman Engineering Competition</h3>
-
-        <p>
-          Led a cross-functional team through mechanical
-          design, fabrication and electronics integration.
-          Planned work, coordinated design reviews and
-          testing, and delivered a working mechanical
-          prototype to specification.
-        </p>
-
-        <div class="tag-row">
-          <span class="tag">Team Leadership</span>
-          <span class="tag">SolidWorks</span>
-          <span class="tag">Prototyping</span>
-        </div>
-      </article>
-
-      <article class="portfolio-card">
-        <div class="project-topline">
-          <span>EMBEDDED SYSTEMS</span>
-          <span class="index">05</span>
-        </div>
-
-        <h3>Dual-STM32 Audio Processing System</h3>
-
-        <p>
-          Worked on a two-microcontroller audio-processing
-          system using C/C++, interrupt-driven I/O,
-          I²S/DMA data paths and modular drivers.
-          Collaborated using Git branches, pull requests
-          and code reviews.
-        </p>
-
-        <div class="tag-row">
-          <span class="tag">STM32</span>
-          <span class="tag">C / C++</span>
-          <span class="tag">I²S / DMA</span>
-        </div>
-      </article>
-
-      <article class="portfolio-card">
-        <div class="project-topline">
-          <span>DIGITAL SYSTEMS</span>
-          <span class="index">06</span>
-        </div>
-
-        <h3>16-bit Processor in Verilog</h3>
-
-        <p>
-          Built a synthesizable 16-bit processor with
-          an ALU, register file, control state machine
-          and instruction decoder. Developed simulation
-          testbenches and checked timing in Xilinx ISE.
-        </p>
-
-        <div class="tag-row">
-          <span class="tag">Verilog HDL</span>
-          <span class="tag">FPGA</span>
-          <span class="tag">Testbenches</span>
-        </div>
-      </article>
+      <button
+        class="portfolio-card"
+        data-project-id="verilog-processor"
+      >
+        <h3>
+          16-bit Processor in Verilog
+        </h3>
+        <span class="project-card-cta">↗</span>
+      </button>
 
     </div>
 
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
+
   </div>
+
 </section>
 
-<!-- ====================================
+<!-- ==========================================
+     INDIVIDUAL PROJECT PAGE
+========================================== -->
+
+<section id="project-detail" class="page content-page">
+
+  <div class="content-container project-detail-content">
+
+    <button class="project-return" id="returnProjects">
+      ← RETURN TO PROJECTS
+    </button>
+
+    <div class="small-label" id="projectDetailCode">
+      PROJECT FILE
+    </div>
+
+    <h2 id="projectDetailTitle">
+      PROJECT DETAILS
+    </h2>
+
+    <p
+      class="section-intro"
+      id="projectDetailDescription">
+    </p>
+
+    <div class="tag-row" id="projectDetailTags"></div>
+
+    <div class="section-count">
+      PROJECT MEDIA // PHOTOS &amp; VIDEOS
+    </div>
+
+    <div class="project-media-grid" id="projectMediaGrid"></div>
+
+  </div>
+
+</section>
+
+<!-- ==========================================
      EXPERIENCE
-==================================== -->
+========================================== -->
 
 <section id="experience" class="page content-page">
+
   <div class="content-container">
 
     <div class="small-label">
@@ -1522,8 +1656,8 @@ button {
 
     <p class="section-intro">
       Engineering experience in mechanical design,
-      reverse engineering, prototyping and
-      manufacturing improvement.
+      reverse engineering, prototyping and manufacturing
+      improvement.
     </p>
 
     <div class="section-count">
@@ -1533,10 +1667,9 @@ button {
     <div class="experience-list">
 
       <article class="experience-item">
+
         <div class="experience-date">
-          JUN 2026
-          <br>
-          – SEP 2026
+          JUN 2026<br>– SEP 2026
         </div>
 
         <div>
@@ -1553,25 +1686,26 @@ button {
               Reverse engineered a wheel shunt component
               to assess local manufacturing options.
             </li>
+
             <li>
               Reviewed materials, suppliers, fabrication
               processes, cost and lead times.
             </li>
+
             <li>
               Created 3D CAD drawings and models for jigs,
               then 3D-printed trial jigs to test fit and
-              assembly before moving to the final
-              production jigs.
+              assembly before moving to final production jigs.
             </li>
           </ul>
         </div>
+
       </article>
 
       <article class="experience-item">
+
         <div class="experience-date">
-          NOV 2025
-          <br>
-          – MAR 2026
+          NOV 2025<br>– MAR 2026
         </div>
 
         <div>
@@ -1583,19 +1717,21 @@ button {
 
           <ul class="resume-points">
             <li>
-              Supported tram seating refurbishment
-              and redesign.
+              Supported tram seating refurbishment and redesign.
             </li>
+
             <li>
               Collected on-site measurements and prepared
               3D CAD models and manufacturing drawings.
             </li>
+
             <li>
               Produced 3D-printed prototypes to assess
               fit, form and function.
             </li>
           </ul>
         </div>
+
       </article>
 
     </div>
@@ -1603,14 +1739,17 @@ button {
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
+
   </div>
+
 </section>
 
-<!-- ====================================
+<!-- ==========================================
      SKILLS
-==================================== -->
+========================================== -->
 
 <section id="skills" class="page content-page">
+
   <div class="content-container">
 
     <div class="small-label">
@@ -1621,9 +1760,7 @@ button {
 
     <p class="section-intro">
       Hands-on capabilities across mechanical design,
-      electronics, programming and manufacturing,
-      supported by university projects and
-      industry experience.
+      electronics, programming and manufacturing.
     </p>
 
     <div class="section-count">
@@ -1725,14 +1862,17 @@ button {
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
+
   </div>
+
 </section>
 
-<!-- ====================================
+<!-- ==========================================
      ABOUT
-==================================== -->
+========================================== -->
 
 <section id="about" class="page content-page">
+
   <div class="content-container">
 
     <div class="small-label">
@@ -1743,11 +1883,11 @@ button {
 
     <p class="section-intro">
       I'm a Robotics &amp; Mechatronics Engineering
-      (Honours) student at Monash University who
-      enjoys building things and solving practical
-      engineering problems. My experience covers
-      mechanical CAD and prototyping, embedded
-      programming and collaborative engineering work.
+      (Honours) student at Monash University who enjoys
+      building things and solving practical engineering
+      problems. My experience covers mechanical CAD
+      and prototyping, embedded programming and
+      collaborative engineering work.
     </p>
 
     <p class="section-intro">
@@ -1801,14 +1941,17 @@ button {
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
+
   </div>
+
 </section>
 
-<!-- ====================================
+<!-- ==========================================
      CONTACT
-==================================== -->
+========================================== -->
 
 <section id="contact" class="page content-page">
+
   <div class="content-container">
 
     <div class="small-label">
@@ -1860,14 +2003,26 @@ button {
     <button class="back-button">
       ← RETURN TO DATABASE
     </button>
+
   </div>
+
 </section>
+
+<!-- ==========================================
+     FULL-SIZE IMAGE VIEWER
+========================================== -->
+
+<dialog id="mediaLightbox" class="media-lightbox">
+  <button id="closeMediaLightbox">✕ CLOSE</button>
+  <img id="lightboxImage" alt="">
+  <p id="lightboxCaption"></p>
+</dialog>
 
 <script>
 
-/* ====================================
+/* ==========================================
    PAGE NAVIGATION
-==================================== */
+========================================== */
 
 const pages = document.querySelectorAll(".page");
 const landing = document.getElementById("landing");
@@ -1898,10 +2053,9 @@ function finishLaunch() {
   launchTimers = [];
 
   showPage("database");
-  landing.classList.remove("entering");
-  launchScene.setAttribute("aria-hidden", "true");
-  launchStatus.textContent = "ENGAGING THRUSTERS...";
 
+  landing.classList.remove("entering");
+  launchStatus.textContent = "ENGAGING THRUSTERS...";
   transitioning = false;
 }
 
@@ -1914,18 +2068,20 @@ function enterDatabase() {
   }
 
   transitioning = true;
-  launchScene.setAttribute("aria-hidden", "false");
+
   launchStatus.textContent = "ENGAGING THRUSTERS...";
 
   landing.classList.remove("entering");
+
   void landing.offsetWidth;
+
   landing.classList.add("entering");
 
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-
-  if (reducedMotion) {
+  if (
+    window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches
+  ) {
     launchLater(finishLaunch, 350);
   } else {
     launchLater(() => {
@@ -1956,9 +2112,9 @@ document.getElementById("returnLanding")
     showPage("landing");
   });
 
-/* ====================================
+/* ==========================================
    DESTINATION SELECTION
-==================================== */
+========================================== */
 
 const destinationNames = {
   projects: "PROJECTS",
@@ -1980,6 +2136,7 @@ function finishLanding() {
   }
 
   landingTimer = null;
+
   landingTransition.classList.remove("show");
 
   if (pendingDestination) {
@@ -1990,7 +2147,9 @@ function finishLanding() {
 
 document.querySelectorAll(".nav-destination")
   .forEach(button => {
+
     button.addEventListener("click", () => {
+
       const target = button.dataset.target;
 
       if (
@@ -2007,18 +2166,23 @@ document.querySelectorAll(".nav-destination")
       ).textContent = destinationNames[target];
 
       landingTransition.classList.remove("show");
+
       void landingTransition.offsetWidth;
+
       landingTransition.classList.add("show");
 
-      const reducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
+      const reducedMotion =
+        window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
 
       landingTimer = setTimeout(
         finishLanding,
         reducedMotion ? 120 : 780
       );
+
     });
+
   });
 
 document.querySelectorAll(".back-button")
@@ -2028,7 +2192,362 @@ document.querySelectorAll(".back-button")
     });
   });
 
+/* ==========================================
+   PROJECT INFORMATION
+
+   Explanations are stored here, so the
+   selection screen stays title-only.
+========================================== */
+
+const projectInfo = {
+
+  "robotic-arm": {
+    title: "Robotic Arm Pouring Control & Multimodal Sensing",
+    category: "FINAL YEAR PROJECT · IN PROGRESS",
+
+    description:
+      "Investigating pouring control using load-cell " +
+      "measurements and an IMU to relate vessel motion " +
+      "to liquid volume and flow rate. Preliminary manual " +
+      "pouring trials are completed, with automated-rig " +
+      "experiments and robotic-arm validation planned " +
+      "for the next phase.",
+
+    tags: [
+      "Robotics",
+      "Load Cell / IMU",
+      "Control Research"
+    ]
+  },
+
+  "wheel-shunt": {
+    title: "Yarra Trams Wheel Shunt Reverse Engineering",
+    category: "INDUSTRY PROJECT",
+
+    description:
+      "Analysed an existing wheel shunt to investigate " +
+      "local manufacturing alternatives. Compared materials, " +
+      "suppliers, production methods, cost and lead times. " +
+      "Created 3D CAD designs and drawings for jigs, then " +
+      "3D-printed trial jigs to test fit and assembly " +
+      "before moving to final production jigs.",
+
+    tags: [
+      "3D CAD",
+      "Reverse Engineering",
+      "Manufacturability"
+    ]
+  },
+
+  "tram-seating": {
+    title: "Yarra Trams Seating Refurbishment",
+    category: "INDUSTRY PROJECT",
+
+    description:
+      "Measured existing tram seats, developed 3D CAD " +
+      "models and technical drawings, and used 3D-printed " +
+      "parts to check fit and function. Iterated designs " +
+      "with engineers and stakeholders.",
+
+    tags: [
+      "3D CAD",
+      "Technical Drawings",
+      "3D Printing"
+    ]
+  },
+
+  "warman": {
+    title: "Warman Engineering Competition",
+    category: "UNIVERSITY TEAM PROJECT",
+
+    description:
+      "Led a cross-functional team through mechanical " +
+      "design, fabrication and electronics integration. " +
+      "Planned work, coordinated design reviews and " +
+      "testing, and delivered a working mechanical " +
+      "prototype to specification.",
+
+    tags: [
+      "Team Leadership",
+      "SolidWorks",
+      "Prototyping"
+    ]
+  },
+
+  "stm32-audio": {
+    title: "Dual-STM32 Audio Processing System",
+    category: "EMBEDDED SYSTEMS",
+
+    description:
+      "Worked on a two-microcontroller audio-processing " +
+      "system using C/C++, interrupt-driven I/O, I²S/DMA " +
+      "data paths and modular drivers. Collaborated using " +
+      "Git branches, pull requests and code reviews.",
+
+    tags: [
+      "STM32",
+      "C / C++",
+      "I²S / DMA"
+    ]
+  },
+
+  "verilog-processor": {
+    title: "16-bit Processor in Verilog",
+    category: "DIGITAL SYSTEMS",
+
+    description:
+      "Built a synthesizable 16-bit processor with an " +
+      "ALU, register file, control state machine and " +
+      "instruction decoder. Developed simulation testbenches " +
+      "and checked timing in Xilinx ISE.",
+
+    tags: [
+      "Verilog HDL",
+      "FPGA",
+      "Testbenches"
+    ]
+  }
+
+};
+
+/* ==========================================
+   PROJECT IMAGES AND VIDEOS
+
+   Media will be added here after uploading.
+
+   Example:
+
+   "robotic-arm": [
+     {
+       type: "image",
+       src: "media/robot-arm.jpg",
+       caption: "Robotic Arm Setup",
+       note: "Explanation of the setup and experiment."
+     },
+     {
+       type: "video",
+       src: "media/pouring-test.mp4",
+       caption: "Pouring Experiment",
+       note: "Explanation of the experiment and results."
+     }
+   ]
+
+========================================== */
+
+const projectMedia = {
+  "robotic-arm": [],
+  "wheel-shunt": [],
+  "tram-seating": [],
+  "warman": [],
+  "stm32-audio": [],
+  "verilog-processor": []
+};
+
+/* ==========================================
+   PROJECT DETAIL PAGE
+========================================== */
+
+const projectMediaGrid =
+  document.getElementById("projectMediaGrid");
+
+const projectDetailTitle =
+  document.getElementById("projectDetailTitle");
+
+const projectDetailDescription =
+  document.getElementById("projectDetailDescription");
+
+const projectDetailTags =
+  document.getElementById("projectDetailTags");
+
+const mediaLightbox =
+  document.getElementById("mediaLightbox");
+
+let lastProjectButton = null;
+
+function createMediaItem(item) {
+
+  if (
+    !item ||
+    !item.src ||
+    !["image","video"].includes(item.type)
+  ) {
+    return null;
+  }
+
+  const figure = document.createElement("figure");
+  figure.className = "project-media-item";
+
+  if (item.type === "image") {
+
+    const img = document.createElement("img");
+
+    img.src = item.src;
+    img.alt = item.caption || "Engineering project image";
+    img.loading = "lazy";
+
+    img.addEventListener("click", () => {
+
+      document.getElementById("lightboxImage").src =
+        img.src;
+
+      document.getElementById("lightboxImage").alt =
+        img.alt;
+
+      document.getElementById(
+        "lightboxCaption"
+      ).textContent = item.caption || "";
+
+      mediaLightbox.showModal();
+
+    });
+
+    figure.append(img);
+
+  } else {
+
+    const video = document.createElement("video");
+
+    video.src = item.src;
+    video.controls = true;
+    video.preload = "metadata";
+    video.playsInline = true;
+
+    figure.append(video);
+
+  }
+
+  const caption = document.createElement("figcaption");
+
+  if (item.caption) {
+    const title = document.createElement("strong");
+    title.textContent = item.caption;
+    caption.append(title);
+  }
+
+  if (item.note) {
+    const explanation = document.createElement("p");
+    explanation.textContent = item.note;
+    caption.append(explanation);
+  }
+
+  figure.append(caption);
+
+  return figure;
+}
+
+function openProject(id, button) {
+
+  const info = projectInfo[id];
+
+  if (!info) return;
+
+  lastProjectButton = button;
+
+  projectDetailTitle.textContent = info.title;
+
+  projectDetailDescription.textContent =
+    info.description;
+
+  document.getElementById(
+    "projectDetailCode"
+  ).textContent = "PROJECT FILE // " + info.category;
+
+  projectDetailTags.replaceChildren();
+
+  info.tags.forEach(label => {
+
+    const tag = document.createElement("span");
+
+    tag.className = "tag";
+    tag.textContent = label;
+
+    projectDetailTags.append(tag);
+
+  });
+
+  projectMediaGrid.replaceChildren();
+
+  const files = projectMedia[id] || [];
+
+  if (files.length === 0) {
+
+    const empty = document.createElement("div");
+
+    empty.className = "project-media-empty";
+
+    empty.innerHTML = `
+      <div class="empty-glyph">▧</div>
+      <strong>PROJECT MEDIA INBOUND</strong>
+      <p>
+        Photos and videos of this project
+        will be added here soon.
+      </p>
+    `;
+
+    projectMediaGrid.append(empty);
+
+  } else {
+
+    files.forEach(item => {
+
+      const element = createMediaItem(item);
+
+      if (element) {
+        projectMediaGrid.append(element);
+      }
+
+    });
+
+  }
+
+  showPage("project-detail");
+}
+
+document.querySelectorAll("[data-project-id]")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+      openProject(
+        button.dataset.projectId,
+        button
+      );
+    });
+
+  });
+
+function returnToProjects() {
+
+  document.querySelectorAll(
+    "#projectMediaGrid video"
+  ).forEach(video => video.pause());
+
+  showPage("projects");
+
+  if (lastProjectButton) {
+    lastProjectButton.focus();
+  }
+}
+
+document.getElementById("returnProjects")
+  .addEventListener("click", returnToProjects);
+
+document.getElementById("closeMediaLightbox")
+  .addEventListener("click", () => {
+    mediaLightbox.close();
+  });
+
+mediaLightbox.addEventListener("click", event => {
+  if (event.target === mediaLightbox) {
+    mediaLightbox.close();
+  }
+});
+
+/* ==========================================
+   ESCAPE KEY NAVIGATION
+========================================== */
+
 document.addEventListener("keydown", event => {
+
   if (event.key !== "Escape") return;
 
   if (landingTransition.classList.contains("show")) {
@@ -2041,7 +2560,16 @@ document.addEventListener("keydown", event => {
     return;
   }
 
-  const current = document.querySelector(".page.active");
+  if (
+    document.getElementById("project-detail")
+      .classList.contains("active")
+  ) {
+    returnToProjects();
+    return;
+  }
+
+  const current =
+    document.querySelector(".page.active");
 
   if (!current || current.id === "landing") return;
 
@@ -2050,14 +2578,18 @@ document.addEventListener("keydown", event => {
       ? "landing"
       : "database"
   );
+
 });
 
-/* ====================================
-   DRAW SPACESHIP
-==================================== */
+/* ==========================================
+   DRAW TAKEOFF SPACESHIP
+========================================== */
 
 function createLaunchSpaceship() {
-  const c = document.getElementById("launchShipCanvas");
+
+  const c =
+    document.getElementById("launchShipCanvas");
+
   const p = c.getContext("2d");
 
   function rect(x, y, w, h, color) {
@@ -2068,16 +2600,22 @@ function createLaunchSpaceship() {
   p.clearRect(0, 0, c.width, c.height);
 
   for (let y = 1; y < 36; y++) {
+
     const half =
       y < 7
-        ? Math.max(0, Math.floor(y * .40))
+        ? Math.max(0,Math.floor(y * .4))
         : y < 16
           ? 3
           : y < 28
             ? 4
             : 5;
 
-    for (let x = 15 - half; x <= 15 + half; x++) {
+    for (
+      let x = 15 - half;
+      x <= 15 + half;
+      x++
+    ) {
+
       let color =
         x === 15 - half
           ? "#6d8fca"
@@ -2088,32 +2626,49 @@ function createLaunchSpaceship() {
               : "#98b8e3";
 
       if (y > 24) {
-        color = x < 15 ? "#adc9e8" : "#6f91c6";
+        color =
+          x < 15
+            ? "#adc9e8"
+            : "#6f91c6";
       }
 
       rect(x, y, 1, 1, color);
+
     }
   }
 
+  // Wings
   for (let y = 17; y <= 32; y++) {
+
     const wing =
       y < 24
         ? Math.floor((y - 16) * 1.65)
-        : Math.max(5, 12 - Math.floor((y - 24) * .85));
+        : Math.max(
+            5,
+            12 - Math.floor((y - 24) * .85)
+          );
 
     for (let dx = 5; dx <= wing; dx++) {
+
       rect(
-        15 - dx, y, 1, 1,
+        15 - dx,
+        y,
+        1,
+        1,
         dx === wing ? "#5478b9" : "#8aabdb"
       );
 
       rect(
-        15 + dx, y, 1, 1,
+        15 + dx,
+        y,
+        1,
+        1,
         dx === wing ? "#3c5c9e" : "#668cce"
       );
     }
   }
 
+  // Cockpit and hull details
   rect(14,2,3,3,"#dff6ff");
   rect(14,9,3,10,"#263f71");
   rect(15,10,1,7,"#65d0ef");
@@ -2121,6 +2676,7 @@ function createLaunchSpaceship() {
   rect(14,23,3,7,"#394e86");
   rect(15,23,1,4,"#77d5f3");
 
+  // Engines
   rect(11,34,4,4,"#1a3368");
   rect(17,34,4,4,"#1a3368");
   rect(12,36,2,3,"#8cdbff");
@@ -2129,12 +2685,13 @@ function createLaunchSpaceship() {
 
 createLaunchSpaceship();
 
-/* ====================================
-   SPACE BACKGROUND
-   STARS MOVE LEFT TO RIGHT
-==================================== */
+/* ==========================================
+   MOVING SPACE BACKGROUND
+   LEFT TO RIGHT
+========================================== */
 
 const canvas = document.getElementById("spaceCanvas");
+
 const ctx = canvas.getContext("2d", {
   alpha: false
 });
@@ -2143,20 +2700,27 @@ const reduceMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)"
 );
 
-const rnd = (a, b) => Math.random() * (b - a) + a;
+const rnd = (a, b) =>
+  Math.random() * (b - a) + a;
 
 let W = 0;
 let H = 0;
+
 let stars = [];
 let trails = [];
+
 let shipX = -70;
 let lastTime = 0;
 
 function resizeCanvas() {
+
   W = window.innerWidth;
   H = window.innerHeight;
 
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const dpr = Math.min(
+    window.devicePixelRatio || 1,
+    2
+  );
 
   canvas.width = Math.round(W * dpr);
   canvas.height = Math.round(H * dpr);
@@ -2167,15 +2731,20 @@ function resizeCanvas() {
 }
 
 function makeStars() {
+
   stars = [];
   trails = [];
 
   const count = Math.min(
     450,
-    Math.max(100, Math.round(W * H / 4700))
+    Math.max(
+      100,
+      Math.round(W * H / 4700)
+    )
   );
 
   for (let i = 0; i < count; i++) {
+
     stars.push({
       x: rnd(0,W),
       y: rnd(0,H),
@@ -2188,6 +2757,7 @@ function makeStars() {
   }
 
   for (let i = 0; i < 15; i++) {
+
     trails.push({
       x: rnd(0,W),
       y: rnd(0,H),
@@ -2200,8 +2770,15 @@ function makeStars() {
   shipX = -55;
 }
 
+/* ==========================================
+   BACKGROUND GRADIENT
+========================================== */
+
 function drawBackground() {
-  const base = ctx.createLinearGradient(0, 0, 0, H);
+
+  const base = ctx.createLinearGradient(
+    0, 0, 0, H
+  );
 
   base.addColorStop(0, "#01040d");
   base.addColorStop(.55, "#03091b");
@@ -2210,32 +2787,64 @@ function drawBackground() {
   ctx.fillStyle = base;
   ctx.fillRect(0, 0, W, H);
 
-  const g1 = ctx.createRadialGradient(
-    W * .27, H * .50, 0,
-    W * .27, H * .50, W * .58
+  const nebula1 = ctx.createRadialGradient(
+    W * .27,
+    H * .50,
+    0,
+    W * .27,
+    H * .50,
+    W * .58
   );
 
-  g1.addColorStop(0, "rgba(17,45,103,.19)");
-  g1.addColorStop(.5, "rgba(8,22,59,.08)");
-  g1.addColorStop(1, "rgba(0,0,0,0)");
+  nebula1.addColorStop(
+    0,
+    "rgba(17,45,103,.19)"
+  );
 
-  ctx.fillStyle = g1;
+  nebula1.addColorStop(
+    .5,
+    "rgba(8,22,59,.08)"
+  );
+
+  nebula1.addColorStop(
+    1,
+    "rgba(0,0,0,0)"
+  );
+
+  ctx.fillStyle = nebula1;
   ctx.fillRect(0, 0, W, H);
 
-  const g2 = ctx.createRadialGradient(
-    W * .82, H * .30, 0,
-    W * .82, H * .30, W * .37
+  const nebula2 = ctx.createRadialGradient(
+    W * .82,
+    H * .30,
+    0,
+    W * .82,
+    H * .30,
+    W * .37
   );
 
-  g2.addColorStop(0, "rgba(43,58,139,.10)");
-  g2.addColorStop(1, "rgba(0,0,0,0)");
+  nebula2.addColorStop(
+    0,
+    "rgba(43,58,139,.10)"
+  );
 
-  ctx.fillStyle = g2;
+  nebula2.addColorStop(
+    1,
+    "rgba(0,0,0,0)"
+  );
+
+  ctx.fillStyle = nebula2;
   ctx.fillRect(0, 0, W, H);
 }
 
+/* ==========================================
+   MOVING STARS AND STREAKS
+========================================== */
+
 function drawStars(time, dt) {
+
   for (const s of stars) {
+
     s.x += s.speed * dt;
 
     if (s.x > W + 3) {
@@ -2245,7 +2854,9 @@ function drawStars(time, dt) {
 
     const alpha =
       s.alpha *
-      (.85 + .15 * Math.sin(time * .001 + s.phase));
+      (.85 + .15 * Math.sin(
+        time * .001 + s.phase
+      ));
 
     ctx.fillStyle =
       s.tone > .88
@@ -2253,11 +2864,20 @@ function drawStars(time, dt) {
         : `rgba(221,235,255,${alpha})`;
 
     ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+
+    ctx.arc(
+      s.x,
+      s.y,
+      s.r,
+      0,
+      Math.PI * 2
+    );
+
     ctx.fill();
   }
 
   for (const s of trails) {
+
     s.x += s.speed * dt;
 
     if (s.x > W + 5) {
@@ -2266,29 +2886,44 @@ function drawStars(time, dt) {
     }
 
     const gradient = ctx.createLinearGradient(
-      s.x, s.y,
-      s.x + s.len, s.y
+      s.x,
+      s.y,
+      s.x + s.len,
+      s.y
     );
 
-    gradient.addColorStop(0, "rgba(90,156,255,0)");
+    gradient.addColorStop(
+      0,
+      "rgba(90,156,255,0)"
+    );
+
     gradient.addColorStop(
       1,
       `rgba(160,202,255,${s.alpha})`
     );
 
     ctx.fillStyle = gradient;
-    ctx.fillRect(s.x, s.y, s.len, 1);
+
+    ctx.fillRect(
+      s.x,
+      s.y,
+      s.len,
+      1
+    );
   }
 }
 
-/* ====================================
+/* ==========================================
    SUBTLE TWINKLING STARS
-==================================== */
+========================================== */
 
 function glint(x, y, time, phase) {
+
   const pulse =
     .6 + .4 *
-    (.5 + .5 * Math.sin(time * .0015 + phase));
+    (.5 + .5 * Math.sin(
+      time * .0015 + phase
+    ));
 
   const halo = ctx.createRadialGradient(
     x, y, 0,
@@ -2299,34 +2934,55 @@ function glint(x, y, time, phase) {
     0,
     `rgba(201,227,255,${.32 * pulse})`
   );
-  halo.addColorStop(1, "rgba(201,227,255,0)");
+
+  halo.addColorStop(
+    1,
+    "rgba(201,227,255,0)"
+  );
 
   ctx.fillStyle = halo;
-  ctx.fillRect(x - 15, y - 15, 30, 30);
+
+  ctx.fillRect(
+    x - 15,
+    y - 15,
+    30,
+    30
+  );
 
   ctx.fillStyle =
     `rgba(238,247,255,${.8 * pulse})`;
 
-  ctx.fillRect(Math.round(x), Math.round(y), 2, 2);
+  ctx.fillRect(
+    Math.round(x),
+    Math.round(y),
+    2,
+    2
+  );
 }
 
-/* ====================================
+/* ==========================================
    SMALL PIXEL PLANETS
-==================================== */
+========================================== */
 
 function makePlanet(type) {
+
   const c = document.createElement("canvas");
+
   c.width = 32;
   c.height = 32;
 
   const p = c.getContext("2d");
+
   p.imageSmoothingEnabled = false;
 
   for (let y = 0; y < 32; y++) {
+
     for (let x = 0; x < 32; x++) {
+
       const dx = x - 15.5;
       const dy = y - 15.5;
-      const distance = Math.hypot(dx, dy);
+
+      const distance = Math.hypot(dx,dy);
 
       if (distance > 13.5) continue;
 
@@ -2335,7 +2991,10 @@ function makePlanet(type) {
         1 - (dx + dy * .55) / 25
       );
 
-      const stripe = Math.sin(y * .62 + x * .18);
+      const stripe = Math.sin(
+        y * .62 + x * .18
+      );
+
       const blotch =
         Math.sin(x * .7 + y * .31) *
         Math.cos(y * .45 - x * .28);
@@ -2343,29 +3002,44 @@ function makePlanet(type) {
       let color;
 
       if (type === "blue") {
+
         if (distance > 12.3) {
           color = "#17355f";
+
         } else if (lighting > 1.13) {
-          color = blotch > .22 ? "#94bdde" : "#6b9cc6";
+          color = blotch > .22
+            ? "#94bdde"
+            : "#6b9cc6";
+
         } else if (lighting > .82) {
-          color = stripe > .43 ? "#5787b8" : "#3d6fa6";
+          color = stripe > .43
+            ? "#5787b8"
+            : "#3d6fa6";
+
         } else {
           color = "#294e86";
         }
+
       } else {
+
         if (distance > 12.3) {
           color = "#333765";
+
         } else if (lighting > 1.13) {
           color = "#b3a9dc";
+
         } else if (lighting > .78) {
-          color = stripe > .13 ? "#786aa9" : "#656d9d";
+          color = stripe > .13
+            ? "#786aa9"
+            : "#656d9d";
+
         } else {
           color = "#494c7d";
         }
       }
 
       p.fillStyle = color;
-      p.fillRect(x, y, 1, 1);
+      p.fillRect(x,y,1,1);
     }
   }
 
@@ -2375,8 +3049,10 @@ function makePlanet(type) {
 const bluePlanet = makePlanet("blue");
 const purplePlanet = makePlanet("purple");
 
-function drawPlanet(x, y, size, sprite) {
+function drawPlanet(x,y,size,sprite) {
+
   ctx.save();
+
   ctx.imageSmoothingEnabled = false;
 
   ctx.drawImage(
@@ -2390,13 +3066,16 @@ function drawPlanet(x, y, size, sprite) {
   ctx.restore();
 }
 
-function drawRingPlanet(x, y, size) {
+function drawRingPlanet(x,y,size) {
+
   ctx.strokeStyle = "rgba(139,155,220,.32)";
   ctx.lineWidth = 2;
+
   ctx.beginPath();
 
   ctx.ellipse(
-    x, y + 2,
+    x,
+    y + 2,
     size * .85,
     size * .25,
     -.19,
@@ -2406,14 +3085,21 @@ function drawRingPlanet(x, y, size) {
 
   ctx.stroke();
 
-  drawPlanet(x, y, size, purplePlanet);
+  drawPlanet(
+    x,
+    y,
+    size,
+    purplePlanet
+  );
 
   ctx.strokeStyle = "rgba(170,181,229,.58)";
   ctx.lineWidth = 1.7;
+
   ctx.beginPath();
 
   ctx.ellipse(
-    x, y + 2,
+    x,
+    y + 2,
     size * .85,
     size * .25,
     -.19,
@@ -2424,9 +3110,9 @@ function drawRingPlanet(x, y, size) {
   ctx.stroke();
 }
 
-/* ====================================
+/* ==========================================
    SMALL BACKGROUND SPACESHIP
-==================================== */
+========================================== */
 
 const shipPixels = [
   "...........A......",
@@ -2448,7 +3134,8 @@ const shipColors = {
   E: "#263e6e"
 };
 
-function drawShip(x, y, time) {
+function drawShip(x,y,time) {
+
   const bob = Math.sin(time * .0017) * 2;
 
   ctx.save();
@@ -2459,21 +3146,43 @@ function drawShip(x, y, time) {
   );
 
   const engine = ctx.createRadialGradient(
-    -4, 4, 0,
-    -4, 4, 13
+    -4,4,0,
+    -4,4,13
   );
 
-  engine.addColorStop(0, "rgba(65,163,242,.20)");
-  engine.addColorStop(1, "rgba(65,163,242,0)");
+  engine.addColorStop(
+    0,
+    "rgba(65,163,242,.20)"
+  );
+
+  engine.addColorStop(
+    1,
+    "rgba(65,163,242,0)"
+  );
 
   ctx.fillStyle = engine;
-  ctx.fillRect(-17, -9, 26, 26);
 
-  shipPixels.forEach((row, ry) => {
-    [...row].forEach((cell, rx) => {
+  ctx.fillRect(
+    -17,
+    -9,
+    26,
+    26
+  );
+
+  shipPixels.forEach((row,ry) => {
+
+    [...row].forEach((cell,rx) => {
+
       if (shipColors[cell]) {
+
         ctx.fillStyle = shipColors[cell];
-        ctx.fillRect(rx * 1.4, ry * 1.4, 1.4, 1.4);
+
+        ctx.fillRect(
+          rx * 1.4,
+          ry * 1.4,
+          1.4,
+          1.4
+        );
       }
     });
   });
@@ -2481,11 +3190,12 @@ function drawShip(x, y, time) {
   ctx.restore();
 }
 
-/* ====================================
-   MAIN ANIMATION
-==================================== */
+/* ==========================================
+   MAIN SPACE ANIMATION LOOP
+========================================== */
 
 function animate(time) {
+
   const dt = Math.min(
     (time - lastTime) / 16.67 || 1,
     2.2
@@ -2494,6 +3204,7 @@ function animate(time) {
   lastTime = time;
 
   if (!document.hidden) {
+
     drawBackground();
 
     drawStars(
@@ -2501,8 +3212,19 @@ function animate(time) {
       reduceMotion.matches ? 0 : dt
     );
 
-    glint(W * .20, H * .23, time, 0);
-    glint(W * .78, H * .28, time, 1.8);
+    glint(
+      W * .20,
+      H * .23,
+      time,
+      0
+    );
+
+    glint(
+      W * .78,
+      H * .28,
+      time,
+      1.8
+    );
 
     const drift = reduceMotion.matches
       ? 0
@@ -2529,17 +3251,26 @@ function animate(time) {
       shipX = -65;
     }
 
-    drawShip(shipX, H * .69, time);
+    drawShip(
+      shipX,
+      H * .69,
+      time
+    );
   }
 
   requestAnimationFrame(animate);
 }
 
-window.addEventListener("resize", resizeCanvas);
+window.addEventListener(
+  "resize",
+  resizeCanvas
+);
 
 resizeCanvas();
+
 requestAnimationFrame(animate);
 
 </script>
+
 </body>
 </html>
