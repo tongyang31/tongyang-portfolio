@@ -52,9 +52,9 @@ button {
   pointer-events: auto;
 }
 
-/* ==========================================
+/* ====================================
    LANDING PAGE
-========================================== */
+==================================== */
 
 #landing {
   cursor: pointer;
@@ -169,9 +169,9 @@ button {
   opacity: 0;
 }
 
-/* ==========================================
+/* ====================================
    SPACESHIP TAKEOFF
-========================================== */
+==================================== */
 
 .launch-scene {
   position: absolute;
@@ -234,10 +234,8 @@ button {
     opacity: 0;
     transform: translateY(-22%);
   }
-
   35% { opacity: .25; }
   78% { opacity: .45; }
-
   100% {
     opacity: .15;
     transform: translateY(75%);
@@ -262,10 +260,10 @@ button {
 
 .launch-hud-title {
   margin: 18px 0 16px;
-  color: #f1f7ff;
   font: 500 clamp(19px,2.2vw,34px)/1.5
     Orbitron,sans-serif;
   letter-spacing: .15em;
+  color: #f1f7ff;
   text-shadow: 0 0 18px rgba(120,184,255,.5);
 }
 
@@ -303,9 +301,7 @@ button {
 }
 
 @keyframes launchProgress {
-  to {
-    transform: translateX(0);
-  }
+  to { transform: translateX(0); }
 }
 
 .launch-status {
@@ -322,28 +318,24 @@ button {
   height: 164px;
   transform: translateX(-50%) scale(.9);
   filter: drop-shadow(0 0 15px rgba(122,185,255,.35));
+  will-change: transform;
 }
 
 #landing.entering .launch-ship {
-  animation:
-    shipAscend 2.78s
-    cubic-bezier(.32,.05,.56,.95)
-    .12s both;
+  animation: shipAscend 2.78s
+    cubic-bezier(.32,.05,.56,.95) .12s both;
 }
 
 @keyframes shipAscend {
   0% {
     transform: translate(-50%,0) scale(.82);
   }
-
   18% {
     transform: translate(-50%,-22vh) scale(.91);
   }
-
   52% {
     transform: translate(-50%,-71vh) scale(1);
   }
-
   100% {
     transform: translate(-50%,-145vh) scale(.88);
   }
@@ -389,7 +381,6 @@ button {
   from {
     transform: translateX(-50%) scaleY(.85);
   }
-
   to {
     transform: translateX(-50%) scaleY(1.13);
   }
@@ -406,9 +397,9 @@ button {
   100% { opacity: .8; }
 }
 
-/* ==========================================
+/* ====================================
    DESTINATION SELECT
-========================================== */
+==================================== */
 
 #database {
   isolation: isolate;
@@ -419,8 +410,8 @@ button {
 #database::before {
   content: '';
   position: absolute;
-  inset: 0;
   z-index: 0;
+  inset: 0;
   pointer-events: none;
   background:
     radial-gradient(
@@ -574,16 +565,16 @@ button {
   width: 100%;
   min-height: 69px;
   padding: 15px 20px;
+  color: #e0edfc;
   text-align: left;
   cursor: pointer;
-  color: #e0edfc;
   background: linear-gradient(
     95deg,
     rgba(14,29,50,.88),
     rgba(8,17,31,.85)
   );
   border: 1px solid rgba(124,164,207,.24);
-  transition: .2s ease;
+  transition: .2s;
 }
 
 .nav-destination:hover,
@@ -619,6 +610,7 @@ button {
 .nav-arrow {
   color: #86b8ea;
   font-size: 22px;
+  text-align: right;
 }
 
 .nav-foot {
@@ -648,9 +640,9 @@ button {
   font: 8px 'Press Start 2P',monospace;
 }
 
-/* ==========================================
-   LANDING DESTINATION TRANSITION
-========================================== */
+/* ====================================
+   DESTINATION TRANSITION
+==================================== */
 
 .landing-transition {
   position: fixed;
@@ -711,24 +703,20 @@ button {
 }
 
 @keyframes loadLanding {
-  to {
-    transform: translateX(0);
-  }
+  to { transform: translateX(0); }
 }
 
-/* ==========================================
-   CONTENT PAGES
-========================================== */
+/* ====================================
+   PORTFOLIO CONTENT
+==================================== */
 
 .content-page {
   overflow-y: auto;
-  background:
-    radial-gradient(
-      ellipse at top,
-      #14233c,
-      transparent 55%
-    ),
-    #060a12;
+  background: radial-gradient(
+    ellipse at top,
+    #14233c,
+    transparent 55%
+  ), #060a12;
 }
 
 .content-container {
@@ -779,18 +767,6 @@ button {
   );
 }
 
-.portfolio-card,
-.skill-panel,
-.experience-item,
-.about-panel {
-  border: 1px solid rgba(146,190,255,.23);
-  background: linear-gradient(
-    130deg,
-    rgba(25,50,86,.34),
-    rgba(5,13,29,.68)
-  );
-}
-
 .back-button {
   margin-top: 40px;
   padding: 16px 22px;
@@ -805,9 +781,9 @@ button {
   background: rgba(130,180,250,.2);
 }
 
-/* ==========================================
-   PROJECT SELECTION — TITLES ONLY
-========================================== */
+/* ====================================
+   PROJECT SELECTION
+==================================== */
 
 .portfolio-grid {
   display: grid;
@@ -815,7 +791,7 @@ button {
   gap: 15px;
 }
 
-#projects .portfolio-card {
+.portfolio-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -824,23 +800,26 @@ button {
   min-height: 125px;
   padding: 26px 27px;
   color: #eff6ff;
-  cursor: pointer;
   text-align: left;
-  transition:
-    border-color .2s,
-    background .2s,
-    transform .2s;
+  cursor: pointer;
+  border: 1px solid rgba(146,190,255,.30);
+  background: linear-gradient(
+    120deg,
+    rgba(28,53,90,.30),
+    rgba(7,17,33,.76)
+  );
+  transition: .2s;
 }
 
-#projects .portfolio-card:hover,
-#projects .portfolio-card:focus-visible {
+.portfolio-card:hover,
+.portfolio-card:focus-visible {
   outline: none;
   transform: translateY(-3px);
   border-color: #b2d9ff;
   background: rgba(40,83,130,.3);
 }
 
-#projects .portfolio-card h3 {
+.portfolio-card h3 {
   margin: 0;
   color: #edf6ff;
   font: 500 clamp(15px,1.55vw,20px)/1.5
@@ -850,42 +829,27 @@ button {
 .project-card-cta {
   flex: none;
   color: #a9d7ff;
-  font: 24px Orbitron,sans-serif;
+  font-size: 23px;
 }
 
-#projects .portfolio-card:hover .project-card-cta {
-  color: white;
-}
-
-/* ==========================================
-   INDIVIDUAL PROJECT DETAIL PAGE
-========================================== */
+/* ====================================
+   PROJECT DETAIL PAGE
+==================================== */
 
 .project-detail-content {
   max-width: 1060px;
   padding-top: 64px;
 }
 
-.project-return {
-  display: inline-flex;
-  align-items: center;
-  margin: 0 0 42px;
-  padding: 8px 0;
-  background: transparent;
-  border: 0;
-  color: #9cc8f0;
-  cursor: pointer;
-  font: 8px/1.6 'Press Start 2P',monospace;
-}
-
-.project-return:hover {
-  color: #eff8ff;
-}
-
 #projectDetailTitle {
-  font-size: clamp(25px,4vw,50px);
+  max-width: 1000px;
   line-height: 1.35;
+  font-size: clamp(25px,4vw,50px);
   letter-spacing: .04em;
+}
+
+#projectDetailTags {
+  margin-bottom: 34px;
 }
 
 .tag-row {
@@ -895,22 +859,72 @@ button {
   margin-top: 20px;
 }
 
-#projectDetailTags {
-  margin-bottom: 34px;
-}
-
 .tag {
   display: inline-block;
-  padding: 7px 9px;
   border: 1px solid rgba(136,188,241,.23);
-  background: rgba(110,169,235,.06);
+  padding: 7px 9px;
   color: #a7c6e9;
   font-size: 10px;
+  background: rgba(110,169,235,.06);
 }
 
-/* ==========================================
-   IMAGE AND VIDEO GALLERY
-========================================== */
+/* ====================================
+   LARGER RETURN TO PROJECTS BUTTON
+==================================== */
+
+.project-return {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  min-height: 48px;
+  padding: 15px 20px;
+  margin: 0 0 42px;
+
+  background: linear-gradient(
+    110deg,
+    rgba(28,62,109,.33),
+    rgba(8,23,45,.75)
+  );
+
+  border: 1px solid rgba(142,200,255,.52);
+  border-radius: 3px;
+
+  box-shadow:
+    inset 0 1px rgba(214,235,255,.06);
+
+  color: #d4eaff;
+
+  font-family: 'Press Start 2P',monospace;
+  font-size: 9px;
+  line-height: 1.6;
+
+  cursor: pointer;
+
+  transition:
+    background .2s,
+    border-color .2s,
+    transform .2s,
+    box-shadow .2s;
+}
+
+.project-return:hover,
+.project-return:focus-visible {
+  color: #ffffff;
+  background: rgba(42,95,159,.39);
+  border-color: #b7e1ff;
+
+  box-shadow:
+    0 0 24px rgba(78,166,255,.16);
+
+  transform: translateX(-2px);
+  outline: none;
+}
+
+/* ====================================
+   PROJECT PHOTO / VIDEO GALLERY
+==================================== */
 
 .project-media-grid {
   display: grid;
@@ -1033,9 +1047,9 @@ button {
   font-size: 13px;
 }
 
-/* ==========================================
-   EXPERIENCE / SKILLS / ABOUT
-========================================== */
+/* ====================================
+   EXPERIENCE
+==================================== */
 
 .experience-list {
   display: grid;
@@ -1047,6 +1061,12 @@ button {
   grid-template-columns: 170px 1fr;
   gap: 22px;
   padding: 23px 25px;
+  border: 1px solid rgba(146,190,255,.23);
+  background: linear-gradient(
+    130deg,
+    rgba(25,50,86,.34),
+    rgba(5,13,29,.68)
+  );
 }
 
 .experience-date {
@@ -1054,10 +1074,8 @@ button {
   font: 9px/1.8 'Press Start 2P',monospace;
 }
 
-.experience-item h3,
-.skill-panel h3,
-.about-panel h3 {
-  margin: 0 0 12px;
+.experience-item h3 {
+  margin: 0 0 5px;
   color: #edf6ff;
   font: 500 clamp(15px,1.45vw,21px)/1.45
     Orbitron,sans-serif;
@@ -1081,6 +1099,10 @@ button {
   margin: 5px 0;
 }
 
+/* ====================================
+   SKILLS AND ABOUT
+==================================== */
+
 .skills-grid,
 .about-grid {
   display: grid;
@@ -1091,6 +1113,20 @@ button {
 .skill-panel,
 .about-panel {
   padding: 23px;
+  border: 1px solid rgba(146,190,255,.23);
+  background: linear-gradient(
+    130deg,
+    rgba(25,50,86,.34),
+    rgba(5,13,29,.68)
+  );
+}
+
+.skill-panel h3,
+.about-panel h3 {
+  margin: 0 0 17px;
+  color: #edf6ff;
+  font: 500 clamp(15px,1.45vw,21px)/1.45
+    Orbitron,sans-serif;
 }
 
 .skill-items {
@@ -1130,9 +1166,9 @@ button {
   margin-bottom: 13px;
 }
 
-/* ==========================================
+/* ====================================
    CONTACT
-========================================== */
+==================================== */
 
 .contact-links {
   display: grid;
@@ -1148,14 +1184,15 @@ button {
   gap: 20px;
   min-height: 90px;
   padding: 20px 24px;
-  border: 1px solid rgba(146,190,255,.28);
-  background: rgba(37,70,116,.16);
   color: #e3f1ff;
   text-decoration: none;
-  transition: .2s ease;
+  border: 1px solid rgba(146,190,255,.28);
+  background: rgba(37,70,116,.16);
+  transition: .2s;
 }
 
-.contact-link:hover {
+.contact-link:hover,
+.contact-link:focus-visible {
   border-color: #98ceff;
   background: rgba(45,91,148,.22);
   transform: translateX(4px);
@@ -1163,7 +1200,7 @@ button {
 
 .contact-channel {
   color: #85a8d0;
-  font: 8px/1.9 'Press Start 2P',monospace;
+  font: 8px 'Press Start 2P',monospace;
 }
 
 .contact-value {
@@ -1176,9 +1213,9 @@ button {
   font-size: 23px;
 }
 
-/* ==========================================
-   RESPONSIVE DESIGN
-========================================== */
+/* ====================================
+   MOBILE RESPONSIVENESS
+==================================== */
 
 @media (max-width: 900px) {
   .name {
@@ -1219,7 +1256,15 @@ button {
     padding-top: 75px;
   }
 
-  #projects .portfolio-card {
+  .project-detail-content {
+    padding-top: 38px;
+  }
+
+  .project-return {
+    margin-bottom: 30px;
+  }
+
+  .portfolio-card {
     min-height: 90px;
     padding: 20px;
   }
@@ -1339,9 +1384,9 @@ button {
 
 <body>
 
-<!-- ==========================================
+<!-- ====================================
      LANDING SCREEN
-========================================== -->
+==================================== -->
 
 <section id="landing" class="page active" tabindex="0">
 
@@ -1374,7 +1419,6 @@ button {
     <div class="launch-speed"></div>
 
     <div class="launch-hud">
-
       <div class="launch-hud-kicker">
         TY-01 // FLIGHT CONTROL
       </div>
@@ -1395,15 +1439,15 @@ button {
       <div class="launch-status" id="launchStatus">
         ENGAGING THRUSTERS...
       </div>
-
     </div>
 
     <div class="launch-ship">
       <canvas
         id="launchShipCanvas"
         width="30"
-        height="41">
-      </canvas>
+        height="41"
+      ></canvas>
+
       <div class="launch-flame"></div>
     </div>
 
@@ -1413,9 +1457,9 @@ button {
 
 </section>
 
-<!-- ==========================================
-     DESTINATION SELECTION SCREEN
-========================================== -->
+<!-- ====================================
+     DESTINATION SELECT
+==================================== -->
 
 <section id="database" class="page">
 
@@ -1455,35 +1499,50 @@ button {
 
         <div class="nav-list">
 
-          <button class="nav-destination" data-target="projects">
+          <button
+            class="nav-destination"
+            data-target="projects"
+          >
             <span class="nav-number">01</span>
             <span class="nav-name">PROJECTS</span>
             <span class="nav-zone">LANDING ZONE 01</span>
             <span class="nav-arrow">↗</span>
           </button>
 
-          <button class="nav-destination" data-target="experience">
+          <button
+            class="nav-destination"
+            data-target="experience"
+          >
             <span class="nav-number">02</span>
             <span class="nav-name">EXPERIENCE</span>
             <span class="nav-zone">LANDING ZONE 02</span>
             <span class="nav-arrow">↗</span>
           </button>
 
-          <button class="nav-destination" data-target="skills">
+          <button
+            class="nav-destination"
+            data-target="skills"
+          >
             <span class="nav-number">03</span>
             <span class="nav-name">SKILLS</span>
             <span class="nav-zone">LANDING ZONE 03</span>
             <span class="nav-arrow">↗</span>
           </button>
 
-          <button class="nav-destination" data-target="about">
+          <button
+            class="nav-destination"
+            data-target="about"
+          >
             <span class="nav-number">04</span>
             <span class="nav-name">ABOUT</span>
             <span class="nav-zone">LANDING ZONE 04</span>
             <span class="nav-arrow">↗</span>
           </button>
 
-          <button class="nav-destination" data-target="contact">
+          <button
+            class="nav-destination"
+            data-target="contact"
+          >
             <span class="nav-number">05</span>
             <span class="nav-name">CONTACT</span>
             <span class="nav-zone">LANDING ZONE 05</span>
@@ -1506,16 +1565,23 @@ button {
 
   <div class="landing-transition" id="landingTransition">
     <span>LANDING ROUTE CONFIRMED</span>
-    <strong id="landingTargetName">PROJECTS</strong>
-    <div class="landing-loading"><i></i></div>
+
+    <strong id="landingTargetName">
+      PROJECTS
+    </strong>
+
+    <div class="landing-loading">
+      <i></i>
+    </div>
+
     <small>APPROACHING DESTINATION...</small>
   </div>
 
 </section>
 
-<!-- ==========================================
-     PROJECTS — TITLE ONLY
-========================================== -->
+<!-- ====================================
+     PROJECT SELECTION
+==================================== -->
 
 <section id="projects" class="page content-page">
 
@@ -1538,7 +1604,8 @@ button {
         data-project-id="robotic-arm"
       >
         <h3>
-          Robotic Arm Pouring Control &amp; Multimodal Sensing
+          Robotic Arm Pouring Control &amp;
+          Multimodal Sensing
         </h3>
         <span class="project-card-cta">↗</span>
       </button>
@@ -1600,18 +1667,21 @@ button {
     </button>
 
   </div>
-
 </section>
 
-<!-- ==========================================
+<!-- ====================================
      INDIVIDUAL PROJECT PAGE
-========================================== -->
+==================================== -->
 
 <section id="project-detail" class="page content-page">
 
   <div class="content-container project-detail-content">
 
-    <button class="project-return" id="returnProjects">
+    <button
+      class="project-return"
+      id="returnProjects"
+      type="button"
+    >
       ← RETURN TO PROJECTS
     </button>
 
@@ -1628,21 +1698,27 @@ button {
       id="projectDetailDescription">
     </p>
 
-    <div class="tag-row" id="projectDetailTags"></div>
+    <div
+      class="tag-row"
+      id="projectDetailTags">
+    </div>
 
     <div class="section-count">
       PROJECT MEDIA // PHOTOS &amp; VIDEOS
     </div>
 
-    <div class="project-media-grid" id="projectMediaGrid"></div>
+    <div
+      class="project-media-grid"
+      id="projectMediaGrid">
+    </div>
 
   </div>
 
 </section>
 
-<!-- ==========================================
+<!-- ====================================
      EXPERIENCE
-========================================== -->
+==================================== -->
 
 <section id="experience" class="page content-page">
 
@@ -1656,8 +1732,8 @@ button {
 
     <p class="section-intro">
       Engineering experience in mechanical design,
-      reverse engineering, prototyping and manufacturing
-      improvement.
+      reverse engineering, prototyping and
+      manufacturing improvement.
     </p>
 
     <div class="section-count">
@@ -1683,19 +1759,23 @@ button {
 
           <ul class="resume-points">
             <li>
-              Reverse engineered a wheel shunt component
-              to assess local manufacturing options.
+              Reverse engineered a wheel shunt
+              component to assess local
+              manufacturing options.
             </li>
 
             <li>
-              Reviewed materials, suppliers, fabrication
-              processes, cost and lead times.
+              Reviewed materials, suppliers,
+              fabrication processes, cost and
+              lead times.
             </li>
 
             <li>
-              Created 3D CAD drawings and models for jigs,
-              then 3D-printed trial jigs to test fit and
-              assembly before moving to final production jigs.
+              Created 3D CAD drawings and models
+              for jigs, then 3D-printed trial
+              jigs to test fit and assembly
+              before moving to final production
+              jigs.
             </li>
           </ul>
         </div>
@@ -1717,17 +1797,19 @@ button {
 
           <ul class="resume-points">
             <li>
-              Supported tram seating refurbishment and redesign.
+              Supported tram seating refurbishment
+              and redesign.
             </li>
 
             <li>
-              Collected on-site measurements and prepared
-              3D CAD models and manufacturing drawings.
+              Collected on-site measurements
+              and prepared 3D CAD models and
+              manufacturing drawings.
             </li>
 
             <li>
-              Produced 3D-printed prototypes to assess
-              fit, form and function.
+              Produced 3D-printed prototypes
+              to assess fit, form and function.
             </li>
           </ul>
         </div>
@@ -1741,12 +1823,11 @@ button {
     </button>
 
   </div>
-
 </section>
 
-<!-- ==========================================
+<!-- ====================================
      SKILLS
-========================================== -->
+==================================== -->
 
 <section id="skills" class="page content-page">
 
@@ -1864,12 +1945,11 @@ button {
     </button>
 
   </div>
-
 </section>
 
-<!-- ==========================================
+<!-- ====================================
      ABOUT
-========================================== -->
+==================================== -->
 
 <section id="about" class="page content-page">
 
@@ -1883,18 +1963,19 @@ button {
 
     <p class="section-intro">
       I'm a Robotics &amp; Mechatronics Engineering
-      (Honours) student at Monash University who enjoys
-      building things and solving practical engineering
-      problems. My experience covers mechanical CAD
-      and prototyping, embedded programming and
-      collaborative engineering work.
+      (Honours) student at Monash University who
+      enjoys building things and solving practical
+      engineering problems. My experience covers
+      mechanical CAD and prototyping, embedded
+      programming and collaborative engineering
+      work.
     </p>
 
     <p class="section-intro">
-      I'm interested in robotics, automation, embedded
-      systems and bioengineering, and I'm looking to
-      keep learning through hands-on engineering
-      opportunities.
+      I'm interested in robotics, automation,
+      embedded systems and bioengineering, and
+      I'm looking to keep learning through
+      hands-on engineering opportunities.
     </p>
 
     <div class="section-count">
@@ -1904,6 +1985,7 @@ button {
     <div class="about-grid">
 
       <article class="about-panel">
+
         <div class="about-kicker">
           EDUCATION // 01
         </div>
@@ -1920,9 +2002,11 @@ button {
           <li>Specialisation: Artificial Intelligence</li>
           <li>Minor: Power and Energy Systems Engineering</li>
         </ul>
+
       </article>
 
       <article class="about-panel">
+
         <div class="about-kicker">
           CERTIFICATION // 02
         </div>
@@ -1930,10 +2014,12 @@ button {
         <h3>Certified SolidWorks Associate</h3>
 
         <p>
-          CSWA certification, with practical experience
-          in parametric design, assemblies, technical
-          drawings and prototypes.
+          CSWA certification, with practical
+          experience in parametric design,
+          assemblies, technical drawings
+          and prototypes.
         </p>
+
       </article>
 
     </div>
@@ -1943,12 +2029,11 @@ button {
     </button>
 
   </div>
-
 </section>
 
-<!-- ==========================================
+<!-- ====================================
      CONTACT
-========================================== -->
+==================================== -->
 
 <section id="contact" class="page content-page">
 
@@ -2005,24 +2090,29 @@ button {
     </button>
 
   </div>
-
 </section>
 
-<!-- ==========================================
+<!-- ====================================
      FULL-SIZE IMAGE VIEWER
-========================================== -->
+==================================== -->
 
 <dialog id="mediaLightbox" class="media-lightbox">
-  <button id="closeMediaLightbox">✕ CLOSE</button>
+
+  <button id="closeMediaLightbox">
+    ✕ CLOSE
+  </button>
+
   <img id="lightboxImage" alt="">
+
   <p id="lightboxCaption"></p>
+
 </dialog>
 
 <script>
 
-/* ==========================================
+/* ====================================
    PAGE NAVIGATION
-========================================== */
+==================================== */
 
 const pages = document.querySelectorAll(".page");
 const landing = document.getElementById("landing");
@@ -2034,7 +2124,10 @@ let launchTimers = [];
 
 function showPage(id) {
   pages.forEach(page => {
-    page.classList.toggle("active", page.id === id);
+    page.classList.toggle(
+      "active",
+      page.id === id
+    );
   });
 
   const target = document.getElementById(id);
@@ -2055,6 +2148,7 @@ function finishLaunch() {
   showPage("database");
 
   landing.classList.remove("entering");
+
   launchStatus.textContent = "ENGAGING THRUSTERS...";
   transitioning = false;
 }
@@ -2077,11 +2171,11 @@ function enterDatabase() {
 
   landing.classList.add("entering");
 
-  if (
-    window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches
-  ) {
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (reducedMotion) {
     launchLater(finishLaunch, 350);
   } else {
     launchLater(() => {
@@ -2101,7 +2195,10 @@ function enterDatabase() {
 landing.addEventListener("click", enterDatabase);
 
 landing.addEventListener("keydown", event => {
-  if (event.key === "Enter" || event.key === " ") {
+  if (
+    event.key === "Enter" ||
+    event.key === " "
+  ) {
     event.preventDefault();
     enterDatabase();
   }
@@ -2112,9 +2209,9 @@ document.getElementById("returnLanding")
     showPage("landing");
   });
 
-/* ==========================================
+/* ====================================
    DESTINATION SELECTION
-========================================== */
+==================================== */
 
 const destinationNames = {
   projects: "PROJECTS",
@@ -2171,18 +2268,15 @@ document.querySelectorAll(".nav-destination")
 
       landingTransition.classList.add("show");
 
-      const reducedMotion =
-        window.matchMedia(
-          "(prefers-reduced-motion: reduce)"
-        ).matches;
+      const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
 
       landingTimer = setTimeout(
         finishLanding,
         reducedMotion ? 120 : 780
       );
-
     });
-
   });
 
 document.querySelectorAll(".back-button")
@@ -2192,12 +2286,9 @@ document.querySelectorAll(".back-button")
     });
   });
 
-/* ==========================================
+/* ====================================
    PROJECT INFORMATION
-
-   Explanations are stored here, so the
-   selection screen stays title-only.
-========================================== */
+==================================== */
 
 const projectInfo = {
 
@@ -2310,10 +2401,10 @@ const projectInfo = {
 
 };
 
-/* ==========================================
-   PROJECT IMAGES AND VIDEOS
+/* ====================================
+   PROJECT PHOTOS AND VIDEOS
 
-   Media will be added here after uploading.
+   Add files here when uploaded.
 
    Example:
 
@@ -2322,17 +2413,16 @@ const projectInfo = {
        type: "image",
        src: "media/robot-arm.jpg",
        caption: "Robotic Arm Setup",
-       note: "Explanation of the setup and experiment."
+       note: "Explanation of the setup."
      },
      {
        type: "video",
        src: "media/pouring-test.mp4",
        caption: "Pouring Experiment",
-       note: "Explanation of the experiment and results."
+       note: "Explanation of the test."
      }
    ]
-
-========================================== */
+==================================== */
 
 const projectMedia = {
   "robotic-arm": [],
@@ -2343,9 +2433,9 @@ const projectMedia = {
   "verilog-processor": []
 };
 
-/* ==========================================
+/* ====================================
    PROJECT DETAIL PAGE
-========================================== */
+==================================== */
 
 const projectMediaGrid =
   document.getElementById("projectMediaGrid");
@@ -2387,11 +2477,13 @@ function createMediaItem(item) {
 
     img.addEventListener("click", () => {
 
-      document.getElementById("lightboxImage").src =
-        img.src;
+      document.getElementById(
+        "lightboxImage"
+      ).src = img.src;
 
-      document.getElementById("lightboxImage").alt =
-        img.alt;
+      document.getElementById(
+        "lightboxImage"
+      ).alt = img.alt;
 
       document.getElementById(
         "lightboxCaption"
@@ -2413,7 +2505,6 @@ function createMediaItem(item) {
     video.playsInline = true;
 
     figure.append(video);
-
   }
 
   const caption = document.createElement("figcaption");
@@ -2455,14 +2546,10 @@ function openProject(id, button) {
   projectDetailTags.replaceChildren();
 
   info.tags.forEach(label => {
-
     const tag = document.createElement("span");
-
     tag.className = "tag";
     tag.textContent = label;
-
     projectDetailTags.append(tag);
-
   });
 
   projectMediaGrid.replaceChildren();
@@ -2489,13 +2576,11 @@ function openProject(id, button) {
   } else {
 
     files.forEach(item => {
-
       const element = createMediaItem(item);
 
       if (element) {
         projectMediaGrid.append(element);
       }
-
     });
 
   }
@@ -2542,13 +2627,15 @@ mediaLightbox.addEventListener("click", event => {
   }
 });
 
-/* ==========================================
-   ESCAPE KEY NAVIGATION
-========================================== */
+/* ====================================
+   ESCAPE KEY
+==================================== */
 
 document.addEventListener("keydown", event => {
 
   if (event.key !== "Escape") return;
+
+  if (mediaLightbox.open) return;
 
   if (landingTransition.classList.contains("show")) {
     finishLanding();
@@ -2581,9 +2668,9 @@ document.addEventListener("keydown", event => {
 
 });
 
-/* ==========================================
-   DRAW TAKEOFF SPACESHIP
-========================================== */
+/* ====================================
+   TAKEOFF SPACESHIP DRAWING
+==================================== */
 
 function createLaunchSpaceship() {
 
@@ -2633,11 +2720,9 @@ function createLaunchSpaceship() {
       }
 
       rect(x, y, 1, 1, color);
-
     }
   }
 
-  // Wings
   for (let y = 17; y <= 32; y++) {
 
     const wing =
@@ -2651,44 +2736,38 @@ function createLaunchSpaceship() {
     for (let dx = 5; dx <= wing; dx++) {
 
       rect(
-        15 - dx,
-        y,
-        1,
-        1,
+        15 - dx, y, 1, 1,
         dx === wing ? "#5478b9" : "#8aabdb"
       );
 
       rect(
-        15 + dx,
-        y,
-        1,
-        1,
+        15 + dx, y, 1, 1,
         dx === wing ? "#3c5c9e" : "#668cce"
       );
     }
   }
 
-  // Cockpit and hull details
   rect(14,2,3,3,"#dff6ff");
   rect(14,9,3,10,"#263f71");
   rect(15,10,1,7,"#65d0ef");
+
   rect(13,20,5,2,"#dcefff");
   rect(14,23,3,7,"#394e86");
   rect(15,23,1,4,"#77d5f3");
 
-  // Engines
   rect(11,34,4,4,"#1a3368");
   rect(17,34,4,4,"#1a3368");
+
   rect(12,36,2,3,"#8cdbff");
   rect(18,36,2,3,"#8cdbff");
 }
 
 createLaunchSpaceship();
 
-/* ==========================================
-   MOVING SPACE BACKGROUND
+/* ====================================
+   SPACE BACKGROUND
    LEFT TO RIGHT
-========================================== */
+==================================== */
 
 const canvas = document.getElementById("spaceCanvas");
 
@@ -2770,9 +2849,9 @@ function makeStars() {
   shipX = -55;
 }
 
-/* ==========================================
-   BACKGROUND GRADIENT
-========================================== */
+/* ====================================
+   SPACE BACKGROUND GRADIENT
+==================================== */
 
 function drawBackground() {
 
@@ -2837,9 +2916,9 @@ function drawBackground() {
   ctx.fillRect(0, 0, W, H);
 }
 
-/* ==========================================
-   MOVING STARS AND STREAKS
-========================================== */
+/* ====================================
+   MOVING STARS
+==================================== */
 
 function drawStars(time, dt) {
 
@@ -2913,9 +2992,9 @@ function drawStars(time, dt) {
   }
 }
 
-/* ==========================================
-   SUBTLE TWINKLING STARS
-========================================== */
+/* ====================================
+   TWINKLING STARS
+==================================== */
 
 function glint(x, y, time, phase) {
 
@@ -2960,9 +3039,9 @@ function glint(x, y, time, phase) {
   );
 }
 
-/* ==========================================
-   SMALL PIXEL PLANETS
-========================================== */
+/* ====================================
+   PIXEL PLANETS
+==================================== */
 
 function makePlanet(type) {
 
@@ -3110,9 +3189,9 @@ function drawRingPlanet(x,y,size) {
   ctx.stroke();
 }
 
-/* ==========================================
+/* ====================================
    SMALL BACKGROUND SPACESHIP
-========================================== */
+==================================== */
 
 const shipPixels = [
   "...........A......",
@@ -3190,9 +3269,9 @@ function drawShip(x,y,time) {
   ctx.restore();
 }
 
-/* ==========================================
-   MAIN SPACE ANIMATION LOOP
-========================================== */
+/* ====================================
+   MAIN SPACE ANIMATION
+==================================== */
 
 function animate(time) {
 
@@ -3267,10 +3346,8 @@ window.addEventListener(
 );
 
 resizeCanvas();
-
 requestAnimationFrame(animate);
 
 </script>
-
 </body>
 </html>
